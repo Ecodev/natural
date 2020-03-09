@@ -98,7 +98,7 @@ describe('Demo ListComponent', () => {
         expect(component.variablesManager.variables.value)
             .toEqual({
                 pagination: {offset: null, pageIndex: 0, pageSize: 5},
-                sorting: [{field: 'name', order: SortingOrder.DESC}, {field: 'id', order: SortingOrder.ASC}],
+                sorting: [{field: 'name', order: SortingOrder.DESC}],
             }, 'after init');
 
         expect(component.selectedColumns).toEqual([]);
@@ -131,7 +131,7 @@ describe('Demo ListComponent', () => {
         const result = {
             filter: {groups: [{conditions: [{youpi: true}]}]},
             pagination: {pageIndex: 0, pageSize: 999},
-            sorting: [{field: 'description', order: SortingOrder.DESC}, {field: 'id', order: SortingOrder.ASC}],
+            sorting: [{field: 'description', order: SortingOrder.DESC}],
         };
 
         // Before init
@@ -144,7 +144,7 @@ describe('Demo ListComponent', () => {
         const result2 = {
             filter: {groups: [{conditions: [{youpi: true}]}]},
             pagination: {offset: null, pageIndex: 0, pageSize: 999},
-            sorting: [{field: 'description', order: SortingOrder.DESC}, {field: 'id', order: SortingOrder.ASC}],
+            sorting: [{field: 'description', order: SortingOrder.DESC}],
         };
         fixture.detectChanges();
         expect(component.variablesManager.variables.value).toEqual(result2, 'variables after initialization');
@@ -168,7 +168,7 @@ describe('Demo ListComponent', () => {
         const result = {
             filter: {groups: [{conditions: [{custom: {search: {value: 'asdf'}}}]}]},
             pagination: {offset: null, pageIndex: 1, pageSize: 300},
-            sorting: [{field: 'name', order: SortingOrder.ASC}, {field: 'id', order: SortingOrder.ASC}],
+            sorting: [{field: 'name', order: SortingOrder.ASC}],
         };
         expect(component.variablesManager.variables.value).toEqual(result, 'variables after initialization');
     });
@@ -202,7 +202,7 @@ describe('Demo ListComponent', () => {
                 ],
             },
             pagination: {offset: null, pageIndex: 1, pageSize: 300},
-            sorting: [{field: 'name', order: SortingOrder.ASC}, {field: 'id', order: SortingOrder.ASC}],
+            sorting: [{field: 'name', order: SortingOrder.ASC}],
         };
 
         // Set contextual variables
