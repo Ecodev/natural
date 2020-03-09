@@ -116,7 +116,7 @@ export class NaturalAbstractList<Tall extends PaginatedData<any>, Vall extends Q
     /**
      * Initial sorting
      */
-    protected defaultSorting: Array<Sorting> = [];
+    protected defaultSorting: Array<Sorting>;
 
     protected router: Router;
     protected route: ActivatedRoute;
