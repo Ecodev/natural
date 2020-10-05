@@ -35,7 +35,7 @@
         "apollo-link-schema": "^1.2.5",
         "graphql": "^14.6.0",
         "graphql-tag": "^2.10.3",
-        "graphql-tools": "^4.0.7",
+        "graphql-tools": "^6.2.4",
         "lodash-es": "^4.17.15",
         "rxjs": "^6.5.4",
         "tslib": "^2.0.0",
