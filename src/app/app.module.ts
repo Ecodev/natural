@@ -3,26 +3,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {
-    NaturalAlertModule,
-    NaturalColumnsPickerModule,
-    NaturalCommonModule,
-    NaturalDetailHeaderModule,
-    NaturalDropdownComponentsModule,
-    NaturalFileModule,
-    NaturalFixedButtonDetailModule,
-    NaturalFixedButtonModule,
-    NaturalHierarchicSelectorModule,
-    NaturalIconModule,
-    NaturalLinkMutationService,
-    NaturalPanelsModule,
-    NaturalRelationsModule,
-    NaturalSearchModule,
-    NaturalSelectModule,
-    NaturalSidenavModule,
-    NaturalStampModule,
-    NaturalTableButtonModule,
-} from '@ecodev/natural';
+import {NaturalLinkMutationService, NaturalModule} from '@ecodev/natural';
 import {ApolloModule} from 'apollo-angular';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -78,31 +59,17 @@ import {HttpClientModule} from '@angular/common/http';
         MaterialModule,
         HttpClientModule,
         FlexLayoutModule,
-        NaturalSelectModule,
-        NaturalSearchModule,
-        NaturalCommonModule,
-        NaturalHierarchicSelectorModule,
-        NaturalSidenavModule,
-        NaturalRelationsModule,
-        NaturalAlertModule,
-        NaturalColumnsPickerModule,
-        NaturalStampModule,
-        NaturalDetailHeaderModule,
-        NaturalTableButtonModule,
-        NaturalFixedButtonModule,
-        NaturalFixedButtonDetailModule,
-        NaturalIconModule.forRoot({
-            natural: {
-                svg: 'assets/logo.svg',
-            },
-            github: {
-                svg: 'assets/github.svg',
+        NaturalModule.forRoot({
+            icons: {
+                natural: {
+                    svg: 'assets/logo.svg',
+                },
+                github: {
+                    svg: 'assets/github.svg',
+                },
             },
         }),
         ApolloModule,
-        NaturalDropdownComponentsModule,
-        NaturalPanelsModule.forRoot({}),
-        NaturalFileModule,
     ],
     providers: [
         {

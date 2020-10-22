@@ -1,7 +1,6 @@
 import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NaturalPanelsComponent} from './panels.component';
-import {NaturalPanelsModule} from './panels.module';
 
 describe('PanelComponent', () => {
     let component: NaturalPanelsComponent;

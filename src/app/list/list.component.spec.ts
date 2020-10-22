@@ -7,7 +7,7 @@ import {ActivatedRoute, Router, Routes} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {
     memoryStorageProvider,
-    NaturalAlertModule,
+    NaturalModule,
     NaturalColumnsPickerModule,
     NaturalIconModule,
     NaturalPersistenceService,
@@ -78,7 +78,7 @@ describe('Demo ListComponent', () => {
                     NoopAnimationsModule,
                     RouterTestingModule.withRoutes(routes),
                     MaterialModule,
-                    NaturalAlertModule,
+                    NaturalModule,
                     NaturalColumnsPickerModule,
                     NaturalIconModule.forRoot({}),
                     NaturalSearchModule,

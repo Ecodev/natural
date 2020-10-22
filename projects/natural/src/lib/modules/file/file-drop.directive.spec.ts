@@ -1,7 +1,6 @@
 import {Component, NgModule} from '@angular/core';
 import {ComponentFixture, inject, TestBed, waitForAsync} from '@angular/core/testing';
-import {NaturalFileModule} from './file.module';
-import {NaturalFileService} from '@ecodev/natural';
+import {NaturalFileService, NaturalModule} from '@ecodev/natural';
 
 @Component({
     template: '<div naturalFileDrop>my drag and drop area</div>',
@@ -9,7 +8,7 @@ import {NaturalFileService} from '@ecodev/natural';
 export class ContainerComponent {}
 
 @NgModule({
-    imports: [NaturalFileModule],
+    imports: [NaturalModule],
     declarations: [ContainerComponent],
 })
 export class AppModule {}

@@ -2,7 +2,6 @@
  * Public API Surface of natural
  */
 
-export * from './common-module';
 export * from './directives/reactive-asterisk.directive';
 export * from './directives/linkable-tab.directive';
 export * from './pipes/capitalize.pipe';

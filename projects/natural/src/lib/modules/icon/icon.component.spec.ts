@@ -1,6 +1,5 @@
 import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalIconComponent} from './icon.component';
-import {NaturalIconModule} from './icon.module';
 
 describe('NaturalIconComponent', () => {
     let component: NaturalIconComponent;
