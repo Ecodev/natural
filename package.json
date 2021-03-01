@@ -32,7 +32,7 @@
         "@apollo/client": "^3.3.11",
         "@graphql-tools/mock": "^8.0.0",
         "@ngx-i18nsupport/tooling": "^8.0.3",
-        "apollo-angular": "^2.1.0",
+        "apollo-angular": "^2.3.0",
         "graphql": "^15.0.0",
         "lodash-es": "^4.17.15",
         "rxjs": "^6.5.4",
