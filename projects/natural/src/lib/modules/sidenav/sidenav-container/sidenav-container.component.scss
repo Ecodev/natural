@@ -7,18 +7,4 @@
         flex-direction: column;
         flex: 1;
     }
-
-    mat-sidenav-content > div {
-        overflow: auto;
-    }
-
-    .menuMinimized {
-        overflow-x: hidden;
-    }
-
-    .buttons {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-    }
 }

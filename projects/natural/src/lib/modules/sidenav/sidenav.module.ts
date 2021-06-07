@@ -4,7 +4,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
-import {NaturalSidenavContentComponent} from './sidenav-content/sidenav-content.component';
 import {NaturalSidenavComponent} from './sidenav/sidenav.component';
 import {sessionStorageProvider} from '../common/services/memory-storage';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -13,7 +12,7 @@ import {RouterModule} from '@angular/router';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
-    declarations: [NaturalSidenavComponent, NaturalSidenavContainerComponent, NaturalSidenavContentComponent],
+    declarations: [NaturalSidenavComponent, NaturalSidenavContainerComponent],
     imports: [
         CommonModule,
         MatSidenavModule,
@@ -24,7 +23,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
         RouterModule,
         FlexLayoutModule,
     ],
-    exports: [NaturalSidenavComponent, NaturalSidenavContainerComponent, NaturalSidenavContentComponent],
+    exports: [NaturalSidenavComponent, NaturalSidenavContainerComponent],
     providers: [sessionStorageProvider],
 })
 export class NaturalSidenavModule {}
