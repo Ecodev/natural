@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 
 @Component({
-    selector: 'app-other',
-    templateUrl: './other.component.html',
+    template: `<h1>Other page</h1>`,
 })
 export class OtherComponent {}
