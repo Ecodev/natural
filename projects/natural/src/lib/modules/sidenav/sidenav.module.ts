@@ -7,10 +7,23 @@ import {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-cont
 import {NaturalSidenavContentComponent} from './sidenav-content/sidenav-content.component';
 import {NaturalSidenavComponent} from './sidenav/sidenav.component';
 import {sessionStorageProvider} from '../common/services/memory-storage';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
+import {RouterModule} from '@angular/router';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
     declarations: [NaturalSidenavComponent, NaturalSidenavContainerComponent, NaturalSidenavContentComponent],
-    imports: [CommonModule, MatSidenavModule, MatIconModule, MatButtonModule],
+    imports: [
+        CommonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatButtonModule,
+        MatExpansionModule,
+        MatListModule,
+        RouterModule,
+        FlexLayoutModule,
+    ],
     exports: [NaturalSidenavComponent, NaturalSidenavContainerComponent, NaturalSidenavContentComponent],
     providers: [sessionStorageProvider],
 })

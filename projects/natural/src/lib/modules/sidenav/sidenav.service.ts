@@ -1,8 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {MediaObserver} from '@angular/flex-layout';
 import {MatDrawer, MatDrawerContainer, MatDrawerMode} from '@angular/material/sidenav';
-import {NavigationEnd, Router} from '@angular/router';
-import {filter, takeUntil} from 'rxjs/operators';
+import {Router} from '@angular/router';
 import {NaturalAbstractController} from '../../classes/abstract-controller';
 import {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
 import {NaturalStorage, SESSION_STORAGE} from '../common/services/memory-storage';
@@ -98,89 +97,89 @@ export class NaturalSidenavService extends NaturalAbstractController {
         component: NaturalSidenavContainerComponent,
         autoClose: boolean = false,
     ): void {
-        if (!name || name === '') {
-            throw new Error('No sidenav name provided, use <natural-sidenav-container name="menu">');
-        }
-
-        this.naturalSidenavStackService.register(component);
-
-        this.minimizedStorageKeyWithName = name + '-' + this.minimizedStorageKey;
-        this.openedStorageKeyWithName = name + '-' + this.openedStorageKey;
-
-        // Init from LocalStorage
-        this.minimized = this.getMinimizedStatus();
-        this.opened = this.getMenuOpenedStatus();
-        this.tmpOpened = this.opened;
-
-        let oldIsBig: boolean | null = null;
-        this.mediaObserver
-            .asObservable()
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(() => {
-                const isBig = !this.isMobileView();
-                this.mode = isBig ? this.modes[0] : this.modes[1];
-
-                if (oldIsBig === null || isBig !== oldIsBig) {
-                    oldIsBig = isBig;
-
-                    // If decrease window size, save status of menu before closing it
-                    if (!isBig) {
-                        this.tmpOpened = this.opened;
-                        this.opened = false;
-                    }
-
-                    // If increase window size, and sidebar was open before, re-open it.
-                    if (isBig && this.tmpOpened) {
-                        this.opened = true;
-                        this.minimized = this.getMinimizedStatus();
-                    }
-                }
-            });
-
-        if (autoClose) {
-            this.router.events
-                .pipe(
-                    takeUntil(this.ngUnsubscribe),
-                    filter(e => e instanceof NavigationEnd),
-                )
-                .subscribe(() => {
-                    this.navItemClicked();
-                });
-        }
+        // if (!name || name === '') {
+        //     throw new Error('No sidenav name provided, use <natural-sidenav-container name="menu">');
+        // }
+        //
+        // this.naturalSidenavStackService.register(component);
+        //
+        // this.minimizedStorageKeyWithName = name + '-' + this.minimizedStorageKey;
+        // this.openedStorageKeyWithName = name + '-' + this.openedStorageKey;
+        //
+        // // Init from LocalStorage
+        // this.minimized = this.getMinimizedStatus();
+        // this.opened = this.getMenuOpenedStatus();
+        // this.tmpOpened = this.opened;
+        //
+        // let oldIsBig: boolean | null = null;
+        // this.mediaObserver
+        //     .asObservable()
+        //     .pipe(takeUntil(this.ngUnsubscribe))
+        //     .subscribe(() => {
+        //         const isBig = !this.isMobileView();
+        //         this.mode = isBig ? this.modes[0] : this.modes[1];
+        //
+        //         if (oldIsBig === null || isBig !== oldIsBig) {
+        //             oldIsBig = isBig;
+        //
+        //             // If decrease window size, save status of menu before closing it
+        //             if (!isBig) {
+        //                 this.tmpOpened = this.opened;
+        //                 this.opened = false;
+        //             }
+        //
+        //             // If increase window size, and sidebar was open before, re-open it.
+        //             if (isBig && this.tmpOpened) {
+        //                 this.opened = true;
+        //                 this.minimized = this.getMinimizedStatus();
+        //             }
+        //         }
+        //     });
+        //
+        // if (autoClose) {
+        //     this.router.events
+        //         .pipe(
+        //             takeUntil(this.ngUnsubscribe),
+        //             filter(e => e instanceof NavigationEnd),
+        //         )
+        //         .subscribe(() => {
+        //             this.navItemClicked();
+        //         });
+        // }
     }
 
     public isMobileView(): boolean {
-        return !this.mediaObserver.isActive('gt-sm');
+        return false;
     }
 
     /**
      * Close nav on mobile view after a click
      */
     public navItemClicked(): void {
-        if (this.isMobileView()) {
-            this.close();
-        }
+        // if (this.isMobileView()) {
+        //     this.close();
+        // }
     }
 
     /**
      * Change minimized status and stores the new value
      */
     public setMinimized(value: boolean): void {
-        this.minimized = value;
-        assert(this.minimizedStorageKeyWithName);
-        this.sessionStorage.setItem(this.minimizedStorageKeyWithName, value ? 'true' : 'false');
+        // this.minimized = value;
+        // assert(this.minimizedStorageKeyWithName);
+        // this.sessionStorage.setItem(this.minimizedStorageKeyWithName, value ? 'true' : 'false');
     }
 
     public minimize(): void {
-        this.setMinimized(true);
+        // this.setMinimized(true);
     }
 
     public expand(): void {
-        this.setMinimized(false);
+        // this.setMinimized(false);
     }
 
     public toggleMinimized(): void {
-        this.setMinimized(!this.minimized);
+        // this.setMinimized(!this.minimized);
     }
 
     /**
@@ -198,10 +197,7 @@ export class NaturalSidenavService extends NaturalAbstractController {
      * Default on an opened status if nothing is stored
      */
     public getMenuOpenedStatus(): boolean {
-        assert(this.openedStorageKeyWithName);
-        const value = this.sessionStorage.getItem(this.openedStorageKeyWithName);
-
-        return value === null || value === 'true';
+        return true;
     }
 
     /**
@@ -209,25 +205,25 @@ export class NaturalSidenavService extends NaturalAbstractController {
      * Stores the status in local storage
      */
     public toggle(): void {
-        this.setOpened(!this.opened);
+        // this.setOpened(!this.opened);
     }
 
     public close(): void {
-        this.setOpened(false);
+        // this.setOpened(false);
     }
 
     public open(): void {
-        this.setOpened(true);
+        // this.setOpened(true);
     }
 
     public setOpened(value: boolean): void {
-        this.opened = value;
-
-        if (this.opened && this.isMobileView()) {
-            this.minimized = false;
-        } else if (!this.isMobileView()) {
-            assert(this.openedStorageKeyWithName);
-            this.sessionStorage.setItem(this.openedStorageKeyWithName, this.opened ? 'true' : 'false');
-        }
+        // this.opened = value;
+        //
+        // if (this.opened && this.isMobileView()) {
+        //     this.minimized = false;
+        // } else if (!this.isMobileView()) {
+        //     assert(this.openedStorageKeyWithName);
+        //     this.sessionStorage.setItem(this.openedStorageKeyWithName, this.opened ? 'true' : 'false');
+        // }
     }
 }

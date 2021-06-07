@@ -7,7 +7,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatRippleModule} from '@angular/material/core';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {MatListModule} from '@angular/material/list';
+import {MatList, MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {NaturalIconModule} from '../icon/icon.module';
 import {NaturalDropdownContainerComponent} from './dropdown-container/dropdown-container.component';
@@ -15,6 +15,7 @@ import {FacetSelectorComponent} from './facet-selector/facet-selector.component'
 import {NaturalGroupComponent} from './group/group.component';
 import {NaturalInputComponent} from './input/input.component';
 import {NaturalSearchComponent} from './search/search.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import {NaturalSearchComponent} from './search/search.component';
         PortalModule,
         OverlayModule,
         MatListModule,
+        MatExpansionModule,
         NaturalIconModule,
     ],
     providers: [
