@@ -1,7 +1,5 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
 import {NaturalSidenavComponent} from './sidenav/sidenav.component';
@@ -12,16 +10,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
     declarations: [NaturalSidenavComponent, NaturalSidenavContainerComponent],
-    imports: [
-        CommonModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatButtonModule,
-        MatExpansionModule,
-        MatListModule,
-        RouterModule,
-        FlexLayoutModule,
-    ],
+    imports: [CommonModule, FlexLayoutModule, MatExpansionModule, MatListModule, MatSidenavModule, RouterModule],
     exports: [NaturalSidenavComponent, NaturalSidenavContainerComponent],
 })
 export class NaturalSidenavModule {}

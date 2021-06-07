@@ -1,5 +1,4 @@
 @use '~@angular/material' as mat;
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 @include mat.core();
 
@@ -119,25 +118,6 @@ $baseBgColorDark: mat.get-color-from-palette(map-get($dark-theme, background), b
     background: $baseBgColorDark;
 
     @include mat.all-component-themes($dark-theme);
-}
-
-body {
-    margin: 0;
-}
-
-html,
-body,
-app-root {
-    height: 100%;
-    min-height: 100%;
-    font-size: 14px;
-}
-
-app-root {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
 }
 
 .app-component > router-outlet + * {
