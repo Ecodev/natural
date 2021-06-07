@@ -20,33 +20,13 @@ export class NaturalSidenavStackService {
      * For internal use only
      * @internal
      */
-    public register(sidenav: NaturalSidenavContainerComponent): void {
-        const exists = this.sidenavs.some(s => s.name === sidenav.name);
-
-        // Prevent duplicated name, and so on local storage or further access conflicts
-        if (exists) {
-            throw new Error('Duplicated side nav name: ' + sidenav.name);
-        }
-
-        this.sidenavs.push(sidenav);
-        this.next();
-    }
+    public register(sidenav: NaturalSidenavContainerComponent): void {}
 
     /**
      * For internal use only
      * @internal
      */
-    public unregister(sidenav: NaturalSidenavContainerComponent): void {
-        const index = this.sidenavs.indexOf(sidenav);
-        if (index === -1) {
-            throw Error('Trying to remove a SidenavContainer that was never registered');
-        }
+    public unregister(sidenav: NaturalSidenavContainerComponent): void {}
 
-        this.sidenavs.splice(index, 1);
-        this.next();
-    }
-
-    private next(): void {
-        this.currentSidenav.next(this.sidenavs[this.sidenavs.length - 1]);
-    }
+    private next(): void {}
 }
