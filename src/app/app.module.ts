@@ -11,9 +11,10 @@ import {HomeComponent} from './home/home.component';
 import {MaterialModule} from './material.module';
 import {OtherComponent} from './other/other.component';
 import {HttpClientModule} from '@angular/common/http';
+import {HomepageComponent} from './homepage/homepage.component';
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, OtherComponent],
+    declarations: [AppComponent, HomeComponent, OtherComponent, HomepageComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

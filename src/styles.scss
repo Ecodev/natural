@@ -1,15 +1,7 @@
 @use '~@angular/material' as mat;
-@import '../projects/natural/src/lib/natural.theme';
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import 'app/home/home.theme';
 
 @include mat.core();
-
-// Include components themes
-@mixin components-theme($theme) {
-    @include natural($theme);
-    @include home($theme);
-}
 
 $blue: (
     50: #ebf2fc,
@@ -122,17 +114,11 @@ $baseBgColorDark: mat.get-color-from-palette(map-get($dark-theme, background), b
 
 @include mat.all-component-themes($light-theme);
 
-.default {
-    color: $baseColorLight;
-    @include components-theme($light-theme);
-}
-
 .defaultDark {
     color: $baseColorDark;
     background: $baseBgColorDark;
 
     @include mat.all-component-themes($dark-theme);
-    @include components-theme($dark-theme);
 }
 
 body {
@@ -154,53 +140,9 @@ app-root {
     justify-content: center;
 }
 
-/**
- * Debug
- */
-pre.debug {
-    padding: 10px;
-    margin: 10px;
-    font-size: 16px;
-    line-height: 1.5em;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    background: rgba(0, 0, 0, 0.2);
-    font-family: Courrier, monospace;
-}
-
-[debug] {
-    border: 2px solid red;
-}
-
-[debug][children] > * {
-    border: 2px solid orange;
-}
-
-[debug][children][grandchildren] > * > * {
-    border: 2px solid green;
-}
-
 .app-component > router-outlet + * {
     flex: 1;
     flex-direction: column;
-}
-
-[overflow] {
-    overflow: auto;
-}
-
-#menu {
-    .mat-expansion-panel {
-        background: transparent;
-    }
-
-    * {
-        color: white !important;
-    }
-}
-
-mat-sidenav,
-natural-sidenav {
-    background: coral;
 }
 
 mat-sidenav {
