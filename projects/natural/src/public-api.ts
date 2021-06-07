@@ -4,5 +4,3 @@ import '@angular/localize/init';
 /*
  * Public API Surface of natural
  */
-
-export * from './lib/modules/sidenav/public-api';

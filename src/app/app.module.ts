@@ -3,7 +3,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NaturalSidenavModule} from '@ecodev/natural';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -24,7 +23,6 @@ import {HomepageComponent} from './homepage/homepage.component';
         MaterialModule,
         HttpClientModule,
         FlexLayoutModule,
-        NaturalSidenavModule,
     ],
     bootstrap: [AppComponent],
 })
