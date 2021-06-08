@@ -4,16 +4,16 @@ import {Component} from '@angular/core';
     template: `
         <mat-sidenav-container fxFlex>
             <mat-sidenav mode="side" [opened]="true">
-                <mat-nav-list>
-                    <a mat-list-item routerLink="/">Home</a>
-                    <a mat-list-item routerLink="/other">Other page</a>
-                </mat-nav-list>
+                <ul>
+                    <li><a routerLink="/">Home</a></li>
+                    <li><a routerLink="/other">Other page</a></li>
+                </ul>
             </mat-sidenav>
 
             <mat-sidenav-content>
                 <router-outlet></router-outlet>
             </mat-sidenav-content>
-        </mat-sidenav-container> `,
+        </mat-sidenav-container>
+    `,
 })
-export class MenuComponent {
-}
+export class MenuComponent {}

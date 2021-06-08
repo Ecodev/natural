@@ -3,8 +3,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonModule} from '@angular/material/button';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -20,8 +20,8 @@ import {OtherComponent} from './other.component';
         AppRoutingModule,
         FlexLayoutModule,
         MatExpansionModule,
-        MatListModule,
         MatSidenavModule,
+        MatButtonModule,
     ],
     bootstrap: [AppComponent],
 })
