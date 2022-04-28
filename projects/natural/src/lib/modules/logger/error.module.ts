@@ -1,6 +1,11 @@
 import {HttpClientModule} from '@angular/common/http';
 import {ErrorHandler, ModuleWithProviders, NgModule, Provider, Type} from '@angular/core';
-import {LoggerExtra, NaturalErrorHandler, NaturalLoggerConfigExtra, NaturalLoggerConfigUrl} from './error-handler';
+import {
+    NaturalErrorHandler,
+    NaturalLoggerConfigExtra,
+    NaturalLoggerConfigUrl,
+    NaturalLoggerExtra,
+} from './error-handler';
 
 @NgModule({
     imports: [HttpClientModule],
@@ -8,7 +13,7 @@ import {LoggerExtra, NaturalErrorHandler, NaturalLoggerConfigExtra, NaturalLogge
 export class NaturalErrorModule {
     public static forRoot(
         url: string | null,
-        extraService?: Type<LoggerExtra>,
+        extraService?: Type<NaturalLoggerExtra>,
     ): ModuleWithProviders<NaturalErrorModule> {
         const providers: Provider[] = [];
 

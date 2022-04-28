@@ -91,6 +91,8 @@ touched: {{ httpPrefixGroup.touched | json }}
 
     <h1 class="mat-title">Error handler</h1>
     <button mat-flat-button color="primary" (click)="error()">Throw error !</button>
+    <button mat-flat-button color="primary" (click)="error2()">httpClient error !</button>
+    <button mat-flat-button color="primary" (click)="error3()">fetch error !</button>
 </div>
 
 <router-outlet></router-outlet>

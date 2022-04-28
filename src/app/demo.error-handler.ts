@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Literal} from '@ecodev/natural';
-import {LoggerExtra} from '../../projects/natural/src/lib/modules/logger/error-handler';
+import {Observable, of} from 'rxjs';
+import {NaturalLoggerExtra, NaturalLoggerType} from '@ecodev/natural';
 
 @Injectable()
-export class DemoLoggerExtra implements LoggerExtra {
+export class DemoLoggerExtra implements NaturalLoggerExtra {
     public constructor(private readonly snackBar: MatSnackBar) {}
 
-    public getExtras(error: unknown): Literal {
+    public getExtras(error: unknown): Observable<Partial<NaturalLoggerType>> {
         this.snackBar.open('You failed', 'Yes', {
             duration: 3000,
             panelClass: ['snackbar-error'],
@@ -15,8 +15,8 @@ export class DemoLoggerExtra implements LoggerExtra {
             horizontalPosition: 'end',
         });
 
-        return {
-            very: 'much',
-        };
+        return of({
+            extraAddedKey: 'extraAddedValue',
+        });
     }
 }
