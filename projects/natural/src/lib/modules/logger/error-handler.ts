@@ -1,6 +1,6 @@
 import {DOCUMENT} from '@angular/common';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ErrorHandler, Inject, Injectable, InjectionToken, Optional, Type} from '@angular/core';
+import {ErrorHandler, Inject, Injectable, InjectionToken, Optional} from '@angular/core';
 import {Literal} from '../../types/types';
 import {catchError, EMPTY, Observable} from 'rxjs';
 
@@ -41,7 +41,7 @@ export class NaturalErrorHandler extends ErrorHandler {
     }
 
     public handleError(error: any): void {
-        console.log('Natural Error handler', [error]); // table to avoid to call to implicit .toString() in console
+        console.error(error);
 
         const params: Partial<NaturalLoggerType> = {
             href: this.document.defaultView?.window.location.href,
