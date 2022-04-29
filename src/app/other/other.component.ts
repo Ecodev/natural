@@ -36,14 +36,10 @@ export class OtherComponent implements OnInit {
     }
 
     public error2(): void {
-        this.httpClient.get('https://doesnotexist.youpi').subscribe(() => {});
+        this.httpClient.get('https://doesnotexist.youpi').subscribe();
     }
 
     public error3(): void {
-        fetch('https://doesnotexist.youpi')
-            .then(function (response) {
-                return response.blob();
-            })
-            .then(function () {});
+        fetch('https://doesnotexist.youpi').then();
     }
 }
