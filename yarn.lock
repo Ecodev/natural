@@ -2418,10 +2418,10 @@ anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apollo-angular@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/apollo-angular/-/apollo-angular-3.0.1.tgz#e2cea7502fbacda3337db92c2fac8878814ef9e0"
-  integrity sha512-gMUa+XdNXYtc4bwK/XFELnYptOKHAW6DYDlQUjxjWlrzqbmiHb49bFI/IT3EK5sR4sukCyYb8rbC4jfsztd/Qg==
+apollo-angular@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/apollo-angular/-/apollo-angular-4.1.0.tgz#0e60fbbbc1e1ff93d16612b0cda731917877ce27"
+  integrity sha512-qkKEK9kFxhhap35NBC9LyKDHUuHdfgfYJkYB0qGtFLkQJbNrao4foqy8aX4ha8TQb5gLzOE7Y9fd5mNA0oujQA==
   dependencies:
     tslib "^2.0.0"
 
