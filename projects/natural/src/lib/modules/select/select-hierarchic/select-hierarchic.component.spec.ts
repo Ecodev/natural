@@ -3,10 +3,7 @@ import {
     HierarchicDialogResult,
     NaturalHierarchicSelectorDialogComponent,
     NaturalHierarchicSelectorDialogService,
-    NaturalHierarchicSelectorModule,
-    NaturalIconModule,
     NaturalSelectHierarchicComponent,
-    NaturalSelectModule,
     OrganizedModelSelection,
 } from '@ecodev/natural';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -23,6 +20,8 @@ import {By} from '@angular/platform-browser';
 import {of} from 'rxjs';
 import {MatDialogRef} from '@angular/material/dialog';
 import {ItemService} from '../../../testing/item.service';
+import {NaturalModule} from '@ecodev/natural';
+import {testImports} from '../../../../../../../src/app/shared/testing/module';
 
 @Component({
     template: `
@@ -61,14 +60,7 @@ describe('NaturalSelectHierarchicComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                NoopAnimationsModule,
-                FormsModule,
-                ReactiveFormsModule,
-                NaturalSelectModule,
-                NaturalHierarchicSelectorModule,
-                NaturalIconModule.forRoot({}),
-            ],
+            imports: [...testImports],
             declarations: [TestHostWithHierarchicAndNgModelComponent, TestHostWithHierarchicAndFormControlComponent],
             providers: [MockApolloProvider],
         }).compileComponents();

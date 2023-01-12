@@ -1,10 +1,4 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {
     FilterGroupConditionField,
     NATURAL_DROPDOWN_DATA,
@@ -13,6 +7,7 @@ import {
     TypeNumberComponent,
     TypeNumberConfiguration,
 } from '@ecodev/natural';
+import {testImports} from '../../../../../../../src/app/shared/testing/module';
 
 describe('TypeNumberComponent', () => {
     let component: TypeNumberComponent;
@@ -48,14 +43,7 @@ describe('TypeNumberComponent', () => {
 
         await TestBed.configureTestingModule({
             declarations: [TypeNumberComponent],
-            imports: [
-                NoopAnimationsModule,
-                FormsModule,
-                ReactiveFormsModule,
-                MatFormFieldModule,
-                MatInputModule,
-                MatSelectModule,
-            ],
+            imports: [...testImports],
             providers: [
                 {
                     provide: NATURAL_DROPDOWN_DATA,

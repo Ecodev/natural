@@ -6,6 +6,7 @@ import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {ImageUploader} from '../utils/image';
 import {of} from 'rxjs';
+import {testImports} from '../../../../../src/app/shared/testing/module';
 
 const IMAGE_UPLOADER = new InjectionToken<ImageUploader | null>('Image uploader for tests');
 
@@ -46,7 +47,7 @@ const html = `<h1>h1</h1>
 async function configure(imageUploader: ImageUploader | null): Promise<void> {
     await TestBed.configureTestingModule({
         declarations: [NaturalEditorComponent, TestHostComponent],
-        imports: [NaturalEditorModule, FormsModule],
+        imports: [...testImports],
         providers: [
             {
                 provide: IMAGE_UPLOADER,

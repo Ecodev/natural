@@ -1,7 +1,4 @@
-import {CommonModule} from '@angular/common';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatListModule} from '@angular/material/list';
 import {
     FilterGroupConditionField,
     NaturalDropdownRef,
@@ -11,7 +8,7 @@ import {
 import {of} from 'rxjs';
 
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {testImports} from '../../../../../../../src/app/shared/testing/module';
 
 describe('TypeSelectComponent', () => {
     let component: TypeSelectComponent;
@@ -72,7 +69,7 @@ describe('TypeSelectComponent', () => {
 
         await TestBed.configureTestingModule({
             declarations: [TypeSelectComponent],
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatListModule],
+            imports: [...testImports],
             providers: [
                 {
                     provide: NATURAL_DROPDOWN_DATA,

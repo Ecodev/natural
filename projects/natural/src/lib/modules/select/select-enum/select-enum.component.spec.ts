@@ -3,13 +3,7 @@ import {TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {
-    NaturalEnumService,
-    NaturalHierarchicSelectorModule,
-    NaturalIconModule,
-    NaturalSelectEnumComponent,
-    NaturalSelectModule,
-} from '@ecodev/natural';
+import {NaturalEnumService, NaturalSelectEnumComponent, NaturalModule} from '@ecodev/natural';
 import {AnyEnumService} from '../../../testing/any-enum.service';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
 import {
@@ -18,6 +12,7 @@ import {
     testAllSelectCommonBehavior,
     TestFixture,
 } from '../testing/utils';
+import {testImports} from '../../../../../../../src/app/shared/testing/module';
 
 @Component({
     template: `
@@ -56,14 +51,7 @@ describe('NaturalSelectEnumComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                NoopAnimationsModule,
-                FormsModule,
-                ReactiveFormsModule,
-                NaturalSelectModule,
-                NaturalHierarchicSelectorModule,
-                NaturalIconModule.forRoot({}),
-            ],
+            imports: [...testImports],
             declarations: [TestHostWithNgModelComponent, TestHostWithFormControlComponent],
             providers: [
                 {

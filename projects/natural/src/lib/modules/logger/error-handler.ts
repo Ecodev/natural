@@ -40,7 +40,12 @@ export const NaturalLoggerConfigExtra = new InjectionToken<NaturalLoggerExtra>(
  * Usage is automatic as soon we import the module via:
  *
  * ```ts
- * NaturalErrorModule.forRoot('http://example.com', ExtraService),
+ * NaturalModule.forRoot({
+ *     errorHandler: {
+ *         url: 'http://example.com',
+ *         extraService: ExtraService,
+ *     },
+ * }),
  * ```
  */
 @Injectable({

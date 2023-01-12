@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalIconComponent} from './icon.component';
-import {NaturalIconModule} from './icon.module';
+import {testImports} from '../../../../../../src/app/shared/testing/module';
 
 describe('NaturalIconComponent', () => {
     let component: NaturalIconComponent;
@@ -9,7 +9,7 @@ describe('NaturalIconComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [],
-            imports: [NaturalIconModule.forRoot({})],
+            imports: [...testImports],
         }).compileComponents();
         fixture = TestBed.createComponent(NaturalIconComponent);
         component = fixture.componentInstance;

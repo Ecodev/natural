@@ -9,12 +9,13 @@ import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {NaturalIconModule} from '@ecodev/natural';
 import {NaturalDropdownContainerComponent} from '../dropdown-container/dropdown-container.component';
 import {FacetSelectorComponent} from '../facet-selector/facet-selector.component';
 import {NaturalGroupComponent} from '../group/group.component';
 import {NaturalInputComponent} from '../input/input.component';
 import {NaturalSearchComponent} from './search.component';
+import {NaturalModule} from '@ecodev/natural';
+import {testImports} from '../../../../../../../src/app/shared/testing/module';
 
 describe('NaturalSearchComponent', () => {
     let component: NaturalSearchComponent;
@@ -29,20 +30,7 @@ describe('NaturalSearchComponent', () => {
                 NaturalDropdownContainerComponent,
                 FacetSelectorComponent,
             ],
-            imports: [
-                NoopAnimationsModule,
-                CommonModule,
-                FormsModule,
-                ReactiveFormsModule,
-                MatInputModule,
-                MatButtonModule,
-                MatMenuModule,
-                MatRippleModule,
-                PortalModule,
-                OverlayModule,
-                MatListModule,
-                NaturalIconModule.forRoot({}),
-            ],
+            imports: [...testImports],
         }).compileComponents();
         fixture = TestBed.createComponent(NaturalSearchComponent);
         component = fixture.componentInstance;

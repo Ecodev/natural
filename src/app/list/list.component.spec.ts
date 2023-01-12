@@ -7,11 +7,8 @@ import {ActivatedRoute, Router, Routes} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {
     memorySessionStorageProvider,
-    NaturalAlertModule,
-    NaturalColumnsPickerModule,
-    NaturalIconModule,
+    NaturalModule,
     NaturalPersistenceService,
-    NaturalSearchModule,
     SortingOrder,
     toUrl,
 } from '@ecodev/natural';
@@ -68,15 +65,7 @@ describe('Demo ListComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [ListComponent],
-            imports: [
-                NoopAnimationsModule,
-                RouterTestingModule.withRoutes(routes),
-                MaterialModule,
-                NaturalAlertModule,
-                NaturalColumnsPickerModule,
-                NaturalIconModule.forRoot({}),
-                NaturalSearchModule,
-            ],
+            imports: [NoopAnimationsModule, RouterTestingModule.withRoutes(routes), MaterialModule, NaturalModule],
             providers: [
                 MockApolloProvider,
                 {

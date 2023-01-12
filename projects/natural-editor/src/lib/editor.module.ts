@@ -12,12 +12,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {NaturalFileModule, NaturalIconModule} from '@ecodev/natural';
 import {MatDividerModule} from '@angular/material/divider';
 import {ColorDialogComponent} from './color-dialog/color-dialog.component';
 import {ClassDialogComponent} from './class-dialog/class-dialog.component';
 import {IdDialogComponent} from './id-dialog/id-dialog.component';
 import {NaturalCustomCssDirective} from './custom-css/custom-css.directive';
+import {NaturalModule} from '@ecodev/natural';
 
 const imports = [
     CommonModule,
@@ -31,8 +31,7 @@ const imports = [
     MatMenuModule,
     MatToolbarModule,
     MatTooltipModule,
-    NaturalFileModule,
-    NaturalIconModule,
+    NaturalModule,
     ReactiveFormsModule,
 ];
 

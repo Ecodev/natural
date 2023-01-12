@@ -1,18 +1,9 @@
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {
-    memorySessionStorageProvider,
-    NaturalAbstractList,
-    NaturalColumnsPickerModule,
-    NaturalCommonModule,
-    NaturalIconModule,
-    NaturalPersistenceService,
-} from '@ecodev/natural';
+import {memorySessionStorageProvider, NaturalAbstractList, NaturalPersistenceService} from '@ecodev/natural';
 import {ItemService} from '../testing/item.service';
 import {Component, Injector} from '@angular/core';
-import {RouterTestingModule} from '@angular/router/testing';
-import {MaterialModule} from '../../../../../src/app/material.module';
 import {ActivatedRoute, Data} from '@angular/router';
-import {ApolloModule} from 'apollo-angular';
+import {testImports} from '../../../../../src/app/shared/testing/module';
 
 @Component({
     template: ` <natural-columns-picker (selectionChange)="selectColumns($event)" [selections]="selectedColumns">
@@ -51,14 +42,7 @@ describe('NaturalAbstractList', () => {
 
         TestBed.configureTestingModule({
             declarations: [TestListComponent],
-            imports: [
-                MaterialModule,
-                NaturalCommonModule,
-                NaturalIconModule.forRoot({}),
-                NaturalColumnsPickerModule,
-                RouterTestingModule,
-                ApolloModule,
-            ],
+            imports: [...testImports],
             providers: [
                 {
                     provide: ActivatedRoute,

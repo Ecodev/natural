@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
 
 import {PanelsComponent} from './panels.component';
+import {testImports} from '../shared/testing/module';
 
 describe('Demo PanelsComponent', () => {
     let component: PanelsComponent;
@@ -10,7 +10,7 @@ describe('Demo PanelsComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [PanelsComponent],
-            imports: [RouterTestingModule],
+            imports: [...testImports],
         }).compileComponents();
         fixture = TestBed.createComponent(PanelsComponent);
         component = fixture.componentInstance;

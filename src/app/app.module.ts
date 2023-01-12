@@ -4,29 +4,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {
-    NaturalAlertModule,
-    NaturalAvatarModule,
-    NaturalColumnsPickerModule,
-    NaturalCommonModule,
-    NaturalDetailHeaderModule,
-    NaturalDialogTriggerModule,
-    NaturalDropdownComponentsModule,
-    NaturalErrorModule,
-    NaturalFileModule,
-    NaturalFixedButtonDetailModule,
-    NaturalFixedButtonModule,
-    NaturalHierarchicSelectorModule,
-    NaturalIconModule,
-    NaturalLinkMutationService,
-    NaturalPanelsModule,
-    NaturalRelationsModule,
-    NaturalSearchModule,
-    NaturalSelectModule,
-    NaturalSidenavModule,
-    NaturalStampModule,
-    NaturalTableButtonModule,
-} from '@ecodev/natural';
+import {NaturalLinkMutationService, NaturalModule} from '@ecodev/natural';
 import {NaturalEditorModule} from '@ecodev/natural-editor';
 import {ApolloModule} from 'apollo-angular';
 import {AlertComponent} from './alert/alert.component';
@@ -89,33 +67,17 @@ import {AnyLinkMutationService} from './shared/services/any-link-mutation.servic
         HttpClientModule,
         FlexLayoutModule,
         ApolloModule,
-        NaturalSelectModule,
-        NaturalSearchModule,
-        NaturalCommonModule,
-        NaturalHierarchicSelectorModule,
-        NaturalSidenavModule,
-        NaturalRelationsModule,
-        NaturalAlertModule,
-        NaturalColumnsPickerModule,
-        NaturalStampModule,
-        NaturalDetailHeaderModule,
-        NaturalTableButtonModule,
-        NaturalFixedButtonModule,
-        NaturalFixedButtonDetailModule,
-        NaturalIconModule.forRoot({
-            natural: {
-                svg: 'assets/logo.svg',
+        NaturalModule.forRoot({
+            icons: {
+                natural: {
+                    svg: 'assets/logo.svg',
+                },
+                github: {
+                    svg: 'assets/github.svg',
+                },
             },
-            github: {
-                svg: 'assets/github.svg',
-            },
+            errorHandler: {url: null, extraService: DemoLoggerExtra},
         }),
-        NaturalErrorModule.forRoot(null, DemoLoggerExtra),
-        NaturalDropdownComponentsModule,
-        NaturalPanelsModule.forRoot({}),
-        NaturalFileModule,
-        NaturalAvatarModule,
-        NaturalDialogTriggerModule,
         NaturalEditorModule,
     ],
     providers: [

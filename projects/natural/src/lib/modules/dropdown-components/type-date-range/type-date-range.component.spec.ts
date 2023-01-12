@@ -1,11 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MAT_DATE_LOCALE} from '@angular/material/core';
 import {
     FilterGroupConditionField,
     NATURAL_DROPDOWN_DATA,
@@ -13,6 +8,7 @@ import {
     TypeDateRangeComponent,
     TypeDateRangeConfiguration,
 } from '@ecodev/natural';
+import {testImports} from '../../../../../../../src/app/shared/testing/module';
 
 describe('TypeDateRangeComponent', () => {
     let component: TypeDateRangeComponent;
@@ -44,15 +40,7 @@ describe('TypeDateRangeComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [TypeDateRangeComponent],
-            imports: [
-                NoopAnimationsModule,
-                FormsModule,
-                ReactiveFormsModule,
-                MatFormFieldModule,
-                MatInputModule,
-                MatDatepickerModule,
-                MatNativeDateModule,
-            ],
+            imports: [...testImports],
             providers: [
                 {
                     provide: NATURAL_DROPDOWN_DATA,

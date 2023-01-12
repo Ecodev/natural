@@ -1,8 +1,8 @@
 import {Component, NgModule, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalFileSelectDirective} from './file-select.directive';
-import {NaturalFileModule} from './file.module';
 import {NaturalFileService} from './file.service';
+import {NaturalModule} from '@ecodev/natural';
 
 @Component({
     template: '<input type="file" naturalFileSelect />',
@@ -12,7 +12,7 @@ export class ContainerComponent {
 }
 
 @NgModule({
-    imports: [NaturalFileModule],
+    imports: [NaturalModule],
     declarations: [ContainerComponent],
 })
 export class AppModule {}

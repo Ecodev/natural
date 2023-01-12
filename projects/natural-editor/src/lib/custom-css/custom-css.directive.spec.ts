@@ -4,6 +4,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {DOCUMENT} from '@angular/common';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {By} from '@angular/platform-browser';
+import {testImports} from '../../../../../src/app/shared/testing/module';
 
 @Component({
     template: ` <div id="test1" naturalCustomCss="p {background: pink;}"></div>
@@ -21,7 +22,7 @@ describe('NaturalLinkableTabDirective', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            imports: [...testImports],
             declarations: [NaturalCustomCssDirective, TestComponent],
         }).compileComponents();
 

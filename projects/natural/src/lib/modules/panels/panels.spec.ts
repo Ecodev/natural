@@ -2,11 +2,11 @@ import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 import {RouterTestingModule} from '@angular/router/testing';
 import {
     NaturalAbstractPanel,
+    NaturalModule,
     NaturalPanelConfig,
     NaturalPanelData,
     NaturalPanelResolve,
     NaturalPanelsComponent,
-    NaturalPanelsModule,
     NaturalPanelsRouterRule,
     naturalPanelsUrlMatcher,
 } from '@ecodev/natural';
@@ -141,7 +141,7 @@ describe('Panels', () => {
 
     async function configure(routes: Routes): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule.withRoutes(routes), NaturalPanelsModule.forRoot()],
+            imports: [NoopAnimationsModule, RouterTestingModule.withRoutes(routes), NaturalModule],
             declarations: [
                 TestRootComponent,
                 TestNoPanelComponent,

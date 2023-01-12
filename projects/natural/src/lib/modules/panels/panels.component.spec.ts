@@ -1,7 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
 import {NaturalPanelsComponent} from './panels.component';
-import {NaturalPanelsModule} from './panels.module';
+import {testImports} from '../../../../../../src/app/shared/testing/module';
 
 describe('PanelComponent', () => {
     let component: NaturalPanelsComponent;
@@ -10,7 +9,7 @@ describe('PanelComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [],
-            imports: [RouterTestingModule, NaturalPanelsModule.forRoot({})],
+            imports: [...testImports],
         }).compileComponents();
         fixture = TestBed.createComponent(NaturalPanelsComponent);
         component = fixture.componentInstance;

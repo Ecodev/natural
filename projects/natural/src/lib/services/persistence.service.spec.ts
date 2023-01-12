@@ -8,6 +8,7 @@ import {
 } from '@ecodev/natural';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ActivatedRoute} from '@angular/router';
+import {testImports} from '../../../../../src/app/shared/testing/module';
 
 function mockedActivatedRoute(entries: readonly (readonly [string, any])[]): ActivatedRoute {
     return {
@@ -31,7 +32,7 @@ describe('NaturalPersistenceService', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 declarations: [],
-                imports: [RouterTestingModule],
+                imports: [...testImports],
                 providers: [memorySessionStorageProvider],
             }).compileComponents();
 
@@ -79,7 +80,7 @@ describe('NaturalPersistenceService', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 declarations: [],
-                imports: [RouterTestingModule],
+                imports: [...testImports],
                 providers: [
                     {
                         provide: NATURAL_PERSISTENCE_VALIDATOR,

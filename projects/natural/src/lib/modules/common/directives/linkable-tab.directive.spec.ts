@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {NaturalCommonModule, NaturalLinkableTabDirective} from '@ecodev/natural';
+import {NaturalLinkableTabDirective, NaturalModule} from '@ecodev/natural';
 import {Router, RouterOutlet} from '@angular/router';
 import {Location} from '@angular/common';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -63,7 +63,7 @@ describe('NaturalLinkableTabDirective', () => {
             imports: [
                 MatTabsModule,
                 NoopAnimationsModule,
-                NaturalCommonModule,
+                NaturalModule,
                 RouterTestingModule.withRoutes([
                     {
                         path: 'test-route',

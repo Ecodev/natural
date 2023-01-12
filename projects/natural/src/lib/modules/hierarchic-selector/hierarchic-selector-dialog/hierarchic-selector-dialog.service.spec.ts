@@ -1,14 +1,12 @@
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {fakeAsync, flush, TestBed} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {
     HierarchicDialogConfig,
     HierarchicDialogResult,
     NaturalHierarchicSelectorDialogService,
-    NaturalHierarchicSelectorModule,
-    NaturalIconModule,
     OrganizedModelSelection,
 } from '@ecodev/natural';
+import {testImports} from '../../../../../../../src/app/shared/testing/module';
 
 describe('NaturalHierarchicSelectorDialogService', () => {
     let dialog: NaturalHierarchicSelectorDialogService;
@@ -16,7 +14,7 @@ describe('NaturalHierarchicSelectorDialogService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, NaturalIconModule.forRoot({}), NaturalHierarchicSelectorModule],
+            imports: [...testImports],
             providers: [NaturalHierarchicSelectorDialogService],
         });
         dialog = TestBed.inject(NaturalHierarchicSelectorDialogService);
