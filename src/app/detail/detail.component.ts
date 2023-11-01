@@ -54,4 +54,8 @@ export class DetailComponent extends NaturalAbstractDetail<ItemService> implemen
     private doSomethingWithDefaultValues(model: ItemInput): boolean {
         return 'id' in model;
     }
+
+    public setIdToTestDeleteButton(): void {
+        this.data.model = {...this.data.model, id: '123'};
+    }
 }

@@ -76,7 +76,7 @@ describe('NaturalAbstractModelService', () => {
 
         it('should not get one with observable', fakeAsync(() => {
             tick();
-            expect(() => service.getOne(new BehaviorSubject('123') as any).subscribe()).toThrowError(observableError);
+            expect(() => service.getOne(new BehaviorSubject('123') as any)).toThrowError(observableError);
         }));
 
         it('should get all with query variables manager', fakeAsync(() => {
@@ -108,7 +108,7 @@ describe('NaturalAbstractModelService', () => {
 
         it('should not create with observable', fakeAsync(() => {
             tick();
-            expect(() => service.create(new BehaviorSubject({}) as any).subscribe()).toThrowError(observableError);
+            expect(() => service.create(new BehaviorSubject({}) as any)).toThrowError(observableError);
         }));
 
         it('should update with debounce', fakeAsync(() => {
@@ -168,9 +168,7 @@ describe('NaturalAbstractModelService', () => {
 
         it('should not update with observable', fakeAsync(() => {
             tick();
-            expect(() => service.update(new BehaviorSubject({id: 123}) as any).subscribe()).toThrowError(
-                observableError,
-            );
+            expect(() => service.update(new BehaviorSubject({id: 123}) as any)).toThrowError(observableError);
         }));
 
         it('should delete one object', fakeAsync(() => {
@@ -183,9 +181,7 @@ describe('NaturalAbstractModelService', () => {
 
         it('should not delete with observable', fakeAsync(() => {
             tick();
-            expect(() => service.delete(new BehaviorSubject({id: 123}) as any).subscribe()).toThrowError(
-                observableError,
-            );
+            expect(() => service.delete(new BehaviorSubject({id: 123}) as any)).toThrowError(observableError);
         }));
 
         it('should cancel pending update of deleted object', fakeAsync(() => {
@@ -216,9 +212,7 @@ describe('NaturalAbstractModelService', () => {
 
         it('should not create or update with observable', fakeAsync(() => {
             tick();
-            expect(() => service.createOrUpdate(new BehaviorSubject({id: 123}) as any).subscribe()).toThrowError(
-                observableError,
-            );
+            expect(() => service.createOrUpdate(new BehaviorSubject({id: 123}) as any)).toThrowError(observableError);
         }));
 
         it('should create or update', fakeAsync(() => {
@@ -303,41 +297,40 @@ describe('NaturalAbstractModelService', () => {
             expect(service).toBeTruthy();
         });
 
-        it('should throw instead of resolve to model and optional enums', fakeAsync(() => {
-            service.resolve('123').subscribe();
-            expect(() => tick()).toThrowError(notConfiguredError);
-        }));
+        it('should throw instead of resolve to model and optional enums', () => {
+            expect(() => service.resolve('123')).toThrowError(notConfiguredError);
+        });
 
-        it('should throw instead of get one', fakeAsync(() => {
-            expect(() => service.getOne('123').subscribe()).toThrowError(notConfiguredError);
-        }));
+        it('should throw instead of get one', () => {
+            expect(() => service.getOne('123')).toThrowError(notConfiguredError);
+        });
 
-        it('should throw instead of get all with query variables manager', fakeAsync(() => {
+        it('should throw instead of get all with query variables manager', () => {
             const qvm = new NaturalQueryVariablesManager<any>();
-            expect(() => service.getAll(qvm).subscribe()).toThrowError(notConfiguredError);
-        }));
+            expect(() => service.getAll(qvm)).toThrowError(notConfiguredError);
+        });
 
-        it('should throw instead of watch all with query variables manager', fakeAsync(() => {
+        it('should throw instead of watch all with query variables manager', () => {
             const qvm = new NaturalQueryVariablesManager<any>();
-            expect(() => service.watchAll(qvm).subscribe()).toThrowError(notConfiguredError);
-        }));
+            expect(() => service.watchAll(qvm)).toThrowError(notConfiguredError);
+        });
 
-        it('should throw instead of create', fakeAsync(() => {
+        it('should throw instead of create', () => {
             const object = {};
-            expect(() => service.create(object).subscribe()).toThrowError(notConfiguredError);
-        }));
+            expect(() => service.create(object)).toThrowError(notConfiguredError);
+        });
 
-        it('should throw instead of update immediately', fakeAsync(() => {
-            expect(() => service.updateNow({id: 123}).subscribe()).toThrowError(notConfiguredError);
-        }));
+        it('should throw instead of update immediately', () => {
+            expect(() => service.updateNow({id: 123})).toThrowError(notConfiguredError);
+        });
 
-        it('should throw instead of delete one object', fakeAsync(() => {
-            expect(() => service.delete([{id: '123'}]).subscribe()).toThrowError(notConfiguredError);
-        }));
+        it('should throw instead of delete one object', () => {
+            expect(() => service.delete([{id: '123'}])).toThrowError(notConfiguredError);
+        });
 
-        it('should throw instead of create or update', fakeAsync(() => {
-            expect(() => service.createOrUpdate({}).subscribe()).toThrowError(notConfiguredError);
-        }));
+        it('should throw instead of create or update', () => {
+            expect(() => service.createOrUpdate({})).toThrowError(notConfiguredError);
+        });
     });
 
     describe('with NoResultService', () => {

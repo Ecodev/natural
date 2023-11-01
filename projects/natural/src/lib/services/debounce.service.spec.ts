@@ -11,26 +11,39 @@ type SpyResult = {
     unsubscribed: number;
 };
 
-function spyResult(): SpyResult {
-    return {
+type ObservableSpy<T> = {
+    result: SpyResult;
+    observable: Observable<T>;
+};
+
+const emptyResult: Readonly<SpyResult> = {
+    called: 0,
+    completed: 0,
+    errored: 0,
+    subscribed: 0,
+    unsubscribed: 0,
+} as const;
+
+function spyObservable<T>(observable: Observable<T>): ObservableSpy<T> {
+    const result = {
         called: 0,
         completed: 0,
         errored: 0,
         subscribed: 0,
         unsubscribed: 0,
     };
-}
-
-function spy<T>(observable: Observable<T>, result: SpyResult): Observable<T> {
-    return observable.pipe(
-        tap({
-            next: () => result.called++,
-            complete: () => result.completed++,
-            error: () => result.errored++,
-            subscribe: () => result.subscribed++,
-            unsubscribe: () => result.unsubscribed++,
-        }),
-    );
+    return {
+        result: result,
+        observable: observable.pipe(
+            tap({
+                next: () => result.called++,
+                complete: () => result.completed++,
+                error: () => result.errored++,
+                subscribe: () => result.subscribed++,
+                unsubscribe: () => result.unsubscribed++,
+            }),
+        ),
+    };
 }
 
 describe('NaturalDebounceService', () => {
@@ -60,20 +73,16 @@ describe('NaturalDebounceService', () => {
     });
 
     it('should flushOne an error and then still emit and complete', fakeAsync(() => {
-        const flushOne = spyResult();
-        const error = spyResult();
-        const error$ = spy(
-            throwError(() => 'fake extra error'),
-            error,
-        );
+        const error = spyObservable(throwError(() => 'fake extra error'));
 
-        service.debounce(modelServiceA, '1', error$);
+        service.debounce(modelServiceA, '1', error.observable);
 
-        spy(service.flushOne(modelServiceA, '1'), flushOne).subscribe();
+        const flushOne = spyObservable(service.flushOne(modelServiceA, '1'));
+        flushOne.observable.subscribe();
 
         tick(1000);
 
-        expect(flushOne).toEqual({
+        expect(flushOne.result).toEqual({
             called: 1,
             completed: 1,
             errored: 0,
@@ -81,7 +90,7 @@ describe('NaturalDebounceService', () => {
             unsubscribed: 0,
         });
 
-        expect(error).toEqual({
+        expect(error.result).toEqual({
             called: 0,
             completed: 0,
             errored: 1,
@@ -91,17 +100,15 @@ describe('NaturalDebounceService', () => {
     }));
 
     it('should flushOne a successfull update and emit and complete', fakeAsync(() => {
-        const a1 = spyResult();
-        const a1$ = spy(of(1), a1);
-        const flushOne = spyResult();
+        const a1 = spyObservable(of(1));
+        service.debounce(modelServiceA, '1', a1.observable);
 
-        service.debounce(modelServiceA, '1', a1$);
-
-        spy(service.flushOne(modelServiceA, '1'), flushOne).subscribe();
+        const flushOne = spyObservable(service.flushOne(modelServiceA, '1'));
+        flushOne.observable.subscribe();
 
         tick(1000);
 
-        expect(flushOne).toEqual({
+        expect(flushOne.result).toEqual({
             called: 1,
             completed: 1,
             errored: 0,
@@ -109,7 +116,7 @@ describe('NaturalDebounceService', () => {
             unsubscribed: 0,
         });
 
-        expect(a1).toEqual({
+        expect(a1.result).toEqual({
             called: 1,
             completed: 1,
             errored: 0,
@@ -126,35 +133,33 @@ describe('NaturalDebounceService', () => {
     });
 
     it('should flush with 1 pending update then emit', fakeAsync(() => {
-        const a1 = spyResult();
-        const a1Bis = spyResult();
-        const flush = spyResult();
-        const a1$ = spy(of(1), a1);
-        const a1Bis$ = spy(of(1), a1Bis);
-        service.debounce(modelServiceA, '1', a1$);
+        const a1 = spyObservable(of(1));
+        const a1Bis = spyObservable(of(1));
+        service.debounce(modelServiceA, '1', a1.observable);
         expect(service.count).toBe(1);
 
         tick(1000); // half-way through debounce
 
-        expect(a1).toEqual(spyResult());
+        expect(a1.result).toEqual(emptyResult);
 
         // debounce again the same key/id but different observable
-        service.debounce(modelServiceA, '1', a1Bis$);
+        service.debounce(modelServiceA, '1', a1Bis.observable);
         expect(service.count).toBe(1);
 
         tick(2000); // passed the first debounce, but observable still debounced
 
-        expect(a1).toEqual(spyResult());
+        expect(a1.result).toEqual(emptyResult);
 
-        spy(service.flush(), flush).subscribe(result => {
+        const flush = spyObservable(service.flush());
+        flush.observable.subscribe(result => {
             expect(result).toBeUndefined();
         });
 
         tick();
 
-        expect(a1).withContext('should not be called at all because was debounced').toEqual(spyResult());
+        expect(a1.result).withContext('should not be called at all because was debounced').toEqual(emptyResult);
 
-        expect(a1Bis).toEqual({
+        expect(a1Bis.result).toEqual({
             called: 1,
             completed: 1,
             errored: 0,
@@ -162,7 +167,7 @@ describe('NaturalDebounceService', () => {
             unsubscribed: 0,
         });
 
-        expect(flush).toEqual({
+        expect(flush.result).toEqual({
             called: 1,
             completed: 1,
             errored: 0,
@@ -174,46 +179,38 @@ describe('NaturalDebounceService', () => {
     }));
 
     it('should flush with multiple pending updates then emit', fakeAsync(() => {
-        const a1 = spyResult();
-        const a2 = spyResult();
-        const b1 = spyResult();
-        const error = spyResult();
-        const flush = spyResult();
+        const a1 = spyObservable(of(1));
+        const a2 = spyObservable(of(2));
+        const b1 = spyObservable(of(1));
+        const error = spyObservable(throwError(() => 'fake extra error'));
 
-        const a1$ = spy(of(1), a1);
-        const a2$ = spy(of(2), a2);
-        const b1$ = spy(of(1), b1);
-        const error$ = spy(
-            throwError(() => 'fake extra error'),
-            error,
-        );
-
-        service.debounce(modelServiceA, '1', a1$);
-        service.debounce(modelServiceA, '2', a2$);
-        service.debounce(modelServiceB, '1', b1$);
-        service.debounce(modelServiceB, '2', error$);
+        service.debounce(modelServiceA, '1', a1.observable);
+        service.debounce(modelServiceA, '2', a2.observable);
+        service.debounce(modelServiceB, '1', b1.observable);
+        service.debounce(modelServiceB, '2', error.observable);
 
         expect(service.count).toBe(4);
 
         // again
-        service.debounce(modelServiceA, '1', a1$);
+        service.debounce(modelServiceA, '1', a1.observable);
 
         expect(service.count).toBe(4);
 
         tick(1000); // half-way through debounce
 
-        expect(a1).toEqual(spyResult());
-        expect(a2).toEqual(spyResult());
-        expect(b1).toEqual(spyResult());
-        expect(error).toEqual(spyResult());
+        expect(a1.result).toEqual(emptyResult);
+        expect(a2.result).toEqual(emptyResult);
+        expect(b1.result).toEqual(emptyResult);
+        expect(error.result).toEqual(emptyResult);
 
-        spy(service.flush(), flush).subscribe(result => {
+        const flush = spyObservable(service.flush());
+        flush.observable.subscribe(result => {
             expect(result).toBeUndefined();
         });
 
         tick();
 
-        expect(a1).toEqual({
+        expect(a1.result).toEqual({
             called: 1,
             completed: 1,
             errored: 0,
@@ -221,7 +218,7 @@ describe('NaturalDebounceService', () => {
             unsubscribed: 0,
         });
 
-        expect(a2).toEqual({
+        expect(a2.result).toEqual({
             called: 1,
             completed: 1,
             errored: 0,
@@ -229,7 +226,7 @@ describe('NaturalDebounceService', () => {
             unsubscribed: 0,
         });
 
-        expect(b1).toEqual({
+        expect(b1.result).toEqual({
             called: 1,
             completed: 1,
             errored: 0,
@@ -237,7 +234,7 @@ describe('NaturalDebounceService', () => {
             unsubscribed: 0,
         });
 
-        expect(error).toEqual({
+        expect(error.result).toEqual({
             called: 0,
             completed: 0,
             errored: 1,
@@ -245,7 +242,7 @@ describe('NaturalDebounceService', () => {
             unsubscribed: 0,
         });
 
-        expect(flush).toEqual({
+        expect(flush.result).toEqual({
             called: 1,
             completed: 1,
             errored: 0,
@@ -257,33 +254,31 @@ describe('NaturalDebounceService', () => {
     }));
 
     it('should cancel one pending update', fakeAsync(() => {
-        const a1 = spyResult();
-        const a1Bis = spyResult();
-        const a1$ = spy(of(1), a1);
-        const a1Bis$ = spy(of(1), a1Bis);
-        service.debounce(modelServiceA, '1', a1$);
+        const a1 = spyObservable(of(1));
+        const a1Bis = spyObservable(of(1));
+        service.debounce(modelServiceA, '1', a1.observable);
         expect(service.count).toBe(1);
 
         tick(1000); // half-way through debounce
 
-        expect(a1).toEqual(spyResult());
-        expect(a1Bis).toEqual(spyResult());
+        expect(a1.result).toEqual(emptyResult);
+        expect(a1Bis.result).toEqual(emptyResult);
 
         // debounce again the same key/id but different observable
-        service.debounce(modelServiceA, '1', a1Bis$);
+        service.debounce(modelServiceA, '1', a1Bis.observable);
         expect(service.count).toBe(1);
 
         tick(2000); // passed the first debounce, but observable still debounced
 
-        expect(a1).toEqual(spyResult());
-        expect(a1Bis).toEqual(spyResult());
+        expect(a1.result).toEqual(emptyResult);
+        expect(a1Bis.result).toEqual(emptyResult);
 
         service.cancelOne(modelServiceA, '1');
 
         tick(3000);
 
-        expect(a1).toEqual(spyResult());
-        expect(a1Bis).toEqual(spyResult());
+        expect(a1.result).toEqual(emptyResult);
+        expect(a1Bis.result).toEqual(emptyResult);
 
         expect(service.count).toBe(0);
     }));

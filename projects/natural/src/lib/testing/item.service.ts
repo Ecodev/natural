@@ -1,7 +1,7 @@
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {concatWith, NEVER, Observable, of} from 'rxjs';
+import {concat, concatWith, NEVER, Observable, of} from 'rxjs';
 import {PaginatedData} from '../classes/data-source';
 import {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
 import {FormValidators, NaturalAbstractModelService} from '../services/abstract-model.service';
@@ -102,6 +102,24 @@ export class ItemService extends NaturalAbstractModelService<
 
     public override getOne(id: string): Observable<Item> {
         return of(this.getItem(true, 2, id));
+    }
+
+    public override watchOne(id: string): Observable<Item> {
+        const original = this.getItem(true, 2, id);
+
+        // mock immediate result and later cache updates
+        return concat(
+            of(original),
+            of({
+                ...original,
+                name: original.name + ' cache update 1',
+            }).pipe(delay(1000)),
+            of({
+                ...original,
+                name: original.name + ' cache update 2',
+            }).pipe(delay(1000)),
+            NEVER,
+        );
     }
 
     protected override getFormExtraFieldDefaultValues(): Literal {

@@ -1,23 +1,22 @@
 import {Directive, inject, OnInit} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {kebabCase, merge, mergeWith, omit} from 'lodash-es';
+import {kebabCase, mergeWith} from 'lodash-es';
 import {NaturalAlertService} from '../modules/alert/alert.service';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {ExtractResolve, ExtractTcreate, ExtractTone, ExtractTupdate, Literal} from '../types/types';
-import {finalize} from 'rxjs/operators';
+import {EMPTY, endWith, finalize, last, Observable, Subscription, switchMap, takeUntil} from 'rxjs';
 import {ifValid, validateAllFormControls} from './validators';
 import {mergeOverrideArray} from './utility';
 import {PaginatedData} from './data-source';
 import {QueryVariables} from './query-variable-manager';
-import {EMPTY, endWith, last, Observable, switchMap} from 'rxjs';
 
 /**
  * `Data` contains in `model` either the model fetched from DB or default values (without ID). And besides `model`,
  * any other extra keys defined by Extra.
  */
-type Data<TService, Extra> = {model: {id?: string}} & ExtractResolve<TService> & Extra;
+type Data<TService, Extra> = {model: {id?: string} & ExtractResolve<TService>} & Extra;
 
 // @dynamic
 @Directive()
@@ -78,6 +77,7 @@ export class NaturalAbstractDetail<
      * model from DB (by navigating to update page).
      */
     #isUpdatePage = false;
+    #modelSub: Subscription | null = null;
 
     public constructor(
         protected readonly key: string,
@@ -88,9 +88,23 @@ export class NaturalAbstractDetail<
 
     public ngOnInit(): void {
         if (!this.isPanel) {
-            this.route.data.subscribe(data => {
-                this.data = merge({model: this.service.getDefaultForServer()}, data[this.key]);
-                this.data = merge(this.data, omit(data, [this.key]));
+            this.route.data.subscribe(incomingData => {
+                if (!(incomingData.model instanceof Observable)) {
+                    throw new Error(
+                        'Resolved data must include the key `model`, and it must be an observable (usually one from Apollo).',
+                    );
+                }
+
+                // Subscribe to model to know when Apollo cache is changed, so we can reflect it into `data.model`
+                this.#modelSub?.unsubscribe();
+                this.#modelSub = incomingData.model
+                    .pipe(takeUntil(this.ngUnsubscribe))
+                    .subscribe((model: ExtractResolve<TService>) => {
+                        this.data = {
+                            ...incomingData,
+                            model: model,
+                        } as Data<TService, ExtraResolve>;
+                    });
                 this.initForm();
             });
         } else {
@@ -189,7 +203,7 @@ export class NaturalAbstractDetail<
         )
             .pipe(
                 switchMap(confirmed => {
-                    if (!confirmed) {
+                    if (!confirmed || !this.isUpdatePage()) {
                         return EMPTY;
                     }
 

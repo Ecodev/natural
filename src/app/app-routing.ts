@@ -7,7 +7,7 @@ import {
     naturalPanelsUrlMatcher,
     NaturalSeo,
 } from '@ecodev/natural';
-import {resolveAny} from '../../projects/natural/src/lib/testing/any.resolver';
+import {resolveItem} from '../../projects/natural/src/lib/testing/item.resolver';
 import {EditableListComponent} from './editable-list/editable-list.component';
 import {EditorComponent} from './editor/editor.component';
 import {HierarchicComponent} from './hierarchic/hierarchic.component';
@@ -68,7 +68,7 @@ export const routes: Routes = [
             {
                 path: 'relation',
                 component: RelationsComponent,
-                resolve: {any: resolveAny},
+                resolve: {model: resolveItem},
             },
             {
                 path: 'panels',
@@ -129,7 +129,7 @@ export const routes: Routes = [
             {
                 path: 'detail/:id',
                 component: DetailComponent,
-                resolve: {any: resolveAny},
+                resolve: {model: resolveItem},
                 data: {
                     title: 'Detail page',
                 },
@@ -144,7 +144,7 @@ export const routes: Routes = [
             {
                 path: 'detail-header',
                 component: DetailHeaderComponent,
-                resolve: {any: resolveAny},
+                resolve: {model: resolveItem},
                 data: {
                     title: 'Detail header',
                 },

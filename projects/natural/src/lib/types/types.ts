@@ -133,7 +133,7 @@ export type ExtractVdelete<P> =
  */
 export type ExtractResolve<P> =
     P extends NaturalAbstractModelService<any, any, any, any, any, any, any, any, any, any>
-        ? ObservedValueOf<ReturnType<P['resolve']>>
+        ? ObservedValueOf<ObservedValueOf<ReturnType<P['resolve']>>>
         : never;
 
 /**

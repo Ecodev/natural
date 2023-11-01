@@ -10,6 +10,7 @@ import {Literal} from '../types/types';
 import {makePlural, mergeOverrideArray, relationsToIds, upperCaseFirstLetter} from '../classes/utility';
 import {PaginatedData} from '../classes/data-source';
 import {NaturalDebounceService} from './debounce.service';
+import {ApolloQueryResult} from '@apollo/client/core/types';
 
 export type FormValidators = Record<string, ValidatorFn[]>;
 
@@ -20,10 +21,6 @@ export type VariablesWithInput = {
 };
 
 export type FormControls = Record<string, AbstractControl>;
-
-type Resolve<TOne> = {
-    model: TOne;
-};
 
 export type WithId<T> = {id: string} & T;
 
@@ -157,9 +154,32 @@ export abstract class NaturalAbstractModelService<
      * Get a single object
      *
      * If available it will emit object from cache immediately, then it
-     * will **always** fetch from network and then the observable will be completed
+     * will **always** fetch from network and then the observable will be completed.
+     *
+     * You must subscribe to start getting results (and fetch from network).
      */
-    public getOne(id: string, fetchPolicy: WatchQueryFetchPolicy = 'cache-and-network'): Observable<Tone> {
+    public getOne(id: string): Observable<Tone> {
+        return this.#prepareOneQuery(id, 'cache-and-network').pipe(
+            takeWhile(result => result.networkStatus !== NetworkStatus.ready, true),
+            map(result => (result.data as Literal)[this.name]),
+        );
+    }
+
+    /**
+     * Watch a single object
+     *
+     * If available it will emit object from cache immediately, then it
+     * will **always** fetch from network, and then keep watching the cache forever.
+     *
+     * You must subscribe to start getting results (and fetch from network).
+     *
+     * You **MUST** unsubscribe.
+     */
+    public watchOne(id: string, fetchPolicy: WatchQueryFetchPolicy = 'cache-and-network'): Observable<Tone> {
+        return this.#prepareOneQuery(id, fetchPolicy).pipe(map(result => (result.data as Literal)[this.name]));
+    }
+
+    #prepareOneQuery(id: string, fetchPolicy: WatchQueryFetchPolicy): Observable<ApolloQueryResult<unknown>> {
         this.throwIfObservable(id);
         this.throwIfNotQuery(this.oneQuery);
 
@@ -175,8 +195,6 @@ export abstract class NaturalAbstractModelService<
                 }).valueChanges;
             }),
             filter(result => !!result.data),
-            takeWhile(result => result.networkStatus !== NetworkStatus.ready, true),
-            map(result => (result.data as Literal)[this.name]),
         );
     }
 
@@ -212,11 +230,12 @@ export abstract class NaturalAbstractModelService<
      * Get a collection of objects
      *
      * Every time the observable variables change, and they are not undefined,
-     * it will return result from cache, then it will **always** fetch from network.
+     * it will return result from cache, then it will **always** fetch from network,
+     * and then keep watching the cache forever.
      *
      * You must subscribe to start getting results (and fetch from network).
      *
-     * The observable result will only complete when unsubscribing. That means you **must** unsubscribe.
+     * You **MUST** unsubscribe.
      */
     public watchAll(
         queryVariablesManager: NaturalQueryVariablesManager<Vall>,
@@ -443,24 +462,21 @@ export abstract class NaturalAbstractModelService<
     }
 
     /**
-     * Resolve model from server (never from cache) and items related to the model, if the id is provided, in order to show a form
+     * If the id is provided, resolves an observable model. The observable model will only be emitted after we are sure
+     * that Apollo cache is fresh and warm. Then the component can subscribe to the observable model to get the model
+     * immediately from Apollo cache and any subsequents future mutations that may happen to Apollo cache.
+     *
+     * Without id, returns default values, in order to show a creation form.
      */
-    public resolve(id: string): Observable<Resolve<Tone | Vcreate['input']>> {
-        // Load model if id is given
-        let observable: Observable<Tone | Vcreate['input']>;
+    public resolve(id: string | undefined): Observable<Observable<Tone | Vcreate['input']>> {
         if (id) {
-            observable = this.naturalDebounceService
-                .flushOne(this, id)
-                .pipe(switchMap(() => this.getOne(id, 'network-only')));
-        } else {
-            observable = of(this.getDefaultForServer() as Tone);
-        }
+            const onlyNetwork = this.watchOne(id, 'network-only').pipe(first());
+            const onlyCache = this.watchOne(id, 'cache-first');
 
-        return observable.pipe(
-            map(result => {
-                return {model: result};
-            }),
-        );
+            return onlyNetwork.pipe(map(() => onlyCache));
+        } else {
+            return of(of(this.getDefaultForServer() as Tone));
+        }
     }
 
     /**

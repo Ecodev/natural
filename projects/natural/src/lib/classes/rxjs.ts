@@ -1,12 +1,11 @@
-import {MonoTypeOperatorFunction, Observable, timer} from 'rxjs';
-import {map, take, takeUntil, tap} from 'rxjs/operators';
+import {map, MonoTypeOperatorFunction, Observable, take, takeUntil, tap, timer} from 'rxjs';
 
 /**
  * Behave like setTimeout(), but with a mandatory cancel mechanism.
  *
  * This is typically useful to replace setTimeout() in components where the callback
  * would crash if executed after the component destruction. That can easily happen
- * when the user navigate quickly between pages.
+ * when the user navigates quickly between pages.
  *
  * Typical usage in a component would be:
  *
