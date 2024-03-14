@@ -4,7 +4,7 @@ import {AbstractControl, AsyncValidatorFn, UntypedFormControl, UntypedFormGroup,
 import {DocumentNode} from 'graphql';
 import {defaults, merge, mergeWith, omit, pick} from 'lodash-es';
 import {catchError, combineLatest, EMPTY, first, from, Observable, of, OperatorFunction} from 'rxjs';
-import {debounceTime, filter, map, shareReplay, switchMap, takeWhile, tap} from 'rxjs/operators';
+import {debounceTime, filter, map, shareReplay, startWith, switchMap, takeWhile, tap} from 'rxjs/operators';
 import {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
 import {Literal} from '../types/types';
 import {makePlural, mergeOverrideArray, relationsToIds, upperCaseFirstLetter} from '../classes/utility';
@@ -473,7 +473,12 @@ export abstract class NaturalAbstractModelService<
             const onlyNetwork = this.watchOne(id, 'network-only').pipe(first());
             const onlyCache = this.watchOne(id, 'cache-first');
 
-            return onlyNetwork.pipe(map(() => onlyCache));
+            // In theory, we can rely on Apollo Cache to return a result instantly. It is very fast indeed,
+            // but it is still asynchronous, so there may be a very short time when we don't have the model
+            // available. To fix that, we can rely on RxJS, which is able to emit synchronously the value we just
+            // got from server. Once Apollo Client moves to RxJS (https://github.com/apollographql/apollo-feature-requests/issues/375),
+            // we could try to remove `startWith()`.
+            return onlyNetwork.pipe(map(firstValue => onlyCache.pipe(startWith(firstValue))));
         } else {
             return of(of(this.getDefaultForServer() as Tone));
         }
