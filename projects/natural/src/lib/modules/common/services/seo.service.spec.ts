@@ -69,14 +69,12 @@ const routes: Routes = [
         data: {
             // Here we simulate the data structure after the resolve,
             // but in a real app it would be resolved by a proper Resolver
-            user: {
-                model: {
-                    name: 'user name',
-                    description: 'user description',
-                },
-            },
+            model: of({
+                name: 'user name',
+                description: 'user description',
+            }),
             seo: {
-                resolveKey: 'user',
+                resolve: true,
                 robots: 'resolve robots',
             } satisfies NaturalSeo,
         },
@@ -87,11 +85,9 @@ const routes: Routes = [
         data: {
             // It might happen that it resolves to nothing at all
             // This is the case on https://my-ichtus.lan:4300/booking/non-existing
-            user: {
-                model: null,
-            },
+            model: of(null),
             seo: {
-                resolveKey: 'user',
+                resolve: true,
                 robots: 'resolve null robots',
             } satisfies NaturalSeo,
         },
@@ -126,14 +122,12 @@ const routes: Routes = [
             trigger: dialogTrigger,
             // Here we simulate the data structure after the resolve,
             // but in a real app it would be resolved by a proper Resolver
-            user: {
-                model: {
-                    name: 'dialog user name',
-                    description: 'dialog user description',
-                },
-            },
+            model: of({
+                name: 'dialog user name',
+                description: 'dialog user description',
+            }),
             seo: {
-                resolveKey: 'user',
+                resolve: true,
                 robots: 'dialog resolve robots',
             } as NaturalSeo,
         },
@@ -163,10 +157,7 @@ describe('NaturalSeoService', () => {
     ): Promise<void> {
         return router
             .navigate([url])
-            .then(() => {
-                if (secondary) return router.navigate([{outlets: {secondary: [secondary]}}]);
-                else return Promise.resolve(true);
-            })
+            .then(() => (secondary ? router.navigate([{outlets: {secondary: [secondary]}}]) : Promise.resolve(true)))
             .then(() => {
                 expect(title.getTitle()).toBe(expectedTitle);
                 expect(meta.getTag('name="description"')?.getAttribute('value')).toBe(expectedDescription);

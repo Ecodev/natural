@@ -2,9 +2,9 @@ import {DOCUMENT} from '@angular/common';
 import {Inject, Injectable, InjectionToken, LOCALE_ID} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
 import {ActivatedRouteSnapshot, Data, NavigationEnd, PRIMARY_OUTLET, Router} from '@angular/router';
-import {filter, startWith} from 'rxjs/operators';
 import {NaturalDialogTriggerComponent} from '../../dialog-trigger/dialog-trigger.component';
-import {combineLatest, Observable, of} from 'rxjs';
+import {combineLatest, filter, map, Observable, of, startWith, switchMap} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export type NaturalSeo = NaturalSeoBasic | NaturalSeoCallback | NaturalSeoResolve;
 
@@ -49,11 +49,11 @@ type NaturalLinkDefinition = {
  */
 export type NaturalSeoResolve = Robots & {
     /**
-     * The key to be used in the resolved data to find the resolved object. The fullName
+     * The key `model` will be used in the resolved data to find the resolved object. The fullName
      * or name of the object will be used for page title, and the object description, if any,
      * will be used for page description.
      */
-    resolveKey: string;
+    resolve: true;
 };
 
 /**
@@ -161,26 +161,35 @@ export class NaturalSeoService {
         combineLatest({
             config: configToken instanceof Observable ? configToken.pipe(startWith(this.config)) : of(configToken),
             navigationEnd: this.router.events.pipe(filter(event => event instanceof NavigationEnd)),
-        }).subscribe(({config}) => {
-            this.config = config;
-            const root = this.router.routerState.root.snapshot;
-            this.routeData = this.getRouteData(root);
+        })
+            .pipe(
+                takeUntilDestroyed(),
+                switchMap(({config}) => {
+                    this.config = config;
+                    const root = this.router.routerState.root.snapshot;
+                    this.routeData = this.getRouteData(root);
 
-            const seo: NaturalSeo = this.routeData.seo ?? {title: ''};
-            const dialogRouteData = this.getDialogRouteData(root);
-            const dialogSeo: NaturalSeo = dialogRouteData?.seo;
+                    const seo: NaturalSeo = this.routeData.seo ?? {title: ''};
+                    const dialogRouteData = this.getDialogRouteData(root);
+                    const dialogSeo: NaturalSeo = dialogRouteData?.seo;
 
-            let basic = this.toBasic(seo, this.routeData);
-            if (dialogRouteData && dialogSeo) {
-                const dialogBasic = this.toBasic(dialogSeo, dialogRouteData);
-                basic = {
-                    ...dialogBasic,
-                    title: this.join([dialogBasic.title, basic.title]),
-                };
-            }
+                    const basic = this.toBasic(seo, this.routeData);
+                    const dialogBasic =
+                        dialogRouteData && dialogSeo ? this.toBasic(dialogSeo, dialogRouteData) : of(null);
 
-            this.update(basic);
-        });
+                    return combineLatest({basic, dialogBasic});
+                }),
+            )
+            .subscribe(({basic, dialogBasic}) => {
+                if (dialogBasic) {
+                    basic = {
+                        ...dialogBasic,
+                        title: this.join([dialogBasic.title, basic.title]),
+                    };
+                }
+
+                this.update(basic);
+            });
     }
 
     /**
@@ -350,22 +359,31 @@ export class NaturalSeoService {
         return null;
     }
 
-    private toBasic(seo: NaturalSeo, routeData: Data): NaturalSeoBasic {
+    private toBasic(seo: NaturalSeo, routeData: ResolvedData): Observable<NaturalSeoBasic> {
         if (typeof seo === 'function') {
-            return seo(routeData);
-        } else if ('resolveKey' in seo) {
-            const data: ResolvedData | undefined = routeData[seo.resolveKey];
-            if (!data) {
-                throw new Error('Could not find resolved data for SEO service with key: ' + seo.resolveKey);
+            return of(seo(routeData));
+        } else if ('resolve' in seo) {
+            if (!('model' in routeData)) {
+                throw new Error('Could not find resolved data `model` for SEO service');
             }
 
-            return {
-                title: data.model?.fullName ?? data.model?.name ?? '',
-                description: data.model?.description,
-                robots: seo.robots,
-            };
+            const model = routeData.model;
+            if (!(model instanceof Observable)) {
+                console.log('qqqqqq', model);
+                throw new Error('SEO service expect resolved data `model` to be an observable');
+            }
+
+            return model.pipe(
+                map(value => {
+                    return {
+                        title: value?.fullName ?? value?.name ?? '',
+                        description: value?.description,
+                        robots: seo.robots,
+                    };
+                }),
+            );
         }
 
-        return seo;
+        return of(seo);
     }
 }
