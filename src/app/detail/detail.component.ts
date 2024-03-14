@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {collectErrors, NaturalAbstractDetail} from '@ecodev/natural';
+import {collectErrors, NaturalAbstractDetail, NaturalSeoResolveData} from '@ecodev/natural';
 import {Item, ItemInput, ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 import {NaturalFixedButtonDetailComponent} from '../../../projects/natural/src/lib/modules/fixed-button-detail/fixed-button-detail.component';
 import {CommonModule} from '@angular/common';
@@ -34,7 +34,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         RouterOutlet,
     ],
 })
-export class DetailComponent extends NaturalAbstractDetail<ItemService> implements OnInit {
+export class DetailComponent extends NaturalAbstractDetail<ItemService, NaturalSeoResolveData> implements OnInit {
     public readonly collectErrors = collectErrors;
 
     public constructor(service: ItemService) {

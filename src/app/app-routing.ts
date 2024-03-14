@@ -85,7 +85,7 @@ export const routes: Routes = [
                 path: 'list',
                 component: ListComponent,
                 data: {
-                    title: 'Listing of something',
+                    seo: {title: 'Listing of something'} satisfies NaturalSeo,
                 },
             },
             {
@@ -99,7 +99,7 @@ export const routes: Routes = [
                         path: 'list',
                         component: ListComponent,
                         data: {
-                            title: 'Listing of something else',
+                            seo: {title: 'Listing of something else'} satisfies NaturalSeo,
                             selectedColumns: ['name', 'description', 'hidden'],
                         },
                     },
@@ -109,21 +109,21 @@ export const routes: Routes = [
                 path: 'editable-list',
                 component: EditableListComponent,
                 data: {
-                    title: 'Listing of editable items',
+                    seo: {title: 'Listing of editable items'} satisfies NaturalSeo,
                 },
             },
             {
                 path: 'navigable-list',
                 component: NavigableListComponent,
                 data: {
-                    title: 'Listing of navigable items',
+                    seo: {title: 'Listing of navigable items'} satisfies NaturalSeo,
                 },
             },
             {
                 path: 'file',
                 component: FileComponent,
                 data: {
-                    title: 'File upload',
+                    seo: {title: 'File upload'} satisfies NaturalSeo,
                 },
             },
             {
@@ -131,7 +131,7 @@ export const routes: Routes = [
                 component: DetailComponent,
                 resolve: {model: resolveItem},
                 data: {
-                    title: 'Detail page',
+                    seo: {resolve: true} satisfies NaturalSeo,
                 },
                 children: [
                     {
@@ -146,21 +146,21 @@ export const routes: Routes = [
                 component: DetailHeaderComponent,
                 resolve: {model: resolveItem},
                 data: {
-                    title: 'Detail header',
+                    seo: {title: 'Detail header'} satisfies NaturalSeo,
                 },
             },
             {
                 path: 'editor',
                 component: EditorComponent,
                 data: {
-                    title: 'Editor',
+                    seo: {title: 'Editor'} satisfies NaturalSeo,
                 },
             },
             {
                 path: 'other',
                 component: OtherComponent,
                 data: {
-                    title: 'Other tools',
+                    seo: {title: 'Other tools'} satisfies NaturalSeo,
                 },
                 children: [
                     {
@@ -187,7 +187,7 @@ export const routes: Routes = [
                 path: 'avatar',
                 component: AvatarComponent,
                 data: {
-                    title: 'Avatar',
+                    seo: {title: 'Avatar'} satisfies NaturalSeo,
                 },
             },
         ],
