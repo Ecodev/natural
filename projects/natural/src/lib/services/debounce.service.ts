@@ -14,25 +14,23 @@ import {
     take,
 } from 'rxjs';
 import {Injectable} from '@angular/core';
-import {NaturalAbstractModelService} from './abstract-model.service';
+import {UntypedModelService} from '../types/types';
 
-type Debounced<T> = {
-    source: Observable<T>;
+type Debounced<T extends UntypedModelService> = {
+    object: Parameters<T['updateNow']>[0];
+    modelService: T;
     debouncer: Subject<void>;
     canceller: Subject<void>;
     flusher: Subject<void>;
-    result: Observable<T>;
+    result: ReturnType<T['updateNow']>;
 };
-type Key = NaturalAbstractModelService<unknown, any, any, any, unknown, any, unknown, any, unknown, any>;
 
 /**
- * Debounce subscriptions to observable, with possibility to cancel one, or flush all of them. Typically,
- * observables are object updates, so `NaturalAbstractModelService.updateNow()`.
+ * Debounce subscriptions to update mutations, with the possibility to cancel one, flush one, or flush all of them.
  *
- * `key` must be an instance of `NaturalAbstractModelService` to separate objects by their types. So User with ID 1 is
- * not confused with Product with ID 1. It has no other purpose.
+ * `modelService` is also used to separate objects by their types. So User with ID 1 is not confused with Product with ID 1.
  *
- * `id` should be the ID of the object that will be updated.
+ * `id` must be the ID of the object that will be updated.
  */
 @Injectable({
     providedIn: 'root',
@@ -41,21 +39,33 @@ export class NaturalDebounceService {
     /**
      * Stores the debounced update function
      */
-    private readonly allDebouncedUpdateCache = new Map<Key, Map<string, Debounced<unknown>>>();
+    private readonly allDebouncedUpdateCache = new Map<
+        UntypedModelService,
+        Map<string, Debounced<UntypedModelService>>
+    >();
 
     /**
-     * Debounce the given source observable for a short time. If called multiple times with the same key and id,
-     * it will postpone the subscription to the source observable.
+     * Debounce the `modelService.updateNow()` mutation for a short time. If called multiple times with the same
+     * modelService and id, it will postpone the subscription to the mutation.
      *
-     * Giving the same key and id but a different source observable will replace the original observable, but
-     * keep the same debouncing timeline.
+     * All input variables for the same object (same service and ID) will be cumulated over time. So it is possible
+     * to update `field1`, then `field2`, and they will be batched into a single XHR including `field1` and `field2`.
+     *
+     * But it will always keep the same debouncing timeline.
      */
-    public debounce<T>(key: Key, id: string, source: Observable<T>): Observable<T> {
-        const debouncedUpdateCache = this.getMap(key) as Map<string, Debounced<T>>;
-        let debounced = debouncedUpdateCache.get(id);
+    public debounce<T extends UntypedModelService>(
+        modelService: UntypedModelService,
+        id: string,
+        object: Parameters<T['updateNow']>[0],
+    ): ReturnType<T['updateNow']> {
+        const debouncedUpdateCache = this.getMap(modelService);
+        let debounced = debouncedUpdateCache.get(id) as Debounced<T> | undefined;
 
         if (debounced) {
-            debounced.source = source;
+            debounced.object = {
+                ...debounced.object,
+                ...object,
+            };
         } else {
             const debouncer = new ReplaySubject<void>(1);
             let wasCancelled = false;
@@ -64,31 +74,32 @@ export class NaturalDebounceService {
                 wasCancelled = true;
                 debouncer.complete();
                 canceller.complete();
-                this.delete(key, id);
+                this.delete(modelService, id);
             });
 
             const flusher = new Subject<void>();
 
             debounced = {
+                object,
                 debouncer,
                 canceller,
                 flusher,
-                source,
+                modelService: modelService as T,
                 result: debouncer.pipe(
                     debounceTime(2000), // Wait 2 seconds...
                     raceWith(flusher), // ...unless flusher is triggered
                     take(1),
                     mergeMap(() => {
-                        this.delete(key, id);
+                        this.delete(modelService, id);
 
                         if (wasCancelled || !debounced) {
                             return EMPTY;
                         }
 
-                        return debounced.source;
+                        return modelService.updateNow(debounced.object);
                     }),
                     shareReplay(), // All attempts to update will share the exact same single result from API
-                ),
+                ) as ReturnType<T['updateNow']>,
             };
 
             debouncedUpdateCache.set(id, debounced);
@@ -101,8 +112,8 @@ export class NaturalDebounceService {
         return debounced.result;
     }
 
-    public cancelOne(key: Key, id: string): void {
-        const debounced = this.allDebouncedUpdateCache.get(key)?.get(id);
+    public cancelOne(modelService: UntypedModelService, id: string): void {
+        const debounced = this.allDebouncedUpdateCache.get(modelService)?.get(id);
         debounced?.canceller.next();
     }
 
@@ -113,8 +124,8 @@ export class NaturalDebounceService {
      *
      * The returned observable will complete when the update completes, even if it errors.
      */
-    public flushOne(key: Key, id: string): Observable<void> {
-        const debounced = this.allDebouncedUpdateCache.get(key)?.get(id);
+    public flushOne(modelService: UntypedModelService, id: string): Observable<void> {
+        const debounced = this.allDebouncedUpdateCache.get(modelService)?.get(id);
 
         return this.internalFlush(debounced ? [debounced] : []);
     }
@@ -127,13 +138,13 @@ export class NaturalDebounceService {
      * The returned observable will complete when all updates complete, even if some of them error.
      */
     public flush(): Observable<void> {
-        const all: Debounced<unknown>[] = [];
+        const all: Debounced<UntypedModelService>[] = [];
         this.allDebouncedUpdateCache.forEach(map => map.forEach(debounced => all.push(debounced)));
 
         return this.internalFlush(all);
     }
 
-    private internalFlush(debounceds: Debounced<unknown>[]): Observable<void> {
+    private internalFlush(debounceds: Debounced<UntypedModelService>[]): Observable<void> {
         const all: Observable<unknown>[] = [];
         const allFlusher: Subject<void>[] = [];
 
@@ -168,18 +179,18 @@ export class NaturalDebounceService {
         return count;
     }
 
-    private getMap(key: Key): Map<string, Debounced<unknown>> {
-        let debouncedUpdateCache = this.allDebouncedUpdateCache.get(key);
+    private getMap<T extends UntypedModelService>(modelService: T): Map<string, Debounced<T>> {
+        let debouncedUpdateCache = this.allDebouncedUpdateCache.get(modelService);
         if (!debouncedUpdateCache) {
-            debouncedUpdateCache = new Map<string, Debounced<unknown>>();
-            this.allDebouncedUpdateCache.set(key, debouncedUpdateCache);
+            debouncedUpdateCache = new Map<string, Debounced<UntypedModelService>>();
+            this.allDebouncedUpdateCache.set(modelService, debouncedUpdateCache);
         }
 
-        return debouncedUpdateCache;
+        return debouncedUpdateCache as Map<string, Debounced<T>>;
     }
 
-    private delete(key: Key, id: string): void {
-        const map = this.allDebouncedUpdateCache.get(key);
+    private delete(modelService: UntypedModelService, id: string): void {
+        const map = this.allDebouncedUpdateCache.get(modelService);
         if (!map) {
             return;
         }
@@ -187,7 +198,7 @@ export class NaturalDebounceService {
         map.delete(id);
 
         if (!map.size) {
-            this.allDebouncedUpdateCache.delete(key);
+            this.allDebouncedUpdateCache.delete(modelService);
         }
     }
 }

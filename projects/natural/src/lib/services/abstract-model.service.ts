@@ -367,7 +367,7 @@ export abstract class NaturalAbstractModelService<
         // Keep a single instance of the debounced update function
         const id = object.id;
 
-        return this.naturalDebounceService.debounce(this, id, this.updateNow(object));
+        return this.naturalDebounceService.debounce(this, id, object);
     }
 
     /**
