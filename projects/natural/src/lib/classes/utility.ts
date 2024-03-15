@@ -1,4 +1,4 @@
-import {isArray, isEmpty, pickBy} from 'lodash-es';
+import {isArray, pickBy} from 'lodash-es';
 import {Literal} from '../types/types';
 import type {ReadonlyDeep} from 'type-fest';
 import {PaginationInput, Sorting, SortingOrder} from './query-variable-manager';
@@ -97,25 +97,6 @@ function hasId(value: unknown): value is {id: unknown} {
 }
 
 /**
- * Remove from source object the attributes with same value as modified
- * Does not consider arrays
- */
-export function cleanSameValues(source: Literal, modified: Literal): Literal {
-    Object.keys(source).forEach(key => {
-        if (source[key] instanceof Object) {
-            cleanSameValues(source[key], modified[key]);
-            if (isEmpty(source[key])) {
-                delete source[key];
-            }
-        } else if (modified && source[key] === modified[key]) {
-            delete source[key];
-        }
-    });
-
-    return source;
-}
-
-/**
  * Returns the plural form of the given name
  *
  * This is **not** necessarily valid english grammar. Its only purpose is for internal usage, not for humans.
@@ -140,13 +121,6 @@ export function makePlural(name: string): string {
  */
 export function upperCaseFirstLetter(term: string): string {
     return term.charAt(0).toUpperCase() + term.slice(1);
-}
-
-/**
- * Returns the string with the first letter as lower case
- */
-export function lowerCaseFirstLetter(term: string): string {
-    return term.charAt(0).toLowerCase() + term.slice(1);
 }
 
 /**
@@ -201,7 +175,7 @@ function hexToRgb(hex: string): {r: number; g: number; b: number} {
 /**
  * During lodash.mergeWith, overrides arrays
  */
-export function mergeOverrideArray(destValue: any, source: any): any {
+export function mergeOverrideArray(destValue: unknown, source: unknown): unknown {
     if (isArray(source)) {
         return source;
     }

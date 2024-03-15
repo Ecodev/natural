@@ -1,7 +1,6 @@
 import {
     formatIsoDate,
     formatIsoDateTime,
-    lowerCaseFirstLetter,
     makePlural,
     relationsToIds,
     SortingOrder,
@@ -236,13 +235,6 @@ describe('upperCaseFirstLetter', () => {
     it('should uppercase first letter', () => {
         const result = upperCaseFirstLetter('foo bAr');
         expect(result).toBe('Foo bAr');
-    });
-});
-
-describe('lowerCaseFirstLetter', () => {
-    it('should lowercase first letter', () => {
-        const result = lowerCaseFirstLetter('FOO BaR');
-        expect(result).toBe('fOO BaR');
     });
 });
 
