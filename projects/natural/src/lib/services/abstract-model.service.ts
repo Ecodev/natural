@@ -2,7 +2,7 @@ import {Apollo, gql, MutationResult} from 'apollo-angular';
 import {FetchResult, NetworkStatus, WatchQueryFetchPolicy} from '@apollo/client/core';
 import {AbstractControl, AsyncValidatorFn, UntypedFormControl, UntypedFormGroup, ValidatorFn} from '@angular/forms';
 import {DocumentNode} from 'graphql';
-import {defaults, merge, mergeWith, omit, pick} from 'lodash-es';
+import {defaults, merge, mergeWith, pick} from 'lodash-es';
 import {catchError, combineLatest, EMPTY, first, from, Observable, of, OperatorFunction} from 'rxjs';
 import {debounceTime, filter, map, shareReplay, startWith, switchMap, takeWhile, tap} from 'rxjs/operators';
 import {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
@@ -334,7 +334,7 @@ export abstract class NaturalAbstractModelService<
 
         const variables = merge(
             {},
-            {input: this.getInput(object)},
+            {input: this.getInput(object, true)},
             this.getPartialVariablesForCreation(object),
         ) as Vcreate;
 
@@ -380,7 +380,7 @@ export abstract class NaturalAbstractModelService<
         const variables = merge(
             {
                 id: object.id,
-                input: this.getInput(object),
+                input: this.getInput(object, false),
             },
             this.getPartialVariablesForUpdate(object),
         ) as Vupdate;
@@ -396,32 +396,6 @@ export abstract class NaturalAbstractModelService<
                     const mappedResult = this.mapUpdate(result);
 
                     return mergeWith(object, mappedResult, mergeOverrideArray);
-                }),
-            );
-    }
-
-    /**
-     * Update an object but without automatically injecting values coming
-     * from `getDefaultForServer()`.
-     */
-    public updatePartially(object: WithId<Vupdate['input']>): Observable<Tupdate> {
-        this.throwIfObservable(object);
-        this.throwIfNotQuery(this.updateMutation);
-
-        const variables = {
-            id: object.id,
-            input: omit(relationsToIds(object), 'id'),
-        } as Vupdate;
-
-        return this.apollo
-            .mutate<Tupdate, Vupdate>({
-                mutation: this.updateMutation,
-                variables: variables,
-            })
-            .pipe(
-                map(result => {
-                    this.apollo.client.reFetchObservableQueries();
-                    return this.mapUpdate(result);
                 }),
             );
     }
@@ -488,7 +462,7 @@ export abstract class NaturalAbstractModelService<
      * Return an object that match the GraphQL input type.
      * It creates an object with manually filled data and add uncompleted data (like required attributes that can be empty strings)
      */
-    public getInput(object: Literal): Vcreate['input'] | Vupdate['input'] {
+    public getInput(object: Literal, forCreation: boolean): Vcreate['input'] | Vupdate['input'] {
         // Convert relations to their IDs for mutation
         object = relationsToIds(object);
 
@@ -498,7 +472,9 @@ export abstract class NaturalAbstractModelService<
         let input = pick(object, Object.keys(emptyObject));
 
         // Complete a potentially uncompleted object with default values
-        input = defaults(input, emptyObject);
+        if (forCreation) {
+            input = defaults(input, emptyObject);
+        }
 
         return input;
     }
