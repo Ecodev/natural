@@ -106,6 +106,19 @@ const routes: Routes = [
         },
     },
     {
+        path: 'observable-callback-seo',
+        component: TestSimpleComponent,
+        data: {
+            seo: (() => {
+                return of({
+                    title: 'observable callback title',
+                    description: 'observable callback description',
+                    robots: 'observable callback robots',
+                });
+            }) satisfies NaturalSeo,
+        },
+    },
+    {
         path: 'basic-dialog',
         component: NaturalDialogTriggerComponent,
         outlet: 'secondary',
@@ -213,6 +226,16 @@ describe('NaturalSeoService', () => {
             await assertSeo('callback-seo', null, 'callback title - my app', 'callback description', 'callback robots');
         });
 
+        it('should update SEO automatically from observable callback routing', async () => {
+            await assertSeo(
+                'observable-callback-seo',
+                null,
+                'observable callback title - my app',
+                'observable callback description',
+                'observable callback robots',
+            );
+        });
+
         it('should update SEO automatically with NaturalDialogTriggerComponent with basic SEO', async () => {
             await assertSeo('no-seo', 'basic-dialog', 'basic dialog title - my app', undefined, undefined);
         });
@@ -297,6 +320,16 @@ describe('NaturalSeoService', () => {
                 'callback title - my extra part - my app',
                 'callback description',
                 'callback robots',
+            );
+        });
+
+        it('should update SEO automatically from observable callback routing', async () => {
+            await assertSeo(
+                'observable-callback-seo',
+                null,
+                'observable callback title - my extra part - my app',
+                'observable callback description',
+                'observable callback robots',
             );
         });
     });

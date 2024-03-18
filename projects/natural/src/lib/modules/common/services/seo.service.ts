@@ -60,7 +60,7 @@ export type NaturalSeoResolve = Robots & {
  * Rarely used for a page that has very specific needs and need to build title and description in a custom way.
  * The callback back will be given the resolved data, and it is up to the callback to find whatever it needs.
  */
-export type NaturalSeoCallback = (routeData: Data) => NaturalSeoBasic;
+export type NaturalSeoCallback = (routeData: Data) => NaturalSeoBasic | Observable<NaturalSeoBasic>;
 
 /**
  * Typically used to type the routing data received in the component, eg:
@@ -361,7 +361,8 @@ export class NaturalSeoService {
 
     private toBasic(seo: NaturalSeo, routeData: ResolvedData): Observable<NaturalSeoBasic> {
         if (typeof seo === 'function') {
-            return of(seo(routeData));
+            const result = seo(routeData);
+            return result instanceof Observable ? result : of(result);
         } else if ('resolve' in seo) {
             if (!('model' in routeData)) {
                 throw new Error('Could not find resolved data `model` for SEO service');
@@ -369,7 +370,6 @@ export class NaturalSeoService {
 
             const model = routeData.model;
             if (!(model instanceof Observable)) {
-                console.log('qqqqqq', model);
                 throw new Error('SEO service expect resolved data `model` to be an observable');
             }
 
