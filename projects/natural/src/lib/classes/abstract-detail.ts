@@ -1,16 +1,16 @@
 import {Directive, inject, OnInit} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {kebabCase, mergeWith} from 'lodash-es';
+import {kebabCase} from 'lodash-es';
 import {NaturalAlertService} from '../modules/alert/alert.service';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {ExtractResolve, ExtractTcreate, ExtractTone, ExtractTupdate, Literal} from '../types/types';
 import {EMPTY, endWith, finalize, last, Observable, Subscription, switchMap, takeUntil} from 'rxjs';
 import {ifValid, validateAllFormControls} from './validators';
-import {mergeOverrideArray} from './utility';
 import {PaginatedData} from './data-source';
 import {QueryVariables} from './query-variable-manager';
+import {CumulativeChanges} from './cumulative-changes';
 
 /**
  * `Data` contains in `model` either the model fetched from DB or default values (without ID). And besides `model`,
@@ -78,6 +78,7 @@ export class NaturalAbstractDetail<
      */
     #isUpdatePage = false;
     #modelSub: Subscription | null = null;
+    readonly #changes = new CumulativeChanges<ReturnType<TService['getInput']>>();
 
     public constructor(
         protected readonly key: string,
@@ -134,18 +135,19 @@ export class NaturalAbstractDetail<
         validateAllFormControls(this.form);
 
         ifValid(this.form).subscribe(() => {
-            this.formToData();
-            const postUpdate = (model: ExtractTupdate<TService>): void => {
+            const newInput = this.service.getInput(this.form.value, false);
+            const toSubmit = {
+                id: this.data.model.id,
+                ...this.#changes.differences(newInput),
+            };
+
+            const update = now ? this.service.updateNow(toSubmit) : this.service.update(toSubmit);
+            update.subscribe(model => {
+                this.#changes.commit(newInput);
                 this.alertService.info($localize`Mis à jour`);
                 this.form.patchValue(model);
                 this.postUpdate(model);
-            };
-
-            if (now) {
-                this.service.updateNow(this.data.model).subscribe(postUpdate);
-            } else {
-                this.service.update(this.data.model).subscribe(postUpdate);
-            }
+            });
         });
     }
 
@@ -156,11 +158,11 @@ export class NaturalAbstractDetail<
             return;
         }
 
-        this.formToData();
+        const newInput = this.service.getInput(this.form.value, true);
         this.form.disable();
 
         this.service
-            .create(this.data.model)
+            .create(newInput)
             .pipe(
                 switchMap(model => {
                     this.alertService.info($localize`Créé`);
@@ -253,12 +255,6 @@ export class NaturalAbstractDetail<
     protected initForm(): void {
         this.#isUpdatePage = !!this.data.model.id;
         this.form = this.service.getFormGroup(this.data.model);
-    }
-
-    /**
-     * Merge values of form into `this.data.model`.
-     */
-    protected formToData(): void {
-        mergeWith(this.data.model, this.form.value, mergeOverrideArray);
+        this.#changes.initialize(this.service.getInput(this.form.value, !this.#isUpdatePage));
     }
 }
