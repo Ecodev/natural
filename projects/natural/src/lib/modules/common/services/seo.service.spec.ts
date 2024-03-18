@@ -69,10 +69,10 @@ const routes: Routes = [
         data: {
             // Here we simulate the data structure after the resolve,
             // but in a real app it would be resolved by a proper Resolver
-            model: of({
+            model: {
                 name: 'user name',
                 description: 'user description',
-            }),
+            },
             seo: {
                 resolve: true,
                 robots: 'resolve robots',
@@ -81,6 +81,35 @@ const routes: Routes = [
     },
     {
         path: 'resolve-null-seo',
+        component: TestSimpleComponent,
+        data: {
+            // It might happen that it resolves to nothing at all
+            // This is the case on https://my-ichtus.lan:4300/booking/non-existing
+            model: null,
+            seo: {
+                resolve: true,
+                robots: 'resolve null robots',
+            } satisfies NaturalSeo,
+        },
+    },
+    {
+        path: 'observable-resolve-seo',
+        component: TestSimpleComponent,
+        data: {
+            // Here we simulate the data structure after the resolve,
+            // but in a real app it would be resolved by a proper Resolver
+            model: of({
+                name: 'observable user name',
+                description: 'observable user description',
+            }),
+            seo: {
+                resolve: true,
+                robots: 'resolve robots',
+            } satisfies NaturalSeo,
+        },
+    },
+    {
+        path: 'observable-resolve-null-seo',
         component: TestSimpleComponent,
         data: {
             // It might happen that it resolves to nothing at all
@@ -222,6 +251,20 @@ describe('NaturalSeoService', () => {
             await assertSeo('resolve-null-seo', null, 'my app', undefined, 'resolve null robots');
         });
 
+        it('should update SEO automatically from observable resolve routing', async () => {
+            await assertSeo(
+                'observable-resolve-seo',
+                null,
+                'observable user name - my app',
+                'observable user description',
+                'resolve robots',
+            );
+        });
+
+        it('should update SEO automatically from observable resolve routing even with null resolved', async () => {
+            await assertSeo('observable-resolve-null-seo', null, 'my app', undefined, 'resolve null robots');
+        });
+
         it('should update SEO automatically from callback routing', async () => {
             await assertSeo('callback-seo', null, 'callback title - my app', 'callback description', 'callback robots');
         });
@@ -306,6 +349,26 @@ describe('NaturalSeoService', () => {
         it('should update SEO automatically from resolve routing even with null resolved', async () => {
             await assertSeo(
                 'resolve-null-seo',
+                null,
+                'my extra part - my app',
+                'my default description',
+                'resolve null robots',
+            );
+        });
+
+        it('should update SEO automatically from observable resolve routing', async () => {
+            await assertSeo(
+                'observable-resolve-seo',
+                null,
+                'observable user name - my extra part - my app',
+                'observable user description',
+                'resolve robots',
+            );
+        });
+
+        it('should update SEO automatically from observable resolve routing even with null resolved', async () => {
+            await assertSeo(
+                'observable-resolve-null-seo',
                 null,
                 'my extra part - my app',
                 'my default description',

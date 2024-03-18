@@ -119,12 +119,14 @@ export function stripTags(str: string): string {
     return str.replace(/<\/?[^>]+>/g, '');
 }
 
+type Model = {
+    name?: string;
+    fullName?: string;
+    description?: string;
+};
+
 type ResolvedData = {
-    model?: {
-        name?: string;
-        fullName?: string;
-        description?: string;
-    };
+    model?: Model | Observable<Model>;
 };
 
 /**
@@ -369,11 +371,8 @@ export class NaturalSeoService {
             }
 
             const model = routeData.model;
-            if (!(model instanceof Observable)) {
-                throw new Error('SEO service expect resolved data `model` to be an observable');
-            }
 
-            return model.pipe(
+            return (model instanceof Observable ? model : of(model)).pipe(
                 map(value => {
                     return {
                         title: value?.fullName ?? value?.name ?? '',
