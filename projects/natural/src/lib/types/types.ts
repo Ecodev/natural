@@ -2,6 +2,7 @@ import {PaginatedData} from '../classes/data-source';
 import {NaturalAbstractModelService, VariablesWithInput} from '../services/abstract-model.service';
 import {QueryVariables} from '../classes/query-variable-manager';
 import {ObservedValueOf} from 'rxjs';
+import {ResolveData} from '@angular/router';
 
 /**
  * An object literal with any keys and values
@@ -141,3 +142,23 @@ export type ExtractResolve<P> =
  * service is able to fulfill its requirements.
  */
 export type UntypedModelService = NaturalAbstractModelService<any, any, any, any, any, any, any, any, any, any>;
+
+/**
+ * Returns the resolved data type, as available in components, from the given resolvers
+ *
+ * Eg:
+ *
+ * ```ts
+ * const actionResolvers = {
+ *     model: resolveAction,
+ *     statuses: () => inject(NaturalEnumService).get('Status'),
+ * } as const;
+ *
+ * // In action.component.ts
+ * const data: ResolvedData<typeof actionResolvers>;
+ * data.statuses.forEach(...);
+ * ```
+ */
+export type ResolvedData<T extends ResolveData> = {
+    readonly [KeyType in keyof Pick<T, keyof T>]: ObservedValueOf<ReturnType<Pick<T, keyof T>[KeyType]>>;
+};

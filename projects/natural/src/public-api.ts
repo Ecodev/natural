@@ -25,20 +25,21 @@ export {NaturalPersistenceService, NATURAL_PERSISTENCE_VALIDATOR} from './lib/se
 export * from './lib/services/swiss-parsing-date-adapter.service';
 
 export {
-    Literal,
-    NameOrFullName,
-    ExtractTone,
-    ExtractVone,
+    ExtractResolve,
     ExtractTall,
     ExtractTallOne,
-    ExtractVall,
     ExtractTcreate,
-    ExtractVcreate,
-    ExtractTupdate,
-    ExtractVupdate,
     ExtractTdelete,
+    ExtractTone,
+    ExtractTupdate,
+    ExtractVall,
+    ExtractVcreate,
     ExtractVdelete,
-    ExtractResolve,
+    ExtractVone,
+    ExtractVupdate,
+    Literal,
+    NameOrFullName,
+    ResolvedData,
 } from './lib/types/types';
 
 export * from './lib/modules/alert/public-api';
