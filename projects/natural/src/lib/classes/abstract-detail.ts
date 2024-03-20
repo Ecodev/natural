@@ -78,7 +78,7 @@ export class NaturalAbstractDetail<
      */
     #isUpdatePage = false;
     #modelSub: Subscription | null = null;
-    readonly #changes = new CumulativeChanges<ReturnType<TService['getInput']>>();
+    readonly #changes = new CumulativeChanges<typeof this.form.value>();
 
     public constructor(
         protected readonly key: string,
@@ -127,6 +127,12 @@ export class NaturalAbstractDetail<
         return this.#isUpdatePage;
     }
 
+    /**
+     * Update the object on the server with the values from the form fields that were modified since
+     * the initialization, or since the previous successful update.
+     *
+     * Form fields that are never modified are **not** sent to the server.
+     */
     public update(now = false): void {
         if (!this.isUpdatePage()) {
             return;
@@ -135,15 +141,15 @@ export class NaturalAbstractDetail<
         validateAllFormControls(this.form);
 
         ifValid(this.form).subscribe(() => {
-            const newInput = this.service.getInput(this.form.value, false);
+            const newValues = this.form.value;
             const toSubmit = {
                 id: this.data.model.id,
-                ...this.#changes.differences(newInput),
+                ...this.#changes.differences(newValues),
             };
 
             const update = now ? this.service.updateNow(toSubmit) : this.service.update(toSubmit);
             update.subscribe(model => {
-                this.#changes.commit(newInput);
+                this.#changes.commit(newValues);
                 this.alertService.info($localize`Mis à jour`);
                 this.form.patchValue(model);
                 this.postUpdate(model);
@@ -158,11 +164,11 @@ export class NaturalAbstractDetail<
             return;
         }
 
-        const newInput = this.service.getInput(this.form.value, true);
+        const newValues = this.form.value;
         this.form.disable();
 
         this.service
-            .create(newInput)
+            .create(newValues)
             .pipe(
                 switchMap(model => {
                     this.alertService.info($localize`Créé`);
@@ -255,6 +261,6 @@ export class NaturalAbstractDetail<
     protected initForm(): void {
         this.#isUpdatePage = !!this.data.model.id;
         this.form = this.service.getFormGroup(this.data.model);
-        this.#changes.initialize(this.service.getInput(this.form.value, !this.#isUpdatePage));
+        this.#changes.initialize(this.form.value);
     }
 }
