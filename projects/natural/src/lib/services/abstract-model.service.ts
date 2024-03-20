@@ -454,7 +454,7 @@ export abstract class NaturalAbstractModelService<
             // we could try to remove `startWith()`.
             return onlyNetwork.pipe(map(firstValue => onlyCache.pipe(startWith(firstValue))));
         } else {
-            return of(of(this.getDefaultForServer() as Tone));
+            return of(of(this.getDefaultForServer()));
         }
     }
 
