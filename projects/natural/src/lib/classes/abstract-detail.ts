@@ -78,7 +78,7 @@ export class NaturalAbstractDetail<
      */
     #isUpdatePage = false;
     #modelSub: Subscription | null = null;
-    readonly #changes = new CumulativeChanges<typeof this.form.value>();
+    readonly #changes = new CumulativeChanges<typeof this.form.getRawValue>();
 
     public constructor(
         protected readonly key: string,
@@ -141,7 +141,7 @@ export class NaturalAbstractDetail<
         validateAllFormControls(this.form);
 
         ifValid(this.form).subscribe(() => {
-            const newValues = this.form.value;
+            const newValues = this.form.getRawValue();
             const toSubmit = {
                 id: this.data.model.id,
                 ...this.#changes.differences(newValues),
@@ -164,7 +164,7 @@ export class NaturalAbstractDetail<
             return;
         }
 
-        const newValues = this.form.value;
+        const newValues = this.form.getRawValue();
         this.form.disable();
 
         this.service
@@ -261,6 +261,6 @@ export class NaturalAbstractDetail<
     protected initForm(): void {
         this.#isUpdatePage = !!this.data.model.id;
         this.form = this.service.getFormGroup(this.data.model);
-        this.#changes.initialize(this.form.value);
+        this.#changes.initialize(this.form.getRawValue());
     }
 }
