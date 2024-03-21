@@ -131,9 +131,9 @@ export class NaturalAbstractDetail<
      * Update the object on the server with the values from the form fields that were modified since
      * the initialization, or since the previous successful update.
      *
-     * Form fields that are never modified are **not** sent to the server.
+     * Form fields that are never modified are **not** sent to the server, unless if you specify `submitAllFields`.
      */
-    public update(now = false): void {
+    public update(now = false, submitAllFields = false): void {
         if (!this.isUpdatePage()) {
             return;
         }
@@ -142,6 +142,10 @@ export class NaturalAbstractDetail<
 
         ifValid(this.form).subscribe(() => {
             const newValues = this.form.getRawValue();
+            if (submitAllFields) {
+                this.#changes.initialize({});
+            }
+
             const toSubmit = {
                 id: this.data.model.id,
                 ...this.#changes.differences(newValues),
