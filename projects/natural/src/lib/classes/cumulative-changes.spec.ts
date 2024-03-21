@@ -5,8 +5,8 @@ describe('CumulativeChanges', () => {
     const date1 = new Date('2000-01-02');
     const date1bis = new Date('2000-01-02');
     const date2 = new Date('2000-11-11');
-    const file1 = new File([], 'image.jpg');
-    const file2 = new File([], 'image.jpg');
+    const file1 = new File([], 'image1.jpg');
+    const file2 = new File([], 'image2.jpg');
     let changes: CumulativeChanges<Literal>;
     beforeEach(() => {
         changes = new CumulativeChanges<Literal>();
@@ -96,6 +96,44 @@ describe('CumulativeChanges', () => {
         changes.initialize(object);
         object.a = 2;
         expect(changes.differences(object)).toEqual({a: 2});
+    });
+
+    it('should see diff on same sub-object', () => {
+        const object = {a: {b: 1}};
+        changes.initialize(object);
+        object.a.b = 2;
+        expect(changes.differences(object)).toEqual({a: {b: 2}});
+    });
+
+    it('should see no diff on same sub-object with file', () => {
+        const object = {a: {b: file1}};
+        changes.initialize(object);
+
+        expect(changes.differences(object)).toBeNull();
+    });
+
+    it('should see no diff on equivalent sub-object with same file', () => {
+        changes.initialize({a: {b: file1}});
+
+        expect(changes.differences({a: {b: file1}})).toBeNull();
+    });
+
+    it('should see diff on with different file', () => {
+        changes.initialize({a: {b: file1}});
+
+        expect(changes.differences({a: {b: file2}})).toEqual({a: {b: file2}});
+    });
+
+    it('should see diff for second file after commit', () => {
+        changes.initialize({});
+
+        const input = {files: {fr: file1}};
+        expect(changes.differences(input)).toEqual({files: {fr: file1}});
+
+        changes.commit(input);
+
+        input.files.fr = file2;
+        expect(changes.differences(input)).toEqual({files: {fr: file2}});
     });
 
     it('should commit specific values', () => {

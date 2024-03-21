@@ -1,4 +1,4 @@
-import {isEqual} from 'lodash-es';
+import {cloneDeep, isEqual} from 'lodash-es';
 import {Literal} from '../types/types';
 import {ReadonlyDeep} from 'type-fest';
 
@@ -13,7 +13,7 @@ export class CumulativeChanges<T extends Literal> {
      * Initialize the original values, should be called exactly one time per instance
      */
     public initialize(originalValues: Readonly<T>): void {
-        this.#original = {...originalValues};
+        this.#original = cloneDeep(originalValues);
         this.#diff = {};
     }
 
@@ -47,7 +47,7 @@ export class CumulativeChanges<T extends Literal> {
     public commit(newValues: ReadonlyDeep<T>): void {
         this.#original = {
             ...this.#original,
-            ...newValues,
+            ...cloneDeep(newValues),
         };
 
         Object.keys(newValues).forEach(key => {
