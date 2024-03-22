@@ -242,7 +242,7 @@ export class NaturalSeoService {
 
         // need better like something recursive ?
         if (urlTree.root.hasChildren()) {
-            const segments = urlTree.root.children.primary.segments;
+            const segments = urlTree.root.children.primary?.segments;
             if (segments && segments.length > 0) {
                 url += '/' + segments.map(segment => segment.path).join('/');
             }
