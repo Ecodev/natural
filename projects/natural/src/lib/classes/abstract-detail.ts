@@ -39,7 +39,14 @@ export class NaturalAbstractDetail<
     implements OnInit
 {
     /**
-     * Empty placeholder for data retrieved by the server
+     * Data retrieved by the server via route resolvers.
+     *
+     * The key `model` is special. It is readonly and represents the model being updated
+     * as it exists on server. The value is kept up to date when Apollo mutates it on server.
+     *
+     * The only time when `model` is not readonly is during creation. Only then can we modify the model values directly.
+     *
+     * Other keys, if present, are whatever is returned from route resolvers as-is.
      */
     public override data: Data<TService, ExtraResolve> = {
         model: this.service.getDefaultForServer(),
