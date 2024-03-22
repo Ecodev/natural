@@ -11,6 +11,7 @@ import {makePlural, mergeOverrideArray, relationsToIds, upperCaseFirstLetter} fr
 import {PaginatedData} from '../classes/data-source';
 import {NaturalDebounceService} from './debounce.service';
 import {ApolloQueryResult} from '@apollo/client/core/types';
+import {deepClone} from '../modules/search/classes/utils';
 
 export type FormValidators = Record<string, ValidatorFn[]>;
 
@@ -143,7 +144,7 @@ export abstract class NaturalAbstractModelService<
      * `getFormGroupValidators`, `getFormGroupAsyncValidators` might be.
      */
     public getFormGroup(model: Literal): UntypedFormGroup {
-        const formConfig = this.getFormConfig(model);
+        const formConfig = this.getFormConfig(deepClone(model));
         return new UntypedFormGroup(formConfig, {
             validators: this.getFormGroupValidators(model),
             asyncValidators: this.getFormGroupAsyncValidators(model),
