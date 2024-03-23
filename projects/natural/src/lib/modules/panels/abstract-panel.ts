@@ -1,8 +1,8 @@
 import {Directive, HostBinding, HostListener} from '@angular/core';
-import {merge} from 'lodash-es';
 import {NaturalAbstractController} from '../../classes/abstract-controller';
 import {NaturalPanelsService} from './panels.service';
 import {NaturalPanelData} from './types';
+import {Observable, Subscription, takeUntil} from 'rxjs';
 
 @Directive()
 export class NaturalAbstractPanel extends NaturalAbstractController {
@@ -11,6 +11,7 @@ export class NaturalAbstractPanel extends NaturalAbstractController {
      * When loading a component from a panel opening (dialog), receives the data provided by the service
      */
     public data: any = {};
+    #modelSubscription: Subscription | null = null;
 
     /**
      * Bind isFrontPanel style class on root component
@@ -48,7 +49,24 @@ export class NaturalAbstractPanel extends NaturalAbstractController {
         this.isPanel = true;
 
         if (this.panelData?.data) {
-            merge(this.data, this.panelData.data);
+            if (this.panelData.data.model instanceof Observable) {
+                // Subscribe to model to know when Apollo cache is changed, so we can reflect it into `data.model`
+                this.#modelSubscription?.unsubscribe();
+                this.#modelSubscription = this.panelData.data.model
+                    .pipe(takeUntil(this.ngUnsubscribe))
+                    .subscribe(model => {
+                        this.data = {
+                            ...this.data,
+                            ...this.panelData?.data,
+                            model: model,
+                        };
+                    });
+            } else {
+                this.data = {
+                    ...this.data,
+                    ...this.panelData.data,
+                };
+            }
         }
     }
 }

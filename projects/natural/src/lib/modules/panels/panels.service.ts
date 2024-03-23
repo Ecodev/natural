@@ -5,7 +5,6 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ActivatedRoute, DefaultUrlSerializer, NavigationError, Router, UrlSegment} from '@angular/router';
 import {differenceWith, flatten, isEqual} from 'lodash-es';
 import {forkJoin, Observable, of, Subject, Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {NaturalAbstractPanel} from './abstract-panel';
 import {getStackConfig} from './panels.urlmatcher';
 import {
@@ -280,7 +279,7 @@ export class NaturalPanelsService {
         const subject = new Subject<Observable<any> | null>();
 
         // Resolve everything before opening a single panel
-        const resolves = newItemsConfig.map((conf: NaturalPanelConfig) => this.getResolvedData(conf));
+        const resolves = newItemsConfig.map(conf => this.getResolvedData(conf));
 
         // ForkJoin emits when all promises are executed;
         forkJoin(resolves).subscribe(resolvedResult => {
@@ -334,11 +333,7 @@ export class NaturalPanelsService {
             });
         }
 
-        return forkJoin(resolvedData).pipe(
-            map(result => {
-                return (result as any).model || result;
-            }),
-        );
+        return forkJoin(resolvedData);
     }
 
     private openPanel(componentOrTemplateRef: ComponentType<NaturalAbstractPanel>, data: NaturalPanelData): void {
