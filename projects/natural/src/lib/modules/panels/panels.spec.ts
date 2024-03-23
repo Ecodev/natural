@@ -1,5 +1,4 @@
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
 import {
     NaturalAbstractPanel,
     NaturalPanelData,
@@ -10,9 +9,9 @@ import {
     providePanels,
 } from '@ecodev/natural';
 import {Component, inject, Injector, ViewChild} from '@angular/core';
-import {Router, RouterOutlet, Routes, UrlSegment} from '@angular/router';
+import {provideRouter, Router, RouterOutlet, Routes, UrlSegment} from '@angular/router';
 import {Observable, of} from 'rxjs';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 import {MatDialog} from '@angular/material/dialog';
 import {fallbackIfNoOpenedPanels} from './fallback-if-no-opened-panels.urlmatcher';
 
@@ -156,8 +155,7 @@ describe('Panels', () => {
 
     async function configure(routes: Routes): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule.withRoutes(routes)],
-            providers: [providePanels({}), naturalProviders],
+            providers: [provideNoopAnimations(), provideRouter(routes), providePanels({}), naturalProviders],
         }).compileComponents();
 
         rootFixture = TestBed.createComponent(TestRootComponent);

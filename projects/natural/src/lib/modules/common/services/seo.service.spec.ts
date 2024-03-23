@@ -8,9 +8,8 @@ import {
     NaturalSeoService,
 } from '@ecodev/natural';
 import {stripTags} from './seo.service';
-import {RouterTestingModule} from '@angular/router/testing';
 import {Component} from '@angular/core';
-import {Router, Routes} from '@angular/router';
+import {provideRouter, Router, Routes} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
 import {of} from 'rxjs';
 
@@ -209,8 +208,8 @@ describe('NaturalSeoService', () => {
 
     async function configure(config: NaturalSeoConfig): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes(routes)],
             providers: [
+                provideRouter(routes),
                 {
                     provide: NATURAL_SEO_CONFIG,
                     useValue: config,

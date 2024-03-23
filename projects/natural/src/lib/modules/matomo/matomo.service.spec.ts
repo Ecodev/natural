@@ -6,9 +6,8 @@ import {
     NaturalSeoConfig,
     NaturalSeoService,
 } from '@ecodev/natural';
-import {RouterTestingModule} from '@angular/router/testing';
 import {Component} from '@angular/core';
-import {Router, Routes} from '@angular/router';
+import {provideRouter, Router, Routes} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
 import {PaqItem} from './matomo.service';
 
@@ -47,8 +46,8 @@ describe('NaturalMatomoService', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes(routes)],
             providers: [
+                provideRouter(routes),
                 {
                     provide: NATURAL_SEO_CONFIG,
                     useValue: {

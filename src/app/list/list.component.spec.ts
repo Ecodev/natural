@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {Router, Routes} from '@angular/router';
-import {RouterTestingModule} from '@angular/router/testing';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
+import {provideRouter, Router, Routes} from '@angular/router';
 import {
     memorySessionStorageProvider,
     NaturalPersistenceService,
@@ -59,8 +58,9 @@ describe('Demo ListComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule.withRoutes(routes)],
             providers: [
+                provideNoopAnimations(),
+                provideRouter(routes),
                 naturalProviders,
                 MockApolloProvider,
                 {
