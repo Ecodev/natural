@@ -1,4 +1,3 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {concat, concatWith, NEVER, Observable, of} from 'rxjs';
@@ -8,7 +7,6 @@ import {FormValidators, NaturalAbstractModelService} from '../services/abstract-
 import {delay, switchMap} from 'rxjs/operators';
 import {deepFreeze, Literal} from '@ecodev/natural';
 import {deepClone} from '../modules/search/classes/utils';
-import {NaturalDebounceService} from '../services/debounce.service';
 
 export type Item = {
     readonly __typename: 'Item';
@@ -40,8 +38,8 @@ export class ItemService extends NaturalAbstractModelService<
     private readonly cachedPaginatedItems = new Cache<PaginatedData<Item>>();
     private readonly cachedCount = new Cache<number>();
 
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
-        super(apollo, naturalDebounceService, 'user', null, null, null, null, null);
+    public constructor() {
+        super('user', null, null, null, null, null);
     }
 
     public getItem(withChildren = false, parentsDeep = 0, wantedId?: string): Item {

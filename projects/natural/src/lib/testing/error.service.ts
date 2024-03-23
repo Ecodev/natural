@@ -1,4 +1,3 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {Observable, timer} from 'rxjs';
 import {PaginatedData} from '../classes/data-source';
@@ -6,7 +5,6 @@ import {QueryVariables} from '../classes/query-variable-manager';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {map} from 'rxjs/operators';
 import {Item} from './item.service';
-import {NaturalDebounceService} from '../services/debounce.service';
 
 function error(method: string): Observable<any> {
     return timer(1000).pipe(
@@ -31,8 +29,8 @@ export class ErrorService extends NaturalAbstractModelService<
     never,
     never
 > {
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
-        super(apollo, naturalDebounceService, 'user', null, null, null, null, null);
+    public constructor() {
+        super('user', null, null, null, null, null);
     }
 
     public override watchAll(): Observable<PaginatedData<Item>> {

@@ -1,15 +1,7 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
-import {
-    FileModel,
-    Literal,
-    NaturalAbstractModelService,
-    NaturalDebounceService,
-    PaginatedData,
-    QueryVariables,
-} from '@ecodev/natural';
+import {FileModel, Literal, NaturalAbstractModelService, PaginatedData, QueryVariables} from '@ecodev/natural';
 
 @Injectable({
     providedIn: 'root',
@@ -28,8 +20,8 @@ export class FileService extends NaturalAbstractModelService<
 > {
     private id = 1;
 
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
-        super(apollo, naturalDebounceService, 'user', null, null, null, null, null);
+    public constructor() {
+        super('user', null, null, null, null, null);
     }
 
     public getFileModel(): FileModel {

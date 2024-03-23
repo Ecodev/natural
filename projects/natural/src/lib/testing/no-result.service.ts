@@ -1,10 +1,8 @@
-import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {PaginatedData} from '../classes/data-source';
 import {delay} from 'rxjs/operators';
 import {Item, ItemService} from './item.service';
-import {NaturalDebounceService} from '../services/debounce.service';
 
 /**
  * A service that has no items
@@ -13,10 +11,6 @@ import {NaturalDebounceService} from '../services/debounce.service';
     providedIn: 'root',
 })
 export class NoResultService extends ItemService {
-    public constructor(apollo: Apollo, naturalDebounceService: NaturalDebounceService) {
-        super(apollo, naturalDebounceService);
-    }
-
     public override watchAll(): Observable<PaginatedData<Item>> {
         return of({
             items: [],

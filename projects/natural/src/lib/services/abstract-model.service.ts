@@ -12,6 +12,7 @@ import {PaginatedData} from '../classes/data-source';
 import {NaturalDebounceService} from './debounce.service';
 import {ApolloQueryResult} from '@apollo/client/core/types';
 import {deepClone} from '../modules/search/classes/utils';
+import {inject} from '@angular/core';
 
 export type FormValidators = Record<string, ValidatorFn[]>;
 
@@ -41,10 +42,10 @@ export abstract class NaturalAbstractModelService<
      * Store the creation mutations that are pending
      */
     private readonly creatingCache = new Map<Vcreate['input'] | WithId<Vupdate['input']>, Observable<Tcreate>>();
+    protected readonly apollo = inject(Apollo);
+    protected readonly naturalDebounceService = inject(NaturalDebounceService);
 
     public constructor(
-        protected readonly apollo: Apollo,
-        protected readonly naturalDebounceService: NaturalDebounceService,
         protected readonly name: string,
         protected readonly oneQuery: DocumentNode | null,
         protected readonly allQuery: DocumentNode | null,
