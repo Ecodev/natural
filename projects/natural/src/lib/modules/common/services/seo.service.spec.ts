@@ -209,7 +209,7 @@ describe('NaturalSeoService', () => {
 
     async function configure(config: NaturalSeoConfig): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes(routes, {enableTracing: true})],
+            imports: [RouterTestingModule.withRoutes(routes)],
             providers: [
                 {
                     provide: NATURAL_SEO_CONFIG,
