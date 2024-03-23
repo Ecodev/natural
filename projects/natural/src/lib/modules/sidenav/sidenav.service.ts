@@ -18,7 +18,7 @@ function assert<T>(value: T): asserts value {
 }
 
 /**
- * @TODO : Fix nav minimize and maximize resize
+ * TODO: Fix nav minimize and maximize resize
  * Since Material 2 beta 10, when nav is resized the body is not resized
  * https://github.com/angular/material2/issues/6743
  * Maybe the better is to wait next release
