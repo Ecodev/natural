@@ -5,7 +5,7 @@ import {PaginatedData} from '../classes/data-source';
 import {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
 import {FormValidators, NaturalAbstractModelService} from '../services/abstract-model.service';
 import {delay, switchMap} from 'rxjs/operators';
-import {deepFreeze, Literal} from '@ecodev/natural';
+import {deepFreeze} from '@ecodev/natural';
 import {deepClone} from '../modules/search/classes/utils';
 
 export type Item = {
@@ -120,7 +120,7 @@ export class ItemService extends NaturalAbstractModelService<
         );
     }
 
-    protected override getFormExtraFieldDefaultValues(): Literal {
+    public override getDefaultForServer(): ItemInput {
         return {
             name: '',
             description: '',
@@ -145,11 +145,12 @@ export class ItemService extends NaturalAbstractModelService<
         return of(result).pipe(delay(500), concatWith(NEVER));
     }
 
-    public override create(object: Item): Observable<Item> {
-        return of({...object, id: this.id++ as any}).pipe(delay(500));
+    public override create(object: ItemInput): Observable<Item> {
+        return of({...object, id: this.id++ as unknown as string, __typename: 'Item'} as Item).pipe(delay(500));
     }
 
-    public override delete(): Observable<boolean> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public override delete(objects: {id: string}[]): Observable<boolean> {
         return of(true).pipe(delay(500));
     }
 }
