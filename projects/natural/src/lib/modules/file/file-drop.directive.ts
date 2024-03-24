@@ -13,8 +13,9 @@ import {takeUntil, throttleTime} from 'rxjs/operators';
  *
  * In most cases you probably also want click-to-select, so you should use:
  *
- *     <div naturalFileDrop [selectable]="true"></div>
- *
+ * ```html
+ * <div naturalFileDrop [selectable]="true"></div>
+ * ```
  */
 @Directive({
     selector: ':not([naturalFileSelect])[naturalFileDrop]',
