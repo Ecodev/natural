@@ -5,7 +5,7 @@ import {Literal, NaturalAbstractDetail, NaturalAlertService} from '@ecodev/natur
 import {Component, Injectable} from '@angular/core';
 import {Data, provideRouter, Router} from '@angular/router';
 import {RouterTestingHarness} from '@angular/router/testing';
-import {of} from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Component({
@@ -98,6 +98,24 @@ describe('NaturalAbstractDetail', () => {
         await harness.fixture.whenStable();
 
         expect(detail.data).toEqual({model: model});
+    });
+
+    it('should receive updated of model this.data', async () => {
+        const model$ = new BehaviorSubject(model);
+        await configure({model: model$});
+        detail.ngOnInit();
+        await harness.fixture.whenStable();
+
+        expect(detail.data.model.name).toEqual('foo');
+        expect(detail.form.controls.name.value).toEqual('foo');
+
+        const model2 = {id: '123', name: 'updated name'} as Item;
+        model$.next(model2);
+
+        expect(detail.data.model.name).toEqual('updated name');
+        expect(detail.form.controls.name.value)
+            .withContext('form must not be reinitialized whenever model is mutated')
+            .toEqual('foo');
     });
 
     it('should populate this.data, also with other keys', async () => {

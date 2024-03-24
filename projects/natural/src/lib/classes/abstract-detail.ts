@@ -6,7 +6,7 @@ import {NaturalAlertService} from '../modules/alert/alert.service';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {ExtractResolve, ExtractTcreate, ExtractTone, ExtractTupdate, Literal} from '../types/types';
-import {EMPTY, endWith, finalize, last, Observable, Subscription, switchMap, takeUntil} from 'rxjs';
+import {EMPTY, endWith, finalize, last, Observable, switchMap, tap} from 'rxjs';
 import {ifValid, validateAllFormControls} from './validators';
 import {PaginatedData} from './data-source';
 import {QueryVariables} from './query-variable-manager';
@@ -84,7 +84,6 @@ export class NaturalAbstractDetail<
      * model from DB (by navigating to update page).
      */
     #isUpdatePage = false;
-    #modelSub: Subscription | null = null;
     readonly #changes = new CumulativeChanges<typeof this.form.getRawValue>();
 
     public constructor(
@@ -95,33 +94,45 @@ export class NaturalAbstractDetail<
     }
 
     public ngOnInit(): void {
-        if (!this.isPanel) {
-            this.route.data.subscribe(incomingData => {
-                if (!(incomingData.model instanceof Observable)) {
-                    throw new Error(
-                        'Resolved data must include the key `model`, and it must be an observable (usually one from Apollo).',
-                    );
-                }
-
-                // Subscribe to model to know when Apollo cache is changed, so we can reflect it into `data.model`
-                this.#modelSub?.unsubscribe();
-                this.#modelSub = incomingData.model
-                    .pipe(takeUntil(this.ngUnsubscribe))
-                    .subscribe((model: ExtractResolve<TService>) => {
-                        this.data = {
-                            ...incomingData,
-                            model: model,
-                        } as Data<TService, ExtraResolve>;
-                    });
-                this.initForm();
-            });
-        } else {
+        if (this.isPanel) {
             this.initForm();
+        } else {
+            this.#subscribeToModelFromResolvedData(this.route);
         }
     }
 
     public changeTab(index: number): void {
         this.showFabButton = index === 0;
+    }
+
+    #subscribeToModelFromResolvedData(route: ActivatedRoute): void {
+        let firstTime = true;
+        route.data
+            .pipe(
+                switchMap(data => {
+                    if (!(data.model instanceof Observable)) {
+                        throw new Error(
+                            'Resolved data must include the key `model`, and it must be an observable (usually one from Apollo).',
+                        );
+                    }
+
+                    // Subscribe to model to know when Apollo cache is changed, so we can reflect it into `data.model`
+                    return data.model.pipe(
+                        tap((model: ExtractResolve<TService>) => {
+                            this.data = {
+                                ...data,
+                                model: model,
+                            } as Data<TService, ExtraResolve>;
+
+                            if (firstTime) {
+                                firstTime = false;
+                                this.initForm();
+                            }
+                        }),
+                    );
+                }),
+            )
+            .subscribe();
     }
 
     /**
