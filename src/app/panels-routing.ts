@@ -24,4 +24,11 @@ export const panelsRoutes: NaturalPanelsRouterRule[] = [
         component: AnyComponent,
         resolve: {foo: resolveMy},
     },
+    {
+        path: 'modelPanel/:param',
+        component: AnyComponent,
+        resolve: {
+            model: route => inject(ItemService).resolve(route.params.param),
+        },
+    },
 ];
