@@ -98,12 +98,23 @@ describe('NaturalAbstractModelService', () => {
             result?.subscribe(v => (actual = v));
             tick(1000);
 
-            // The input must have been mutated with whatever is coming from API
-            expect(actual).toBe(object);
+            // The input must have been left untouched
+            expect(object).toEqual({
+                slug: 'foo',
+                blog: '123',
+            });
 
-            // The result must be merged into the original object
-            expect(Object.keys(object)).toContain('id');
-            expect(Object.keys(object)).toContain('creationDate');
+            // The result is straight from API, wihtout any modification on the way
+            expect(actual).toEqual({
+                id: '456',
+                slug: 'test string',
+                creationDate: 'test string',
+                __typename: 'Post',
+            });
+
+            // The result must **not** be merged into the original object
+            expect(Object.keys(object)).not.toContain('id');
+            expect(Object.keys(object)).not.toContain('creationDate');
         }));
 
         it('should not create with observable', fakeAsync(() => {
@@ -216,34 +227,34 @@ describe('NaturalAbstractModelService', () => {
         }));
 
         it('should create or update', fakeAsync(() => {
-            const object: PostInput & {id?: string} = {
+            const input: PostInput & {id?: string} = {
                 slug: 'foo',
                 blog: '123',
             };
 
-            // Create, should receive temporary id immediately
-            const creation = service.createOrUpdate(object, true);
-            creation.subscribe();
+            let creationResult: any;
+            const creation = service.createOrUpdate(input, true);
+            creation.subscribe(v => (creationResult = v));
 
             // After create, should be usual object after creation
             tick();
-            expect(object.id).toEqual('456');
-            expect('updateDate' in object).toBeFalse();
+            expect(creationResult.id).toEqual('456');
+            expect('updateDate' in creationResult).toBeFalse();
 
             // Create or update again
-            const update = service.createOrUpdate(object, true);
-            expect('updateDate' in object).toBeFalse();
-            update.subscribe();
+            let updateResult: any;
+            const update = service.createOrUpdate(creationResult, true);
+            update.subscribe(v => (updateResult = v));
 
             // should show created + updated objects merged
             tick();
-            expect('updateDate' in object).toBeTrue();
+            expect('updateDate' in updateResult).toBeTrue();
 
             flush();
         }));
 
         it('should wait for the first creation, then update the object', fakeAsync(() => {
-            const object: PostInput & {id?: string} = {
+            const input: PostInput = {
                 slug: 'foo',
                 blog: '123',
             };
@@ -252,24 +263,34 @@ describe('NaturalAbstractModelService', () => {
             let repeatedResult: any = null;
 
             // Create, should be cached
-            const creation = service.createOrUpdate(object, true);
+            const creation = service.createOrUpdate(input, true);
             creation.subscribe(res => (result = res));
 
             // Repeated create should wait for the first creation, then update the object
-            const repeatedCreation = service.createOrUpdate(object, true);
+            const repeatedCreation = service.createOrUpdate(input, true);
             repeatedCreation.subscribe(res => (repeatedResult = res));
 
             tick(5000);
 
-            // After create, both result must be the exact same object (and not a clone)
-            expect(result).not.toBeNull();
-            expect(result.id).toEqual('456');
-            expect('updateDate' in result).toBeTrue();
-            expect(repeatedResult).not.toBeNull();
-            expect(repeatedResult).toBe(result);
+            // After create, both result must be similar, but not equals
+            expect(result).toEqual({
+                id: '456',
+                slug: 'test string',
+                creationDate: 'test string',
+                __typename: 'Post',
+            });
+            expect(repeatedResult).toEqual({
+                id: '456',
+                slug: 'test string',
+                updateDate: 'test string',
+                __typename: 'Post',
+            });
 
-            // After create, object should be equivalent to result
-            expect(object).toEqual(result);
+            // After create, input is **not** changed
+            expect(input).toEqual({
+                slug: 'foo',
+                blog: '123',
+            });
         }));
 
         it('should count existing values', fakeAsync(() => {

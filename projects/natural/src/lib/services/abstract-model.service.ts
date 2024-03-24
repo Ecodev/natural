@@ -2,12 +2,12 @@ import {Apollo, gql, MutationResult} from 'apollo-angular';
 import {FetchResult, NetworkStatus, WatchQueryFetchPolicy} from '@apollo/client/core';
 import {AbstractControl, AsyncValidatorFn, UntypedFormControl, UntypedFormGroup, ValidatorFn} from '@angular/forms';
 import {DocumentNode} from 'graphql';
-import {defaults, merge, mergeWith, pick} from 'lodash-es';
+import {defaults, merge, pick} from 'lodash-es';
 import {catchError, combineLatest, EMPTY, first, from, Observable, of, OperatorFunction} from 'rxjs';
 import {debounceTime, filter, map, shareReplay, startWith, switchMap, takeWhile, tap} from 'rxjs/operators';
 import {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
 import {Literal} from '../types/types';
-import {makePlural, mergeOverrideArray, relationsToIds, upperCaseFirstLetter} from '../classes/utility';
+import {makePlural, relationsToIds, upperCaseFirstLetter} from '../classes/utility';
 import {PaginatedData} from '../classes/data-source';
 import {NaturalDebounceService} from './debounce.service';
 import {ApolloQueryResult} from '@apollo/client/core/types';
@@ -285,10 +285,7 @@ export abstract class NaturalAbstractModelService<
      * Uses regular update/updateNow and create methods.
      * Used mainly when editing multiple objects in same controller (like in editable arrays)
      */
-    public createOrUpdate(
-        object: Vcreate['input'] | WithId<Vupdate['input']>,
-        now = false,
-    ): Observable<Tcreate | Tupdate> {
+    public createOrUpdate(object: Vcreate['input'] | Vupdate['input'], now = false): Observable<Tcreate | Tupdate> {
         this.throwIfObservable(object);
         this.throwIfNotQuery(this.createMutation);
         this.throwIfNotQuery(this.updateMutation);
@@ -297,8 +294,8 @@ export abstract class NaturalAbstractModelService<
         const pendingCreation = this.creatingCache.get(object);
         if (pendingCreation) {
             return pendingCreation.pipe(
-                switchMap(() => {
-                    return this.update(object as WithId<Vupdate['input']>);
+                switchMap(created => {
+                    return this.update({id: (created as WithId<Tcreate>).id, ...object});
                 }),
             );
         }
@@ -348,13 +345,7 @@ export abstract class NaturalAbstractModelService<
             .pipe(
                 map(result => {
                     this.apollo.client.reFetchObservableQueries();
-                    const newObject = this.mapCreation(result);
-
-                    if (newObject) {
-                        return mergeWith(object, newObject, mergeOverrideArray);
-                    } else {
-                        return newObject;
-                    }
+                    return this.mapCreation(result);
                 }),
             );
     }
@@ -395,9 +386,7 @@ export abstract class NaturalAbstractModelService<
             .pipe(
                 map(result => {
                     this.apollo.client.reFetchObservableQueries();
-                    const mappedResult = this.mapUpdate(result);
-
-                    return mergeWith(object, mappedResult, mergeOverrideArray);
+                    return this.mapUpdate(result);
                 }),
             );
     }
