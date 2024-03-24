@@ -11,12 +11,25 @@ import {ifValid, validateAllFormControls} from './validators';
 import {PaginatedData} from './data-source';
 import {QueryVariables} from './query-variable-manager';
 import {CumulativeChanges} from './cumulative-changes';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {NaturalDialogTriggerProvidedData} from '../modules/dialog-trigger/dialog-trigger.component';
 
 /**
  * `Data` contains in `model` either the model fetched from DB or default values (without ID). And besides `model`,
  * any other extra keys defined by Extra.
  */
 type Data<TService, Extra> = {model: {id?: string} & ExtractResolve<TService>} & Extra;
+
+function isNaturalDialogTriggerProvidedData(
+    dialogData: unknown,
+): dialogData is NaturalDialogTriggerProvidedData<never> {
+    return (
+        !!dialogData &&
+        typeof dialogData === 'object' &&
+        'activatedRoute' in dialogData &&
+        dialogData.activatedRoute instanceof ActivatedRoute
+    );
+}
 
 // @dynamic
 @Directive()
@@ -78,6 +91,8 @@ export class NaturalAbstractDetail<
      */
     protected readonly route = inject(ActivatedRoute);
 
+    #dialogData: unknown = inject(MAT_DIALOG_DATA, {optional: true});
+
     /**
      * Once set, this must not change anymore, especially not right after the creation mutation,
      * so the form does not switch from creation mode to update mode without an actual reload of
@@ -97,7 +112,10 @@ export class NaturalAbstractDetail<
         if (this.isPanel) {
             this.initForm();
         } else {
-            this.#subscribeToModelFromResolvedData(this.route);
+            const route = isNaturalDialogTriggerProvidedData(this.#dialogData)
+                ? this.#dialogData.activatedRoute
+                : this.route;
+            this.#subscribeToModelFromResolvedData(route);
         }
     }
 
