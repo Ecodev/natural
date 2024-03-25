@@ -285,7 +285,10 @@ export abstract class NaturalAbstractModelService<
      * Uses regular update/updateNow and create methods.
      * Used mainly when editing multiple objects in same controller (like in editable arrays)
      */
-    public createOrUpdate(object: Vcreate['input'] | Vupdate['input'], now = false): Observable<Tcreate | Tupdate> {
+    public createOrUpdate(
+        object: Vcreate['input'] | WithId<Vupdate['input']>,
+        now = false,
+    ): Observable<Tcreate | Tupdate> {
         this.throwIfObservable(object);
         this.throwIfNotQuery(this.createMutation);
         this.throwIfNotQuery(this.updateMutation);
@@ -295,7 +298,10 @@ export abstract class NaturalAbstractModelService<
         if (pendingCreation) {
             return pendingCreation.pipe(
                 switchMap(created => {
-                    return this.update({id: (created as WithId<Tcreate>).id, ...object});
+                    return this.update({
+                        id: (created as WithId<Tcreate>).id,
+                        ...(object as Vcreate['input']),
+                    });
                 }),
             );
         }
