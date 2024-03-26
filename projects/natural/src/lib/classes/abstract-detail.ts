@@ -191,7 +191,6 @@ export class NaturalAbstractDetail<
             update.subscribe(model => {
                 this.#changes.commit(newValues);
                 this.alertService.info($localize`Mis à jour`);
-                this.form.patchValue(model);
                 this.postUpdate(model);
             });
         });
@@ -212,7 +211,6 @@ export class NaturalAbstractDetail<
             .pipe(
                 switchMap(model => {
                     this.alertService.info($localize`Créé`);
-                    this.form.patchValue(model);
 
                     return this.postCreate(model).pipe(endWith(model), last());
                 }),

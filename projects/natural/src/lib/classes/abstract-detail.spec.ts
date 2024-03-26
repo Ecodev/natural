@@ -38,7 +38,7 @@ describe('NaturalAbstractDetail', () => {
     let service: ItemService;
     let harness: RouterTestingHarness;
     let router: Router;
-    const model = {id: '123', name: 'foo'} as Item;
+    const model = {id: '123', name: 'my name'} as Item;
     const serverResponse = {id: '123', name: 'from server'} as Item;
 
     async function configure(data: Data | undefined, a: typeof ItemService = ItemService): Promise<void> {
@@ -106,8 +106,8 @@ describe('NaturalAbstractDetail', () => {
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
-        expect(detail.data.model.name).toEqual('foo');
-        expect(detail.form.controls.name.value).toEqual('foo');
+        expect(detail.data.model.name).toEqual('my name');
+        expect(detail.form.controls.name.value).toEqual('my name');
 
         const model2 = {id: '123', name: 'updated name'} as Item;
         model$.next(model2);
@@ -115,7 +115,7 @@ describe('NaturalAbstractDetail', () => {
         expect(detail.data.model.name).toEqual('updated name');
         expect(detail.form.controls.name.value)
             .withContext('form must not be reinitialized whenever model is mutated')
-            .toEqual('foo');
+            .toEqual('my name');
     });
 
     it('should populate this.data, also with other keys', async () => {
@@ -137,7 +137,7 @@ describe('NaturalAbstractDetail', () => {
         await harness.fixture.whenStable();
 
         expect(detail.form.value).toEqual({
-            name: 'foo',
+            name: 'my name',
             description: '',
             children: [],
             parent: null,
@@ -182,7 +182,7 @@ describe('NaturalAbstractDetail', () => {
         detail.update(false, true);
         expect(spy).toHaveBeenCalledOnceWith({
             id: '123',
-            name: 'foo',
+            name: 'my name',
             description: '',
             children: [],
             parent: null,
@@ -200,7 +200,7 @@ describe('NaturalAbstractDetail', () => {
         detail.update(true, true);
         expect(spy).toHaveBeenCalledOnceWith({
             id: '123',
-            name: 'foo',
+            name: 'my name',
             description: '',
             children: [],
             parent: null,
@@ -231,7 +231,7 @@ describe('NaturalAbstractDetail', () => {
         await harness.fixture.whenStable();
         expect(spy).toHaveBeenCalledOnceWith({
             id: '123', // This is an extra property that shouldn't really be there, but it's ok to have it because it has no effect
-            name: 'foo',
+            name: 'my name',
             description: '',
             children: [],
             parent: null,
@@ -312,7 +312,7 @@ describe('NaturalAbstractDetail', () => {
         await harness.fixture.whenStable();
 
         expect(detail.form.value).toEqual({
-            name: 'foo',
+            name: 'my name',
             description: '',
             children: [],
             parent: null,
@@ -323,5 +323,37 @@ describe('NaturalAbstractDetail', () => {
         const spy = spyOn(service, 'update').and.callFake(() => of(serverResponse));
         detail.update();
         expect(spy).toHaveBeenCalledOnceWith({id: '123', extraField: 'new value'} as any);
+    });
+
+    it('should not automatically merge server response back into this.form after update', async () => {
+        await configure({
+            model: of(model),
+        });
+        detail.ngOnInit();
+        await harness.fixture.whenStable();
+
+        const spy = spyOn(service, 'update').and.callFake(() => of(serverResponse));
+        detail.update();
+        expect(spy).toHaveBeenCalledOnceWith({id: '123'});
+        expect(detail.form.controls.name.value).toEqual('my name');
+    });
+
+    it('should not automatically merge server response back into this.form after creation', async () => {
+        await configure({
+            model: of(model),
+        });
+        detail.ngOnInit();
+        await harness.fixture.whenStable();
+
+        const spy = spyOn(service, 'create').and.callFake(() => of(serverResponse));
+        detail.create();
+        expect(spy).toHaveBeenCalledOnceWith({
+            id: '123', // This is an extra property that shouldn't really be there, but it's ok to have it because it has no effect
+            name: 'my name',
+            description: '',
+            children: [],
+            parent: null,
+        } as ItemInput);
+        expect(detail.form.controls.name.value).toEqual('my name');
     });
 });
