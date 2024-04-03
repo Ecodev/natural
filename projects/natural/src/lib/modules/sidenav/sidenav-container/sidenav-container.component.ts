@@ -1,5 +1,5 @@
 import {Component, HostBinding, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatDrawer, MatSidenav, MatSidenavContainer, MatSidenavModule} from '@angular/material/sidenav';
+import {MatDrawer, MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import {NaturalSidenavService} from '../sidenav.service';
 import {CommonModule} from '@angular/common';
 
@@ -40,11 +40,6 @@ export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
     @HostBinding('attr.no-scroll') @Input() public noScroll = false;
 
     /**
-     * Inner "native" material sidenav container
-     */
-    @ViewChild(MatSidenavContainer, {static: true}) private menuContainer!: MatSidenavContainer;
-
-    /**
      * Inner "native" material sidenav
      */
     @ViewChild(MatSidenav, {static: true}) public menuSidenav!: MatSidenav;
@@ -60,7 +55,7 @@ export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.sidenavService.init(this.name, this.menuContainer, this.menuSidenav, this, this.mobileAutoClose);
+        this.sidenavService.init(this.name, this, this.mobileAutoClose);
     }
 
     public ngOnDestroy(): void {

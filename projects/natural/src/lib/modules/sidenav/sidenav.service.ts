@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {MediaObserver} from '@ngbracket/ngx-layout';
-import {MatDrawer, MatDrawerContainer, MatDrawerMode} from '@angular/material/sidenav';
+import {MatDrawerMode} from '@angular/material/sidenav';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter, takeUntil} from 'rxjs/operators';
 import {NaturalAbstractController} from '../../classes/abstract-controller';
@@ -91,13 +91,7 @@ export class NaturalSidenavService extends NaturalAbstractController {
         this.naturalSidenavStackService.unregister(component);
     }
 
-    public init(
-        name: string,
-        container: MatDrawerContainer,
-        drawer: MatDrawer,
-        component: NaturalSidenavContainerComponent,
-        autoClose = false,
-    ): void {
+    public init(name: string, component: NaturalSidenavContainerComponent, autoClose = false): void {
         if (!name || name === '') {
             throw new Error('No sidenav name provided, use <natural-sidenav-container name="menu">');
         }
