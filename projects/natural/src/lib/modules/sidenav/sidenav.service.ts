@@ -195,7 +195,11 @@ export class NaturalSidenavService extends NaturalAbstractController {
         assert(this.openedStorageKeyWithName);
         const value = this.sessionStorage.getItem(this.openedStorageKeyWithName);
 
-        return value === null || value === 'true';
+        if (value === null) {
+            return !this.isMobileView();
+        } else {
+            return value === 'true';
+        }
     }
 
     /**
