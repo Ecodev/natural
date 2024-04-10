@@ -13,10 +13,8 @@
             />
         </mat-option>
     }
-    @if (moreNbItems > 0) {
-        <div class="mat-caption" i18n style="padding: 5px 10px"
-            >Tapez pour chercher parmis les {{ moreNbItems }} elements</div
-        >
+    @if (hasMoreItems) {
+        <div class="mat-caption" i18n style="padding: 5px 10px">Saisir pour chercher parmi {{ nbTotal }} résultats</div>
     }
 </mat-autocomplete>
 

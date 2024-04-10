@@ -142,10 +142,12 @@ export class NaturalSelectComponent<
     public loading = false;
 
     /**
-     * Number of items not shown in result list
-     * Shows a message after list if positive
+     * If some items are not shown in result list
+     * Shows a message after list if true
      */
-    public moreNbItems = 0;
+    public hasMoreItems = false;
+
+    public nbTotal = 0;
 
     /**
      * Default page size
@@ -246,9 +248,9 @@ export class NaturalSelectComponent<
             finalize(() => (this.loading = false)),
             map(data => {
                 this.loading = false;
-                const nbTotal = data.length;
+                this.nbTotal = data.length;
                 const nbListed = Math.min(data.length, this.pageSize);
-                this.moreNbItems = nbTotal - nbListed;
+                this.hasMoreItems = this.nbTotal > nbListed;
 
                 return data.items;
             }),
