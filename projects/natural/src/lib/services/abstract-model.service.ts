@@ -3,7 +3,18 @@ import {FetchResult, NetworkStatus, WatchQueryFetchPolicy} from '@apollo/client/
 import {AbstractControl, AsyncValidatorFn, UntypedFormControl, UntypedFormGroup, ValidatorFn} from '@angular/forms';
 import {DocumentNode} from 'graphql';
 import {defaults, merge, mergeWith, omit, pick} from 'lodash-es';
-import {catchError, combineLatest, EMPTY, first, from, Observable, of, OperatorFunction} from 'rxjs';
+import {
+    catchError,
+    combineLatest,
+    EMPTY,
+    first,
+    from,
+    Observable,
+    of,
+    OperatorFunction,
+    ReplaySubject,
+    throwError,
+} from 'rxjs';
 import {debounceTime, filter, map, shareReplay, switchMap, takeWhile, tap} from 'rxjs/operators';
 import {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
 import {Literal} from '../types/types';
@@ -43,6 +54,12 @@ export abstract class NaturalAbstractModelService<
      * Store the creation mutations that are pending
      */
     private readonly creatingCache = new Map<Vcreate['input'] | WithId<Vupdate['input']>, Observable<Tcreate>>();
+
+    private readonly _errorObserver = new ReplaySubject<void>(1);
+
+    public get errorObserver(): Observable<void> {
+        return this._errorObserver.asObservable();
+    }
 
     public constructor(
         protected readonly apollo: Apollo,
@@ -162,7 +179,7 @@ export abstract class NaturalAbstractModelService<
     public getOne(id: string, fetchPolicy: WatchQueryFetchPolicy = 'cache-and-network'): Observable<Tone> {
         this.throwIfObservable(id);
         this.throwIfNotQuery(this.oneQuery);
-
+        console.log('get one');
         return this.getVariablesForOne(id).pipe(
             switchMap(variables => {
                 this.throwIfNotQuery(this.oneQuery);
@@ -176,6 +193,10 @@ export abstract class NaturalAbstractModelService<
             }),
             filter(result => !!result.data),
             takeWhile(result => result.networkStatus !== NetworkStatus.ready, true),
+            catchError(error => {
+                this._errorObserver.next();
+                return throwError(error);
+            }),
             map(result => (result.data as Literal)[this.name]),
         );
     }

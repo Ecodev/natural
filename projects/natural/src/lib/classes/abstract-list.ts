@@ -4,8 +4,10 @@ import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {ActivatedRoute, Data, NavigationEnd, NavigationExtras, NavigationStart, Router} from '@angular/router';
 import {defaults, isEmpty, isEqual, pick} from 'lodash-es';
-import {Observable, Subject} from 'rxjs';
+import {Observable, race, Subject} from 'rxjs';
+import {filter, takeUntil} from 'rxjs/operators';
 import {NaturalAlertService} from '../modules/alert/alert.service';
+import {AvailableColumn} from '../modules/columns-picker/types';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
 import {toGraphQLDoctrineFilter} from '../modules/search/classes/graphql-doctrine';
 import {fromUrl, toUrl} from '../modules/search/classes/url';
@@ -13,6 +15,8 @@ import {NaturalSearchFacets} from '../modules/search/types/facet';
 import {NaturalSearchSelections} from '../modules/search/types/values';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {NaturalPersistenceService} from '../services/persistence.service';
+import {ExtractTall, ExtractVall, Literal} from '../types/types';
+import {NavigableItem} from './abstract-navigable-list';
 import {NaturalDataSource, PaginatedData} from './data-source';
 import {
     NaturalQueryVariablesManager,
@@ -21,10 +25,6 @@ import {
     Sorting,
     SortingOrder,
 } from './query-variable-manager';
-import {ExtractTall, ExtractVall, Literal} from '../types/types';
-import {NavigableItem} from './abstract-navigable-list';
-import {filter, takeUntil} from 'rxjs/operators';
-import {AvailableColumn} from '../modules/columns-picker/types';
 import {validateColumns, validatePagination, validateSorting} from './utility';
 
 type MaybeNavigable = Literal | NavigableItem<Literal>;
@@ -149,6 +149,11 @@ export class NaturalAbstractList<
     };
 
     /**
+     * Stores the localstorage key and remember it to prevent change
+     */
+    private _storageKey: string | null = null;
+
+    /**
      * Initial sorting
      */
     protected defaultSorting?: Sorting[];
@@ -180,6 +185,7 @@ export class NaturalAbstractList<
 
         this.initFromRoute();
         this.initFromPersisted();
+        this.clearStorageIfError();
 
         this.variablesManager.defaults('pagination', {pagination: this.defaultPagination} as ExtractVall<TService>);
         this.variablesManager.defaults('sorting', {sorting: this.defaultSorting} as ExtractVall<TService>);
@@ -209,6 +215,24 @@ export class NaturalAbstractList<
                 isPopState = false; // reset flag
                 this.naturalSearchSelections = fromUrl(this.persistenceService.getFromUrl('ns', this.route));
             });
+    }
+
+    /**
+     * In case natural search facets fetch an error from the server, we clear the local storage to prevent an infinite loop
+     */
+    private clearStorageIfError(): void {
+        const services: NaturalAbstractModelService<any, any, any, any, any, any, any, any, any, any>[] = [];
+        this.naturalSearchFacets.forEach((facet: any) => {
+            const service = facet.configuration?.service;
+            if (service && !services.includes(service)) {
+                services.push(service);
+            }
+        });
+
+        // First service to report an error, we clear the storage
+        race(services.map(s => s.errorObserver)).subscribe({
+            next: () => this.persistenceService.persistInStorage('ns', null, this.getStorageKey()),
+        });
     }
 
     /**
@@ -524,9 +548,14 @@ export class NaturalAbstractList<
      * Return current url excluding last route parameters;
      */
     protected getStorageKey(): string {
+        if (this._storageKey) {
+            return this._storageKey;
+        }
+
         const urlTree = this.router.parseUrl(this.router.url);
         urlTree.root.children.primary.segments[urlTree.root.children.primary.segments.length - 1].parameters = {};
-        return urlTree.toString();
+        this._storageKey = urlTree.toString();
+        return this._storageKey;
     }
 
     protected bulkdDeleteConfirmation(): Observable<boolean | undefined> {
