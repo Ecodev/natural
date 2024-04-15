@@ -85,11 +85,11 @@ export class TypeNumberComponent implements DropdownComponent {
 
     private initValidators(): void {
         const validators: ValidatorFn[] = [Validators.required];
-        if (this.configuration.min) {
+        if (typeof this.configuration.min === 'number') {
             validators.push(Validators.min(this.configuration.min));
         }
 
-        if (this.configuration.max) {
+        if (typeof this.configuration.max === 'number') {
             validators.push(Validators.max(this.configuration.max));
         }
 

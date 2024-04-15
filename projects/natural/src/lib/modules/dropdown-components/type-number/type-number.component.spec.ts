@@ -132,6 +132,16 @@ describe('TypeNumberComponent', () => {
         expect(component.isValid()).toBe(false);
     });
 
+    it('should not validate a min of 0', () => {
+        createComponent({equal: {value: -1}}, {min: 0});
+        expect(component.isValid()).toBe(false);
+    });
+
+    it('should not validate a max of 0', () => {
+        createComponent({equal: {value: 1}}, {max: 0});
+        expect(component.isValid()).toBe(false);
+    });
+
     it('should validate according to empty rules', () => {
         createComponent(decimalCondition, {});
         expect(component.isValid()).toBe(true);
