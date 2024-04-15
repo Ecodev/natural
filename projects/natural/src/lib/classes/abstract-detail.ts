@@ -108,6 +108,9 @@ export class NaturalAbstractDetail<
         super();
     }
 
+    /**
+     * You probably should not override this method. Instead, consider overriding `initForm()`.
+     */
     public ngOnInit(): void {
         if (this.isPanel) {
             this.initForm();
@@ -296,6 +299,13 @@ export class NaturalAbstractDetail<
         // noop
     }
 
+    /**
+     * Initialize the form whenever it is needed.
+     *
+     * You should override this method, and not `ngOnInit()` if you need to customize the form. Because this will
+     * correctly be called more than one time per component instance if needed, when the route changes. But `ngOnInit()`
+     * will incorrectly be called exactly 1 time per component instance, even if the object changes via route navigation.
+     */
     protected initForm(): void {
         this.#isUpdatePage = !!this.data.model.id;
         this.form = this.service.getFormGroup(this.data.model);
