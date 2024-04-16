@@ -7,7 +7,7 @@ import {
     naturalPanelsUrlMatcher,
     NaturalSeo,
 } from '@ecodev/natural';
-import {resolveItem} from '../../projects/natural/src/lib/testing/item.resolver';
+import {resolveHardcodedItem, resolveItem} from '../../projects/natural/src/lib/testing/item.resolver';
 import {EditableListComponent} from './editable-list/editable-list.component';
 import {EditorComponent} from './editor/editor.component';
 import {HierarchicComponent} from './hierarchic/hierarchic.component';
@@ -68,7 +68,7 @@ export const routes: Routes = [
             {
                 path: 'relation',
                 component: RelationsComponent,
-                resolve: {model: resolveItem},
+                resolve: {model: resolveHardcodedItem},
             },
             {
                 path: 'panels',
@@ -144,7 +144,7 @@ export const routes: Routes = [
             {
                 path: 'detail-header',
                 component: DetailHeaderComponent,
-                resolve: {model: resolveItem},
+                resolve: {model: resolveHardcodedItem},
                 data: {
                     seo: {title: 'Detail header'} satisfies NaturalSeo,
                 },

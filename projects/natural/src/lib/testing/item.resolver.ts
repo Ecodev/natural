@@ -12,3 +12,10 @@ export function resolveItem(route: ActivatedRouteSnapshot): Observable<Observabl
 
     return itemService.resolve(route.params.id);
 }
+
+export function resolveHardcodedItem(): Observable<Observable<Item | ItemInput>> {
+    const itemService = inject(ItemService);
+    console.warn('resolve hardcoded Item');
+
+    return itemService.resolve('123');
+}

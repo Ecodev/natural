@@ -4,14 +4,12 @@ import {
     EventEmitter,
     Input,
     OnChanges,
-    OnDestroy,
     OnInit,
     Output,
     TemplateRef,
     ViewChild,
 } from '@angular/core';
-import {PageEvent, MatPaginatorModule} from '@angular/material/paginator';
-import {forkJoin, tap} from 'rxjs';
+import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {NaturalAbstractController} from '../../classes/abstract-controller';
 import {NaturalDataSource, PaginatedData} from '../../classes/data-source';
 import {NaturalQueryVariablesManager, PaginationInput, QueryVariables} from '../../classes/query-variable-manager';
@@ -21,7 +19,6 @@ import {NaturalHierarchicConfiguration} from '../hierarchic-selector/classes/hie
 import {HierarchicDialogConfig} from '../hierarchic-selector/hierarchic-selector-dialog/hierarchic-selector-dialog.component';
 import {NaturalHierarchicSelectorDialogService} from '../hierarchic-selector/hierarchic-selector-dialog/hierarchic-selector-dialog.service';
 import {NaturalSelectComponent} from '../select/select/select.component';
-import {finalize, takeUntil} from 'rxjs/operators';
 import {NaturalAbstractModelService} from '../../services/abstract-model.service';
 import {ExtractTallOne, ExtractVall} from '../../types/types';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -31,6 +28,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {CommonModule} from '@angular/common';
+import {finalize, forkJoin, takeUntil, tap} from 'rxjs';
 
 /**
  * Custom template usage :
@@ -73,12 +71,32 @@ export class NaturalRelationsComponent<
         >,
     >
     extends NaturalAbstractController
-    implements OnInit, OnChanges, OnDestroy
+    implements OnInit, OnChanges
 {
     @ViewChild(NaturalSelectComponent) private select?: NaturalSelectComponent<TService>;
     @ContentChild(TemplateRef) public itemTemplate?: TemplateRef<unknown>;
 
-    @Input() public service?: TService;
+    #service!: TService;
+
+    public get service(): TService {
+        return this.#service;
+    }
+
+    @Input({required: true})
+    public set service(service: TService) {
+        this.#service = service;
+        this.loading = true;
+        const items$ = this.#service.watchAll(this.variablesManager).pipe(
+            takeUntil(this.ngUnsubscribe),
+            tap({
+                next: () => (this.loading = false),
+                complete: () => (this.loading = false),
+                error: () => (this.loading = false),
+            }),
+        );
+
+        this.dataSource = new NaturalDataSource(items$);
+    }
 
     /**
      * The placeholder used in the button to add a new relation
@@ -128,7 +146,7 @@ export class NaturalRelationsComponent<
     /**
      * Listing service instance
      */
-    public dataSource?: NaturalDataSource<PaginatedData<LinkableObject>>;
+    public dataSource!: NaturalDataSource<PaginatedData<LinkableObject>>;
     public loading = false;
 
     /**
@@ -168,10 +186,6 @@ export class NaturalRelationsComponent<
     }
 
     public ngOnChanges(): void {
-        if (this.service) {
-            this.queryItems();
-        }
-
         if (this.disabled && this.displayedColumns.includes('unlink')) {
             this.displayedColumns.pop();
         } else if (!this.disabled && !this.displayedColumns.includes('unlink')) {
@@ -267,26 +281,6 @@ export class NaturalRelationsComponent<
                     }
                 }
             });
-    }
-
-    /**
-     * Get list from database
-     */
-    private queryItems(): void {
-        if (!this.service) {
-            return;
-        }
-
-        this.loading = true;
-        const queryRef = this.service.watchAll(this.variablesManager).pipe(
-            takeUntil(this.ngUnsubscribe),
-            tap({
-                next: () => (this.loading = false),
-                complete: () => (this.loading = false),
-                error: () => (this.loading = false),
-            }),
-        );
-        this.dataSource = new NaturalDataSource(queryRef);
     }
 
     private getSelectKey(): string | undefined {
