@@ -3,7 +3,7 @@ import {MockApolloProvider} from '../testing/mock-apollo.provider';
 import {Item, ItemInput, ItemService} from '../testing/item.service';
 import {Literal, NaturalAbstractDetail, NaturalAlertService} from '@ecodev/natural';
 import {Component, Injectable} from '@angular/core';
-import {Data, provideRouter, Router} from '@angular/router';
+import {ActivatedRouteSnapshot, provideRouter, Route, Router} from '@angular/router';
 import {RouterTestingHarness} from '@angular/router/testing';
 import {BehaviorSubject, of} from 'rxjs';
 import {provideNoopAnimations} from '@angular/platform-browser/animations';
@@ -41,7 +41,10 @@ describe('NaturalAbstractDetail', () => {
     const model = {id: '123', name: 'my name'} as Item;
     const serverResponse = {id: '123', name: 'from server'} as Item;
 
-    async function configure(data: Data | undefined, a: typeof ItemService = ItemService): Promise<void> {
+    async function configure(
+        dataAndResolve: Pick<Route, 'data' | 'resolve'>,
+        itemServiceClass: typeof ItemService = ItemService,
+    ): Promise<void> {
         await TestBed.configureTestingModule({
             providers: [
                 MockApolloProvider,
@@ -53,14 +56,14 @@ describe('NaturalAbstractDetail', () => {
                     {
                         path: 'item/:itemId',
                         component: TestSimpleComponent,
-                        data: data,
+                        ...dataAndResolve,
                     },
                 ]),
                 provideNoopAnimations(),
                 TestSimpleComponent,
                 {
                     provide: ItemService,
-                    useClass: a,
+                    useClass: itemServiceClass,
                 },
             ],
         }).compileComponents();
@@ -77,7 +80,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should show FAB only on first tab', async () => {
-        await configure({model: of(model)});
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -91,9 +94,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should populate this.data', async () => {
-        await configure({
-            model: of(model),
-        });
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -102,7 +103,7 @@ describe('NaturalAbstractDetail', () => {
 
     it('should receive updated of model this.data', async () => {
         const model$ = new BehaviorSubject(model);
-        await configure({model: model$});
+        await configure({data: {model: model$}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -118,10 +119,39 @@ describe('NaturalAbstractDetail', () => {
             .toEqual('my name');
     });
 
+    it('should re-`initForm()` if navigating to different URL with same component but different model', async () => {
+        await configure({
+            resolve: {
+                model: (route: ActivatedRouteSnapshot) => {
+                    const id = route.params.itemId;
+                    return of(
+                        of({
+                            id: id,
+                            name: 'my name ' + id,
+                        } as Item),
+                    );
+                },
+            },
+        });
+        detail.ngOnInit();
+        await harness.fixture.whenStable();
+
+        expect(detail.data.model.name).toEqual('my name 123');
+        expect(detail.form.controls.name.value).withContext('first initForm').toEqual('my name 123');
+
+        const detail2 = await harness.navigateByUrl('/item/456', TestSimpleComponent);
+
+        expect(detail2).withContext('exact same instance of component').toBe(detail);
+        expect(detail.data.model.name).toEqual('my name 456');
+        expect(detail.form.controls.name.value).withContext('second initForm').toEqual('my name 456');
+    });
+
     it('should populate this.data, also with other keys', async () => {
         await configure({
-            model: of(model),
-            bar: 'baz',
+            data: {
+                model: of(model),
+                bar: 'baz',
+            },
         });
         detail.ngOnInit();
         await harness.fixture.whenStable();
@@ -130,9 +160,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should populate this.form controls with default values and values from model', async () => {
-        await configure({
-            model: of(model),
-        });
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -145,9 +173,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should submit nothing', async () => {
-        await configure({
-            model: of(model),
-        });
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -157,9 +183,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should submit nothing now', async () => {
-        await configure({
-            model: of(model),
-        });
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -172,9 +196,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should submit all fields', async () => {
-        await configure({
-            model: of(model),
-        });
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -190,9 +212,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should submit all fields now', async () => {
-        await configure({
-            model: of(model),
-        });
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -208,7 +228,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should submit only changed fields', async () => {
-        await configure({model: of(model)});
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
         detail.form.controls.description.setValue('new description');
@@ -219,7 +239,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should always submit all fields for creation', async () => {
-        await configure({model: of(model)});
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -241,7 +261,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should delete and redirect to listing', async () => {
-        await configure({model: of(model)});
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -259,7 +279,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should delete and redirect to specific route', async () => {
-        await configure({model: of(model)});
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -275,7 +295,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should delete with custom confirmer', async () => {
-        await configure({model: of(model)});
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -291,7 +311,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should delete with custom confirmer, rejecting', async () => {
-        await configure({model: of(model)});
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -307,7 +327,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should populate this.form with default value from extra fields too, and submit if changed', async () => {
-        await configure({model: of(model)}, WithExtraFormField);
+        await configure({data: {model: of(model)}}, WithExtraFormField);
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -326,9 +346,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should not automatically merge server response back into this.form after update', async () => {
-        await configure({
-            model: of(model),
-        });
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 
@@ -339,9 +357,7 @@ describe('NaturalAbstractDetail', () => {
     });
 
     it('should not automatically merge server response back into this.form after creation', async () => {
-        await configure({
-            model: of(model),
-        });
+        await configure({data: {model: of(model)}});
         detail.ngOnInit();
         await harness.fixture.whenStable();
 

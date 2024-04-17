@@ -127,7 +127,7 @@ export class NaturalAbstractDetail<
     }
 
     #subscribeToModelFromResolvedData(route: ActivatedRoute): void {
-        let firstTime = true;
+        let previousId = -1;
         route.data
             .pipe(
                 switchMap(data => {
@@ -145,8 +145,8 @@ export class NaturalAbstractDetail<
                                 model: model,
                             } as Data<TService, ExtraResolve>;
 
-                            if (firstTime) {
-                                firstTime = false;
+                            if (previousId !== model.id) {
+                                previousId = model.id;
                                 this.initForm();
                             }
                         }),
