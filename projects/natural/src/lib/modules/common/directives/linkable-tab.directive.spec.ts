@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {Router, RouterOutlet} from '@angular/router';
-import {Location} from '@angular/common';
-import {RouterTestingModule} from '@angular/router/testing';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
+import {provideRouter, Router, RouterOutlet} from '@angular/router';
 import {MatTabGroupHarness} from '@angular/material/tabs/testing';
 import {MatTabsModule} from '@angular/material/tabs';
 import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
@@ -11,6 +9,7 @@ import {HarnessLoader} from '@angular/cdk/testing';
 import {NaturalLinkableTabDirective} from '@ecodev/natural';
 
 @Component({
+    selector: 'natural-test-root',
     template: '<router-outlet />',
     standalone: true,
     imports: [RouterOutlet],
@@ -20,6 +19,7 @@ class TestRootComponent {
 }
 
 @Component({
+    selector: 'natural-test-simple',
     template: `
         <mat-tab-group naturalLinkableTab>
             <mat-tab i18n label="Tab 1" i18n-label>Tab content 1</mat-tab>
@@ -42,7 +42,6 @@ describe('NaturalLinkableTabDirective', () => {
     let rootFixture: ComponentFixture<TestRootComponent>;
     let rootComponent: TestRootComponent;
     let router: Router;
-    let location: Location;
     let loader: HarnessLoader;
     let tabGroup: MatTabGroupHarness;
 
@@ -55,7 +54,7 @@ describe('NaturalLinkableTabDirective', () => {
 
     async function assertTab(label: string, url: string): Promise<void> {
         expect(await tabGroup.getSelectedTab().then(tab => tab.getLabel())).toBe(label);
-        expect(location.path()).toBe(url);
+        expect(router.url).toBe(url);
 
         // Assert component was initialized only once (and not re-initialized on every tab change)
         const component = rootComponent.routerOutlet.component as TestSimpleComponent;
@@ -64,10 +63,9 @@ describe('NaturalLinkableTabDirective', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                MatTabsModule,
-                NoopAnimationsModule,
-                RouterTestingModule.withRoutes([
+            providers: [
+                provideNoopAnimations(),
+                provideRouter([
                     {
                         path: 'test-route',
                         pathMatch: 'full',
@@ -75,14 +73,12 @@ describe('NaturalLinkableTabDirective', () => {
                     },
                 ]),
             ],
-            providers: [],
         }).compileComponents();
 
         rootFixture = TestBed.createComponent(TestRootComponent);
         rootComponent = rootFixture.componentInstance;
         router = TestBed.inject(Router);
 
-        location = TestBed.inject(Location);
         loader = TestbedHarnessEnvironment.loader(rootFixture);
     });
 
