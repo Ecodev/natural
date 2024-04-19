@@ -1,9 +1,10 @@
 import {AfterViewInit, Directive, Input} from '@angular/core';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 import {clone} from 'lodash-es';
 import {takeUntil} from 'rxjs/operators';
 import {NaturalAbstractController} from '../../../classes/abstract-controller';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**
  * Returns an identifier for the tab
@@ -16,8 +17,8 @@ function getTabId(tab: MatTab): string {
  * Usage :
  *
  * <mat-tab-group [naturalLinkableTab]="!isPanel">
- *     <mat-tab label="Third 1">third 1</mat-tab> // First tab doesn't need id. This keeps url clean on default one
- *     <mat-tab label="Third 2" id="third2">Third 2</mat-tab>
+ *     <mat-tab label="Tab 1">Tab 1</mat-tab> // First tab doesn't need id. This keeps url clean on default one
+ *     <mat-tab label="Tab 2" id="second-tab">Tab 2</mat-tab>
  *     ...
  * </mat-tab-group>
  */
@@ -30,6 +31,7 @@ export class NaturalLinkableTabDirective extends NaturalAbstractController imple
      * If false, disables the persistent navigation
      */
     @Input() public naturalLinkableTab: boolean | '' = true;
+    #isLoadingRouteConfig = false;
 
     public constructor(
         private readonly component: MatTabGroup,
@@ -37,6 +39,14 @@ export class NaturalLinkableTabDirective extends NaturalAbstractController imple
         private readonly router: Router,
     ) {
         super();
+
+        router.events.pipe(takeUntilDestroyed()).subscribe(event => {
+            if (event instanceof RouteConfigLoadStart) {
+                this.#isLoadingRouteConfig = true;
+            } else if (event instanceof RouteConfigLoadEnd) {
+                this.#isLoadingRouteConfig = false;
+            }
+        });
     }
 
     public ngAfterViewInit(): void {
@@ -58,6 +68,10 @@ export class NaturalLinkableTabDirective extends NaturalAbstractController imple
 
         // When mat-tab-groups selected tab change, update url
         this.component.selectedTabChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(event => {
+            if (this.#isLoadingRouteConfig) {
+                return;
+            }
+
             const activatedTabName = getTabId(event.tab);
             const segments = this.route.snapshot.url;
             if (!segments.length) {
