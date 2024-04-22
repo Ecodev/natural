@@ -1,5 +1,4 @@
 import {Inject, Injectable} from '@angular/core';
-import {MediaObserver} from '@ngbracket/ngx-layout';
 import {MatDrawerMode} from '@angular/material/sidenav';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter, takeUntil} from 'rxjs/operators';
@@ -7,6 +6,7 @@ import {NaturalAbstractController} from '../../classes/abstract-controller';
 import {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
 import {NaturalStorage, SESSION_STORAGE} from '../common/services/memory-storage';
 import {NaturalSidenavStackService} from './sidenav-stack.service';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 /**
  * Assert that given value is not null
@@ -65,9 +65,10 @@ export class NaturalSidenavService extends NaturalAbstractController {
 
     private minimizedStorageKeyWithName: string | null = null;
     private openedStorageKeyWithName: string | null = null;
+    #isMobileView = false;
 
     public constructor(
-        public readonly mediaObserver: MediaObserver,
+        public readonly breakpointObserver: BreakpointObserver,
         private readonly router: Router,
         @Inject(SESSION_STORAGE) private readonly sessionStorage: NaturalStorage,
         private readonly naturalSidenavStackService: NaturalSidenavStackService,
@@ -107,11 +108,13 @@ export class NaturalSidenavService extends NaturalAbstractController {
         this.tmpOpened = this.opened;
 
         let oldIsBig: boolean | null = null;
-        this.mediaObserver
-            .asObservable()
+
+        this.breakpointObserver
+            .observe([Breakpoints.XSmall, Breakpoints.Small])
             .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(() => {
-                const isBig = !this.isMobileView();
+            .subscribe(r => {
+                this.#isMobileView = r.matches;
+                const isBig = !this.#isMobileView;
                 this.mode = isBig ? this.modes[0] : this.modes[1];
 
                 if (oldIsBig === null || isBig !== oldIsBig) {
@@ -144,14 +147,14 @@ export class NaturalSidenavService extends NaturalAbstractController {
     }
 
     public isMobileView(): boolean {
-        return !this.mediaObserver.isActive('gt-sm');
+        return this.#isMobileView;
     }
 
     /**
      * Close nav on mobile view after a click
      */
     public navItemClicked(): void {
-        if (this.isMobileView()) {
+        if (this.#isMobileView) {
             this.close();
         }
     }
@@ -196,7 +199,7 @@ export class NaturalSidenavService extends NaturalAbstractController {
         const value = this.sessionStorage.getItem(this.openedStorageKeyWithName);
 
         if (value === null) {
-            return !this.isMobileView();
+            return !this.#isMobileView;
         } else {
             return value === 'true';
         }
@@ -221,9 +224,9 @@ export class NaturalSidenavService extends NaturalAbstractController {
     public setOpened(value: boolean): void {
         this.opened = value;
 
-        if (this.opened && this.isMobileView()) {
+        if (this.opened && this.#isMobileView) {
             this.minimized = false;
-        } else if (!this.isMobileView()) {
+        } else if (!this.#isMobileView) {
             assert(this.openedStorageKeyWithName);
             this.sessionStorage.setItem(this.openedStorageKeyWithName, this.opened ? 'true' : 'false');
         }
