@@ -6,7 +6,7 @@
                     <mat-icon fontIcon="save" />
                 </button>
             }
-            <mat-button-toggle-group multiple>
+            <mat-button-toggle-group hideMultipleSelectionIndicator multiple>
                 @if (menu.toggleStrong) {
                     <mat-button-toggle
                         [disabled]="menu.toggleStrong.disabled"
@@ -266,7 +266,7 @@
                 </button>
             }
             @if (menu.alignLeft) {
-                <mat-button-toggle-group>
+                <mat-button-toggle-group hideSingleSelectionIndicator>
                     @if (menu.alignLeft) {
                         <mat-button-toggle
                             [disabled]="menu.alignLeft.disabled"
