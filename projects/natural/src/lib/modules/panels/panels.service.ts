@@ -1,6 +1,5 @@
 import {ComponentType} from '@angular/cdk/portal';
 import {Inject, Injectable, Injector, runInInjectionContext} from '@angular/core';
-import {MediaObserver} from '@ngbracket/ngx-layout';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ActivatedRoute, DefaultUrlSerializer, NavigationError, Router, UrlSegment} from '@angular/router';
 import {differenceWith, flatten, isEqual} from 'lodash-es';
@@ -15,6 +14,8 @@ import {
     NaturalPanelsRouterRule,
     PanelsHooksConfig,
 } from './types';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 function segmentsToString(segments: UrlSegment[]): string {
     return segments.map(s => s.toString()).join('/');
@@ -86,26 +87,23 @@ export class NaturalPanelsService {
      * Cache of previous screen size
      * Used to change panels stack orientation on small screens
      */
-    private media: string | null = null;
+    private isVertical = false;
 
     public constructor(
         private readonly router: Router,
         private readonly dialog: MatDialog,
         private readonly injector: Injector,
         @Inject(PanelsHooksConfig) private hooksConfig: NaturalPanelsHooksConfig,
-        private mediaService: MediaObserver,
+        breakpointObserver: BreakpointObserver,
     ) {
-        // Watch media to know if display panels horizontally or vertically
-        this.mediaService.asObservable().subscribe(medias => {
-            for (const media of medias) {
-                if (!this.media) {
-                    this.media = media.mqAlias;
-                } else if (this.media !== media.mqAlias) {
-                    this.media = media.mqAlias;
-                    this.updateComponentsPosition();
-                }
-            }
-        });
+        //  Watch media to know if display panels horizontally or vertically
+        breakpointObserver
+            .observe(Breakpoints.XSmall)
+            .pipe(takeUntilDestroyed())
+            .subscribe(result => {
+                this.isVertical = result.matches;
+                this.updateComponentsPosition();
+            });
     }
 
     public start(route: ActivatedRoute): void {
@@ -393,7 +391,7 @@ export class NaturalPanelsService {
             const deep = affectedElements.length - 1 - i;
 
             let position: any = {right: deep * this.panelsOffsetH + 'px'};
-            if (this.media === 'xs' && affectedElements.length > 1) {
+            if (this.isVertical && affectedElements.length > 1) {
                 position = {
                     top: i * this.panelsOffsetV + 'px',
                     right: '0px',
