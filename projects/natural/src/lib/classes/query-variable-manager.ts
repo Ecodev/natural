@@ -1,4 +1,4 @@
-import {cloneDeep, defaultsDeep, isArray, mergeWith, omit} from 'lodash-es';
+import {cloneDeep, defaultsDeep, mergeWith, omit} from 'lodash-es';
 import {BehaviorSubject} from 'rxjs';
 import {Literal} from '../types/types';
 import {mergeOverrideArray} from './utility';
@@ -33,7 +33,7 @@ export enum SortingOrder {
  * During lodash merge, concat arrays
  */
 function mergeConcatArray(destValue: any, source: any): any {
-    if (isArray(source)) {
+    if (Array.isArray(source)) {
         if (destValue) {
             return destValue.concat(source);
         } else {

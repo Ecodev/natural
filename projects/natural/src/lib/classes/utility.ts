@@ -1,4 +1,4 @@
-import {isArray, pickBy} from 'lodash-es';
+import {pickBy} from 'lodash-es';
 import {Literal} from '../types/types';
 import type {ReadonlyDeep} from 'type-fest';
 import {PaginationInput, Sorting, SortingOrder} from './query-variable-manager';
@@ -80,7 +80,7 @@ export function relationsToIds(object: Literal): Literal {
             // noop
         } else if (hasId(value)) {
             value = value.id;
-        } else if (isArray(value)) {
+        } else if (Array.isArray(value)) {
             value = value.map((i: unknown) => (hasId(i) ? i.id : i));
         } else if (typeof value === 'object' && !(value instanceof File) && !(value instanceof Date)) {
             value = pickBy(value, (v, k) => k !== '__typename'); // omit(value, ['__typename']) ?
@@ -176,7 +176,7 @@ function hexToRgb(hex: string): {r: number; g: number; b: number} {
  * During lodash.mergeWith, overrides arrays
  */
 export function mergeOverrideArray(destValue: unknown, source: unknown): unknown {
-    if (isArray(source)) {
+    if (Array.isArray(source)) {
         return source;
     }
 }
