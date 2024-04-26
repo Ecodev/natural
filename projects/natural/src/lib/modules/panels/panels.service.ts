@@ -1,5 +1,7 @@
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {ComponentType} from '@angular/cdk/portal';
 import {Inject, Injectable, Injector, runInInjectionContext} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ActivatedRoute, DefaultUrlSerializer, NavigationError, Router, UrlSegment} from '@angular/router';
 import {differenceWith, flatten, isEqual} from 'lodash-es';
@@ -14,8 +16,6 @@ import {
     NaturalPanelsRouterRule,
     PanelsHooksConfig,
 } from './types';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 function segmentsToString(segments: UrlSegment[]): string {
     return segments.map(s => s.toString()).join('/');
@@ -33,6 +33,8 @@ function compareConfigs(a: NaturalPanelConfig, b: NaturalPanelConfig): boolean {
     providedIn: 'root',
 })
 export class NaturalPanelsService {
+    private readonly panelWidth = '960px';
+
     /**
      * Because of this static property Panels are **not** compatible with SSR.
      * And we cannot make it non-static, because `UrlMatcher` cannot be injected.
@@ -340,7 +342,7 @@ export class NaturalPanelsService {
             closeOnNavigation: false,
             hasBackdrop: this.dialog.openDialogs.length === 0,
             height: '100%',
-            width: '960px',
+            width: this.panelWidth,
             position: {
                 top: '0',
                 right: '0',
@@ -379,7 +381,6 @@ export class NaturalPanelsService {
 
         // Select the panels that are still opened, ignore the others because they'll be closed
         const affectedElements = this.dialog.openDialogs;
-
         for (let i = 0; i < affectedElements.length; i++) {
             const dialog = affectedElements[i];
 
@@ -392,10 +393,11 @@ export class NaturalPanelsService {
 
             let position: any = {right: deep * this.panelsOffsetH + 'px'};
             if (this.isVertical && affectedElements.length > 1) {
-                position = {
-                    top: i * this.panelsOffsetV + 'px',
-                    right: '0px',
-                };
+                const top = i * this.panelsOffsetV + 'px';
+                position = {top: top, right: '0px'};
+                dialog.updateSize(this.panelWidth, `calc(100% - ${top})`); // call before updatePosition
+            } else {
+                dialog.updateSize(this.panelWidth, `100%`);
             }
 
             dialog.updatePosition(position);
