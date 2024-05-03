@@ -45,7 +45,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
     @Input() public backgroundSize = 'contain';
 
     /**
-     * Comma-separated list of unique file type specifiers. Like the native element
+     * Comma-separated list of unique file type specifiers. Like the native element,
      * it can be a mix of mime-type and file extensions.
      *
      * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
@@ -53,7 +53,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
     @Input() public accept = 'image/bmp,image/gif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/svg,image/webp';
 
     /**
-     * If given it will be called when a new file is selected. The callback should typically upload the file
+     * If given, it will be called when a new file is selected. The callback should typically upload the file
      * to the server and link the newly uploaded file to the existing related object.
      *
      * The callback **must** be able to run even if the calling component has been destroyed. That means in most
