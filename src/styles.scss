@@ -219,3 +219,11 @@ pre.debug {
         color: white !important;
     }
 }
+
+.nat-gap-50 {
+    gap: 50px;
+}
+
+[class^='app-'] .mat-headline-4 {
+    margin-bottom: 30px !important;
+}

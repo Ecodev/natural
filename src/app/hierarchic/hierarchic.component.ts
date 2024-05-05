@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
 import {
     HierarchicDialogConfig,
     NaturalHierarchicConfiguration,
@@ -8,17 +9,15 @@ import {
     OrganizedModelSelection,
     TypeNumberComponent,
 } from '@ecodev/natural';
-import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
-import {MatButtonModule} from '@angular/material/button';
 import {NaturalHierarchicSelectorComponent} from '../../../projects/natural/src/lib/modules/hierarchic-selector/hierarchic-selector/hierarchic-selector.component';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 
 @Component({
     selector: 'app-hierarchic',
     templateUrl: './hierarchic.component.html',
     styleUrl: './hierarchic.component.scss',
     standalone: true,
-    imports: [FlexModule, NaturalHierarchicSelectorComponent, MatButtonModule],
+    imports: [NaturalHierarchicSelectorComponent, MatButtonModule],
 })
 export class HierarchicComponent {
     public searchFacets: NaturalSearchFacets = [

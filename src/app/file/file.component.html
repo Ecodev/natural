@@ -1,13 +1,12 @@
-<h1 class="mat-headline-4">natural-file</h1>
-<p class="mat-body">Open the console to see events</p>
+<h1 class="mat-headline-4">natural-file</h1><p class="mat-body">Open the console to see events</p>
 
-<div fxLayout="column" fxLayoutGap="30px">
-    <div fxLayout="row wrap" fxLayoutGap="10px">
+<div class="nat-vertical nat-gap-30">
+    <div class="nat-horizontal nat-wrap nat-gap-10">
         <mat-checkbox [(ngModel)]="disabled">disabled</mat-checkbox>
     </div>
 
     <h2 class="mat-h2">Button</h2>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <div>
             <button
                 mat-raised-button
@@ -62,7 +61,7 @@
     </div>
 
     <h2 class="mat-h2">Button that can also be drag'n'dropped on</h2>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <div>
             <button
                 mat-raised-button
@@ -121,7 +120,7 @@
     </div>
 
     <h2 class="mat-h2">Drag'n'drop on link</h2>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <a
             naturalFileDrop
             (fileChange)="fileChange($event)"
@@ -134,7 +133,7 @@
         </a>
     </div>
 
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <a
             naturalFileDrop
             (fileChange)="fileChange($event)"
@@ -149,7 +148,7 @@
     </div>
 
     <h2 class="mat-h2">Drag'n'drop on link that can also be clicked</h2>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <a
             naturalFileDrop
             (fileChange)="fileChange($event)"
@@ -163,7 +162,7 @@
         </a>
     </div>
 
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <a
             naturalFileDrop
             (fileChange)="fileChange($event)"
@@ -179,7 +178,7 @@
     </div>
 
     <h2 class="mat-h2">Size limit</h2>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <a
             naturalFileDrop
             (fileChange)="fileChange($event)"
@@ -195,12 +194,12 @@
 
     <h2 class="mat-h2">Drag'n'drop, relying on service</h2>
 
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <button mat-raised-button (click)="subscribe()">Subscribe to service</button>
         <button mat-raised-button (click)="unsubscribe()">Unsubscribe to service</button>
     </div>
 
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <a naturalFileDrop [fileSelectionDisabled]="disabled" (fileOver)="fileOverService = $event">
             <div class="mat-body">Drag here any files. Hover is disabled if nobody subscribed to service</div>
             <pre>fileOver: {{ fileOverService | json }}</pre>
@@ -208,10 +207,10 @@
     </div>
 
     <h2 class="mat-h2">File component</h2>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <button mat-raised-button (click)="setImage()"
-            >Set image (won't work because we don't have API to serve image)</button
-        >
+            >Set image (won't work because we don't have API to serve image)
+        </button>
         <button mat-raised-button (click)="setImageWithSrc()">Set image with src</button>
         <button mat-raised-button (click)="setFile()">Set file</button>
         <button mat-raised-button (click)="clear()">Clear</button>

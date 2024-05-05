@@ -1,19 +1,19 @@
 <h1 class="mat-headline-4">natural-select-enum</h1>
 
-<div fxLayout="column" fxLayoutGap="30px">
-    <div fxLayout="row wrap" fxLayoutGap="10px">
+<div class="nat-vertical nat-gap-30">
+    <div class="nat-horizontal nat-wrap nat-gap-10">
         <button mat-raised-button (click)="validateAllFormControls()">Validate all controls</button>
         <button mat-raised-button (click)="toggleDisabledAllFormControls()">Disable all controls</button>
         <button mat-raised-button (click)="setValue()">Set value</button>
         <button mat-raised-button (click)="clearValue()">Clear value</button>
     </div>
 
-    <h2 class="mat-h2" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <h2 class="mat-h2 nat-gap-10 nat-horizontal nat-left nat-center">
         <div>ngModel</div>
         <button mat-raised-button (click)="required = true">required</button>
         <button mat-raised-button (click)="required = false">optional</button>
     </h2>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <div>
             <natural-select-enum
                 enumName="FooEnum"
@@ -45,15 +45,13 @@
     </div>
 
     <h2 class="mat-h2">FormControl</h2>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <div>
             <natural-select-enum enumName="FooEnum" [formControl]="formControl" placeholder="FormControl (update)" />
             <pre class="debug">
-touched: {{ formControl.touched | json }}
-dirty: {{ formControl.dirty | json }}
-status: {{ formControl.status | json }}
-errors: {{ formControl.errors | json }}
-value: {{ formControl.value | json }}
+touched: {{ formControl.touched | json }}dirty: {{ formControl.dirty | json }}status: {{
+                    formControl.status | json
+                }}errors: {{ formControl.errors | json }}value: {{ formControl.value | json }}
             </pre>
         </div>
 
@@ -64,17 +62,15 @@ value: {{ formControl.value | json }}
                 placeholder="FormControl (replace)"
             />
             <pre class="debug">
-touched: {{ formControlReplace.touched | json }}
-dirty: {{ formControlReplace.dirty | json }}
-status: {{ formControlReplace.status | json }}
-errors: {{ formControlReplace.errors | json }}
-value: {{ formControlReplace.value | json }}
+touched: {{ formControlReplace.touched | json }}dirty: {{ formControlReplace.dirty | json }}status: {{
+                    formControlReplace.status | json
+                }}errors: {{ formControlReplace.errors | json }}value: {{ formControlReplace.value | json }}
             </pre>
         </div>
     </div>
 
     <h2 class="mat-h2">FormGroup</h2>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <div>
             <div [formGroup]="formGroup" class="form-group">
                 <natural-select-enum
@@ -84,10 +80,9 @@ value: {{ formControlReplace.value | json }}
                 />
             </div>
             <pre class="debug">
-touched: {{ formGroup.touched | json }}
-dirty: {{ formGroup.dirty | json }}
-status: {{ formGroup.status | json }}
-value: {{ formGroup.value | json }}
+touched: {{ formGroup.touched | json }}dirty: {{ formGroup.dirty | json }}status: {{ formGroup.status | json }}value: {{
+                    formGroup.value | json
+                }}
             </pre>
         </div>
         <div>
@@ -100,10 +95,9 @@ value: {{ formGroup.value | json }}
             </div>
 
             <pre class="debug">
-touched: {{ formGroupReplace.touched | json }}
-dirty: {{ formGroupReplace.dirty | json }}
-status: {{ formGroupReplace.status | json }}
-value: {{ formGroupReplace.value | json }}
+touched: {{ formGroupReplace.touched | json }}dirty: {{ formGroupReplace.dirty | json }}status: {{
+                    formGroupReplace.status | json
+                }}value: {{ formGroupReplace.value | json }}
             </pre>
         </div>
     </div>
@@ -124,11 +118,9 @@ value: {{ formGroupReplace.value | json }}
     />
 
     <pre class="debug">
-touched: {{ formControlMultiple.touched | json }}
-dirty: {{ formControlMultiple.dirty | json }}
-status: {{ formControlMultiple.status | json }}
-errors: {{ formControlMultiple.errors | json }}
-value: {{ formControlMultiple.value | json }}
+touched: {{ formControlMultiple.touched | json }}dirty: {{ formControlMultiple.dirty | json }}status: {{
+            formControlMultiple.status | json
+        }}errors: {{ formControlMultiple.errors | json }}value: {{ formControlMultiple.value | json }}
 </pre
     >
 </div>

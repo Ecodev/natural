@@ -26,18 +26,16 @@
     </div>
 
     <h1 class="mat-headline-6">HTTP Prefix</h1>
-    <div fxLayout="row" fxLayoutGap="20px">
+    <div class="nat-horizontal nat-gap">
         <div>
             <mat-form-field>
                 <mat-label>formControl</mat-label>
                 <input matInput [naturalHttpPrefix]="httpPrefixControl" [formControl]="httpPrefixControl" />
             </mat-form-field>
             <pre class="debug">
-        touched: {{ httpPrefixControl.touched | json }}
-        dirty: {{ httpPrefixControl.dirty | json }}
-        status: {{ httpPrefixControl.status | json }}
-        errors: {{ httpPrefixControl.errors | json }}
-        value: {{ httpPrefixControl.value | json }}
+        touched: {{ httpPrefixControl.touched | json }}dirty: {{ httpPrefixControl.dirty | json }}status: {{
+                    httpPrefixControl.status | json
+                }}errors: {{ httpPrefixControl.errors | json }}value: {{ httpPrefixControl.value | json }}
       </pre
             >
         </div>
@@ -48,11 +46,9 @@
                 <input matInput [naturalHttpPrefix]="httpPrefixGroup.get('prefix')" formControlName="prefix" />
             </mat-form-field>
             <pre class="debug">
-        touched: {{ httpPrefixGroup.touched | json }}
-        dirty: {{ httpPrefixGroup.dirty | json }}
-        status: {{ httpPrefixGroup.status | json }}
-        errors: {{ httpPrefixGroup.get('prefix')?.errors | json }}
-        value: {{ httpPrefixGroup.value | json }}
+        touched: {{ httpPrefixGroup.touched | json }}dirty: {{ httpPrefixGroup.dirty | json }}status: {{
+                    httpPrefixGroup.status | json
+                }}errors: {{ httpPrefixGroup.get('prefix')?.errors | json }}value: {{ httpPrefixGroup.value | json }}
       </pre
             >
         </div>

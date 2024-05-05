@@ -1,22 +1,20 @@
-import {Component} from '@angular/core';
-import {NaturalHierarchicConfiguration} from '@ecodev/natural';
-import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
-import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
-import {AbstractSelect} from '../AbstractSelect';
 import {CommonModule} from '@angular/common';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NaturalSelectHierarchicComponent} from '../../../projects/natural/src/lib/modules/select/select-hierarchic/select-hierarchic.component';
 import {MatButtonModule} from '@angular/material/button';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {NaturalHierarchicConfiguration} from '@ecodev/natural';
+import {NaturalSelectHierarchicComponent} from '../../../projects/natural/src/lib/modules/select/select-hierarchic/select-hierarchic.component';
+import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
+import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
+import {AbstractSelect} from '../AbstractSelect';
 
 @Component({
     templateUrl: './select-hierarchic.component.html',
     styleUrl: './select-hierarchic.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         MatButtonModule,
         NaturalSelectHierarchicComponent,
         FormsModule,

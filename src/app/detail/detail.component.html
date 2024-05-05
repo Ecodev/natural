@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="80px">
+<div class="nat-vertical" style="gap: 50px">
     <h1 class="mat-headline-4">NaturalAbstractDetail</h1>
     <natural-detail-header
         newLabel="Very Very Very Very long title"
@@ -6,7 +6,7 @@
         [model]="{}"
         [listRoute]="['admin', 'product']"
     >
-        <div fxLayout="row" fxLayoutGap="10px">
+        <div class="nat-horizontal nat-gap-10">
             <button mat-flat-button color="primary" routerLink="panel/123">Open panel</button>
             <button mat-flat-button color="primary" [routerLink]="['.']">Clear fragment</button>
             <button mat-flat-button color="primary" [routerLink]="['.']" fragment="asdasfd">Invalid fragment</button>
@@ -16,7 +16,7 @@
     <mat-tab-group naturalLinkableTab>
         <mat-tab label="Tab 1" id="tab-1">
             <div [formGroup]="form" class="detail-body padding-top">
-                <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start start">
+                <div class="nat-horizontal nat-wrap nat-left nat-gap">
                     <mat-form-field>
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="name" (change)="update()" />
@@ -28,8 +28,8 @@
                     </mat-form-field>
 
                     <button (click)="setIdToTestDeleteButton()" color="primary" mat-raised-button
-                        >Set ID to test delete button
-                    </button>
+                        >Set ID to test delete button</button
+                    >
                 </div>
 
                 <pre class="debug"><strong>form.enabled:</strong>{{ form.enabled | json }}</pre>

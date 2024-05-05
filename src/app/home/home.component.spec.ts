@@ -1,8 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {HomeComponent} from './home.component';
-import {naturalProviders} from '@ecodev/natural';
-import {RouterTestingModule} from '@angular/router/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterTestingModule} from '@angular/router/testing';
+import {naturalProviders} from '@ecodev/natural';
+import {HomeComponent} from './home.component';
 
 describe('Demo HomeComponent', () => {
     let component: HomeComponent;

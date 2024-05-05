@@ -1,17 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {collectErrors, NaturalAbstractDetail, NaturalSeoResolveData} from '@ecodev/natural';
-import {Item, ItemInput, ItemService} from '../../../projects/natural/src/lib/testing/item.service';
-import {NaturalFixedButtonDetailComponent} from '../../../projects/natural/src/lib/modules/fixed-button-detail/fixed-button-detail.component';
 import {CommonModule} from '@angular/common';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NaturalLinkableTabDirective} from '../../../projects/natural/src/lib/modules/common/directives/linkable-tab.directive';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
+import {collectErrors, NaturalAbstractDetail, NaturalSeoResolveData} from '@ecodev/natural';
+import {NaturalLinkableTabDirective} from '../../../projects/natural/src/lib/modules/common/directives/linkable-tab.directive';
 import {NaturalDetailHeaderComponent} from '../../../projects/natural/src/lib/modules/detail-header/detail-header.component';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NaturalFixedButtonDetailComponent} from '../../../projects/natural/src/lib/modules/fixed-button-detail/fixed-button-detail.component';
+import {Item, ItemInput, ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 
 @Component({
     selector: 'app-detail',
@@ -19,7 +18,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     styleUrl: './detail.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         NaturalDetailHeaderComponent,
         MatButtonModule,
         RouterLink,

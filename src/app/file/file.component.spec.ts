@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {naturalProviders} from '@ecodev/natural';
 import {MockApolloProvider} from '../../../projects/natural/src/lib/testing/mock-apollo.provider';
 import {FileComponent} from './file.component';
-import {naturalProviders} from '@ecodev/natural';
 
 describe('Demo FileComponent', () => {
     let component: FileComponent;

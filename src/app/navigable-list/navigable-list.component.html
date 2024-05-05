@@ -1,9 +1,9 @@
 <h1 class="mat-headline-4">NaturalAbstractNavigableList</h1>
 
 @if (dataSource) {
-    <div fxFlex fxLayout="column">
-        <div fxLayout="column">
-            <div fxLayout="row wrap">
+    <div class="nat-expand nat-vertical">
+        <div class="nat-vertical">
+            <div class="nat-horizontal nat-wrap">
                 @for (item of breadcrumbs; track item) {
                     <a [routerLink]="getChildLink(item)" class="no-padding" mat-button>
                         <mat-icon naturalIcon="chevron_right" />
@@ -11,13 +11,13 @@
                     </a>
                 }
             </div>
-            <div class="margin-v" fxLayout="row" overflow>
+            <div class="margin-v nat-horizontal" overflow>
                 <natural-search
                     (selectionChange)="search($event)"
                     [facets]="naturalSearchFacets"
                     [multipleGroups]="true"
                     [selections]="naturalSearchSelections"
-                    fxFlex
+                    class="nat-expand"
                 >
                     <natural-columns-picker
                         [availableColumns]="availableColumns"
@@ -78,12 +78,12 @@
                 </table>
             </div>
             @if (dataSource.data?.length === 0) {
-                <div class="margin" fxLayout="column" fxLayoutAlign="center center">
+                <div class="margin nat-center nat-vertical">
                     <div>Pas de résultats</div>
                 </div>
             }
             @if (!dataSource.data) {
-                <div class="margin" fxLayout="column" fxLayoutAlign="center center">
+                <div class="margin nat-center nat-vertical">
                     <mat-progress-spinner [diameter]="40" mode="indeterminate" />
                 </div>
             }
@@ -95,13 +95,13 @@
                 [pageSize]="dataSource.data?.pageSize"
             />
         </div>
-        <div fxLayout="row" fxLayoutGap="20px">
+        <div class="nat-horizontal nat-gap">
             <pre class="debug" style="overflow: auto">columnsForTable : {{ columnsForTable | json }}</pre>
             <pre class="debug" style="overflow: auto">selectedColumns : {{ selectedColumns | json }}</pre>
-            <pre class="debug" fxFlex style="overflow: auto">
+            <pre class="debug nat-expand" style="overflow: auto">
 variables : {{ variablesManager.variables.value | json }}</pre
             >
-            <pre class="debug" fxFlex style="overflow: auto">row selection : {{ selection.selected | json }}</pre>
+            <pre class="debug nat-expand" style="overflow: auto">row selection : {{ selection.selected | json }}</pre>
         </div>
     </div>
 }

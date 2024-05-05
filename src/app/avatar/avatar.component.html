@@ -1,9 +1,9 @@
 <h1 class="mat-headline-4">natural-avatar</h1>
 
-<div fxLayout="column" fxLayoutGap="30px">
+<div class="nat-vertical nat-gap-30">
     <h2 class="mat-h2">Avatar from different sources</h2>
 
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <natural-avatar gravatar="webmaster@ecodev.ch" />
         <natural-avatar gravatar="5fa7e880db8ff6741e0268ff52c22057" />
         <natural-avatar image="assets/logo.svg" />
@@ -12,7 +12,7 @@
 
     <h2 class="mat-h2">Avatar with fallback</h2>
 
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <!-- use gravatar as source, when it fails, fallbacks to image -->
         <natural-avatar gravatar="non-existing-email@example.com" image="assets/logo.svg" />
 
@@ -25,7 +25,7 @@
 
     <h2 class="mat-h2">Ignore special chars</h2>
 
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <natural-avatar initials="asdf - qwer" />
         <natural-avatar initials="asdf (qwer)" />
         <natural-avatar initials="asdf / qwer" />
@@ -33,7 +33,7 @@
 
     <h2 class="mat-h2">Colors</h2>
 
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <natural-avatar initials="auto color 1" />
         <natural-avatar initials="auto color 2" />
         <natural-avatar initials="auto color 3" />
@@ -48,7 +48,7 @@
     </div>
 
     <h2 class="mat-h2">Misc</h2>
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         <natural-avatar gravatar="5fa7e880db8ff6741e0268ff52c22057" />
         <natural-avatar gravatar="5fa7e880db8ff6741e0268ff52c22057" [size]="100" />
         <natural-avatar gravatar="5fa7e880db8ff6741e0268ff52c22057" borderRadius="15%" />
@@ -66,7 +66,7 @@
         <button mat-raised-button (click)="failedSources.push(failedSources.length)">Add 1 failing source</button>
     </div>
 
-    <div fxLayout="row" fxLayoutGap="10px">
+    <div class="nat-horizontal nat-gap-10">
         @for (i of failedSources; track i) {
             <span>
                 <natural-avatar initials="failing" gravatar="invalid-are-not-retried@example.com" />

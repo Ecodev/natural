@@ -1,13 +1,12 @@
 import {Component} from '@angular/core';
-import {RouterLink, RouterOutlet} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
     selector: 'app-panels',
     templateUrl: './panels.component.html',
     styleUrl: './panels.component.scss',
     standalone: true,
-    imports: [FlexModule, MatButtonModule, RouterLink, RouterOutlet],
+    imports: [MatButtonModule, RouterLink, RouterOutlet],
 })
 export class PanelsComponent {}
