@@ -33,9 +33,7 @@
                         <input matInput formControlName="description" />
                         @if (formArray.at(i).get('description')?.hasError('maxlength')) {
                             <mat-error>
-                                Maximum{{
-                                    formArray.at(i).get('description')?.errors?.maxlength.requiredLength
-                                }}
+                                Maximum{{ formArray.at(i).get('description')?.errors?.maxlength.requiredLength }}
                                 caractères
                             </mat-error>
                         }
@@ -67,8 +65,7 @@
                             <mat-error>
                                 Maximum{{
                                     formArray.at($index).get('name')?.errors?.maxlength.requiredLength
-                                }}
-                                caractères
+                                }}caractères
                             </mat-error>
                         }
                         @if (formArray.at($index).get('name')?.hasError('required')) {
