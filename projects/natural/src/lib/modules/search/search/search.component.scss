@@ -5,8 +5,8 @@
 
     .groupsWrapper {
         display: flex;
-        flex-direction: column;
         flex: 1;
+        flex-direction: column;
         min-width: 0;
     }
 
@@ -27,11 +27,11 @@
     }
 
     .endOfRowButton {
-        height: 53px;
         display: flex;
         flex-direction: row;
         align-items: center;
         margin-bottom: 15px;
+        height: 53px;
     }
 
     mat-divider {

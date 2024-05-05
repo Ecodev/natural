@@ -4,8 +4,8 @@
 
     mat-sidenav-container {
         display: flex;
-        flex-direction: column;
         flex: 1;
+        flex-direction: column;
     }
 
     mat-sidenav-content > div {

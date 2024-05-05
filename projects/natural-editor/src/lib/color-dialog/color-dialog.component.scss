@@ -1,24 +1,24 @@
 mat-dialog-content {
+    display: grid;
+    row-gap: 25px;
+    justify-content: center;
     width: 70vw;
     max-width: 30em;
-    display: grid;
-    justify-content: center;
-    row-gap: 25px;
 }
 
 $size: 25px;
 $margin: 3px;
 .color {
     display: inline-block;
+    cursor: pointer;
+    margin: $margin;
     width: $size;
     height: $size;
-    margin: $margin;
-    cursor: pointer;
 
     // Make the square bigger
     &:hover {
-        padding: $margin;
         margin: 0;
+        padding: $margin;
     }
 }
 

@@ -1,23 +1,23 @@
 .cdk-overlay-container {
     .panel {
-        max-width: calc(100vw - 84px);
         margin: 10px;
+        max-width: calc(100vw - 84px);
 
         @media (max-width: 960px) {
             max-width: calc(100vw - 20px);
         }
 
         .mat-dialog-container {
-            border-radius: 0 !important;
             display: flex;
             flex-direction: column;
-            max-width: none;
+            border-radius: 0 !important;
             padding: 0;
+            max-width: none;
 
             & > * {
                 display: flex;
-                flex-direction: column;
                 flex: 1;
+                flex-direction: column;
             }
         }
 
@@ -33,8 +33,8 @@
             // Align header with content (padding 20px)
             &.isFrontPanel > div > div > div.mat-headline-5.no-margin,
             &.isFrontPanel natural-detail-header > div {
-                padding-left: 20px;
                 padding-right: 20px;
+                padding-left: 20px;
             }
 
             .panelBody {
@@ -42,22 +42,22 @@
             }
 
             &:not(.isFrontPanel) {
+                position: relative;
+
+                cursor: pointer;
                 .panelBody {
                     display: none !important;
                 }
 
-                cursor: pointer;
-                position: relative;
-
                 &:hover::before {
-                    content: '';
                     display: block;
                     position: absolute;
                     top: 0;
-                    left: 0;
                     right: 0;
                     bottom: 0;
+                    left: 0;
                     background: rgba(0, 0, 0, 0.2);
+                    content: '';
                 }
             }
         }

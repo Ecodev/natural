@@ -19,14 +19,14 @@ type Style = Partial<CSSStyleDeclaration>;
                     position: relative;
 
                     .avatar-container::before {
-                        content: '';
                         position: absolute;
-                        left: 0;
                         top: 0;
                         right: 0;
                         bottom: 0;
+                        left: 0;
                         border-radius: 50%;
                         background: linear-gradient(345deg, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.33) 100%);
+                        content: '';
                     }
 
                     .avatar-content {

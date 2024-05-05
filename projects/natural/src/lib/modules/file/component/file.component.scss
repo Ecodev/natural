@@ -1,8 +1,8 @@
 :host {
     display: flex;
+    position: relative;
     flex-direction: row;
     overflow: hidden;
-    position: relative;
 
     & > a {
         position: relative;
@@ -29,12 +29,12 @@
     .action-overlay,
     .file-preview {
         display: flex;
-        flex-direction: column;
         position: absolute;
         top: 0;
-        left: 0;
         right: 0;
         bottom: 0;
+        left: 0;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         font-size: 36px;
@@ -46,15 +46,15 @@
         opacity: 0;
 
         & > div {
-            opacity: 0;
+            display: flex;
             position: absolute;
             top: 0;
-            left: 0;
             right: 0;
             bottom: 0;
-            display: flex;
+            left: 0;
             justify-content: center;
             align-items: center;
+            opacity: 0;
         }
     }
 }

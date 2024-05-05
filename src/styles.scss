@@ -149,8 +149,8 @@ $baseBgColorDark: mat.get-color-from-palette(map.get($dark-theme, background), b
 }
 
 .defaultDark {
-    color: $baseColorDark;
     background: $baseBgColorDark;
+    color: $baseColorDark;
 
     @include mat.all-component-colors($dark-theme);
     @include components-theme($dark-theme);
@@ -171,8 +171,8 @@ app-root {
 app-root {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 /**
@@ -180,12 +180,12 @@ app-root {
  */
 p.debug,
 pre.debug {
-    padding: 10px;
     margin: 10px;
-    font-size: 16px;
-    line-height: 1.5em;
     border: 1px solid rgba(0, 0, 0, 0.5);
     background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.5em;
     font-family: Courrier, monospace;
 }
 
