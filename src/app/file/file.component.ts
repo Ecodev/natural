@@ -1,16 +1,15 @@
-import {Component} from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
-import {FileModel, FileSelection, NaturalFileService} from '@ecodev/natural';
-import {FileService} from './file.service';
-import {tap} from 'rxjs/operators';
 import {CommonModule} from '@angular/common';
+import {Component} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {FileModel, FileSelection, NaturalFileService} from '@ecodev/natural';
+import {Observable, Subscription} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {NaturalFileComponent} from '../../../projects/natural/src/lib/modules/file/component/file.component';
 import {NaturalFileDropDirective} from '../../../projects/natural/src/lib/modules/file/file-drop.directive';
 import {NaturalFileSelectDirective} from '../../../projects/natural/src/lib/modules/file/file-select.directive';
-import {MatButtonModule} from '@angular/material/button';
-import {FormsModule} from '@angular/forms';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {FileService} from './file.service';
 
 type JsonFile = {
     name: string;
@@ -54,7 +53,6 @@ function selectionToJson(selection: FileSelection): JsonFileSelection {
     styleUrl: './file.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         MatCheckboxModule,
         FormsModule,
         MatButtonModule,

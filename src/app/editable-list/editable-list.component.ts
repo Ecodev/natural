@@ -1,16 +1,15 @@
-import {Component} from '@angular/core';
-import {NaturalAbstractEditableList} from '@ecodev/natural';
-import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
 import {CommonModule} from '@angular/common';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTableModule} from '@angular/material/table';
+import {Component} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
+import {NaturalAbstractEditableList} from '@ecodev/natural';
+import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
+import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 
 @Component({
     selector: 'app-editable-list',
@@ -18,7 +17,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     styleUrl: './editable-list.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         FormsModule,
         ReactiveFormsModule,
         MatTableModule,

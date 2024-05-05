@@ -8,8 +8,13 @@ import {
     NaturalSeo,
 } from '@ecodev/natural';
 import {resolveHardcodedItem, resolveItem} from '../../projects/natural/src/lib/testing/item.resolver';
+import {AlertComponent} from './alert/alert.component';
+import {AvatarComponent} from './avatar/avatar.component';
+import {DetailHeaderComponent} from './detail-header/detail-header.component';
+import {DetailComponent} from './detail/detail.component';
 import {EditableListComponent} from './editable-list/editable-list.component';
 import {EditorComponent} from './editor/editor.component';
+import {FileComponent} from './file/file.component';
 import {HierarchicComponent} from './hierarchic/hierarchic.component';
 import {HomeComponent} from './home/home.component';
 import {HomepageComponent} from './homepage/homepage.component';
@@ -21,14 +26,9 @@ import {panelsRoutes} from './panels-routing';
 import {PanelsComponent} from './panels/panels.component';
 import {RelationsComponent} from './relations/relations.component';
 import {SearchComponent} from './search/search.component';
-import {SelectComponent} from './select/select.component';
-import {AlertComponent} from './alert/alert.component';
-import {DetailComponent} from './detail/detail.component';
 import {SelectEnumComponent} from './select-enum/select-enum.component';
 import {SelectHierarchicComponent} from './select-hierarchic/select-hierarchic.component';
-import {FileComponent} from './file/file.component';
-import {AvatarComponent} from './avatar/avatar.component';
-import {DetailHeaderComponent} from './detail-header/detail-header.component';
+import {SelectComponent} from './select/select.component';
 
 export const routes: Routes = [
     {

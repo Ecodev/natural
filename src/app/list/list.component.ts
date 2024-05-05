@@ -1,16 +1,15 @@
+import {CommonModule} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
-import {AvailableColumn, Button, NaturalAbstractList, Sorting, SortingOrder} from '@ecodev/natural';
-import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {NaturalTableButtonComponent} from '../../../projects/natural/src/lib/modules/table-button/table-button.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-import {NaturalSearchComponent} from '../../../projects/natural/src/lib/modules/search/search/search.component';
+import {AvailableColumn, Button, NaturalAbstractList, Sorting, SortingOrder} from '@ecodev/natural';
 import {NaturalColumnsPickerComponent} from '../../../projects/natural/src/lib/modules/columns-picker/columns-picker.component';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
-import {CommonModule} from '@angular/common';
+import {NaturalSearchComponent} from '../../../projects/natural/src/lib/modules/search/search/search.component';
+import {NaturalTableButtonComponent} from '../../../projects/natural/src/lib/modules/table-button/table-button.component';
+import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 
 @Component({
     selector: 'app-list',
@@ -19,7 +18,7 @@ import {CommonModule} from '@angular/common';
     standalone: true,
     imports: [
         CommonModule,
-        FlexModule,
+
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
         MatTableModule,

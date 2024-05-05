@@ -1,16 +1,15 @@
-import {Component} from '@angular/core';
-import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
-import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
-import {AbstractSelect} from '../AbstractSelect';
 import {CommonModule} from '@angular/common';
-import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
+import {Component} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {NaturalSelectComponent} from '../../../projects/natural/src/lib/modules/select/select/select.component';
-import {MatButtonModule} from '@angular/material/button';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
+import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
+import {AbstractSelect} from '../AbstractSelect';
 
 @Component({
     selector: 'app-select',
@@ -18,7 +17,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     styleUrl: './select.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         MatButtonModule,
         NaturalSelectComponent,
         FormsModule,

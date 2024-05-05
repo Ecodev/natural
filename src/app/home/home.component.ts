@@ -1,17 +1,16 @@
 import {DOCUMENT} from '@angular/common';
 import {Component, Inject, OnInit} from '@angular/core';
-import {ThemeService} from '../shared/services/theme.service';
-import {NaturalSidenavContentComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav-content/sidenav-content.component';
-import {RouterLink, RouterOutlet} from '@angular/router';
-import {MatListModule} from '@angular/material/list';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {NaturalSidenavComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav/sidenav.component';
-import {NaturalSidenavContainerComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav-container/sidenav-container.component';
-import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {RouterLink, RouterOutlet} from '@angular/router';
+import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
+import {NaturalSidenavContainerComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav-container/sidenav-container.component';
+import {NaturalSidenavContentComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav-content/sidenav-content.component';
+import {NaturalSidenavComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav/sidenav.component';
+import {ThemeService} from '../shared/services/theme.service';
 
 @Component({
     selector: 'app-home',
@@ -19,7 +18,6 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
     styleUrl: './home.component.scss',
     standalone: true,
     imports: [
-        FlexModule,
         MatToolbarModule,
         MatButtonModule,
         MatIconModule,

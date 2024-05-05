@@ -1,5 +1,5 @@
 <h1 class="mat-headline-4">NaturalAbstractEditableList</h1>
-<div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
+<div class="nat-horizontal nat-left nat-gap">
     <div [formGroup]="form">
         <div class="mat-headline-6">As a mat-table</div>
 
@@ -33,8 +33,10 @@
                         <input matInput formControlName="description" />
                         @if (formArray.at(i).get('description')?.hasError('maxlength')) {
                             <mat-error>
-                                Maximum
-                                {{ formArray.at(i).get('description')?.errors?.maxlength.requiredLength }} caractères
+                                Maximum{{
+                                    formArray.at(i).get('description')?.errors?.maxlength.requiredLength
+                                }}
+                                caractères
                             </mat-error>
                         }
                     </mat-form-field>
@@ -57,14 +59,16 @@
         <div class="mat-headline-6">As a `for` loop</div>
         @for (element of dataSource.data; track element) {
             <div formArrayName="rows">
-                <div [formGroupName]="$index" fxLayout="row" fxLayoutGap="20px">
+                <div [formGroupName]="$index" class="nat-horizontal nat-gap">
                     <mat-form-field>
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="name" />
                         @if (formArray.at($index).get('name')?.hasError('maxlength')) {
                             <mat-error>
-                                Maximum
-                                {{ formArray.at($index).get('name')?.errors?.maxlength.requiredLength }} caractères
+                                Maximum{{
+                                    formArray.at($index).get('name')?.errors?.maxlength.requiredLength
+                                }}
+                                caractères
                             </mat-error>
                         }
                         @if (formArray.at($index).get('name')?.hasError('required')) {
@@ -76,9 +80,9 @@
                         <input matInput formControlName="description" />
                         @if (formArray.at($index).get('description')?.hasError('maxlength')) {
                             <mat-error>
-                                Maximum
-                                {{ formArray.at($index).get('description')?.errors?.maxlength.requiredLength }}
-                                caractères
+                                Maximum{{
+                                    formArray.at($index).get('description')?.errors?.maxlength.requiredLength
+                                }}caractères
                             </mat-error>
                         }
                     </mat-form-field>
@@ -88,7 +92,7 @@
     </div>
 
     <div>
-        <pre class="debug"><strong>form.valid:</strong> {{ form.valid | json}}</pre>
-        <pre class="debug"><strong>getItems():</strong> {{ getItems() | json}}</pre>
+        <pre class="debug"><strong>form.valid:</strong> {{ form.valid | json }}</pre>
+        <pre class="debug"><strong>getItems():</strong> {{ getItems() | json }}</pre>
     </div>
 </div>

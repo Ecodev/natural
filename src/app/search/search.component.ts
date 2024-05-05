@@ -20,7 +20,7 @@ import {
     TypeSelectConfiguration,
     TypeTextComponent,
 } from '@ecodev/natural';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+
 import {timer} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TypeBooleanComponent} from '../../../projects/natural/src/lib/modules/dropdown-components/type-boolean/type-boolean.component';
@@ -34,7 +34,7 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss',
     standalone: true,
-    imports: [FlexModule, NaturalSearchComponent, MatButtonModule, CommonModule],
+    imports: [NaturalSearchComponent, MatButtonModule, CommonModule],
 })
 export class SearchComponent implements OnInit {
     public facets1: NaturalSearchFacets = [

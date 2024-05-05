@@ -1,17 +1,16 @@
 import {Component} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {Observable} from 'rxjs';
 import {NaturalCustomCssDirective} from '../../../projects/natural-editor/src/lib/custom-css/custom-css.directive';
 import {NaturalEditorComponent} from '../../../projects/natural-editor/src/lib/editor/editor.component';
-import {FormsModule} from '@angular/forms';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     selector: 'app-editor',
     templateUrl: './editor.component.html',
     styleUrl: './editor.component.scss',
     standalone: true,
-    imports: [FlexModule, MatCheckboxModule, FormsModule, NaturalEditorComponent, NaturalCustomCssDirective],
+    imports: [MatCheckboxModule, FormsModule, NaturalEditorComponent, NaturalCustomCssDirective],
 })
 export class EditorComponent {
     public disabled = false;

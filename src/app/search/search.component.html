@@ -1,6 +1,6 @@
 <h1 class="mat-headline-4">natural-search</h1>
 
-<div fxLayout="column" fxLayoutGap="20px">
+<div class="nat-vertical nat-gap">
     <natural-search
         (selectionChange)="updateFilter($event); selectionsDone = $event"
         [facets]="facets"
@@ -11,26 +11,23 @@
         <button color="primary" mat-raised-button>extern.</button>
     </natural-search>
 
-    <div fxLayout="row" fxLayoutGap="20px">
+    <div class="nat-horizontal nat-gap">
         <button (click)="facets = facets1" color="primary" mat-raised-button>Config 1</button>
         <button (click)="facets = facets2" color="primary" mat-raised-button>Config 2</button>
         <button (click)="facets = []" color="primary" mat-raised-button>No config</button>
     </div>
 
-    <div fxLayout="row" fxLayoutGap="20px">
+    <div class="nat-horizontal nat-gap">
         <pre
-            class="debug"
-            fxFlex
+            class="debug nat-expand"
             style="overflow: auto"
         ><strong>Selections input: </strong>{{ selections | json }}</pre>
         <pre
-            class="debug"
-            fxFlex
+            class="debug nat-expand"
             style="overflow: auto"
         ><strong>Selections output: </strong>{{ selectionsDone | json }}</pre>
         <pre
-            class="debug"
-            fxFlex
+            class="debug nat-expand"
             style="overflow: auto"
         ><strong>GraphQL selections: </strong>{{ graphqlSelections | json }}</pre>
     </div>
@@ -38,18 +35,11 @@
     <!-- @off -->
     <pre class="debug" style="overflow: auto"><strong>JSON serialized length: </strong>
 
-    Selections:
-        {{ stringify(selections).length }}
-        {{ stringify(selections) }}
+    Selections:{{ stringify(selections).length }}{{ stringify(selections) }}
 
-    GraphQL selections:
-        {{ stringify(graphqlSelections).length }}
-        {{ stringify(graphqlSelections) }}
+    GraphQL selections:{{ stringify(graphqlSelections).length }}{{ stringify(graphqlSelections) }}
 
-
-    Compressed selections:
-        {{ toUrl(selections)?.length }}
-        {{ toUrl(selections) }}
+    Compressed selections:{{ toUrl(selections)?.length }}{{ toUrl(selections) }}
     </pre>
 
     <!-- @on -->

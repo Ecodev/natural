@@ -1,15 +1,14 @@
+import {CommonModule} from '@angular/common';
 import {Component} from '@angular/core';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
 import {IEnum, NaturalEnumService} from '@ecodev/natural';
 import {Observable, of} from 'rxjs';
-import {AnyEnumService} from '../../../projects/natural/src/lib/testing/any-enum.service';
-import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
-import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
-import {AbstractSelect} from '../AbstractSelect';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
 import {NaturalSelectEnumComponent} from '../../../projects/natural/src/lib/modules/select/select-enum/select-enum.component';
-import {MatButtonModule} from '@angular/material/button';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {AnyEnumService} from '../../../projects/natural/src/lib/testing/any-enum.service';
+import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
+import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
+import {AbstractSelect} from '../AbstractSelect';
 
 @Component({
     selector: 'app-select',
@@ -22,7 +21,7 @@ import {FlexModule} from '@ngbracket/ngx-layout/flex';
         },
     ],
     standalone: true,
-    imports: [FlexModule, MatButtonModule, NaturalSelectEnumComponent, FormsModule, ReactiveFormsModule, CommonModule],
+    imports: [MatButtonModule, NaturalSelectEnumComponent, FormsModule, ReactiveFormsModule, CommonModule],
 })
 export class SelectEnumComponent extends AbstractSelect {
     public readonly formControlMultiple = new FormControl();

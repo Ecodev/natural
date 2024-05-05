@@ -1,17 +1,17 @@
-<div fxFlex fxLayout="column">
-    <mat-toolbar fxFlex="none" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+<div class="nat-expand nat-vertical">
+    <mat-toolbar class="nat-horizontal nat-left nat-center nat-gap">
         @if (menu) {
             <button (click)="menu.toggle()" mat-icon-button>
                 <mat-icon naturalIcon="menu" />
             </button>
         }
 
-        <a href="/" mat-button>
+        <a class="logo" href="/" mat-button>
             <img height="40px" src="assets/logo.svg" />
             <span class="mat-headline-6">&#64;ecodev/natural</span>
         </a>
 
-        <div fxFlex></div>
+        <div class="nat-expand"></div>
 
         <button (click)="themeService.toggle()" mat-icon-button>
             <mat-icon naturalIcon="invert_colors" />
@@ -22,8 +22,8 @@
         </a>
     </mat-toolbar>
 
-    <div fxFlex fxLayout="column">
-        <natural-sidenav-container #menu [noScroll]="true" fxFlex name="menu">
+    <div class="nat-expand nat-vertical">
+        <natural-sidenav-container #menu [noScroll]="true" class="nat-expand" name="menu">
             <natural-sidenav>
                 <div style="overflow-x: auto; margin: 20px">
                     <div id="menu">
@@ -146,7 +146,7 @@
             </natural-sidenav>
 
             <natural-sidenav-content>
-                <div fxFlex fxLayout="column" style="padding: 20px; overflow: auto">
+                <div class="nat-expand nat-vertical" style="padding: 20px; overflow: auto">
                     <router-outlet />
                 </div>
             </natural-sidenav-content>

@@ -1,18 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {NaturalAbstractDetail, NaturalHierarchicConfiguration} from '@ecodev/natural';
-import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
-import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
-import {NoResultService} from '../../../projects/natural/src/lib/testing/no-result.service';
-import {NaturalRelationsComponent} from '../../../projects/natural/src/lib/modules/relations/relations.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {NaturalAbstractDetail, NaturalHierarchicConfiguration} from '@ecodev/natural';
+import {NaturalRelationsComponent} from '../../../projects/natural/src/lib/modules/relations/relations.component';
+import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
+import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
+import {NoResultService} from '../../../projects/natural/src/lib/testing/no-result.service';
 
 @Component({
     selector: 'app-relations',
     templateUrl: './relations.component.html',
     styleUrl: './relations.component.scss',
     standalone: true,
-    imports: [FlexModule, FormsModule, ReactiveFormsModule, NaturalRelationsComponent],
+    imports: [FormsModule, ReactiveFormsModule, NaturalRelationsComponent],
 })
 export class RelationsComponent extends NaturalAbstractDetail<ItemService> implements OnInit {
     public hierarchicConfig: NaturalHierarchicConfiguration[] = [

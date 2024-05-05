@@ -1,9 +1,9 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {SelectHierarchicComponent} from './select-hierarchic.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
 import {naturalProviders} from '@ecodev/natural';
 import {MockApolloProvider} from '../../../projects/natural/src/lib/testing/mock-apollo.provider';
+import {SelectHierarchicComponent} from './select-hierarchic.component';
 
 describe('Demo SelectHierarchicComponent', () => {
     let component: SelectHierarchicComponent;

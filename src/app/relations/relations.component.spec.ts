@@ -1,9 +1,9 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {RelationsComponent} from './relations.component';
-import {MockApolloProvider} from '../../../projects/natural/src/lib/testing/mock-apollo.provider';
-import {naturalProviders} from '@ecodev/natural';
-import {RouterTestingModule} from '@angular/router/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterTestingModule} from '@angular/router/testing';
+import {naturalProviders} from '@ecodev/natural';
+import {MockApolloProvider} from '../../../projects/natural/src/lib/testing/mock-apollo.provider';
+import {RelationsComponent} from './relations.component';
 
 describe('RelationsComponent', () => {
     let component: RelationsComponent;

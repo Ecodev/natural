@@ -1,8 +1,8 @@
 import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {collectErrors, validateAllFormControls} from '@ecodev/natural';
 import {Observable} from 'rxjs';
-import {ItemService, Item} from '../../projects/natural/src/lib/testing/item.service';
 import {ErrorService} from '../../projects/natural/src/lib/testing/error.service';
+import {Item, ItemService} from '../../projects/natural/src/lib/testing/item.service';
 
 export class AbstractSelect {
     public required = true;

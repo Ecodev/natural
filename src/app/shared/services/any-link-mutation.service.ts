@@ -1,5 +1,5 @@
-import {FetchResult} from '@apollo/client/core';
 import {Injectable} from '@angular/core';
+import {FetchResult} from '@apollo/client/core';
 import {debug, LinkableObject} from '@ecodev/natural';
 import {delay, Observable, of} from 'rxjs';
 

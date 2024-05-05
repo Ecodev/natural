@@ -1,9 +1,9 @@
 <h1 class="mat-headline-4">NaturalAbstractList</h1>
 
 @if (dataSource) {
-    <div fxFlex fxLayout="column">
-        <div fxLayout="row">
-            <div class="mat-headline-6 no-margin" fxFlex>{{ routeData?.title }}</div>
+    <div class="nat-expand nat-vertical">
+        <div class="nat-horizontal">
+            <div class="mat-headline-6 no-margin nat-expand">{{ routeData?.title }}</div>
             <natural-columns-picker
                 [availableColumns]="availableColumns"
                 [selections]="selectedColumns"
@@ -11,14 +11,14 @@
                 [buttons]="buttons"
             />
         </div>
-        <div fxLayout="column">
-            <div class="margin-v" fxLayout="row" overflow>
+        <div class="nat-vertical">
+            <div class="margin-v nat-horizontal" overflow>
                 <natural-search
                     (selectionChange)="search($event)"
                     [facets]="naturalSearchFacets"
                     [multipleGroups]="true"
                     [selections]="naturalSearchSelections"
-                    fxFlex
+                    class="nat-expand"
                 />
             </div>
             <div class="responsive-table">
@@ -68,18 +68,18 @@
                     <ng-container matColumnDef="not-in-picker">
                         <th *matHeaderCellDef mat-header-cell natural-align-right mat-sort-header>Not in picker</th>
                         <td *matCellDef="let element" mat-cell natural-align-right
-                            >should never be visible, even if solicited by url</td
-                        >
+                            >should never be visible, even if solicited by url
+                        </td>
                     </ng-container>
                 </table>
             </div>
             @if (dataSource.data?.length === 0) {
-                <div class="margin" fxLayout="column" fxLayoutAlign="center center">
+                <div class="margin nat-center nat-vertical">
                     <div>Pas de résultats</div>
                 </div>
             }
             @if (!dataSource.data) {
-                <div class="margin" fxLayout="column" fxLayoutAlign="center center">
+                <div class="margin nat-center nat-vertical">
                     <mat-progress-spinner [diameter]="40" mode="indeterminate" />
                 </div>
             }
@@ -91,13 +91,13 @@
                 [pageSize]="dataSource.data?.pageSize"
             />
         </div>
-        <div fxLayout="row" fxLayoutGap="20px">
+        <div class="nat-horizontal nat-gap">
             <pre class="debug" style="overflow: auto">columnsForTable : {{ columnsForTable | json }}</pre>
             <pre class="debug" style="overflow: auto">selectedColumns : {{ selectedColumns | json }}</pre>
-            <pre class="debug" fxFlex style="overflow: auto">
+            <pre class="debug nat-expand" style="overflow: auto">
 variables : {{ variablesManager.variables.value | json }}</pre
             >
-            <pre class="debug" fxFlex style="overflow: auto">row selection : {{ selection.selected | json }}</pre>
+            <pre class="debug nat-expand" style="overflow: auto">row selection : {{ selection.selected | json }}</pre>
         </div>
     </div>
 }

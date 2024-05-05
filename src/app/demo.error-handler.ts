@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Observable, of} from 'rxjs';
 import {NaturalLoggerExtra, NaturalLoggerType} from '@ecodev/natural';
+import {Observable, of} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class DemoLoggerExtra implements NaturalLoggerExtra {

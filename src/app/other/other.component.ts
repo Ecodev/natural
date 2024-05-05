@@ -1,19 +1,19 @@
+import {CommonModule} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Params, QueryParamsHandling, RouterLink, RouterOutlet} from '@angular/router';
-import {ThemePalette, MatRippleModule} from '@angular/material/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatMenuModule} from '@angular/material/menu';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {NaturalHttpPrefixDirective} from '../../../projects/natural/src/lib/directives/http-prefix.directive';
-import {MatInputModule} from '@angular/material/input';
+import {MatRippleModule, ThemePalette} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
+import {Params, QueryParamsHandling, RouterLink, RouterOutlet} from '@angular/router';
+import {NaturalHttpPrefixDirective} from '../../../projects/natural/src/lib/directives/http-prefix.directive';
+import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
+
 import {NaturalTableButtonComponent} from '../../../projects/natural/src/lib/modules/table-button/table-button.component';
-import {CommonModule} from '@angular/common';
 
 type TableButtonConfiguration = {
     label?: string | null;
@@ -35,7 +35,7 @@ type TableButtonConfiguration = {
     imports: [
         CommonModule,
         NaturalTableButtonComponent,
-        FlexModule,
+
         MatFormFieldModule,
         MatInputModule,
         FormsModule,

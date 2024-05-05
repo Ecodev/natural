@@ -1,13 +1,12 @@
 import {Component} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {NaturalAvatarComponent} from '../../../projects/natural/src/lib/modules/avatar/component/avatar.component';
-import {FlexModule} from '@ngbracket/ngx-layout/flex';
 
 @Component({
     templateUrl: './avatar.component.html',
     styleUrl: './avatar.component.scss',
     standalone: true,
-    imports: [FlexModule, NaturalAvatarComponent, MatButtonModule],
+    imports: [NaturalAvatarComponent, MatButtonModule],
 })
 export class AvatarComponent {
     public failedSources: number[] = [];
