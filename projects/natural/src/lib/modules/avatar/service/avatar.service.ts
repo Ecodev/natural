@@ -23,15 +23,13 @@ export class AvatarService {
     ]);
 
     private readonly avatarColors = [
-        '#ff0000',
-        '#ff8800',
-        '#dabb00',
-        '#00c200',
-        '#01cbcb',
-        '#008cff',
-        '#ff00d8',
-        '#c800ff',
-        '#3b3b3b',
+        '#e37900', // 2.99 fail https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=e37900
+        '#e6b102', // 2.26 fail https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=c7ab00
+        '#00bbbb', // 2.37 fail https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=00bbbb
+        '#008cff', // 3.38 fail https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=008cff
+        '#d9138c', // 4.51 pass https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=d901b8
+        '#7321d1', // 4.28 fail https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=c800ff
+        '#3b3b3b', // 11.2 pass https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=3b3b3b
     ];
 
     private readonly failedSources = new Map<string, Source>();
