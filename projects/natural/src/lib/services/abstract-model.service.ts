@@ -52,6 +52,7 @@ export abstract class NaturalAbstractModelService<
         protected readonly createMutation: DocumentNode | null,
         protected readonly updateMutation: DocumentNode | null,
         protected readonly deleteMutation: DocumentNode | null,
+        protected readonly plural: string | null = null,
     ) {}
 
     /**
@@ -482,7 +483,7 @@ export abstract class NaturalAbstractModelService<
      * This is used for the unique validator
      */
     public count(queryVariablesManager: NaturalQueryVariablesManager<Vall>): Observable<number> {
-        const plural = makePlural(this.name);
+        const plural = this.plural ?? makePlural(this.name);
         const queryName = 'Count' + upperCaseFirstLetter(plural);
         const filterType = upperCaseFirstLetter(this.name) + 'Filter';
 
