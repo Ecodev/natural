@@ -44,6 +44,7 @@ export abstract class NaturalAbstractModelService<
     private readonly creatingCache = new Map<Vcreate['input'] | WithId<Vupdate['input']>, Observable<Tcreate>>();
     protected readonly apollo = inject(Apollo);
     protected readonly naturalDebounceService = inject(NaturalDebounceService);
+    readonly #plural: string;
 
     public constructor(
         protected readonly name: string,
@@ -52,8 +53,10 @@ export abstract class NaturalAbstractModelService<
         protected readonly createMutation: DocumentNode | null,
         protected readonly updateMutation: DocumentNode | null,
         protected readonly deleteMutation: DocumentNode | null,
-        protected readonly plural: string | null = null,
-    ) {}
+        plural: string | null = null,
+    ) {
+        this.#plural = plural ?? makePlural(this.name);
+    }
 
     /**
      * List of individual fields validators
@@ -483,13 +486,12 @@ export abstract class NaturalAbstractModelService<
      * This is used for the unique validator
      */
     public count(queryVariablesManager: NaturalQueryVariablesManager<Vall>): Observable<number> {
-        const plural = this.plural ?? makePlural(this.name);
-        const queryName = 'Count' + upperCaseFirstLetter(plural);
+        const queryName = 'Count' + upperCaseFirstLetter(this.#plural);
         const filterType = upperCaseFirstLetter(this.name) + 'Filter';
 
         const query = gql`
             query ${queryName} ($filter: ${filterType}) {
-            count: ${plural} (filter: $filter, pagination: {pageSize: 0, pageIndex: 0}) {
+            count: ${this.#plural} (filter: $filter, pagination: {pageSize: 0, pageIndex: 0}) {
             length
             }
             }`;
@@ -540,8 +542,7 @@ export abstract class NaturalAbstractModelService<
      * This is used to extract only the array of fetched objects out of the entire fetched data
      */
     protected mapAll(): OperatorFunction<FetchResult<unknown>, Tall> {
-        const plural = makePlural(this.name);
-        return map(result => (result.data as any)[plural]); // See https://github.com/apollographql/apollo-client/issues/5662
+        return map(result => (result.data as any)[this.#plural]); // See https://github.com/apollographql/apollo-client/issues/5662
     }
 
     /**
@@ -564,7 +565,7 @@ export abstract class NaturalAbstractModelService<
      * This is used to extract only flag when deleting an object
      */
     protected mapDelete(result: MutationResult<unknown>): Tdelete {
-        const name = 'delete' + makePlural(upperCaseFirstLetter(this.name));
+        const name = 'delete' + upperCaseFirstLetter(this.#plural);
         return (result.data as any)[name]; // See https://github.com/apollographql/apollo-client/issues/5662
     }
 
