@@ -46,6 +46,19 @@ export abstract class NaturalAbstractModelService<
     protected readonly naturalDebounceService = inject(NaturalDebounceService);
     readonly #plural: string;
 
+    /**
+     *
+     * @param name service and single object query name (eg. userForFront or user).
+     * @param oneQuery GraphQL query to fetch a single object from ID (eg. userForCrudQuery).
+     * @param allQuery GraphQL query to fetch a filtered list of objects (eg. usersForCrudQuery).
+     * @param createMutation GraphQL mutation to create an object.
+     * @param updateMutation GraphQL mutation to update an object.
+     * @param deleteMutation GraphQL mutation to delete a list of objects.
+     * @param plural list query name (eg. usersForFront or users).
+     * @param createName create object mutation name (eg. createUser).
+     * @param updateName update object mutation name (eg. updateUser).
+     * @param deleteName delete object mutation name (eg. deleteUsers).
+     */
     public constructor(
         protected readonly name: string,
         protected readonly oneQuery: DocumentNode | null,
@@ -54,6 +67,9 @@ export abstract class NaturalAbstractModelService<
         protected readonly updateMutation: DocumentNode | null,
         protected readonly deleteMutation: DocumentNode | null,
         plural: string | null = null,
+        protected readonly createName: string | null = null,
+        protected readonly updateName: string | null = null,
+        protected readonly deleteName: string | null = null,
     ) {
         this.#plural = plural ?? makePlural(this.name);
     }
@@ -549,7 +565,7 @@ export abstract class NaturalAbstractModelService<
      * This is used to extract only the created object out of the entire fetched data
      */
     protected mapCreation(result: MutationResult<unknown>): Tcreate {
-        const name = 'create' + upperCaseFirstLetter(this.name);
+        const name = this.createName ?? 'create' + upperCaseFirstLetter(this.name);
         return (result.data as any)[name]; // See https://github.com/apollographql/apollo-client/issues/5662
     }
 
@@ -557,7 +573,7 @@ export abstract class NaturalAbstractModelService<
      * This is used to extract only the updated object out of the entire fetched data
      */
     protected mapUpdate(result: MutationResult<unknown>): Tupdate {
-        const name = 'update' + upperCaseFirstLetter(this.name);
+        const name = this.updateName ?? 'update' + upperCaseFirstLetter(this.name);
         return (result.data as any)[name]; // See https://github.com/apollographql/apollo-client/issues/5662
     }
 
@@ -565,7 +581,7 @@ export abstract class NaturalAbstractModelService<
      * This is used to extract only flag when deleting an object
      */
     protected mapDelete(result: MutationResult<unknown>): Tdelete {
-        const name = 'delete' + upperCaseFirstLetter(this.#plural);
+        const name = this.deleteName ?? 'delete' + upperCaseFirstLetter(this.#plural);
         return (result.data as any)[name]; // See https://github.com/apollographql/apollo-client/issues/5662
     }
 
