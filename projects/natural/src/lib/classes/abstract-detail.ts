@@ -91,15 +91,15 @@ export class NaturalAbstractDetail<
      */
     protected readonly route = inject(ActivatedRoute);
 
-    #dialogData: unknown = inject(MAT_DIALOG_DATA, {optional: true});
+    private _dialogData: unknown = inject(MAT_DIALOG_DATA, {optional: true});
 
     /**
      * Once set, this must not change anymore, especially not right after the creation mutation,
      * so the form does not switch from creation mode to update mode without an actual reload of
      * model from DB (by navigating to update page).
      */
-    #isUpdatePage = false;
-    readonly #changes = new CumulativeChanges<typeof this.form.getRawValue>();
+    private _isUpdatePage = false;
+    private readonly changes = new CumulativeChanges<typeof this.form.getRawValue>();
 
     public constructor(
         protected readonly key: string,
@@ -115,8 +115,8 @@ export class NaturalAbstractDetail<
         if (this.isPanel) {
             this.initForm();
         } else {
-            const route = isNaturalDialogTriggerProvidedData(this.#dialogData)
-                ? this.#dialogData.activatedRoute
+            const route = isNaturalDialogTriggerProvidedData(this._dialogData)
+                ? this._dialogData.activatedRoute
                 : this.route;
             this.#subscribeToModelFromResolvedData(route);
         }
@@ -163,7 +163,7 @@ export class NaturalAbstractDetail<
      * This should be used instead of checking `data.model.id` directly, in order to type guard and get proper typing
      */
     protected isUpdatePage(): this is {data: {model: ExtractTone<TService>}} {
-        return this.#isUpdatePage;
+        return this._isUpdatePage;
     }
 
     /**
@@ -182,17 +182,17 @@ export class NaturalAbstractDetail<
         ifValid(this.form).subscribe(() => {
             const newValues = this.form.getRawValue();
             if (submitAllFields) {
-                this.#changes.initialize({});
+                this.changes.initialize({});
             }
 
             const toSubmit = {
                 id: this.data.model.id,
-                ...this.#changes.differences(newValues),
+                ...this.changes.differences(newValues),
             };
 
             const update = now ? this.service.updateNow(toSubmit) : this.service.update(toSubmit);
             update.subscribe(model => {
-                this.#changes.commit(newValues);
+                this.changes.commit(newValues);
                 this.alertService.info($localize`Mis à jour`);
                 this.postUpdate(model);
             });
@@ -307,8 +307,8 @@ export class NaturalAbstractDetail<
      * will incorrectly be called exactly 1 time per component instance, even if the object changes via route navigation.
      */
     protected initForm(): void {
-        this.#isUpdatePage = !!this.data.model.id;
+        this._isUpdatePage = !!this.data.model.id;
         this.form = this.service.getFormGroup(this.data.model);
-        this.#changes.initialize(this.form.getRawValue());
+        this.changes.initialize(this.form.getRawValue());
     }
 }

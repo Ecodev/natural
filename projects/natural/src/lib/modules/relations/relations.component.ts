@@ -76,17 +76,17 @@ export class NaturalRelationsComponent<
     @ViewChild(NaturalSelectComponent) private select?: NaturalSelectComponent<TService>;
     @ContentChild(TemplateRef) public itemTemplate?: TemplateRef<unknown>;
 
-    #service!: TService;
+    private _service!: TService;
 
     public get service(): TService {
-        return this.#service;
+        return this._service;
     }
 
     @Input({required: true})
     public set service(service: TService) {
-        this.#service = service;
+        this._service = service;
         this.loading = true;
-        const items$ = this.#service.watchAll(this.variablesManager).pipe(
+        const items$ = this._service.watchAll(this.variablesManager).pipe(
             takeUntil(this.ngUnsubscribe),
             tap({
                 next: () => (this.loading = false),

@@ -44,7 +44,7 @@ export abstract class NaturalAbstractModelService<
     private readonly creatingCache = new Map<Vcreate['input'] | WithId<Vupdate['input']>, Observable<Tcreate>>();
     protected readonly apollo = inject(Apollo);
     protected readonly naturalDebounceService = inject(NaturalDebounceService);
-    readonly #plural: string;
+    private readonly plural: string;
 
     /**
      *
@@ -67,11 +67,11 @@ export abstract class NaturalAbstractModelService<
         protected readonly updateMutation: DocumentNode | null,
         protected readonly deleteMutation: DocumentNode | null,
         plural: string | null = null,
-        protected readonly createName: string | null = null,
-        protected readonly updateName: string | null = null,
-        protected readonly deleteName: string | null = null,
+        private readonly createName: string | null = null,
+        private readonly updateName: string | null = null,
+        private readonly deleteName: string | null = null,
     ) {
-        this.#plural = plural ?? makePlural(this.name);
+        this.plural = plural ?? makePlural(this.name);
     }
 
     /**
@@ -181,7 +181,7 @@ export abstract class NaturalAbstractModelService<
      * You must subscribe to start getting results (and fetch from network).
      */
     public getOne(id: string): Observable<Tone> {
-        return this.#prepareOneQuery(id, 'cache-and-network').pipe(
+        return this.prepareOneQuery(id, 'cache-and-network').pipe(
             takeWhile(result => result.networkStatus !== NetworkStatus.ready, true),
             map(result => (result.data as Literal)[this.name]),
         );
@@ -198,10 +198,10 @@ export abstract class NaturalAbstractModelService<
      * You **MUST** unsubscribe.
      */
     public watchOne(id: string, fetchPolicy: WatchQueryFetchPolicy = 'cache-and-network'): Observable<Tone> {
-        return this.#prepareOneQuery(id, fetchPolicy).pipe(map(result => (result.data as Literal)[this.name]));
+        return this.prepareOneQuery(id, fetchPolicy).pipe(map(result => (result.data as Literal)[this.name]));
     }
 
-    #prepareOneQuery(id: string, fetchPolicy: WatchQueryFetchPolicy): Observable<ApolloQueryResult<unknown>> {
+    private prepareOneQuery(id: string, fetchPolicy: WatchQueryFetchPolicy): Observable<ApolloQueryResult<unknown>> {
         this.throwIfObservable(id);
         this.throwIfNotQuery(this.oneQuery);
 
@@ -502,12 +502,12 @@ export abstract class NaturalAbstractModelService<
      * This is used for the unique validator
      */
     public count(queryVariablesManager: NaturalQueryVariablesManager<Vall>): Observable<number> {
-        const queryName = 'Count' + upperCaseFirstLetter(this.#plural);
+        const queryName = 'Count' + upperCaseFirstLetter(this.plural);
         const filterType = upperCaseFirstLetter(this.name) + 'Filter';
 
         const query = gql`
             query ${queryName} ($filter: ${filterType}) {
-            count: ${this.#plural} (filter: $filter, pagination: {pageSize: 0, pageIndex: 0}) {
+            count: ${this.plural} (filter: $filter, pagination: {pageSize: 0, pageIndex: 0}) {
             length
             }
             }`;
@@ -558,7 +558,7 @@ export abstract class NaturalAbstractModelService<
      * This is used to extract only the array of fetched objects out of the entire fetched data
      */
     protected mapAll(): OperatorFunction<FetchResult<unknown>, Tall> {
-        return map(result => (result.data as any)[this.#plural]); // See https://github.com/apollographql/apollo-client/issues/5662
+        return map(result => (result.data as any)[this.plural]); // See https://github.com/apollographql/apollo-client/issues/5662
     }
 
     /**
@@ -581,7 +581,7 @@ export abstract class NaturalAbstractModelService<
      * This is used to extract only flag when deleting an object
      */
     protected mapDelete(result: MutationResult<unknown>): Tdelete {
-        const name = this.deleteName ?? 'delete' + upperCaseFirstLetter(this.#plural);
+        const name = this.deleteName ?? 'delete' + upperCaseFirstLetter(this.plural);
         return (result.data as any)[name]; // See https://github.com/apollographql/apollo-client/issues/5662
     }
 

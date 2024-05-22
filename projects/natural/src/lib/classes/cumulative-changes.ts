@@ -6,15 +6,15 @@ import {ReadonlyDeep} from 'type-fest';
  * Cumulate all changes made to an object over time
  */
 export class CumulativeChanges<T extends Literal> {
-    #original: T = {} as T;
-    #diff: Partial<T> = {};
+    private original: T = {} as T;
+    private diff: Partial<T> = {};
 
     /**
      * Initialize the original values, should be called exactly one time per instance
      */
     public initialize(originalValues: Readonly<T>): void {
-        this.#original = cloneDeep(originalValues);
-        this.#diff = {};
+        this.original = cloneDeep(originalValues);
+        this.diff = {};
     }
 
     /**
@@ -30,29 +30,29 @@ export class CumulativeChanges<T extends Literal> {
     public differences(newValues: ReadonlyDeep<T>): Partial<T> | null {
         Object.keys(newValues).forEach(key => {
             if (
-                key in this.#diff ||
+                key in this.diff ||
                 (newValues[key] !== undefined &&
-                    (!(key in this.#original) || !isEqual(this.#original[key], newValues[key])))
+                    (!(key in this.original) || !isEqual(this.original[key], newValues[key])))
             ) {
-                (this.#diff as any)[key] = newValues[key];
+                (this.diff as any)[key] = newValues[key];
             }
         });
 
-        return Object.keys(this.#diff).length ? this.#diff : null;
+        return Object.keys(this.diff).length ? this.diff : null;
     }
 
     /**
      * Commit the given new values, so they are not treated as differences anymore.
      */
     public commit(newValues: ReadonlyDeep<T>): void {
-        this.#original = {
-            ...this.#original,
+        this.original = {
+            ...this.original,
             ...cloneDeep(newValues),
         };
 
         Object.keys(newValues).forEach(key => {
-            if (key in this.#diff && isEqual(this.#diff[key], newValues[key])) {
-                delete this.#diff[key];
+            if (key in this.diff && isEqual(this.diff[key], newValues[key])) {
+                delete this.diff[key];
             }
         });
     }

@@ -31,7 +31,7 @@ export class NaturalLinkableTabDirective extends NaturalAbstractController imple
      * If false, disables the persistent navigation
      */
     @Input() public naturalLinkableTab: boolean | '' = true;
-    #isLoadingRouteConfig = false;
+    private isLoadingRouteConfig = false;
 
     public constructor(
         private readonly component: MatTabGroup,
@@ -42,9 +42,9 @@ export class NaturalLinkableTabDirective extends NaturalAbstractController imple
 
         router.events.pipe(takeUntilDestroyed()).subscribe(event => {
             if (event instanceof RouteConfigLoadStart) {
-                this.#isLoadingRouteConfig = true;
+                this.isLoadingRouteConfig = true;
             } else if (event instanceof RouteConfigLoadEnd) {
-                this.#isLoadingRouteConfig = false;
+                this.isLoadingRouteConfig = false;
             }
         });
     }
@@ -68,7 +68,7 @@ export class NaturalLinkableTabDirective extends NaturalAbstractController imple
 
         // When mat-tab-groups selected tab change, update url
         this.component.selectedTabChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(event => {
-            if (this.#isLoadingRouteConfig) {
+            if (this.isLoadingRouteConfig) {
                 return;
             }
 

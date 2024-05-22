@@ -65,7 +65,7 @@ export class NaturalSidenavService extends NaturalAbstractController {
 
     private minimizedStorageKeyWithName: string | null = null;
     private openedStorageKeyWithName: string | null = null;
-    #isMobileView = false;
+    private _isMobileView = false;
 
     public constructor(
         public readonly breakpointObserver: BreakpointObserver,
@@ -113,8 +113,8 @@ export class NaturalSidenavService extends NaturalAbstractController {
             .observe([Breakpoints.XSmall, Breakpoints.Small])
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(r => {
-                this.#isMobileView = r.matches;
-                const isBig = !this.#isMobileView;
+                this._isMobileView = r.matches;
+                const isBig = !this._isMobileView;
                 this.mode = isBig ? this.modes[0] : this.modes[1];
 
                 if (oldIsBig === null || isBig !== oldIsBig) {
@@ -147,14 +147,14 @@ export class NaturalSidenavService extends NaturalAbstractController {
     }
 
     public isMobileView(): boolean {
-        return this.#isMobileView;
+        return this._isMobileView;
     }
 
     /**
      * Close nav on mobile view after a click
      */
     public navItemClicked(): void {
-        if (this.#isMobileView) {
+        if (this._isMobileView) {
             this.close();
         }
     }
@@ -199,7 +199,7 @@ export class NaturalSidenavService extends NaturalAbstractController {
         const value = this.sessionStorage.getItem(this.openedStorageKeyWithName);
 
         if (value === null) {
-            return !this.#isMobileView;
+            return !this._isMobileView;
         } else {
             return value === 'true';
         }
@@ -224,9 +224,9 @@ export class NaturalSidenavService extends NaturalAbstractController {
     public setOpened(value: boolean): void {
         this.opened = value;
 
-        if (this.opened && this.#isMobileView) {
+        if (this.opened && this._isMobileView) {
             this.minimized = false;
-        } else if (!this.#isMobileView) {
+        } else if (!this._isMobileView) {
             assert(this.openedStorageKeyWithName);
             this.sessionStorage.setItem(this.openedStorageKeyWithName, this.opened ? 'true' : 'false');
         }
