@@ -3,7 +3,7 @@
 @if (dataSource) {
     <div class="nat-expand nat-vertical">
         <div class="nat-horizontal">
-            <div class="mat-headline-6 no-margin nat-expand">{{ routeData?.title }}</div>
+            <div class="mat-headline-6 nat-no-margin nat-expand">{{ routeData?.title }}</div>
             <natural-columns-picker
                 [availableColumns]="availableColumns"
                 [selections]="selectedColumns"
@@ -12,7 +12,7 @@
             />
         </div>
         <div class="nat-vertical">
-            <div class="margin-v nat-horizontal" overflow>
+            <div class="nat-margin-vertical nat-horizontal" overflow>
                 <natural-search
                     (selectionChange)="search($event)"
                     [facets]="naturalSearchFacets"
@@ -74,12 +74,10 @@
                 </table>
             </div>
             @if (dataSource.data?.length === 0) {
-                <div class="margin nat-center nat-vertical">
-                    <div>Pas de résultats</div>
-                </div>
+                <div class="nat-margin nat-center nat-vertical"> Pas de résultats </div>
             }
             @if (!dataSource.data) {
-                <div class="margin nat-center nat-vertical">
+                <div class="nat-margin nat-center nat-vertical">
                     <mat-progress-spinner [diameter]="40" mode="indeterminate" />
                 </div>
             }

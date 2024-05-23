@@ -5,13 +5,13 @@
         <div class="nat-vertical">
             <div class="nat-horizontal nat-wrap">
                 @for (item of breadcrumbs; track item) {
-                    <a [routerLink]="getChildLink(item)" class="no-padding" mat-button>
+                    <a [routerLink]="getChildLink(item)" class="nat-no-padding" mat-button>
                         <mat-icon naturalIcon="chevron_right" />
                         <span>{{ item.name }}</span>
                     </a>
                 }
             </div>
-            <div class="margin-v nat-horizontal" overflow>
+            <div class="nat-margin-vertical nat-horizontal" overflow>
                 <natural-search
                     (selectionChange)="search($event)"
                     [facets]="naturalSearchFacets"
@@ -78,12 +78,10 @@
                 </table>
             </div>
             @if (dataSource.data?.length === 0) {
-                <div class="margin nat-center nat-vertical">
-                    <div>Pas de résultats</div>
-                </div>
+                <div class="nat-margin nat-center nat-vertical"> Pas de résultats </div>
             }
             @if (!dataSource.data) {
-                <div class="margin nat-center nat-vertical">
+                <div class="nat-margin nat-center nat-vertical">
                     <mat-progress-spinner [diameter]="40" mode="indeterminate" />
                 </div>
             }
