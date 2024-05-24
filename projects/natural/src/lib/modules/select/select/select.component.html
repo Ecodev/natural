@@ -57,7 +57,7 @@
     }
 
     <!-- Clear button -->
-    <div class="suffix-buttons" matIconSuffix>
+    <div matIconSuffix>
         @if (internalCtrl.pristine && internalCtrl.value && internalCtrl.enabled && !clearLabel) {
             <button (click)="clear()" mat-icon-button i18n-matTooltip matTooltip="Désélectionner">
                 <mat-icon naturalIcon="close" />
