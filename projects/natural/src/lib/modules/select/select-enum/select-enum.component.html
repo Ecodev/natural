@@ -12,7 +12,7 @@
         }
         @for (item of items | async; track item) {
             <mat-option [value]="item.value" [disabled]="optionDisabled ? optionDisabled(item) : false">
-                {{ item.name | capitalize }}
+                {{ item.name }}
             </mat-option>
         }
     </mat-select>

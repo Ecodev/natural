@@ -1,9 +1,8 @@
 import {Component, Input, OnInit, Optional, Self} from '@angular/core';
-import {ControlValueAccessor, NgControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ControlValueAccessor, FormsModule, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {IEnum, NaturalEnumService} from '../../../services/enum.service';
 import {AbstractSelect} from '../abstract-select.component';
-import {NaturalCapitalizePipe} from '../../common/pipes/capitalize.pipe';
 import {MatOptionModule} from '@angular/material/core';
 import {CommonModule} from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
@@ -16,15 +15,7 @@ type V = IEnum['value'] | IEnum['value'][];
     templateUrl: './select-enum.component.html',
     styleUrl: './select-enum.component.scss',
     standalone: true,
-    imports: [
-        MatFormFieldModule,
-        MatSelectModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        MatOptionModule,
-        NaturalCapitalizePipe,
-    ],
+    imports: [MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, CommonModule, MatOptionModule],
 })
 export class NaturalSelectEnumComponent extends AbstractSelect<V, V> implements OnInit, ControlValueAccessor {
     /**
