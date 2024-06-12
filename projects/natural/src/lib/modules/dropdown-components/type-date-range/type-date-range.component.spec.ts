@@ -1,6 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core';
 import {
     FilterGroupConditionField,
     NATURAL_DROPDOWN_DATA,
@@ -8,6 +7,7 @@ import {
     TypeDateRangeComponent,
     TypeDateRangeConfiguration,
 } from '@ecodev/natural';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('TypeDateRangeComponent', () => {
     let component: TypeDateRangeComponent;
@@ -38,8 +38,9 @@ describe('TypeDateRangeComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, MatNativeDateModule],
             providers: [
+                provideNativeDateAdapter(),
+                provideNoopAnimations(),
                 {
                     provide: NATURAL_DROPDOWN_DATA,
                     useValue: data,

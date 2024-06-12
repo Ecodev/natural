@@ -1,5 +1,4 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {
     FilterGroupConditionField,
     NATURAL_DROPDOWN_DATA,
@@ -7,6 +6,7 @@ import {
     NaturalDropdownRef,
 } from '@ecodev/natural';
 import {TypeTextComponent} from './type-text.component';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('TypeTextComponent', () => {
     let component: TypeTextComponent;
@@ -26,8 +26,8 @@ describe('TypeTextComponent', () => {
         dialogCloseSpy = spyOn(dialogRef, 'close');
 
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
             providers: [
+                provideNoopAnimations(),
                 {
                     provide: NATURAL_DROPDOWN_DATA,
                     useValue: data,

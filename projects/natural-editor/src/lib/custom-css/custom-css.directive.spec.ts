@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {NaturalCustomCssDirective, prefixCss} from './custom-css.directive';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {DOCUMENT} from '@angular/common';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {By} from '@angular/platform-browser';
 
 @Component({
@@ -22,9 +21,7 @@ describe('NaturalLinkableTabDirective', () => {
     let document: Document;
 
     beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
-        }).compileComponents();
+        await TestBed.configureTestingModule({}).compileComponents();
 
         fixture = TestBed.createComponent(TestComponent);
         component = fixture.componentInstance;

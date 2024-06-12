@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {NaturalSearchComponent} from './search.component';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('NaturalSearchComponent', () => {
     let component: NaturalSearchComponent;
@@ -8,7 +8,7 @@ describe('NaturalSearchComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            providers: [provideNoopAnimations()],
         }).compileComponents();
         fixture = TestBed.createComponent(NaturalSearchComponent);
         component = fixture.componentInstance;

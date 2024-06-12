@@ -2,7 +2,6 @@ import {TestBed} from '@angular/core/testing';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
 import {ItemService, Item} from '../testing/item.service';
 import {NaturalAbstractEditableList} from '@ecodev/natural';
-import {RouterTestingModule} from '@angular/router/testing';
 import {Directive} from '@angular/core';
 
 @Directive()
@@ -15,7 +14,6 @@ describe('NaturalAbstractEditableList', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [MockApolloProvider],
-            imports: [RouterTestingModule],
         });
 
         service = TestBed.inject(ItemService);

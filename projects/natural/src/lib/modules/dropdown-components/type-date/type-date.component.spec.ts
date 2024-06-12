@@ -1,6 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule, NativeDateAdapter} from '@angular/material/core';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter, provideNativeDateAdapter} from '@angular/material/core';
 import {
     FilterGroupConditionField,
     NATURAL_DROPDOWN_DATA,
@@ -9,6 +8,7 @@ import {
     TypeDateConfiguration,
 } from '@ecodev/natural';
 import {Injectable} from '@angular/core';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Injectable({providedIn: 'root'})
 class ImpossibleParsingDateAdapter extends NativeDateAdapter {
@@ -86,8 +86,9 @@ describe('TypeDateComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, MatNativeDateModule],
             providers: [
+                provideNativeDateAdapter(),
+                provideNoopAnimations(),
                 {
                     provide: NATURAL_DROPDOWN_DATA,
                     useValue: data,

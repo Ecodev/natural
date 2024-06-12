@@ -7,7 +7,6 @@ import {
     NaturalSelectHierarchicComponent,
     OrganizedModelSelection,
 } from '@ecodev/natural';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
@@ -22,6 +21,7 @@ import {By} from '@angular/platform-browser';
 import {of} from 'rxjs';
 import {MatDialogRef} from '@angular/material/dialog';
 import {ItemService} from '../../../testing/item.service';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Component({
     template: `
@@ -66,8 +66,7 @@ describe('NaturalSelectHierarchicComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
-            providers: [naturalProviders, MockApolloProvider],
+            providers: [provideNoopAnimations(), naturalProviders, MockApolloProvider],
         }).compileComponents();
     });
 

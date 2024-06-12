@@ -6,7 +6,6 @@ import {
     NATURAL_PERSISTENCE_VALIDATOR,
     SESSION_STORAGE,
 } from '@ecodev/natural';
-import {RouterTestingModule} from '@angular/router/testing';
 import {ActivatedRoute} from '@angular/router';
 
 function mockedActivatedRoute(entries: readonly (readonly [string, any])[]): ActivatedRoute {
@@ -30,7 +29,6 @@ describe('NaturalPersistenceService', () => {
     describe('with corrupted persisted data', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [RouterTestingModule],
                 providers: [memorySessionStorageProvider],
             }).compileComponents();
 
@@ -77,7 +75,6 @@ describe('NaturalPersistenceService', () => {
     describe('with invalid data', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [RouterTestingModule],
                 providers: [
                     {
                         provide: NATURAL_PERSISTENCE_VALIDATOR,

@@ -1,9 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterTestingModule} from '@angular/router/testing';
 import {naturalProviders} from '@ecodev/natural';
 import {MockApolloProvider} from '../../../projects/natural/src/lib/testing/mock-apollo.provider';
 import {SelectComponent} from './select.component';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('Demo SelectComponent', () => {
     let component: SelectComponent;
@@ -11,8 +10,7 @@ describe('Demo SelectComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule],
-            providers: [naturalProviders, MockApolloProvider],
+            providers: [provideNoopAnimations(), naturalProviders, MockApolloProvider],
         }).compileComponents();
         fixture = TestBed.createComponent(SelectComponent);
         component = fixture.componentInstance;

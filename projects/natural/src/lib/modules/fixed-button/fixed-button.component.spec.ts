@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
 import {NaturalFixedButtonComponent} from './fixed-button.component';
+import {provideRouter} from '@angular/router';
 
 describe('FixedButtonComponent', () => {
     let component: NaturalFixedButtonComponent;
@@ -8,7 +8,7 @@ describe('FixedButtonComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
+            providers: [provideRouter([])],
         }).compileComponents();
         fixture = TestBed.createComponent(NaturalFixedButtonComponent);
         component = fixture.componentInstance;

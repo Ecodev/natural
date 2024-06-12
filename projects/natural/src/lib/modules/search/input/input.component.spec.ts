@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {NaturalInputComponent} from './input.component';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('NaturalInputComponent', () => {
     let component: NaturalInputComponent;
@@ -8,7 +8,7 @@ describe('NaturalInputComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            providers: [provideNoopAnimations()],
         }).compileComponents();
         fixture = TestBed.createComponent(NaturalInputComponent);
         component = fixture.componentInstance;

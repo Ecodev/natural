@@ -2,7 +2,6 @@ import {Component, DebugElement} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {NaturalEnumService, NaturalSelectEnumComponent} from '@ecodev/natural';
 import {AnyEnumService} from '../../../testing/any-enum.service';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
@@ -12,6 +11,7 @@ import {
     testAllSelectCommonBehavior,
     TestFixture,
 } from '../testing/utils';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Component({
     template: `
@@ -56,8 +56,8 @@ describe('NaturalSelectEnumComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
             providers: [
+                provideNoopAnimations(),
                 {
                     provide: NaturalEnumService,
                     useClass: AnyEnumService,

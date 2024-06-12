@@ -9,7 +9,6 @@ import {
 } from '@ecodev/natural';
 import {ItemService} from '../testing/item.service';
 import {Component} from '@angular/core';
-import {RouterTestingModule} from '@angular/router/testing';
 import {ActivatedRoute, Data} from '@angular/router';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
 
@@ -74,7 +73,6 @@ describe('NaturalAbstractList', () => {
         } as any;
 
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
             providers: [
                 naturalProviders,
                 MockApolloProvider,

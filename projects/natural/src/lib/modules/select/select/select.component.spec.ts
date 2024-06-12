@@ -1,6 +1,5 @@
 import {TestBed} from '@angular/core/testing';
 import {NaturalSelectComponent} from '@ecodev/natural';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
@@ -12,6 +11,7 @@ import {
 } from '../testing/utils';
 import {By} from '@angular/platform-browser';
 import {ItemService} from '../../../testing/item.service';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Component({
     template: `
@@ -56,8 +56,7 @@ describe('NaturalSelectComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
-            providers: [MockApolloProvider],
+            providers: [provideNoopAnimations(), MockApolloProvider],
         }).compileComponents();
     });
 

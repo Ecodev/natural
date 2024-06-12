@@ -6,9 +6,9 @@ import {
     NaturalLoggerType,
     provideErrorHandler,
 } from '@ecodev/natural';
-import {HttpClientTestingModule, HttpTestingController, RequestMatch} from '@angular/common/http/testing';
+import {HttpTestingController, provideHttpClientTesting, RequestMatch} from '@angular/common/http/testing';
 import {Observable, of, throwError} from 'rxjs';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, provideHttpClient} from '@angular/common/http';
 
 const expectedRequest: RequestMatch = {
     url: 'http://example.com',
@@ -38,8 +38,7 @@ describe('NaturalErrorHandler', () => {
     describe('with empty configuration', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [HttpClientTestingModule],
-                providers: [provideErrorHandler(null)],
+                providers: [provideHttpClient(), provideHttpClientTesting(), provideErrorHandler(null)],
             });
 
             httpTestingController = TestBed.inject(HttpTestingController);
@@ -70,8 +69,7 @@ describe('NaturalErrorHandler', () => {
     describe('with minimal configuration', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [HttpClientTestingModule],
-                providers: [provideErrorHandler('http://example.com')],
+                providers: [provideHttpClient(), provideHttpClientTesting(), provideErrorHandler('http://example.com')],
             });
 
             httpTestingController = TestBed.inject(HttpTestingController);
@@ -112,8 +110,11 @@ describe('NaturalErrorHandler', () => {
     describe('with maximal configuration', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [HttpClientTestingModule],
-                providers: [provideErrorHandler('http://example.com', Extra)],
+                providers: [
+                    provideHttpClient(),
+                    provideHttpClientTesting(),
+                    provideErrorHandler('http://example.com', Extra),
+                ],
             });
 
             httpTestingController = TestBed.inject(HttpTestingController);
@@ -167,8 +168,11 @@ describe('NaturalErrorHandler', () => {
     describe('with extra producer error configuration', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [HttpClientTestingModule],
-                providers: [provideErrorHandler('http://example.com', ExtraError)],
+                providers: [
+                    provideHttpClient(),
+                    provideHttpClientTesting(),
+                    provideErrorHandler('http://example.com', ExtraError),
+                ],
             });
 
             httpTestingController = TestBed.inject(HttpTestingController);
@@ -205,8 +209,7 @@ describe('NaturalErrorHandler bis', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientModule],
-            providers: [provideErrorHandler('http://example.com', ExtraError)],
+            providers: [provideHttpClient(), provideErrorHandler('http://example.com', ExtraError)],
         });
 
         const httpClient = TestBed.inject(HttpClient);

@@ -2,8 +2,9 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {MatIconModule} from '@angular/material/icon';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 import {NaturalIconDirective, provideIcons} from '@ecodev/natural';
+import {provideHttpClient} from '@angular/common/http';
 
 @Component({
     template: `
@@ -37,8 +38,9 @@ describe('NaturalIconComponent', () => {
 
     beforeEach(() => {
         fixture = TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
             providers: [
+                provideHttpClient(),
+                provideHttpClientTesting(),
                 provideIcons({
                     customFontName: {font: 'download'},
                     customSvgName: {svg: 'foo.svg'},

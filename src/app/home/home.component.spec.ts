@@ -1,8 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterTestingModule} from '@angular/router/testing';
 import {naturalProviders} from '@ecodev/natural';
 import {HomeComponent} from './home.component';
+import {provideRouter} from '@angular/router';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('Demo HomeComponent', () => {
     let component: HomeComponent;
@@ -10,8 +10,7 @@ describe('Demo HomeComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule],
-            providers: [naturalProviders],
+            providers: [provideNoopAnimations(), provideRouter([]), naturalProviders],
         }).compileComponents();
         fixture = TestBed.createComponent(HomeComponent);
         component = fixture.componentInstance;

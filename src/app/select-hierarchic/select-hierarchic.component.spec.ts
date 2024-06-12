@@ -1,9 +1,9 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterTestingModule} from '@angular/router/testing';
 import {naturalProviders} from '@ecodev/natural';
 import {MockApolloProvider} from '../../../projects/natural/src/lib/testing/mock-apollo.provider';
 import {SelectHierarchicComponent} from './select-hierarchic.component';
+import {provideNoopAnimations} from '@angular/platform-browser/animations';
+import {provideRouter} from '@angular/router';
 
 describe('Demo SelectHierarchicComponent', () => {
     let component: SelectHierarchicComponent;
@@ -11,8 +11,7 @@ describe('Demo SelectHierarchicComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule],
-            providers: [naturalProviders, MockApolloProvider],
+            providers: [provideNoopAnimations(), provideRouter([]), naturalProviders, MockApolloProvider],
         }).compileComponents();
         fixture = TestBed.createComponent(SelectHierarchicComponent);
         component = fixture.componentInstance;
