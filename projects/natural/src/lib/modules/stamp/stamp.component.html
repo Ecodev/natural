@@ -10,7 +10,7 @@
                 <span>,&nbsp;</span>
             }
             @if (item.creationDate) {
-                <span>{{ item.creationDate | swissDate }} ({{ item.creationDate | timeAgo }})</span>
+                <span>{{ item.creationDate | date }} ({{ item.creationDate | timeAgo }})</span>
             }
         </div>
     }
@@ -25,7 +25,7 @@
                 <span>,&nbsp;</span>
             }
             @if (item.updateDate) {
-                <span>{{ item.updateDate | swissDate }} ({{ item.updateDate | timeAgo }})</span>
+                <span>{{ item.updateDate | date }} ({{ item.updateDate | timeAgo }})</span>
             }
         </div>
     }

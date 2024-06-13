@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {NameOrFullName} from '../../types/types';
 import {NaturalTimeAgoPipe} from '../common/pipes/time-ago.pipe';
-import {NaturalSwissDatePipe} from '../common/pipes/swiss-date.pipe';
+import {DatePipe} from '@angular/common';
 
 type Stamped = {
     creator: NameOrFullName | null;
@@ -14,7 +14,7 @@ type Stamped = {
     selector: 'natural-stamp',
     templateUrl: './stamp.component.html',
     standalone: true,
-    imports: [NaturalSwissDatePipe, NaturalTimeAgoPipe],
+    imports: [DatePipe, NaturalTimeAgoPipe],
 })
 export class NaturalStampComponent {
     @Input({required: true}) public item!: Stamped;
