@@ -60,7 +60,7 @@ export function wrapSuffix(selection: NaturalSearchSelection): NaturalSearchSele
 
 /**
  * Replace the operator name (usually "like", "in" or "between") with the
- * attribute "field" or "name" defined in the configuration
+ * attribute "field" defined in the configuration
  *
  * So:
  *
@@ -76,7 +76,7 @@ export function replaceOperatorByField(selection: NaturalSearchSelection): Natur
 
 /**
  * Replace the operator name (usually "like", "in" or "between") with the
- * field "name" defined in the configuration
+ * attribute "name" defined in the configuration
  *
  * So:
  *
@@ -84,7 +84,7 @@ export function replaceOperatorByField(selection: NaturalSearchSelection): Natur
  *
  * will become
  *
- *     {field: 'myFieldName',  name:'myConfigName', condition: {myConfigName: {values: [1, 2, 3]}}}
+ *     {field: 'myFieldName', name:'myConfigName', condition: {myConfigName: {values: [1, 2, 3]}}}
  */
 export function replaceOperatorByName(selection: NaturalSearchSelection): NaturalSearchSelection {
     return replaceOperatorByAttribute(selection, 'name');
