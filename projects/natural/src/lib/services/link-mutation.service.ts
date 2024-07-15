@@ -139,7 +139,7 @@ export class NaturalLinkMutationService {
                 map(({data}) => {
                     if (data.__type?.fields) {
                         this.allMutations = data.__type.fields
-                            .filter(v => v.name.match(/^(link|unlink)/))
+                            .filter(v => /^(link|unlink)/.exec(v.name))
                             .map(v => {
                                 return {
                                     name: v.name,

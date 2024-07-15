@@ -29,7 +29,7 @@ import {PaginatedData} from './data-source';
  *
  * @dynamic
  */
-@Directive()
+@Directive({standalone: true})
 export class NaturalAbstractEditableList<
     TService extends NaturalAbstractModelService<
         any,

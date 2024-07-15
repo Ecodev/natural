@@ -13,7 +13,7 @@ import {AbstractControl} from '@angular/forms';
 import {DomSanitizer, SafeStyle} from '@angular/platform-browser';
 import {Observable, of, Subject, tap} from 'rxjs';
 import {NaturalFileService} from '../file.service';
-import {DOCUMENT, CommonModule} from '@angular/common';
+import {CommonModule, DOCUMENT} from '@angular/common';
 import {FileModel} from '../types';
 import {NaturalAlertService} from '../../alert/alert.service';
 import {NaturalCapitalizePipe} from '../../common/pipes/capitalize.pipe';
@@ -141,8 +141,10 @@ export class NaturalFileComponent implements OnInit, OnChanges {
         if (this.model.file?.type.includes('image/')) {
             // Model from upload (before saving)
             this.getBase64(this.model.file).subscribe(result => {
-                const content = 'url(data:' + this.model?.file?.type + ';base64,' + result + ')';
-                this.imagePreview = this.sanitizer.bypassSecurityTrustStyle(content);
+                if (this.model?.file?.type) {
+                    const content = 'url(data:' + this.model?.file?.type + ';base64,' + result + ')';
+                    this.imagePreview = this.sanitizer.bypassSecurityTrustStyle(content);
+                }
             });
         } else if (this.model.file) {
             this.filePreview = this.model.file.type.split('/')[1];

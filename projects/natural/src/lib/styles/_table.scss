@@ -54,12 +54,12 @@
 
         [mat-row] {
             &.selected {
-                background: mat.get-color-from-palette($background, selected-button);
+                background: mat.m2-get-color-from-palette($background, selected-button);
             }
         }
 
         [mat-header-row] {
-            background: mat.get-color-from-palette($background, app-bar);
+            background: mat.m2-get-color-from-palette($background, app-bar);
         }
 
         .mat-mdc-footer-cell {

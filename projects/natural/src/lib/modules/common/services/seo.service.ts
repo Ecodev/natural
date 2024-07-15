@@ -109,7 +109,7 @@ type NaturalSeoConfigPlain = {
      * Used to generate alternative tags
      * <link rel="alternate" hreflang="en" href="https://www.example.com/en/page">
      */
-    readonly languages?: Readonly<string[]>;
+    readonly languages?: readonly string[];
 };
 
 export type NaturalSeoConfig = NaturalSeoConfigPlain | Observable<NaturalSeoConfigPlain>;

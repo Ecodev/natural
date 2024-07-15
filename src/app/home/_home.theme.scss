@@ -14,21 +14,21 @@
 
         #menu {
             border-radius: 4px;
-            background: mat.get-color-from-palette($primary);
+            background: mat.m2-get-color-from-palette($primary);
             background: -moz-linear-gradient(
                 bottom,
-                mat.get-color-from-palette($primary) 50%,
-                mat.get-color-from-palette($accent) 150%
+                mat.m2-get-color-from-palette($primary) 50%,
+                mat.m2-get-color-from-palette($accent) 150%
             ); /* FF3.6-15 */
             background: -webkit-linear-gradient(
                 bottom,
-                mat.get-color-from-palette($primary) 50%,
-                mat.get-color-from-palette($accent) 150%
+                mat.m2-get-color-from-palette($primary) 50%,
+                mat.m2-get-color-from-palette($accent) 150%
             ); /* Chrome10-25,Safari5.1-6 */
             background: linear-gradient(
                 to bottom,
-                mat.get-color-from-palette($primary) 50%,
-                mat.get-color-from-palette($accent) 150%
+                mat.m2-get-color-from-palette($primary) 50%,
+                mat.m2-get-color-from-palette($accent) 150%
             ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         }
     }

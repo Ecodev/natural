@@ -288,6 +288,6 @@ export class NaturalRelationsComponent<
             return;
         }
 
-        return this.hierarchicSelectorConfig.filter(c => !!c.selectableAtKey)[0].selectableAtKey;
+        return this.hierarchicSelectorConfig.find(c => !!c.selectableAtKey)?.selectableAtKey;
     }
 }

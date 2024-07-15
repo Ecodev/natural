@@ -4,7 +4,7 @@ import {NaturalPanelsService} from './panels.service';
 import {NaturalPanelData} from './types';
 import {Observable, takeUntil} from 'rxjs';
 
-@Directive()
+@Directive({standalone: true})
 export class NaturalAbstractPanel extends NaturalAbstractController {
     /**
      * The data property is the container where the resolved content is stored

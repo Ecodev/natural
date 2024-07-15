@@ -52,7 +52,7 @@ export type FileSelection = {
  *
  * @dynamic
  */
-@Directive()
+@Directive({standalone: true})
 export abstract class NaturalAbstractFile extends NaturalAbstractController implements OnInit, OnDestroy, OnChanges {
     private fileElement?: HTMLInputElement;
 

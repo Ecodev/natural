@@ -42,8 +42,7 @@ export class NaturalMatomoService {
     public constructor(
         private readonly router: Router,
         @Inject(DOCUMENT) private readonly document: Document,
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        @Inject(PLATFORM_ID) public readonly platformId: Object,
+        @Inject(PLATFORM_ID) public readonly platformId: object,
         private readonly titleService: Title,
     ) {
         this.isBrowser = isPlatformBrowser(platformId);

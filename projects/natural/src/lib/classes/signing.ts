@@ -22,7 +22,7 @@ function getOperations(req: HttpRequest<unknown>): string {
  */
 export function graphqlQuerySigner(key: string): HttpInterceptorFn {
     return (req, next) => {
-        const mustSign = req.method === 'POST' && req.url.match(/\/graphql(\?|$)/);
+        const mustSign = req.method === 'POST' && /\/graphql(\?|$)/.exec(req.url);
         if (!mustSign) {
             return next(req);
         }

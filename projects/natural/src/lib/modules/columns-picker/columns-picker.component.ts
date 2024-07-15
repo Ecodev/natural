@@ -34,13 +34,13 @@ export class NaturalColumnsPickerComponent implements OnChanges, OnDestroy {
     private _availableColumns: Required<AvailableColumn>[] = [];
 
     @Input()
-    public buttons: Readonly<Readonly<Button>[]> | null = [];
+    public buttons: readonly Readonly<Button>[] | null = [];
 
     /**
      * Set all the columns that are available.
      */
     @Input()
-    public set availableColumns(columns: Readonly<Readonly<AvailableColumn>[]> | undefined) {
+    public set availableColumns(columns: readonly Readonly<AvailableColumn>[] | undefined) {
         this._availableColumns =
             columns?.map(column => {
                 return {

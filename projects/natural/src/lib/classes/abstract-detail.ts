@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {kebabCase} from 'lodash-es';
 import {NaturalAlertService} from '../modules/alert/alert.service';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
-import {NaturalAbstractModelService} from '../services/abstract-model.service';
+import {NaturalAbstractModelService, WithId} from '../services/abstract-model.service';
 import {ExtractResolve, ExtractTcreate, ExtractTone, ExtractTupdate, Literal} from '../types/types';
 import {EMPTY, endWith, finalize, last, Observable, switchMap, tap} from 'rxjs';
 import {ifValid, validateAllFormControls} from './validators';
@@ -32,7 +32,7 @@ function isNaturalDialogTriggerProvidedData(
 }
 
 // @dynamic
-@Directive()
+@Directive({standalone: true})
 export class NaturalAbstractDetail<
         TService extends NaturalAbstractModelService<
             {id: string},
@@ -217,11 +217,11 @@ export class NaturalAbstractDetail<
 
                     return this.postCreate(model).pipe(endWith(model), last());
                 }),
-                switchMap(model => {
+                switchMap((model: WithId<object>) => {
                     if (redirect) {
                         if (this.isPanel) {
                             const oldUrl = this.router.url;
-                            const nextUrl = this.panelData?.config.params.nextRoute;
+                            const nextUrl: string = this.panelData?.config.params.nextRoute;
                             const newUrl = oldUrl.replace('/new', '/' + model.id) + (nextUrl ? '/' + nextUrl : '');
                             return this.router.navigateByUrl(newUrl); // replace /new by /123
                         } else {

@@ -5,7 +5,7 @@
     $foreground: map.get($theme, foreground);
 
     .natural-dropdown-container {
-        background: mat.get-color-from-palette($background, 'card');
+        background: mat.m2-get-color-from-palette($background, 'card');
 
         & > * > * > * {
             outline: none !important;

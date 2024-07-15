@@ -8,7 +8,7 @@
     $fg: map.get($theme, foreground);
 
     .snackbar-error .mdc-snackbar__surface {
-        background-color: mat.get-color-from-palette($warn) !important;
-        color: mat.get-color-from-palette($warn, default-contrast) !important;
+        background-color: mat.m2-get-color-from-palette($warn) !important;
+        color: mat.m2-get-color-from-palette($warn, default-contrast) !important;
     }
 }

@@ -168,6 +168,6 @@ export class NaturalSelectHierarchicComponent
     }
 
     private getSelectKey(): string | undefined {
-        return this.config?.filter(c => !!c.selectableAtKey)[0]?.selectableAtKey;
+        return this.config?.find(c => !!c.selectableAtKey)?.selectableAtKey;
     }
 }

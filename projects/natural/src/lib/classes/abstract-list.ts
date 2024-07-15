@@ -48,7 +48,7 @@ function unwrapNavigable(item: MaybeNavigable): Literal {
  */
 
 // @dynamic
-@Directive()
+@Directive({standalone: true})
 export class NaturalAbstractList<
         TService extends NaturalAbstractModelService<
             any,

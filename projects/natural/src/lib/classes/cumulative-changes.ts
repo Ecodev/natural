@@ -1,6 +1,5 @@
 import {cloneDeep, isEqual} from 'lodash-es';
 import {Literal} from '../types/types';
-import {ReadonlyDeep} from 'type-fest';
 
 /**
  * Cumulate all changes made to an object over time
@@ -27,14 +26,14 @@ export class CumulativeChanges<T extends Literal> {
      * changes.differences({a: 1, b: 3}); // => {b: 3}
      * ```
      */
-    public differences(newValues: ReadonlyDeep<T>): Partial<T> | null {
+    public differences(newValues: Readonly<T>): Partial<T> | null {
         Object.keys(newValues).forEach(key => {
+            const newValue = newValues[key];
             if (
                 key in this.diff ||
-                (newValues[key] !== undefined &&
-                    (!(key in this.original) || !isEqual(this.original[key], newValues[key])))
+                (newValue !== undefined && (!(key in this.original) || !isEqual(this.original[key], newValue)))
             ) {
-                (this.diff as any)[key] = newValues[key];
+                (this.diff as any)[key] = newValue;
             }
         });
 
@@ -44,7 +43,7 @@ export class CumulativeChanges<T extends Literal> {
     /**
      * Commit the given new values, so they are not treated as differences anymore.
      */
-    public commit(newValues: ReadonlyDeep<T>): void {
+    public commit(newValues: Readonly<T>): void {
         this.original = {
             ...this.original,
             ...cloneDeep(newValues),

@@ -87,11 +87,11 @@ export class TypeSelectComponent
             return (item as any).id || (item as any).value;
         }
 
-        return item as Scalar;
+        return item;
     }
 
     public getDisplay(item: TypeSelectItem): Scalar {
-        if (typeof item === 'object' && item && item.name) {
+        if (typeof item === 'object' && item?.name) {
             return item.name;
         }
 
@@ -195,9 +195,9 @@ export class TypeSelectComponent
 
         if (condition.in && !condition.in.not) {
             return 'is';
-        } else if (condition.in && condition.in.not) {
+        } else if (condition.in?.not) {
             return 'isnot';
-        } else if (condition.null && condition.null.not) {
+        } else if (condition.null?.not) {
             return 'any';
         } else if (condition.null && !condition.null.not) {
             return 'none';

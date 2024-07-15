@@ -36,7 +36,7 @@ export class NaturalSrcDensityDirective {
             return;
         }
 
-        const match = src.match(/^(.*\/)(\d+)$/);
+        const match = /^(.*\/)(\d+)$/.exec(src);
         const base = match?.[1];
         const size = +(match?.[2] ?? 0);
 

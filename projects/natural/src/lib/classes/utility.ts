@@ -107,7 +107,7 @@ function hasId(value: unknown): value is {id: unknown} {
  */
 export function makePlural(name: string): string {
     // Words ending in a y preceded by a vowel form their plurals by adding -s:
-    if (name.match(/[aeiou]y$/)) {
+    if (/[aeiou]y$/.exec(name)) {
         return name + 's';
     }
 

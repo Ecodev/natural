@@ -7,7 +7,7 @@ import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {PossibleDiscreteOperatorKeys, possibleDiscreteOperators} from './types';
 import {startWith} from 'rxjs/operators';
 
-@Directive()
+@Directive({standalone: true})
 export abstract class AbstractAssociationSelectComponent<C> implements DropdownComponent {
     public readonly configuration: C;
     public readonly renderedValue = new BehaviorSubject<string>('');
@@ -89,9 +89,9 @@ export abstract class AbstractAssociationSelectComponent<C> implements DropdownC
     protected conditionToOperatorKey(condition: FilterGroupConditionField): PossibleDiscreteOperatorKeys {
         if (condition.have && !condition.have.not) {
             return 'is';
-        } else if (condition.have && condition.have.not) {
+        } else if (condition.have?.not) {
             return 'isnot';
-        } else if (condition.empty && condition.empty.not) {
+        } else if (condition.empty?.not) {
             return 'any';
         } else if (condition.empty && !condition.empty.not) {
             return 'none';

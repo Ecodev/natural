@@ -24,7 +24,7 @@ function isRetina(): boolean {
 export class Gravatar extends Source {
     public getAvatar(size: number): string {
         const value = this.getValue();
-        const hash = value.match('^[a-f0-9]{32}$') ? value : md5(value.trim().toLowerCase()).toString();
+        const hash = /^[a-f0-9]{32}$/.exec(value) ? value : md5(value.trim().toLowerCase()).toString();
 
         const avatarSize = isRetina() ? size * 2 : size;
         return `https://secure.gravatar.com/avatar/${hash}?s=${avatarSize}&d=404`;

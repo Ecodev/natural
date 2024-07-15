@@ -28,7 +28,7 @@ export type TypeDateRangeConfiguration<D = any> = {
 
 class InvalidWithValueStateMatcher implements ErrorStateMatcher {
     public isErrorState(control: FormControl<unknown> | null, form: FormGroupDirective | NgForm | null): boolean {
-        return (form && form.invalid && (form.value.to || form.value.from)) || (control && control.invalid);
+        return (form && form.invalid && (form.value.to || form.value.from)) || control?.invalid;
     }
 }
 

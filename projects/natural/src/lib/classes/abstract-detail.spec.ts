@@ -123,7 +123,7 @@ describe('NaturalAbstractDetail', () => {
         await configure({
             resolve: {
                 model: (route: ActivatedRouteSnapshot) => {
-                    const id = route.params.itemId;
+                    const id: string = route.params.itemId;
                     return of(
                         of({
                             id: id,

@@ -33,7 +33,7 @@ class ExternalFormControlMatcher<T, I> extends ErrorStateMatcher {
     }
 }
 
-@Directive()
+@Directive({standalone: true})
 export abstract class AbstractSelect<V, I>
     extends NaturalAbstractController
     implements OnInit, OnDestroy, ControlValueAccessor, DoCheck

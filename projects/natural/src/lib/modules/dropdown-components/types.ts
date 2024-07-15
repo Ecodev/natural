@@ -10,7 +10,7 @@ export type PossibleComparableOperator = {
     label: string;
 };
 
-export const possibleComparableOperators: Readonly<PossibleComparableOperator[]> = [
+export const possibleComparableOperators: readonly PossibleComparableOperator[] = [
     {
         key: 'less',
         label: '<',
@@ -40,7 +40,7 @@ export type PossibleDiscreteOperator = {
     label: string;
 };
 
-export const possibleDiscreteOperators: Readonly<PossibleDiscreteOperator[]> = [
+export const possibleDiscreteOperators: readonly PossibleDiscreteOperator[] = [
     {
         key: 'is',
         label: $localize`est`,

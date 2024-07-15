@@ -94,7 +94,7 @@ export class TypeNumberComponent implements DropdownComponent {
         }
 
         if (this.configuration.step) {
-            const decimals = ('' + this.configuration.step).match(/\.(\d+)$/)?.[1] ?? '';
+            const decimals = /\.(\d+)$/.exec('' + this.configuration.step)?.[1] ?? '';
             const decimalCount = decimals.length;
             validators.push(decimal(decimalCount));
         }

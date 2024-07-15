@@ -76,4 +76,6 @@ bootstrapApplication(AppComponent, {
             languages: ['fr', 'en', 'de', 'it', 'pt'],
         }),
     ],
-}).catch(err => console.error(err));
+}).catch((err: unknown) => {
+    console.error(err);
+});

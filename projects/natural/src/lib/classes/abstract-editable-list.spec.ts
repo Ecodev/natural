@@ -4,7 +4,7 @@ import {ItemService, Item} from '../testing/item.service';
 import {NaturalAbstractEditableList} from '@ecodev/natural';
 import {Directive} from '@angular/core';
 
-@Directive()
+@Directive({standalone: true})
 class EditableList extends NaturalAbstractEditableList<ItemService> {}
 
 describe('NaturalAbstractEditableList', () => {

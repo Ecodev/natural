@@ -10,32 +10,30 @@ type Style = Partial<CSSStyleDeclaration>;
  */
 @Component({
     selector: 'natural-avatar',
-    styles: [
-        `
-            :host {
-                display: block;
+    styles: `
+        :host {
+            display: block;
 
-                &.decorated {
-                    position: relative;
+            &.decorated {
+                position: relative;
 
-                    .avatar-container::before {
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
-                        border-radius: 50%;
-                        background: linear-gradient(345deg, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.33) 100%);
-                        content: '';
-                    }
+                .avatar-container::before {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    border-radius: 50%;
+                    background: linear-gradient(345deg, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.33) 100%);
+                    content: '';
+                }
 
-                    .avatar-content {
-                        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
-                    }
+                .avatar-content {
+                    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
                 }
             }
-        `,
-    ],
+        }
+    `,
     template: `
         <div class="avatar-container" [ngStyle]="hostStyle">
             @if (avatarSrc) {

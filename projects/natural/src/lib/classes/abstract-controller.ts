@@ -1,7 +1,7 @@
 import {Directive, OnDestroy} from '@angular/core';
 import {Subject} from 'rxjs';
 
-@Directive()
+@Directive({standalone: true})
 export class NaturalAbstractController implements OnDestroy {
     /**
      * Usage:

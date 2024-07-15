@@ -36,13 +36,13 @@
     .mat-mdc-tab-labels,
     .mat-mdc-tab-links,
     .mdc-data-table__row:last-child .mdc-data-table__cell {
-        border-bottom: 1px solid mat.get-color-from-palette($foreground, divider);
+        border-bottom: 1px solid mat.m2-get-color-from-palette($foreground, divider);
     }
 
     // Since MDC dialogs, text color is too pale, so we restore a higher contrast for better readability
     // See https://github.com/angular/components/issues/26797
     .mat-mdc-dialog-container .mdc-dialog__content {
-        color: mat.get-color-from-palette(map.get($theme, foreground), base, 0.87);
+        color: mat.m2-get-color-from-palette(map.get($theme, foreground), base, 0.87);
     }
 
     .natural-elevation {
@@ -54,16 +54,16 @@
     }
 }
 
-$defaultConfig: mat.define-typography-config();
+$defaultConfig: mat.m2-define-typography-config();
 
 // This is the default Material typography, but with button with normal letter-spacing instead of wider letter-spacing.
-$typography: mat.define-typography-config(
+$typography: mat.m2-define-typography-config(
     $button:
-        mat.define-typography-level(
-            $font-family: mat.font-family($defaultConfig, 'button'),
-            $font-weight: mat.font-weight($defaultConfig, 'button'),
-            $font-size: mat.font-size($defaultConfig, 'button'),
-            $line-height: mat.line-height($defaultConfig, 'button'),
+        mat.m2-define-typography-level(
+            $font-family: mat.m2-font-family($defaultConfig, 'button'),
+            $font-weight: mat.m2-font-weight($defaultConfig, 'button'),
+            $font-size: mat.m2-font-size($defaultConfig, 'button'),
+            $line-height: mat.m2-line-height($defaultConfig, 'button'),
             $letter-spacing: normal,
         ),
 );

@@ -7,7 +7,7 @@
  * See ftp://data.iana.org/TLD/tlds-alpha-by-domain.txt  List of all TLDs by domain
  * See http://www.iana.org/domains/root/db/ Official list of supported TLDs
  */
-export const validTlds: Readonly<string[]> = [
+export const validTlds: readonly string[] = [
     'aaa',
     'aarp',
     'abb',

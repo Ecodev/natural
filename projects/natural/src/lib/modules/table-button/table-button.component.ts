@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, Output, ViewEncapsulation} from '@angular/core';
-import {Params, QueryParamsHandling, RouterLink} from '@angular/router';
+import {Params, QueryParamsHandling, RouterLink, UrlTree} from '@angular/router';
 import {ThemePalette} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import {NaturalIconDirective} from '../icon/icon.directive';
@@ -40,7 +40,7 @@ export class NaturalTableButtonComponent implements OnChanges {
     public type: 'routerLink' | 'href' | 'click' | 'none' = 'none';
 
     public ngOnChanges(): void {
-        if (this.navigate?.length || Object.keys(this.queryParams).length) {
+        if (this.navigate instanceof UrlTree || this.navigate?.length || Object.keys(this.queryParams).length) {
             this.type = 'routerLink';
         } else if (this.href) {
             this.type = 'href';
