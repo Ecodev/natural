@@ -1,5 +1,5 @@
 import {provideHttpClient} from '@angular/common/http';
-import {enableProdMode} from '@angular/core';
+import {enableProdMode, provideZoneChangeDetection} from '@angular/core';
 import {DateAdapter, provideNativeDateAdapter} from '@angular/material/core';
 import {MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions} from '@angular/material/paginator';
 import {MAT_TABS_CONFIG, MatTabsConfig} from '@angular/material/tabs';
@@ -28,6 +28,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
+        provideZoneChangeDetection({eventCoalescing: true}),
         provideNativeDateAdapter(),
         Apollo,
         naturalProviders,
