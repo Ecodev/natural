@@ -2,7 +2,6 @@ import {ApolloLink, DocumentNode} from '@apollo/client/core';
 import {isObject} from 'lodash-es';
 import {formatIsoDateTime} from './utility';
 import {HttpBatchLink, HttpLink, Options} from 'apollo-angular/http';
-import {ExtractFiles} from 'apollo-angular/http/types';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import extractFiles from 'extract-files/extractFiles.mjs';
@@ -57,7 +56,7 @@ export function isMutation(query: DocumentNode): boolean {
     );
 }
 
-export const naturalExtractFiles: ExtractFiles = body => extractFiles(body, isExtractableFile);
+export const naturalExtractFiles: NonNullable<Options['extractFiles']> = body => extractFiles(body, isExtractableFile);
 
 /**
  * Create an Apollo link that supports batched queries and file uploads.

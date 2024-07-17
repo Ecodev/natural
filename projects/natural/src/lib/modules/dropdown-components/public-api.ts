@@ -1,7 +1,7 @@
 /*
  * Public API Surface of natural-search dropdown components
  */
-export {TypeSelectConfiguration, TypeSelectComponent} from './type-select/type-select.component';
+export {TypeSelectConfiguration, TypeSelectItem, TypeSelectComponent} from './type-select/type-select.component';
 
 export {
     TypeSelectNaturalConfiguration,
