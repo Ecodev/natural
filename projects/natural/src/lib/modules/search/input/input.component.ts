@@ -250,6 +250,10 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     public clear(): void {
+        // Prevent opening the facets list when we are removing a facet
+        this.neutralizeDropdownOpening = true;
+        setTimeout(() => (this.neutralizeDropdownOpening = false));
+
         this.facet = null;
         this.selection = null;
         this.formCtrl.setValue(null);
