@@ -60,7 +60,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
      * cases you **must** `bind()` the callback explicitly, like so:
      *
      * ```html
-     * <natural-file [uploader]="myCallback.bind(this)"></natural-file>
+     * <natural-file [uploader]="myCallback.bind(this)" />
      * ```
      *
      * Also, you probably **should** set a `[formCtrl]` so that the form is updated automatically, instead of doing

@@ -42,7 +42,7 @@ import {MatButtonModule} from '@angular/material/button';
  * Usage :
  *
  * ```html
- * <natural-editor [(ngModel)]="htmlString"></natural-editor>
+ * <natural-editor [(ngModel)]="htmlString" />
  * ```
  */
 // @dynamic

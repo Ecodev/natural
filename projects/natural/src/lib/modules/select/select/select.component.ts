@@ -25,7 +25,7 @@ type V<TService> = string | ExtractTallOne<TService>;
 /**
  * Default usage:
  * ```html
- * <natural-select [service]="myServiceInstance" [(model)]="myModel" (modelChange)=myChangeFn($event)></natural-select>
+ * <natural-select [service]="myServiceInstance" [(model)]="myModel" (modelChange)=myChangeFn($event) />
  * ```
  *
  * Custom template usage :
@@ -41,17 +41,17 @@ type V<TService> = string | ExtractTallOne<TService>;
  *
  * Placeholder :
  * ```html
- * <natural-select placeholder="my placeholder"></natural-select>
+ * <natural-select placeholder="my placeholder" />
  * ```
  *
  * Search with like %xxx% on specified field `name` instead of custom filter on whole object
  * ```html
- * <natural-select searchField="name"></natural-select>
+ * <natural-select searchField="name" />
  * ```
  *
  * Allows to input free string without selecting an option from autocomplete suggestions
  * ```html
- * <natural-select [optionRequired]="false"></natural-select>
+ * <natural-select [optionRequired]="false" />
  * ```
  */
 @Component({

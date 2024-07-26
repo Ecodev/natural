@@ -44,7 +44,10 @@ function unwrapNavigable(item: MaybeNavigable): Literal {
  * Components inheriting from this class can be used as standalone with input attributes.
  *
  * Usage :
+ *
+ * ```html
  * <natural-my-listing [forcedVariables]="{filter:...}" [selectedColumns]="['col1']" [persistSearch]="false">
+ * ```
  */
 
 // @dynamic

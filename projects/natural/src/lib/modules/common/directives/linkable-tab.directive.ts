@@ -16,11 +16,13 @@ function getTabId(tab: MatTab): string {
 /**
  * Usage :
  *
+ * ```html
  * <mat-tab-group [naturalLinkableTab]="!isPanel">
  *     <mat-tab label="Tab 1">Tab 1</mat-tab> // First tab doesn't need id. This keeps url clean on default one
  *     <mat-tab label="Tab 2" id="second-tab">Tab 2</mat-tab>
  *     ...
  * </mat-tab-group>
+ * ```
  */
 @Directive({
     selector: 'mat-tab-group[naturalLinkableTab]',

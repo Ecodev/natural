@@ -32,13 +32,15 @@ import {finalize, forkJoin, takeUntil, tap} from 'rxjs';
 
 /**
  * Custom template usage :
+ *
+ * ```html
  * <natural-relations [main]="owner" [service]="svc" [filter]="{}" placeholder="Select an item">
  *     <ng-template let-item="item">
  *         <span>{{ item.xxx }}</span>
  *     </ng-template>
  * </natural-relations>
+ * ```
  */
-
 @Component({
     selector: 'natural-relations',
     templateUrl: './relations.component.html',

@@ -28,13 +28,22 @@ function defaultDisplayFn(item: Literal | null): string {
 
 /**
  * Default usage:
- * <natural-select [config]="myConfig" [(ngModel)]="amazingModel"
- * (ngModelChange)=amazingChangeFn($event)></natural-select>
  *
- * [(ngModel)] and (ngModelChange) are optional
+ * ```html
+ * <natural-select
+ *     [config]="myConfig"
+ *     [(ngModel)]="amazingModel"
+ *     (ngModelChange)=amazingChangeFn($event)
+ * />
+ * ```
+ *
+ * `[(ngModel)]` and `(ngModelChange)` are optional.
  *
  * Placeholder :
- * <natural-select placeholder="amazing placeholder">
+ *
+ * ```html
+ * <natural-select placeholder="amazing placeholder" />
+ * ```
  */
 @Component({
     selector: 'natural-select-hierarchic',
