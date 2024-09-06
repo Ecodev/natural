@@ -48,7 +48,7 @@ describe('NaturalAvatarComponent', () => {
         fixture.detectChanges();
 
         const avatarTextEl = fixture.debugElement.query(By.css('.avatar-container'));
-        expect(avatarTextEl.nativeElement.innerHTML.replace(/<!--.*?-->/gs, '')).toBe('');
+        expect(avatarTextEl.nativeElement.innerHTML).toBe('<!--container--><!--container-->');
     });
 
     it('should not try again failed sources', () => {
