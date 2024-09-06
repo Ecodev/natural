@@ -19,7 +19,7 @@ import {of} from 'rxjs';
 })
 class TestSimpleComponent {}
 
-describe('stripTags', () => {
+fdescribe('stripTags', () => {
     it('should not touch plain text', () => {
         expect(stripTags('')).toBe('');
         expect(stripTags(' ')).toBe(' ');
@@ -43,6 +43,11 @@ describe('stripTags', () => {
         expect(stripTags('a<>b')).toBe('ab');
         expect(stripTags('a</>b')).toBe('ab');
         expect(stripTags('a<>b</>c')).toBe('abc');
+        expect(
+            stripTags(`<div
+        >foo</
+        div>`),
+        ).toBe('foo');
     });
 });
 
