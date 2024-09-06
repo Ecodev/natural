@@ -2,7 +2,7 @@
     <div class="dropdown-title mat-body-2">{{ data.title }}</div>
 }
 <mat-nav-list>
-    @for (facet of facets; track facet) {
+    @for (facet of facets; track $index) {
         <mat-list-item (click)="selection = facet; close()">
             <a>{{ facet.display }}</a>
         </mat-list-item>

@@ -4,7 +4,7 @@
     <div class="nat-expand nat-vertical">
         <div class="nat-vertical">
             <div class="nat-horizontal nat-wrap">
-                @for (item of breadcrumbs; track item) {
+                @for (item of breadcrumbs; track item.id) {
                     <a [routerLink]="getChildLink(item)" class="nat-no-padding" mat-button>
                         <mat-icon naturalIcon="chevron_right" />
                         <span>{{ item.name }}</span>

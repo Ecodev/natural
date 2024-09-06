@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Literal} from '../../types/types';
+import {Literal, NameOrFullName} from '../../types/types';
 import {NaturalIconDirective} from '../icon/icon.directive';
 import {MatIconModule} from '@angular/material/icon';
 import {RouterLink} from '@angular/router';
@@ -48,7 +48,7 @@ export class NaturalDetailHeaderComponent {
      */
     @Input() public newLabel = '';
     @Input({required: true}) public model!: Literal;
-    @Input() public breadcrumbs: Literal[] = [];
+    @Input() public breadcrumbs: NameOrFullName[] = [];
     @Input() public listRoute: any[] = [];
     @Input() public listFragment: string | undefined;
     @Input() public link?: (id: string) => any[];

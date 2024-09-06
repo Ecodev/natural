@@ -40,7 +40,7 @@
     </mat-tree>
 
     <mat-chip-listbox aria-orientation="vertical" class="mat-mdc-chip-set-stacked">
-        @for (node of selectedNodes; track node) {
+        @for (node of selectedNodes; track node.model.id) {
             <mat-chip-option (removed)="unselectModelNode(node)" [removable]="true" [selectable]="false">
                 @if (node.config.icon) {
                     <mat-icon [naturalIcon]="node.config.icon" />

@@ -1,4 +1,4 @@
-@for (selection of innerSelections; track selection) {
+@for (selection of innerSelections; track $index) {
     <natural-input
         (cleared)="removeInput($index)"
         (selectionChange)="updateInput($event, $index)"

@@ -4,7 +4,7 @@
             rootLabel || label
         }}</a>
     }
-    @for (parent of breadcrumbs; track parent) {
+    @for (parent of breadcrumbs; track parent.id) {
         /
         <a [routerLink]="isPanel ? [] : getLink(parent.id)" color="primary" mat-button>
             {{ parent?.fullName || parent?.name }}</a

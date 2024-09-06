@@ -5,7 +5,7 @@
     [displayWith]="getDisplayFn()"
     panelWidth="auto !important"
 >
-    @for (item of items | async; track item) {
+    @for (item of items | async; track $index) {
         <mat-option [value]="item">
             <ng-template
                 [ngTemplateOutletContext]="{item: item}"

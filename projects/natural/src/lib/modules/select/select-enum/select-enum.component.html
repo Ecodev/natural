@@ -10,7 +10,7 @@
         @if (nullLabel) {
             <mat-option [value]="null">{{ nullLabel }}</mat-option>
         }
-        @for (item of items | async; track item) {
+        @for (item of items | async; track item.value) {
             <mat-option [value]="item.value" [disabled]="optionDisabled ? optionDisabled(item) : false">
                 {{ item.name }}
             </mat-option>
