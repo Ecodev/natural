@@ -9,6 +9,7 @@ export * from './pipes/enum.pipe';
 export {NaturalTimeAgoPipe} from './pipes/time-ago.pipe';
 export * from './services/memory-storage';
 export {NaturalSrcDensityDirective} from './directives/src-density.directive';
+export {NaturalBackgroundDensityDirective} from './directives/background-density.directive';
 export {
     NATURAL_SEO_CONFIG,
     NaturalSeoConfig,

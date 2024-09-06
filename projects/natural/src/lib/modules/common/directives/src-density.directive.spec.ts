@@ -24,7 +24,7 @@ describe('NaturalSrcDensityDirective', () => {
 
     const expectedSrc = 'https://example.com/api/image/123/200';
     const expectedSrcset =
-        'https://example.com/api/image/123/200, https://example.com/api/image/123/300 1.5x, https://example.com/api/image/123/400 2x, https://example.com/api/image/123/600 3x, https://example.com/api/image/123/800 4x';
+        'https://example.com/api/image/123/200 1x, https://example.com/api/image/123/300 1.5x, https://example.com/api/image/123/400 2x, https://example.com/api/image/123/600 3x, https://example.com/api/image/123/800 4x';
     beforeEach(() => {
         fixture = TestBed.createComponent(TestComponent);
 
@@ -68,9 +68,9 @@ describe('NaturalSrcDensityDirective', () => {
         expect(elements[5].nativeElement.srcset).toBe('');
     });
 
-    it('6th will completely discard original src and srcset attributes while keeping naturalSrcDensity as-is', () => {
+    it('7th will round dimensions', () => {
         const expectedSrcsetUneven =
-            'https://example.com/api/image/123/201, https://example.com/api/image/123/302 1.5x, https://example.com/api/image/123/402 2x, https://example.com/api/image/123/603 3x, https://example.com/api/image/123/804 4x';
+            'https://example.com/api/image/123/201 1x, https://example.com/api/image/123/302 1.5x, https://example.com/api/image/123/402 2x, https://example.com/api/image/123/603 3x, https://example.com/api/image/123/804 4x';
 
         expect(elements[6].nativeElement.src).toBe('https://example.com/api/image/123/201');
         expect(elements[6].nativeElement.srcset).toBe(expectedSrcsetUneven);

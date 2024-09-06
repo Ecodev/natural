@@ -1,5 +1,33 @@
 import {Directive, ElementRef, Input} from '@angular/core';
 
+export function densities(src: string, forImageSet: boolean): string {
+    const match = /^(.*\/)(\d+)$/.exec(src);
+    const base = match?.[1];
+    const size = +(match?.[2] ?? 0);
+
+    if (!base || !size) {
+        return '';
+    }
+
+    // This should cover most common densities according to https://www.mydevice.io/#tab1
+    let result = [1, 1.5, 2, 3, 4]
+        .map(density => {
+            let url = `${base}${Math.round(size * density)}`;
+            if (forImageSet) {
+                url = `url("${url}")`;
+            }
+
+            return `${url} ${density}x`;
+        })
+        .join(', ');
+
+    if (forImageSet) {
+        result = `image-set(${result})`;
+    }
+
+    return result;
+}
+
 @Directive({
     selector: 'img[naturalSrcDensity]',
     standalone: true,
@@ -16,7 +44,7 @@ export class NaturalSrcDensityDirective {
      * Usage:
      *
      * ```html
-     * <img [naturalSrcDensity]="'/api/image/123/200'" />
+     * <img naturalSrcDensity="/api/image/123/200" />
      * ```
      *
      * Will generate something like:
@@ -36,23 +64,8 @@ export class NaturalSrcDensityDirective {
             return;
         }
 
-        const match = /^(.*\/)(\d+)$/.exec(src);
-        const base = match?.[1];
-        const size = +(match?.[2] ?? 0);
-
-        let srcset = '';
-        if (base && size) {
-            // This should cover most common densities according to https://www.mydevice.io/#tab1
-            const size15 = Math.round(size * 1.5);
-            const size2 = size * 2;
-            const size3 = size * 3;
-            const size4 = size * 4;
-
-            srcset = `${base}${size}, ${base}${size15} 1.5x, ${base}${size2} 2x, ${base}${size3} 3x, ${base}${size4} 4x`;
-        }
-
         this.elementRef.nativeElement.src = src;
-        this.elementRef.nativeElement.srcset = srcset;
+        this.elementRef.nativeElement.srcset = densities(src, false);
     }
 
     public constructor(private readonly elementRef: ElementRef<HTMLImageElement>) {}

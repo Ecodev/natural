@@ -10,7 +10,6 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import {AbstractControl} from '@angular/forms';
-import {DomSanitizer, SafeStyle} from '@angular/platform-browser';
 import {Observable, of, Subject, tap} from 'rxjs';
 import {NaturalFileService} from '../file.service';
 import {CommonModule, DOCUMENT} from '@angular/common';
@@ -21,6 +20,7 @@ import {NaturalIconDirective} from '../../icon/icon.directive';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRippleModule} from '@angular/material/core';
 import {NaturalFileDropDirective} from '../file-drop.directive';
+import {NaturalBackgroundDensityDirective} from '../../common/directives/background-density.directive';
 
 // @dynamic
 @Component({
@@ -35,6 +35,7 @@ import {NaturalFileDropDirective} from '../file-drop.directive';
         MatIconModule,
         NaturalIconDirective,
         NaturalCapitalizePipe,
+        NaturalBackgroundDensityDirective,
     ],
 })
 export class NaturalFileComponent implements OnInit, OnChanges {
@@ -82,13 +83,12 @@ export class NaturalFileComponent implements OnInit, OnChanges {
      */
     @Output() public readonly modelChange = new EventEmitter<FileModel>();
 
-    public imagePreview: SafeStyle | null = null;
+    public imagePreview = '';
     public filePreview: string | null = null;
 
     public constructor(
         private readonly naturalFileService: NaturalFileService,
         private readonly alertService: NaturalAlertService,
-        private readonly sanitizer: DomSanitizer,
         @Inject(DOCUMENT) private readonly document: Document,
     ) {}
 
@@ -132,7 +132,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
     }
 
     private updateImage(): void {
-        this.imagePreview = null;
+        this.imagePreview = '';
         this.filePreview = null;
         if (!this.model) {
             return;
@@ -143,7 +143,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
             this.getBase64(this.model.file).subscribe(result => {
                 if (this.model?.file?.type) {
                     const content = 'url(data:' + this.model?.file?.type + ';base64,' + result + ')';
-                    this.imagePreview = this.sanitizer.bypassSecurityTrustStyle(content);
+                    this.imagePreview = content;
                 }
             });
         } else if (this.model.file) {
@@ -160,12 +160,12 @@ export class NaturalFileComponent implements OnInit, OnChanges {
 
             // create image url without port to stay compatible with dev mode
             const image = loc.protocol + '//' + loc.hostname + '/api/image/' + this.model.id + height;
-            this.imagePreview = this.sanitizer.bypassSecurityTrustStyle('url(' + image + ')');
+            this.imagePreview = image;
         } else if (this.model?.mime && ['File', 'AccountingDocument'].includes(this.model.__typename || '')) {
             this.filePreview = this.model.mime.split('/')[1];
         } else if (this.model.src) {
             // external url
-            this.imagePreview = this.sanitizer.bypassSecurityTrustStyle('url(' + this.model.src + ')');
+            this.imagePreview = this.model.src;
         }
     }
 
