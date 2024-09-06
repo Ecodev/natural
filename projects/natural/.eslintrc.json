@@ -74,6 +74,7 @@
                             "mode",
                             "naturalCustomCss",
                             "naturalIcon",
+                            "naturalBackgroundDensity",
                             "naturalSrcDensity",
                             "panelWidth",
                             "srcset",
