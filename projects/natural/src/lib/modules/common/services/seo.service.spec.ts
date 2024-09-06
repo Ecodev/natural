@@ -19,7 +19,7 @@ import {of} from 'rxjs';
 })
 class TestSimpleComponent {}
 
-fdescribe('stripTags', () => {
+describe('stripTags', () => {
     it('should not touch plain text', () => {
         expect(stripTags('')).toBe('');
         expect(stripTags(' ')).toBe(' ');
