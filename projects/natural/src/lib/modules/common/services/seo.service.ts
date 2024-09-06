@@ -116,7 +116,7 @@ export type NaturalSeoConfig = NaturalSeoConfigPlain | Observable<NaturalSeoConf
 export const NATURAL_SEO_CONFIG = new InjectionToken<NaturalSeoConfig>('Configuration for SEO service');
 
 export function stripTags(str: string): string {
-    return str.replace(/<\/?[^>]+>/g, '');
+    return str.replace(/<\/?[^>]*>/g, '');
 }
 
 type Model = {

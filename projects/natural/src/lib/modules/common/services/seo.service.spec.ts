@@ -38,6 +38,11 @@ describe('stripTags', () => {
         expect(stripTags('<STRONG>foo<STRONG> <strong>bar</strong> <em>baz</em>')).toBe('foo bar baz');
         expect(stripTags('foo <br/>bar')).toBe('foo bar');
         expect(stripTags('<strong>one</strong> > two > three')).toBe('one > two > three');
+        expect(stripTags('<scrip<script>is removed</script>t>alert(123)</script>')).toBe('is removedt>alert(123)'); // Broken but safe HTML
+        expect(stripTags('<!<!--- comment --->>')).toBe('>'); // Broken but safe HTML
+        expect(stripTags('a<>b')).toBe('ab');
+        expect(stripTags('a</>b')).toBe('ab');
+        expect(stripTags('a<>b</>c')).toBe('abc');
     });
 });
 
