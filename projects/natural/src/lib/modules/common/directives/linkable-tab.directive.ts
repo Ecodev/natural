@@ -1,4 +1,4 @@
-import {AfterViewInit, DestroyRef, Directive, inject, Input} from '@angular/core';
+import {AfterViewInit, DestroyRef, Directive, Input, inject} from '@angular/core';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {ActivatedRoute, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 import {clone} from 'lodash-es';
@@ -28,18 +28,18 @@ function getTabId(tab: MatTab): string {
 })
 export class NaturalLinkableTabDirective implements AfterViewInit {
     private readonly destroyRef = inject(DestroyRef);
+    private readonly component = inject(MatTabGroup);
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
+
     /**
      * If false, disables the persistent navigation
      */
     @Input() public naturalLinkableTab: boolean | '' = true;
     private isLoadingRouteConfig = false;
 
-    public constructor(
-        private readonly component: MatTabGroup,
-        private readonly route: ActivatedRoute,
-        private readonly router: Router,
-    ) {
-        router.events.pipe(takeUntilDestroyed()).subscribe(event => {
+    public constructor() {
+        this.router.events.pipe(takeUntilDestroyed()).subscribe(event => {
             if (event instanceof RouteConfigLoadStart) {
                 this.isLoadingRouteConfig = true;
             } else if (event instanceof RouteConfigLoadEnd) {

@@ -1,4 +1,4 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
+import {inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {Subscription} from 'rxjs';
@@ -34,18 +34,16 @@ type Paq = {
     providedIn: 'root',
 })
 export class NaturalMatomoService {
-    private subscription: Subscription | null = null;
-    private readonly isBrowser: boolean;
+    private readonly router = inject(Router);
+    private readonly document = inject<Document>(DOCUMENT);
+    private readonly titleService = inject(Title);
+    private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
     private readonly window: WindowProxy & typeof globalThis & {_paq?: Paq};
+
+    private subscription: Subscription | null = null;
     private referrerUrl = '';
 
-    public constructor(
-        private readonly router: Router,
-        @Inject(DOCUMENT) private readonly document: Document,
-        @Inject(PLATFORM_ID) public readonly platformId: object,
-        private readonly titleService: Title,
-    ) {
-        this.isBrowser = isPlatformBrowser(platformId);
+    public constructor() {
         const window = this.document.defaultView;
         if (!window) {
             throw new Error('Could not init MatomoService `window` is undefined');

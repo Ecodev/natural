@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BehaviorSubject, merge} from 'rxjs';
 import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
@@ -26,6 +26,8 @@ export type TypeNumberConfiguration = {
     imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatInputModule],
 })
 export class TypeNumberComponent implements DropdownComponent {
+    protected dropdownRef = inject(NaturalDropdownRef);
+
     public readonly renderedValue = new BehaviorSubject<string>('');
     public readonly configuration: Required<TypeNumberConfiguration>;
     public readonly operatorCtrl = new FormControl<PossibleComparableOpertorKeys>('equal', {nonNullable: true});
@@ -43,10 +45,9 @@ export class TypeNumberComponent implements DropdownComponent {
         step: null,
     };
 
-    public constructor(
-        @Inject(NATURAL_DROPDOWN_DATA) data: NaturalDropdownData<TypeNumberConfiguration>,
-        protected dropdownRef: NaturalDropdownRef,
-    ) {
+    public constructor() {
+        const data = inject<NaturalDropdownData<TypeNumberConfiguration>>(NATURAL_DROPDOWN_DATA);
+
         this.configuration = {...this.defaults, ...data.configuration};
 
         merge(this.operatorCtrl.valueChanges, this.valueCtrl.valueChanges).subscribe(() => {

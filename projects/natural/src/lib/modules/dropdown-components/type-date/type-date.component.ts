@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MatDateFormats, MatOptionModule} from '@angular/material/core';
 import {BehaviorSubject, merge} from 'rxjs';
@@ -35,6 +35,9 @@ export type TypeDateConfiguration<D = Date> = {
     ],
 })
 export class TypeDateComponent<D = any> implements DropdownComponent {
+    private dateAdapter = inject<DateAdapter<D>>(DateAdapter);
+    private dateFormats = inject<MatDateFormats>(MAT_DATE_FORMATS);
+
     public readonly renderedValue = new BehaviorSubject<string>('');
     public readonly configuration: Required<TypeDateConfiguration<D>>;
     public readonly operatorCtrl = new FormControl<PossibleComparableOpertorKeys>('equal', {nonNullable: true});
@@ -53,11 +56,9 @@ export class TypeDateComponent<D = any> implements DropdownComponent {
         max: null,
     };
 
-    public constructor(
-        @Inject(NATURAL_DROPDOWN_DATA) data: NaturalDropdownData<TypeDateConfiguration<D>>,
-        private dateAdapter: DateAdapter<D>,
-        @Inject(MAT_DATE_FORMATS) private dateFormats: MatDateFormats,
-    ) {
+    public constructor() {
+        const data = inject<NaturalDropdownData<TypeDateConfiguration<D>>>(NATURAL_DROPDOWN_DATA);
+
         this.configuration = {...this.defaults, ...data.configuration};
 
         this.todayCtrl.valueChanges.pipe(takeUntilDestroyed()).subscribe(isToday => {

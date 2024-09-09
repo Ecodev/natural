@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input} from '@angular/core';
+import {Directive, ElementRef, Input, inject} from '@angular/core';
 import {densities} from './src-density.directive';
 
 @Directive({
@@ -6,6 +6,8 @@ import {densities} from './src-density.directive';
     standalone: true,
 })
 export class NaturalBackgroundDensityDirective {
+    private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     /**
      * Automatically apply background image selection based on screen density.
      *
@@ -53,6 +55,4 @@ export class NaturalBackgroundDensityDirective {
             this.elementRef.nativeElement.style.backgroundImage = responsive;
         }
     }
-
-    public constructor(private readonly elementRef: ElementRef<HTMLElement>) {}
 }

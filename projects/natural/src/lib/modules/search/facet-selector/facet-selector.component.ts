@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
 import {NaturalDropdownRef} from '../../search/dropdown-container/dropdown-ref';
@@ -21,17 +21,13 @@ export type FacetSelectorConfiguration = {
     imports: [MatListModule],
 })
 export class FacetSelectorComponent implements DropdownComponent {
+    public readonly data = inject<NaturalDropdownData<FacetSelectorConfiguration>>(NATURAL_DROPDOWN_DATA);
+    protected dropdownRef = inject(NaturalDropdownRef);
+
     // Never has a real value
     public readonly renderedValue = new BehaviorSubject<string>('');
-    public facets: NaturalSearchFacets;
+    public facets = this.data.configuration.facets;
     public selection: Facet | null = null;
-
-    public constructor(
-        @Inject(NATURAL_DROPDOWN_DATA) public data: NaturalDropdownData<FacetSelectorConfiguration>,
-        protected dropdownRef: NaturalDropdownRef,
-    ) {
-        this.facets = data.configuration.facets;
-    }
 
     /**
      * Get value, including rich object types

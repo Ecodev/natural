@@ -1,5 +1,5 @@
 import {DOCUMENT} from '@angular/common';
-import {Inject, Injectable, InjectionToken, LOCALE_ID} from '@angular/core';
+import {Injectable, InjectionToken, LOCALE_ID, inject} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
 import {ActivatedRouteSnapshot, Data, NavigationEnd, PRIMARY_OUTLET, Router} from '@angular/router';
 import {NaturalDialogTriggerComponent} from '../../dialog-trigger/dialog-trigger.component';
@@ -147,19 +147,20 @@ type ResolvedData = {
     providedIn: 'root',
 })
 export class NaturalSeoService {
+    private readonly router = inject(Router);
+    private readonly titleService = inject(Title);
+    private readonly metaTagService = inject(Meta);
+    private readonly document = inject<Document>(DOCUMENT);
+    private locale = inject(LOCALE_ID);
+
     private routeData?: Data;
     private config: NaturalSeoConfigPlain = {
         applicationName: '',
     };
 
-    public constructor(
-        @Inject(NATURAL_SEO_CONFIG) configToken: NaturalSeoConfig,
-        private readonly router: Router,
-        private readonly titleService: Title,
-        private readonly metaTagService: Meta,
-        @Inject(DOCUMENT) private readonly document: Document,
-        @Inject(LOCALE_ID) private locale: string,
-    ) {
+    public constructor() {
+        const configToken = inject<NaturalSeoConfig>(NATURAL_SEO_CONFIG);
+
         combineLatest({
             config: configToken instanceof Observable ? configToken.pipe(startWith(this.config)) : of(configToken),
             navigationEnd: this.router.events.pipe(filter(event => event instanceof NavigationEnd)),

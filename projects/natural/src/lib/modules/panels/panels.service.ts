@@ -1,6 +1,6 @@
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {ComponentType} from '@angular/cdk/portal';
-import {Inject, Injectable, Injector, runInInjectionContext} from '@angular/core';
+import {Injectable, Injector, runInInjectionContext, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ActivatedRoute, DefaultUrlSerializer, NavigationError, Router, UrlSegment} from '@angular/router';
@@ -33,6 +33,11 @@ function compareConfigs(a: NaturalPanelConfig, b: NaturalPanelConfig): boolean {
     providedIn: 'root',
 })
 export class NaturalPanelsService {
+    private readonly router = inject(Router);
+    private readonly dialog = inject(MatDialog);
+    private readonly injector = inject(Injector);
+    private hooksConfig = inject<NaturalPanelsHooksConfig>(PanelsHooksConfig);
+
     private readonly panelWidth = '960px';
 
     /**
@@ -91,13 +96,9 @@ export class NaturalPanelsService {
      */
     private isVertical = false;
 
-    public constructor(
-        private readonly router: Router,
-        private readonly dialog: MatDialog,
-        private readonly injector: Injector,
-        @Inject(PanelsHooksConfig) private hooksConfig: NaturalPanelsHooksConfig,
-        breakpointObserver: BreakpointObserver,
-    ) {
+    public constructor() {
+        const breakpointObserver = inject(BreakpointObserver);
+
         //  Watch media to know if display panels horizontally or vertically
         breakpointObserver
             .observe(Breakpoints.XSmall)

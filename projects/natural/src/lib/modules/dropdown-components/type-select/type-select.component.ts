@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, DestroyRef, inject, Inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, DestroyRef, inject, ViewChild} from '@angular/core';
 import {MatListModule, MatSelectionList} from '@angular/material/list';
 import {BehaviorSubject, merge, Observable, of} from 'rxjs';
 import {FilterGroupConditionField, Scalar} from '../../search/classes/graphql-doctrine.types';
@@ -59,7 +59,9 @@ export class TypeSelectComponent implements DropdownComponent, AfterViewInit {
         operators: true,
     };
 
-    public constructor(@Inject(NATURAL_DROPDOWN_DATA) data: NaturalDropdownData<TypeSelectConfiguration>) {
+    public constructor() {
+        const data = inject<NaturalDropdownData<TypeSelectConfiguration>>(NATURAL_DROPDOWN_DATA);
+
         this.configuration = {...this.defaults, ...data.configuration};
 
         // Immediately initValidators and everytime the operator change later

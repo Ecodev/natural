@@ -1,7 +1,7 @@
 import {Apollo, gql} from 'apollo-angular';
 import {ApolloClient, InMemoryCache} from '@apollo/client/core';
 import {SchemaLink} from '@apollo/client/link/schema';
-import {Injectable, NgZone, Provider} from '@angular/core';
+import {Injectable, NgZone, Provider, inject} from '@angular/core';
 import {buildSchema} from 'graphql';
 import {addMocksToSchema, IMocks} from '@graphql-tools/mock';
 
@@ -186,7 +186,9 @@ function createMockClient(): ApolloClient<unknown> {
     providedIn: 'root',
 })
 class MockApollo extends Apollo {
-    public constructor(ngZone: NgZone) {
+    public constructor() {
+        const ngZone = inject(NgZone);
+
         super(ngZone);
 
         super.client = createMockClient();

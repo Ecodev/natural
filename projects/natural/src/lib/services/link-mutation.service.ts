@@ -1,6 +1,6 @@
 import {Apollo, gql} from 'apollo-angular';
 import {FetchResult} from '@apollo/client/core';
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {clone} from 'lodash-es';
 import {forkJoin, Observable, of} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
@@ -68,12 +68,12 @@ type Mutation = {
     providedIn: 'root',
 })
 export class NaturalLinkMutationService {
+    private readonly apollo = inject(Apollo);
+
     /**
      * Receives the list of available mutations
      */
     private allMutations?: Mutation[];
-
-    public constructor(private readonly apollo: Apollo) {}
 
     /**
      * Link two objects together

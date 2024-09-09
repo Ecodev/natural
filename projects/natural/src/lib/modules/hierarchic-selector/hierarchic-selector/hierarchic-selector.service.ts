@@ -1,4 +1,4 @@
-import {Injectable, Injector} from '@angular/core';
+import {Injectable, Injector, inject} from '@angular/core';
 import {intersection} from 'lodash-es';
 import {BehaviorSubject, first, forkJoin, Observable} from 'rxjs';
 import {finalize, map} from 'rxjs/operators';
@@ -25,6 +25,8 @@ type ContextualizedConfig = {
 
 @Injectable({providedIn: 'root'})
 export class NaturalHierarchicSelectorService {
+    private readonly injector = inject(Injector);
+
     /**
      * Stores the global result of the tree
      * This observable contains Node.
@@ -38,8 +40,6 @@ export class NaturalHierarchicSelectorService {
      * The list should be sorted in the order of the hierarchic (list first parent rules, then child rules)
      */
     private configuration: NaturalHierarchicConfiguration[] = [];
-
-    public constructor(private readonly injector: Injector) {}
 
     /**
      * Init component by saving the complete configuration, and then retrieving root elements.

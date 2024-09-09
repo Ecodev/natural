@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, HostBinding, Input, OnDestroy, OnInit, ViewChild, inject} from '@angular/core';
 import {MatDrawer, MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import {NaturalSidenavService} from '../sidenav.service';
 import {CommonModule} from '@angular/common';
@@ -12,6 +12,8 @@ import {CommonModule} from '@angular/common';
     imports: [MatSidenavModule, CommonModule],
 })
 export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
+    public readonly sidenavService = inject(NaturalSidenavService);
+
     /**
      * Unique identifier used for the local storage
      */
@@ -43,8 +45,6 @@ export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
      * Inner "native" material sidenav
      */
     @ViewChild(MatSidenav, {static: true}) public menuSidenav!: MatSidenav;
-
-    public constructor(public readonly sidenavService: NaturalSidenavService) {}
 
     public get isMinimized(): boolean {
         return this.sidenavService.isMinimized;

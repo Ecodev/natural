@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Optional, Self} from '@angular/core';
+import {Component, Input, OnInit, inject} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {IEnum, NaturalEnumService} from '../../../services/enum.service';
@@ -18,6 +18,8 @@ type V = IEnum['value'] | IEnum['value'][];
     imports: [MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, CommonModule, MatOptionModule],
 })
 export class NaturalSelectEnumComponent extends AbstractSelect<V, V> implements OnInit, ControlValueAccessor {
+    private readonly enumService = inject(NaturalEnumService);
+
     /**
      * The name of the enum type, eg: `"ActionStatus"`
      */
@@ -40,10 +42,9 @@ export class NaturalSelectEnumComponent extends AbstractSelect<V, V> implements 
 
     public items?: Observable<IEnum[]>;
 
-    public constructor(
-        private readonly enumService: NaturalEnumService,
-        @Optional() @Self() ngControl: NgControl | null,
-    ) {
+    public constructor() {
+        const ngControl = inject(NgControl, {optional: true, self: true});
+
         super(ngControl);
     }
 

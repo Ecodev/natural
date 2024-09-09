@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, inject} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -43,7 +43,9 @@ export class NaturalFixedButtonDetailComponent {
     @Output() public readonly create = new EventEmitter<void>();
     @Output() public readonly delete = new EventEmitter<void>();
 
-    public constructor(route: ActivatedRoute) {
+    public constructor() {
+        const route = inject(ActivatedRoute);
+
         route.params.pipe(takeUntilDestroyed()).subscribe(() => (this.canChange = true));
     }
 

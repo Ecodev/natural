@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject, Inject} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {BehaviorSubject} from 'rxjs';
@@ -33,10 +33,10 @@ export class TypeOptionsComponent implements DropdownComponent {
     private readonly defaults: Required<TypeOptionsConfiguration> = {
         options: [],
     };
+    protected readonly dropdownRef = inject(NaturalDropdownRef);
 
     public constructor(
-        @Inject(NATURAL_DROPDOWN_DATA) public data: NaturalDropdownData<TypeOptionsConfiguration>,
-        protected dropdownRef: NaturalDropdownRef,
+        @Inject(NATURAL_DROPDOWN_DATA) public readonly data: NaturalDropdownData<TypeOptionsConfiguration>,
     ) {
         this.configuration = {...this.defaults, ...data.configuration};
 

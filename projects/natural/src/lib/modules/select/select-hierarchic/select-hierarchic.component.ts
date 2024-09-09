@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Optional, Self} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormsModule, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogConfig} from '@angular/material/dialog';
 import {Literal} from '../../../types/types';
@@ -66,6 +66,8 @@ export class NaturalSelectHierarchicComponent
     extends AbstractSelect<Literal, string>
     implements OnInit, ControlValueAccessor
 {
+    private readonly hierarchicSelectorDialogService = inject(NaturalHierarchicSelectorDialogService);
+
     /**
      * If provided cause a new select button to appear
      */
@@ -94,10 +96,9 @@ export class NaturalSelectHierarchicComponent
      */
     private lockOpenDialog = false;
 
-    public constructor(
-        private readonly hierarchicSelectorDialogService: NaturalHierarchicSelectorDialogService,
-        @Optional() @Self() ngControl: NgControl | null,
-    ) {
+    public constructor() {
+        const ngControl = inject(NgControl, {optional: true, self: true});
+
         super(ngControl);
     }
 

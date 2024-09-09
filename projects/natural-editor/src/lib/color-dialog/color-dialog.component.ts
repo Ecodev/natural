@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import {FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ifValid} from '@ecodev/natural';
@@ -36,6 +36,8 @@ export type ColorDialogData = {
     ],
 })
 export class ColorDialogComponent {
+    private dialogRef = inject<MatDialogRef<ColorDialogComponent, ColorDialogData>>(MatDialogRef);
+
     public readonly colors: string[][] = [
         [
             '#000000',
@@ -187,10 +189,9 @@ export class ColorDialogComponent {
         color: this.colorControl,
     });
 
-    public constructor(
-        @Inject(MAT_DIALOG_DATA) data: ColorDialogData,
-        private dialogRef: MatDialogRef<ColorDialogComponent, ColorDialogData>,
-    ) {
+    public constructor() {
+        const data = inject<ColorDialogData>(MAT_DIALOG_DATA);
+
         this.form.setValue(data);
     }
 

@@ -8,7 +8,7 @@ import {
     naturalProviders,
 } from '@ecodev/natural';
 import {ItemService} from '../testing/item.service';
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ActivatedRoute, Data} from '@angular/router';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
 
@@ -47,7 +47,9 @@ class TestListComponent extends NaturalAbstractList<ItemService> {
         },
     ];
 
-    public constructor(service: ItemService) {
+    public constructor() {
+        const service = inject(ItemService);
+
         super(service);
     }
 

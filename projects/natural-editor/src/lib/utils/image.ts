@@ -2,7 +2,7 @@ import {Decoration, DecorationSet, EditorView} from 'prosemirror-view';
 import {EditorState, Plugin} from 'prosemirror-state';
 import {Observable} from 'rxjs';
 import {Schema} from 'prosemirror-model';
-import {Inject, Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
 export type ImageUploader = (file: File) => Observable<string>;
@@ -11,7 +11,9 @@ export type ImageUploader = (file: File) => Observable<string>;
 export class ImagePlugin {
     public readonly plugin: Plugin<DecorationSet>;
 
-    public constructor(@Inject(DOCUMENT) document: Document) {
+    public constructor() {
+        const document = inject<Document>(DOCUMENT);
+
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
         this.plugin = new Plugin<DecorationSet>({

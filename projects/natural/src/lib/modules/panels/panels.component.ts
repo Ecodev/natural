@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NaturalPanelsService} from './panels.service';
 
@@ -8,12 +8,13 @@ import {NaturalPanelsService} from './panels.service';
     standalone: true,
 })
 export class NaturalPanelsComponent implements OnDestroy {
+    private readonly panelsService = inject(NaturalPanelsService);
+
     // PanelsComponent is kind of a "ghost" component to respond to an url matcher in route config,
     // An UrlMatcher (matcher attribute) is required to catch urls with an undefined number of params in url after a given param /panels/
-    public constructor(
-        private readonly panelsService: NaturalPanelsService,
-        route: ActivatedRoute,
-    ) {
+    public constructor() {
+        const route = inject(ActivatedRoute);
+
         this.panelsService.start(route);
     }
 

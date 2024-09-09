@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, HostBinding, Input, OnChanges, SimpleChanges, inject} from '@angular/core';
 import {Source} from '../sources/source';
 import {AvatarService} from '../service/avatar.service';
 import {CommonModule} from '@angular/common';
@@ -58,6 +58,8 @@ type Style = Partial<CSSStyleDeclaration>;
     imports: [CommonModule],
 })
 export class NaturalAvatarComponent implements OnChanges {
+    private readonly avatarService = inject(AvatarService);
+
     @Input() public image?: string | null;
     @Input() public initials?: string | null;
     @Input() public gravatar?: string | null;
@@ -84,8 +86,6 @@ export class NaturalAvatarComponent implements OnChanges {
 
     private currentIndex = -1;
     private sources: Source[] = [];
-
-    public constructor(private readonly avatarService: AvatarService) {}
 
     /**
      * Detect inputs change

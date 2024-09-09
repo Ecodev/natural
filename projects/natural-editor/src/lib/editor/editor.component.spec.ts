@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalEditorComponent} from './editor.component';
-import {Component, Inject, InjectionToken} from '@angular/core';
+import {Component, InjectionToken, inject} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {ImageUploader} from '../utils/image';
@@ -15,9 +15,9 @@ const IMAGE_UPLOADER = new InjectionToken<ImageUploader | null>('Image uploader 
     imports: [FormsModule, NaturalEditorComponent],
 })
 class TestHostComponent {
-    public myValue = '';
+    public readonly imageUploader = inject<ImageUploader | null>(IMAGE_UPLOADER);
 
-    public constructor(@Inject(IMAGE_UPLOADER) public readonly imageUploader: ImageUploader | null) {}
+    public myValue = '';
 }
 
 /**

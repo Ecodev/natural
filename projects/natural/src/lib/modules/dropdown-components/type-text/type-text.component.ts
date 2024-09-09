@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {BehaviorSubject} from 'rxjs';
@@ -25,14 +25,15 @@ export class InvalidWithValueStateMatcher implements ErrorStateMatcher {
     imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule],
 })
 export class TypeTextComponent implements DropdownComponent {
+    protected dropdownRef = inject(NaturalDropdownRef);
+
     public readonly renderedValue = new BehaviorSubject<string>('');
     public readonly formCtrl = new FormControl('', {nonNullable: true});
     public readonly matcher = new InvalidWithValueStateMatcher();
 
-    public constructor(
-        @Inject(NATURAL_DROPDOWN_DATA) data: NaturalDropdownData<never>,
-        protected dropdownRef: NaturalDropdownRef,
-    ) {
+    public constructor() {
+        const data = inject<NaturalDropdownData<never>>(NATURAL_DROPDOWN_DATA);
+
         this.formCtrl.valueChanges.subscribe(value => {
             this.renderedValue.next(value === null ? '' : this.formCtrl.value + '');
         });

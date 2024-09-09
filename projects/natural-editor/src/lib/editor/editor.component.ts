@@ -1,16 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    Inject,
-    Input,
-    OnDestroy,
-    OnInit,
-    Optional,
-    Output,
-    Self,
-    ViewChild,
-} from '@angular/core';
+import {Component, ElementRef, EventEmitter, inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {EditorView} from 'prosemirror-view';
 import {EditorState, Plugin, Transaction} from 'prosemirror-state';
@@ -63,6 +51,11 @@ import {MatButtonModule} from '@angular/material/button';
     ],
 })
 export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAccessor {
+    private readonly ngControl = inject(NgControl, {optional: true, self: true});
+    private readonly document = inject<Document>(DOCUMENT);
+    private readonly dialog = inject(MatDialog);
+    private readonly imagePlugin = inject(ImagePlugin);
+
     private view: EditorView | null = null;
 
     @ViewChild('editor', {read: ElementRef, static: true}) private editor!: ElementRef<HTMLElement>;
@@ -99,12 +92,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
 
     public disabled = false;
 
-    public constructor(
-        @Optional() @Self() public readonly ngControl: NgControl,
-        @Inject(DOCUMENT) private readonly document: Document,
-        private readonly dialog: MatDialog,
-        private readonly imagePlugin: ImagePlugin,
-    ) {
+    public constructor() {
         if (this.ngControl !== null) {
             this.ngControl.valueAccessor = this;
         }

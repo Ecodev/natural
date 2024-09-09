@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
     AbstractControl,
     FormControl,
@@ -68,6 +68,9 @@ function toGreaterThanFrom<D>(dateAdapter: DateAdapter<D>): ValidatorFn {
     imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
 })
 export class TypeDateRangeComponent<D = any> implements DropdownComponent {
+    private dateAdapter = inject<DateAdapter<D>>(DateAdapter);
+    private dateFormats = inject<MatDateFormats>(MAT_DATE_FORMATS);
+
     public readonly renderedValue = new BehaviorSubject<string>('');
     public readonly configuration: Required<TypeDateRangeConfiguration<D>>;
     public readonly matcher = new InvalidWithValueStateMatcher();
@@ -83,11 +86,9 @@ export class TypeDateRangeComponent<D = any> implements DropdownComponent {
         max: null,
     };
 
-    public constructor(
-        @Inject(NATURAL_DROPDOWN_DATA) data: NaturalDropdownData<TypeDateRangeConfiguration<D>>,
-        private dateAdapter: DateAdapter<D>,
-        @Inject(MAT_DATE_FORMATS) private dateFormats: MatDateFormats,
-    ) {
+    public constructor() {
+        const data = inject<NaturalDropdownData<TypeDateRangeConfiguration<D>>>(NATURAL_DROPDOWN_DATA);
+
         this.configuration = {...this.defaults, ...data.configuration};
 
         merge(this.fromCtrl.valueChanges, this.toCtrl.valueChanges).subscribe(() => {

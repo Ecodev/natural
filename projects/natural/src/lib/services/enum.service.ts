@@ -1,5 +1,5 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -36,7 +36,7 @@ export type IEnum = {
     providedIn: 'root',
 })
 export class NaturalEnumService {
-    public constructor(private readonly apollo: Apollo) {}
+    private readonly apollo = inject(Apollo);
 
     /**
      * Return a list of observable enumerables considering the given name

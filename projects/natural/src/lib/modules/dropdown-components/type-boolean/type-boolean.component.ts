@@ -1,10 +1,9 @@
 import {CommonModule} from '@angular/common';
-import {Component, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
 import {DropdownComponent} from '../../search/types/dropdown-component';
 import {TypeOptionsComponent, TypeOptionsConfiguration} from '../type-options/type-options.component';
-import {NaturalDropdownRef} from '../../search/dropdown-container/dropdown-ref';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 export type TypeBooleanConfiguration = {
@@ -18,10 +17,9 @@ export type TypeBooleanConfiguration = {
     imports: [FormsModule, ReactiveFormsModule, CommonModule, MatButtonToggleModule],
 })
 export class TypeBooleanComponent extends TypeOptionsComponent implements DropdownComponent {
-    public constructor(
-        @Inject(NATURAL_DROPDOWN_DATA) data: NaturalDropdownData<TypeBooleanConfiguration>,
-        dropdownRef: NaturalDropdownRef,
-    ) {
+    public constructor() {
+        const data = inject<NaturalDropdownData<TypeBooleanConfiguration>>(NATURAL_DROPDOWN_DATA);
+
         // Set up options from hardcoded conditions with custom labels from config
         const configuration: TypeOptionsConfiguration = {
             options: [
@@ -41,6 +39,6 @@ export class TypeBooleanComponent extends TypeOptionsComponent implements Dropdo
             ...{configuration: configuration},
         };
 
-        super(typeOptionsData, dropdownRef);
+        super(typeOptionsData);
     }
 }

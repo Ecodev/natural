@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
 import {Item, ItemInput, ItemService} from '../testing/item.service';
 import {Literal, NaturalAbstractDetail, NaturalAlertService} from '@ecodev/natural';
-import {Component, Injectable} from '@angular/core';
+import {Component, inject, Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, provideRouter, Route, Router} from '@angular/router';
 import {RouterTestingHarness} from '@angular/router/testing';
 import {BehaviorSubject, of, Subject} from 'rxjs';
@@ -13,7 +13,9 @@ import {provideNoopAnimations} from '@angular/platform-browser/animations';
     template: ` <div i18n>Test simple component</div>`,
 })
 class TestSimpleComponent extends NaturalAbstractDetail<ItemService> {
-    public constructor(service: ItemService) {
+    public constructor() {
+        const service = inject(ItemService);
+
         super('item', service);
     }
 }

@@ -6,12 +6,12 @@ import {
     ComponentRef,
     ElementRef,
     EmbeddedViewRef,
-    Inject,
     InjectionToken,
     OnDestroy,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    inject,
 } from '@angular/core';
 import {Subject} from 'rxjs';
 import {naturalDropdownAnimations} from './dropdown-container-animations';
@@ -40,6 +40,10 @@ export const NATURAL_DROPDOWN_CONTAINER_DATA = new InjectionToken<NaturalDropdow
     imports: [PortalModule, MatButtonModule],
 })
 export class NaturalDropdownContainerComponent extends BasePortalOutlet implements OnDestroy {
+    private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+    private readonly focusTrapFactory = inject(ConfigurableFocusTrapFactory);
+    public readonly data = inject<NaturalDropdownContainerData>(NATURAL_DROPDOWN_CONTAINER_DATA);
+
     @ViewChild(CdkPortalOutlet, {static: true}) public portalOutlet!: CdkPortalOutlet;
     @ViewChild(TemplateRef, {static: true}) public templateRef!: TemplateRef<any>;
 
@@ -54,11 +58,7 @@ export class NaturalDropdownContainerComponent extends BasePortalOutlet implemen
     private focusTrap: FocusTrap | null = null;
     private elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;
 
-    public constructor(
-        private readonly elementRef: ElementRef<HTMLElement>,
-        private readonly focusTrapFactory: ConfigurableFocusTrapFactory,
-        @Inject(NATURAL_DROPDOWN_CONTAINER_DATA) public data: NaturalDropdownContainerData,
-    ) {
+    public constructor() {
         super();
     }
 

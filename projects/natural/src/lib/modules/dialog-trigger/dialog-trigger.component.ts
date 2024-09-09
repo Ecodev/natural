@@ -1,5 +1,5 @@
 import {ComponentType} from '@angular/cdk/portal';
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, inject} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 
@@ -22,15 +22,15 @@ export type NaturalDialogTriggerRedirectionValues = RouterLink['routerLink'] | n
     standalone: true,
 })
 export class NaturalDialogTriggerComponent<T, D> implements OnDestroy {
+    private readonly dialog = inject(MatDialog);
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
+
     private readonly dialogRef: MatDialogRef<T, NaturalDialogTriggerRedirectionValues>;
 
     private readonly triggerConfig: NaturalDialogTriggerRoutingData<T, D>;
 
-    public constructor(
-        private readonly dialog: MatDialog,
-        private readonly route: ActivatedRoute,
-        private readonly router: Router,
-    ) {
+    public constructor() {
         // Data from activated route
         this.triggerConfig = this.route.snapshot.data.trigger as NaturalDialogTriggerRoutingData<T, D>;
 

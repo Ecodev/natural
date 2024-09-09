@@ -1,6 +1,6 @@
 import {DOCUMENT} from '@angular/common';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ErrorHandler, Inject, Injectable, InjectionToken, Optional} from '@angular/core';
+import {ErrorHandler, Injectable, InjectionToken, inject} from '@angular/core';
 import {catchError, EMPTY, first, Observable, of} from 'rxjs';
 
 export type NaturalLoggerType = {
@@ -47,12 +47,12 @@ export const NaturalLoggerConfigExtra = new InjectionToken<NaturalLoggerExtra>(
     providedIn: 'root',
 })
 export class NaturalErrorHandler extends ErrorHandler {
-    public constructor(
-        private readonly http: HttpClient,
-        @Inject(DOCUMENT) private readonly document: Document,
-        @Optional() @Inject(NaturalLoggerConfigUrl) private readonly url: string,
-        @Optional() @Inject(NaturalLoggerConfigExtra) private readonly loggerExtra?: NaturalLoggerExtra,
-    ) {
+    private readonly http = inject(HttpClient);
+    private readonly document = inject<Document>(DOCUMENT);
+    private readonly url = inject(NaturalLoggerConfigUrl, {optional: true});
+    private readonly loggerExtra = inject<NaturalLoggerExtra>(NaturalLoggerConfigExtra, {optional: true});
+
+    public constructor() {
         super();
     }
 

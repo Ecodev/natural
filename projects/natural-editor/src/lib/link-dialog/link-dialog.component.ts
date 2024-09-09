@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import {FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ifValid} from '@ecodev/natural';
@@ -18,6 +18,8 @@ export type LinkDialogData = {
     imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
 export class LinkDialogComponent {
+    private dialogRef = inject<MatDialogRef<LinkDialogComponent, LinkDialogData>>(MatDialogRef);
+
     public readonly hrefControl = new FormControl('', {validators: Validators.required, nonNullable: true});
     public readonly titleControl = new FormControl('', {nonNullable: true});
     public readonly form = new FormGroup({
@@ -25,10 +27,9 @@ export class LinkDialogComponent {
         title: this.titleControl,
     });
 
-    public constructor(
-        @Inject(MAT_DIALOG_DATA) data: LinkDialogData,
-        private dialogRef: MatDialogRef<LinkDialogComponent, LinkDialogData>,
-    ) {
+    public constructor() {
+        const data = inject<LinkDialogData>(MAT_DIALOG_DATA);
+
         this.form.setValue({title: '', ...data});
     }
 

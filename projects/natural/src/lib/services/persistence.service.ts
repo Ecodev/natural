@@ -1,4 +1,4 @@
-import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
+import {inject, Injectable, InjectionToken} from '@angular/core';
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {clone} from 'lodash-es';
 import {NaturalStorage, SESSION_STORAGE} from '../modules/common/services/memory-storage';
@@ -19,14 +19,10 @@ export const NATURAL_PERSISTENCE_VALIDATOR = new InjectionToken<PersistenceValid
     providedIn: 'root',
 })
 export class NaturalPersistenceService {
-    public constructor(
-        private readonly router: Router,
-        @Inject(SESSION_STORAGE) private readonly sessionStorage: NaturalStorage,
-        @Optional() @Inject(NATURAL_PERSISTENCE_VALIDATOR) private readonly isValid: PersistenceValidator,
-    ) {
-        // By default, anything is valid
-        this.isValid = this.isValid ?? (() => true);
-    }
+    private readonly router = inject(Router);
+    private readonly sessionStorage = inject<NaturalStorage>(SESSION_STORAGE);
+    private readonly isValid =
+        inject<PersistenceValidator>(NATURAL_PERSISTENCE_VALIDATOR, {optional: true}) ?? (() => true); // By default, anything is valid
 
     /**
      * Persist in url and local storage the given value with the given key.

@@ -31,6 +31,8 @@ import {CommonModule} from '@angular/common';
 })
 export class NaturalColumnsPickerComponent implements OnChanges {
     private readonly destroyRef = inject(DestroyRef);
+    private readonly breakpointObserver = inject(BreakpointObserver);
+
     private _selections?: string[];
     private _availableColumns: Required<AvailableColumn>[] = [];
 
@@ -84,8 +86,6 @@ export class NaturalColumnsPickerComponent implements OnChanges {
     public displayedColumns: Required<AvailableColumn>[] = [];
 
     public readonly isMobile = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(map(result => result.matches));
-
-    public constructor(private readonly breakpointObserver: BreakpointObserver) {}
 
     private initColumns(): void {
         this._availableColumns?.forEach(col => {

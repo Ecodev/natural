@@ -1,4 +1,4 @@
-import {Directive, HostBinding, Inject, Input, OnDestroy} from '@angular/core';
+import {Directive, HostBinding, Input, OnDestroy, inject} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
 /**
@@ -44,6 +44,8 @@ let componentCount = 0;
     standalone: true,
 })
 export class NaturalCustomCssDirective implements OnDestroy {
+    private readonly document = inject<Document>(DOCUMENT);
+
     private style: HTMLStyleElement | null = null;
 
     @HostBinding('attr.data-natural-id') private readonly id = 'n' + ++uniqueId;
@@ -59,8 +61,6 @@ export class NaturalCustomCssDirective implements OnDestroy {
             this.style.innerHTML = value ? prefixCss(`[data-natural-id=${this.id}]`, value) : '';
         }
     }
-
-    public constructor(@Inject(DOCUMENT) private readonly document: Document) {}
 
     public ngOnDestroy(): void {
         this.style?.remove();

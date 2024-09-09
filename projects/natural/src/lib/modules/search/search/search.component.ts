@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, inject} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalSearchFacets} from '../types/facet';
 import {GroupSelections, NaturalSearchSelections} from '../types/values';
@@ -28,6 +28,8 @@ import {CommonModule} from '@angular/common';
     ],
 })
 export class NaturalSearchComponent implements OnChanges {
+    private readonly breakpointObserver = inject(BreakpointObserver);
+
     /**
      * Placeholder for last input (the free search input)
      */
@@ -67,8 +69,6 @@ export class NaturalSearchComponent implements OnChanges {
     }
 
     public readonly isMobile = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(map(result => result.matches));
-
-    public constructor(private readonly breakpointObserver: BreakpointObserver) {}
 
     public ngOnChanges(): void {
         if (!this.facets) {

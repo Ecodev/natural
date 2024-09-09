@@ -1,4 +1,4 @@
-import {DestroyRef, Inject, inject, Injectable} from '@angular/core';
+import {DestroyRef, inject, Injectable} from '@angular/core';
 import {MatDrawerMode} from '@angular/material/sidenav';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
@@ -26,6 +26,11 @@ function assert<T>(value: T): asserts value {
 @Injectable({providedIn: 'root'})
 export class NaturalSidenavService {
     private readonly destroyRef = inject(DestroyRef);
+    private readonly breakpointObserver = inject(BreakpointObserver);
+    private readonly router = inject(Router);
+    private readonly sessionStorage = inject<NaturalStorage>(SESSION_STORAGE);
+    private readonly naturalSidenavStackService = inject(NaturalSidenavStackService);
+
     /**
      * Navigation modes
      * First is for desktop view
@@ -67,13 +72,6 @@ export class NaturalSidenavService {
     private minimizedStorageKeyWithName: string | null = null;
     private openedStorageKeyWithName: string | null = null;
     private _isMobileView = false;
-
-    public constructor(
-        public readonly breakpointObserver: BreakpointObserver,
-        private readonly router: Router,
-        @Inject(SESSION_STORAGE) private readonly sessionStorage: NaturalStorage,
-        private readonly naturalSidenavStackService: NaturalSidenavStackService,
-    ) {}
 
     public get activeMode(): MatDrawerMode {
         return this.mode;

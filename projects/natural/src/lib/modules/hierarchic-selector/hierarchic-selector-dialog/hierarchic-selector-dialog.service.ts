@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import {defaults} from 'lodash-es';
 import {
@@ -9,7 +9,7 @@ import {
 
 @Injectable({providedIn: 'root'})
 export class NaturalHierarchicSelectorDialogService {
-    public constructor(private readonly dialog: MatDialog) {}
+    private readonly dialog = inject(MatDialog);
 
     public open(
         hierarchicConfig: HierarchicDialogConfig,

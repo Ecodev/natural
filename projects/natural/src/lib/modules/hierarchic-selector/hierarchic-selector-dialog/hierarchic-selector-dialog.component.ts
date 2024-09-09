@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import {clone, defaults} from 'lodash-es';
 import {NaturalSearchFacets} from '../../search/types/facet';
@@ -58,6 +58,9 @@ export type HierarchicDialogConfig = {
     imports: [MatDialogModule, NaturalHierarchicSelectorComponent, MatButtonModule],
 })
 export class NaturalHierarchicSelectorDialogComponent {
+    private dialogRef =
+        inject<MatDialogRef<NaturalHierarchicSelectorDialogComponent, HierarchicDialogResult>>(MatDialogRef);
+
     /**
      * Set of hierarchic configurations to pass as attribute to HierarchicComponent
      */
@@ -68,10 +71,9 @@ export class NaturalHierarchicSelectorDialogComponent {
      */
     public searchSelectionsOutput: NaturalSearchSelections | undefined | null;
 
-    public constructor(
-        @Inject(MAT_DIALOG_DATA) data: HierarchicDialogConfig,
-        private dialogRef: MatDialogRef<NaturalHierarchicSelectorDialogComponent, HierarchicDialogResult>,
-    ) {
+    public constructor() {
+        const data = inject<HierarchicDialogConfig>(MAT_DIALOG_DATA);
+
         this.config = defaults(data, {multiple: true, allowUnselect: true});
         this.searchSelectionsOutput = this.config.searchSelections;
     }

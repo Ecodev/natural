@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Subject} from 'rxjs';
 import {FileSelection} from './abstract-file';
 import {FileModel} from './types';
@@ -9,6 +9,8 @@ import {DOCUMENT} from '@angular/common';
     providedIn: 'root',
 })
 export class NaturalFileService {
+    private readonly document = inject<Document>(DOCUMENT);
+
     /**
      * Allow to subscribe to selected files in the entire application. So a
      * child component is able to receive a file that was dropped on a parent
@@ -18,8 +20,6 @@ export class NaturalFileService {
      * component.
      */
     public readonly filesChanged = new Subject<FileSelection>();
-
-    public constructor(@Inject(DOCUMENT) private readonly document: Document) {}
 
     public getDownloadLink(model: FileModel | null): null | string {
         const window = this.document.defaultView;

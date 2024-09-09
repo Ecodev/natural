@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {Pipe, PipeTransform, inject} from '@angular/core';
 import {NaturalEnumService} from '../../../services/enum.service';
 import {Observable} from 'rxjs';
 
@@ -12,7 +12,7 @@ import {Observable} from 'rxjs';
     standalone: true,
 })
 export class NaturalEnumPipe implements PipeTransform {
-    public constructor(private readonly enumService: NaturalEnumService) {}
+    private readonly enumService = inject(NaturalEnumService);
 
     public transform(value: any, enumName: string): Observable<string> {
         return this.enumService.getValueName(value, enumName);

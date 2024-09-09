@@ -2,12 +2,12 @@ import {
     Component,
     EventEmitter,
     HostBinding,
-    Inject,
     Input,
     OnChanges,
     OnInit,
     Output,
     SimpleChanges,
+    inject,
 } from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {Observable, of, Subject, tap} from 'rxjs';
@@ -39,6 +39,10 @@ import {NaturalBackgroundDensityDirective} from '../../common/directives/backgro
     ],
 })
 export class NaturalFileComponent implements OnInit, OnChanges {
+    private readonly naturalFileService = inject(NaturalFileService);
+    private readonly alertService = inject(NaturalAlertService);
+    private readonly document = inject<Document>(DOCUMENT);
+
     @HostBinding('style.height.px') @Input() public height = 250;
 
     @Input() public action: 'upload' | 'download' | null = null;
@@ -85,12 +89,6 @@ export class NaturalFileComponent implements OnInit, OnChanges {
 
     public imagePreview = '';
     public filePreview: string | null = null;
-
-    public constructor(
-        private readonly naturalFileService: NaturalFileService,
-        private readonly alertService: NaturalAlertService,
-        @Inject(DOCUMENT) private readonly document: Document,
-    ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.model && changes.model.previousValue !== changes.model.currentValue) {

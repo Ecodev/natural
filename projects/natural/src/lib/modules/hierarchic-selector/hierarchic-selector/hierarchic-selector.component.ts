@@ -55,6 +55,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 })
 export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     private readonly destroyRef = inject(DestroyRef);
+    private readonly hierarchicSelectorService = inject(NaturalHierarchicSelectorService);
+
     /**
      * Function that receives a model and returns a string for display value
      */
@@ -127,8 +129,6 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
      * Cache for transformed nodes
      */
     private flatNodeMap: Map<string, HierarchicFlatNode> = new Map<string, HierarchicFlatNode>();
-
-    public constructor(private readonly hierarchicSelectorService: NaturalHierarchicSelectorService) {}
 
     /**
      * Angular OnChange implementation

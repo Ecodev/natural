@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input} from '@angular/core';
+import {Directive, ElementRef, Input, inject} from '@angular/core';
 
 export function densities(src: string, forImageSet: boolean): string {
     const match = /^(.*\/)(\d+)$/.exec(src);
@@ -33,6 +33,8 @@ export function densities(src: string, forImageSet: boolean): string {
     standalone: true,
 })
 export class NaturalSrcDensityDirective {
+    private readonly elementRef = inject<ElementRef<HTMLImageElement>>(ElementRef);
+
     /**
      * Automatically apply image selection based on screen density.
      *
@@ -67,6 +69,4 @@ export class NaturalSrcDensityDirective {
         this.elementRef.nativeElement.src = src;
         this.elementRef.nativeElement.srcset = densities(src, false);
     }
-
-    public constructor(private readonly elementRef: ElementRef<HTMLImageElement>) {}
 }

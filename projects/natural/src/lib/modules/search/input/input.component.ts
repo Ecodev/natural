@@ -14,6 +14,7 @@ import {
     Output,
     StaticProvider,
     ViewChild,
+    inject,
 } from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {ErrorStateMatcher, MatRipple, MatRippleModule} from '@angular/material/core';
@@ -69,6 +70,10 @@ function isComponentValid(component: DropdownComponent): ValidatorFn {
     ],
 })
 export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
+    private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
+    private readonly dropdownService = inject(NaturalDropdownService);
+    private readonly injector = inject(EnvironmentInjector);
+
     /**
      * Controls the ripple effect, used when opening a dropdown
      */
@@ -168,12 +173,6 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
         this.input.nativeElement.focus();
         this.neutralizeDropdownOpening = false;
     }
-
-    public constructor(
-        private readonly element: ElementRef<HTMLElement>,
-        private readonly dropdownService: NaturalDropdownService,
-        private readonly injector: EnvironmentInjector,
-    ) {}
 
     public ngOnChanges(): void {
         if (!this.facets && this.selection) {

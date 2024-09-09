@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import {FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ifValid} from '@ecodev/natural';
@@ -25,6 +25,8 @@ export type IdDialogData = {
     imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
 export class IdDialogComponent {
+    private dialogRef = inject<MatDialogRef<IdDialogComponent, IdDialogData>>(MatDialogRef);
+
     public readonly idControl = new FormControl('', {
         validators: Validators.pattern(/(^(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)+)/),
         nonNullable: true,
@@ -33,10 +35,9 @@ export class IdDialogComponent {
         id: this.idControl,
     });
 
-    public constructor(
-        @Inject(MAT_DIALOG_DATA) data: IdDialogData,
-        private dialogRef: MatDialogRef<IdDialogComponent, IdDialogData>,
-    ) {
+    public constructor() {
+        const data = inject<IdDialogData>(MAT_DIALOG_DATA);
+
         this.form.setValue(data);
     }
 
