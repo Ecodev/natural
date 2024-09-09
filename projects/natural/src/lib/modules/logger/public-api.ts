@@ -4,10 +4,5 @@
 
 export {provideErrorHandler} from './error.module';
 
-export {
-    NaturalErrorHandler,
-    NaturalLoggerConfigExtra,
-    NaturalLoggerConfigUrl,
-    NaturalLoggerExtra,
-    NaturalLoggerType,
-} from './error-handler';
+export {NaturalErrorHandler, NaturalLoggerConfigExtra, NaturalLoggerConfigUrl} from './error-handler';
+export type {NaturalLoggerExtra, NaturalLoggerType} from './error-handler';

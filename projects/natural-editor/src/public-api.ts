@@ -6,4 +6,4 @@
 
 export {NaturalCustomCssDirective} from './lib/custom-css/custom-css.directive';
 export {NaturalEditorComponent} from './lib/editor/editor.component';
-export {ImageUploader} from './lib/utils/image';
+export type {ImageUploader} from './lib/utils/image';

@@ -15,9 +15,10 @@
         "strictNullChecks": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
+        "isolatedModules": true,
         "typeRoots": ["node_modules/@types"],
         "lib": ["ES2022", "dom"],
-        "skipLibCheck": true,
         "paths": {
             "@ecodev/natural": ["projects/natural/src/public-api"],
             "@ecodev/natural-editor": ["projects/natural-editor/src/public-api"]

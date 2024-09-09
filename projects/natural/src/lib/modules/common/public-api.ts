@@ -10,10 +10,9 @@ export {NaturalTimeAgoPipe} from './pipes/time-ago.pipe';
 export * from './services/memory-storage';
 export {NaturalSrcDensityDirective} from './directives/src-density.directive';
 export {NaturalBackgroundDensityDirective} from './directives/background-density.directive';
-export {
-    NATURAL_SEO_CONFIG,
+export {NATURAL_SEO_CONFIG, NaturalSeoService} from './services/seo.service';
+export type {
     NaturalSeoConfig,
-    NaturalSeoService,
     NaturalSeo,
     NaturalSeoBasic,
     NaturalSeoResolve,
