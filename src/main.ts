@@ -15,12 +15,13 @@ import {
     providePanels,
     provideSeo,
 } from '@ecodev/natural';
-import {Apollo} from 'apollo-angular';
 import {routes} from './app/app-routing';
 import {AppComponent} from './app/app.component';
 import {DemoLoggerExtra} from './app/demo.error-handler';
 import {AnyLinkMutationService} from './app/shared/services/any-link-mutation.service';
 import {environment} from './environments/environment';
+import {provideApollo} from 'apollo-angular';
+import {InMemoryCache} from '@apollo/client/core';
 
 if (environment.production) {
     enableProdMode();
@@ -30,7 +31,7 @@ bootstrapApplication(AppComponent, {
     providers: [
         provideZoneChangeDetection({eventCoalescing: true}),
         provideNativeDateAdapter(),
-        Apollo,
+        provideApollo(() => ({cache: new InMemoryCache()})),
         naturalProviders,
         provideIcons({
             natural: {
