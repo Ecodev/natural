@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
+import {Component, DestroyRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {AvailableColumn, Button} from './types';
 import {cancellableTimeout} from '../../classes/rxjs';
-import {map, Subject} from 'rxjs';
+import {map} from 'rxjs';
 import {ThemePalette} from '@angular/material/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {FormsModule} from '@angular/forms';
@@ -29,7 +29,8 @@ import {CommonModule} from '@angular/common';
         FormsModule,
     ],
 })
-export class NaturalColumnsPickerComponent implements OnChanges, OnDestroy {
+export class NaturalColumnsPickerComponent implements OnChanges {
+    private readonly destroyRef = inject(DestroyRef);
     private _selections?: string[];
     private _availableColumns: Required<AvailableColumn>[] = [];
 
@@ -82,8 +83,6 @@ export class NaturalColumnsPickerComponent implements OnChanges, OnDestroy {
      */
     public displayedColumns: Required<AvailableColumn>[] = [];
 
-    private readonly ngUnsubscribe = new Subject<void>();
-
     public readonly isMobile = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(map(result => result.matches));
 
     public constructor(private readonly breakpointObserver: BreakpointObserver) {}
@@ -104,7 +103,7 @@ export class NaturalColumnsPickerComponent implements OnChanges, OnDestroy {
 
     public ngOnChanges(changes: SimpleChanges): void {
         // Unfortunately need a timeout to avoid an ExpressionChangedAfterItHasBeenCheckedError on /state/4989/process
-        cancellableTimeout(this.ngUnsubscribe).subscribe(() => {
+        cancellableTimeout(this.destroyRef).subscribe(() => {
             if (changes.availableColumns) {
                 this.initColumns();
                 this.updateColumns();
@@ -112,11 +111,6 @@ export class NaturalColumnsPickerComponent implements OnChanges, OnDestroy {
                 this.updateColumns();
             }
         });
-    }
-
-    public ngOnDestroy(): void {
-        this.ngUnsubscribe.next(); // unsubscribe everybody
-        this.ngUnsubscribe.complete(); // complete the stream, because we will never emit again
     }
 
     public defaultTrue(value: boolean | undefined): boolean {

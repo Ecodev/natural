@@ -1,4 +1,6 @@
 import {map, MonoTypeOperatorFunction, Observable, take, takeUntil, tap, timer} from 'rxjs';
+import {DestroyRef} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**
  * Behave like setTimeout(), but with a mandatory cancel mechanism.
@@ -10,10 +12,16 @@ import {map, MonoTypeOperatorFunction, Observable, take, takeUntil, tap, timer} 
  * Typical usage in a component would be:
  *
  * ```ts
+ * cancellableTimeout(inject(DestroyRef)).subscribe(myCallback);
+ * ```
+ *
+ * or
+ *
+ * ```ts
  * cancellableTimeout(this.ngUnsubscribe).subscribe(myCallback);
  * ```
  *
- * Instead of the more error prone:
+ * Instead of the more error-prone:
  *
  * ```ts
  * public foo(): void {
@@ -28,13 +36,11 @@ import {map, MonoTypeOperatorFunction, Observable, take, takeUntil, tap, timer} 
  * }
  * ```
  */
-export function cancellableTimeout(canceller: Observable<unknown>, milliSeconds = 0): Observable<void> {
+export function cancellableTimeout(canceller: Observable<unknown> | DestroyRef, milliSeconds = 0): Observable<void> {
     return timer(milliSeconds).pipe(
         take(1),
-        takeUntil(canceller),
-        map(() => {
-            return;
-        }),
+        canceller instanceof DestroyRef ? takeUntilDestroyed(canceller) : takeUntil(canceller),
+        map(() => undefined),
     );
 }
 
