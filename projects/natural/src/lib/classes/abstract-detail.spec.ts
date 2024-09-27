@@ -5,7 +5,7 @@ import {Literal, NaturalAbstractDetail, NaturalAlertService} from '@ecodev/natur
 import {Component, Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, provideRouter, Route, Router} from '@angular/router';
 import {RouterTestingHarness} from '@angular/router/testing';
-import {BehaviorSubject, of} from 'rxjs';
+import {BehaviorSubject, of, Subject} from 'rxjs';
 import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Component({
@@ -371,5 +371,14 @@ describe('NaturalAbstractDetail', () => {
             parent: null,
         } as ItemInput);
         expect(detail.form.controls.name.value).toEqual('my name');
+    });
+
+    it('should unsubscribe from observable model when navigating away', async () => {
+        const model$ = new Subject<Item>();
+        await configure({data: {model: model$}});
+        expect(model$.observed).toBeTrue();
+
+        await harness.navigateByUrl('/item', TestListComponent);
+        expect(model$.observed).toBeFalse();
     });
 });

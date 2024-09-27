@@ -1,4 +1,4 @@
-import {Directive, inject, OnInit} from '@angular/core';
+import {DestroyRef, Directive, inject, OnInit} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {kebabCase} from 'lodash-es';
@@ -13,6 +13,7 @@ import {QueryVariables} from './query-variable-manager';
 import {CumulativeChanges} from './cumulative-changes';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {NaturalDialogTriggerProvidedData} from '../modules/dialog-trigger/dialog-trigger.component';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**
  * `Data` contains in `model` either the model fetched from DB or default values (without ID). And besides `model`,
@@ -82,7 +83,9 @@ export class NaturalAbstractDetail<
 
     protected readonly route = inject(ActivatedRoute);
 
-    private _dialogData: unknown = inject(MAT_DIALOG_DATA, {optional: true});
+    private readonly _dialogData: unknown = inject(MAT_DIALOG_DATA, {optional: true});
+
+    private readonly destroyRef = inject(DestroyRef);
 
     /**
      * Once set, this must not change anymore, especially not right after the creation mutation,
@@ -143,6 +146,7 @@ export class NaturalAbstractDetail<
                         }),
                     );
                 }),
+                takeUntilDestroyed(this.destroyRef),
             )
             .subscribe();
     }
