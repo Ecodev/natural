@@ -76,19 +76,10 @@ export class NaturalAbstractDetail<
      */
     public showFabButton = true;
 
-    /**
-     * Injected service
-     */
     protected readonly alertService = inject(NaturalAlertService);
 
-    /**
-     * Injected service
-     */
     protected readonly router = inject(Router);
 
-    /**
-     * Injected service
-     */
     protected readonly route = inject(ActivatedRoute);
 
     private _dialogData: unknown = inject(MAT_DIALOG_DATA, {optional: true});
