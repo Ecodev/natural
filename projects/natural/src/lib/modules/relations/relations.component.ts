@@ -1,7 +1,9 @@
 import {
     Component,
     ContentChild,
+    DestroyRef,
     EventEmitter,
+    inject,
     Input,
     OnChanges,
     OnInit,
@@ -10,7 +12,6 @@ import {
     ViewChild,
 } from '@angular/core';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
-import {NaturalAbstractController} from '../../classes/abstract-controller';
 import {NaturalDataSource, PaginatedData} from '../../classes/data-source';
 import {NaturalQueryVariablesManager, PaginationInput, QueryVariables} from '../../classes/query-variable-manager';
 import {HierarchicFiltersConfiguration} from '../../modules/hierarchic-selector/classes/hierarchic-filters-configuration';
@@ -28,7 +29,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {CommonModule} from '@angular/common';
-import {finalize, forkJoin, takeUntil, tap} from 'rxjs';
+import {finalize, forkJoin, tap} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**
  * Custom template usage :
@@ -72,9 +74,9 @@ export class NaturalRelationsComponent<
             any
         >,
     >
-    extends NaturalAbstractController
     implements OnInit, OnChanges
 {
+    private readonly destroyRef = inject(DestroyRef);
     @ViewChild(NaturalSelectComponent) private select?: NaturalSelectComponent<TService>;
     @ContentChild(TemplateRef) public itemTemplate?: TemplateRef<unknown>;
 
@@ -89,7 +91,7 @@ export class NaturalRelationsComponent<
         this._service = service;
         this.loading = true;
         const items$ = this._service.watchAll(this.variablesManager).pipe(
-            takeUntil(this.ngUnsubscribe),
+            takeUntilDestroyed(this.destroyRef),
             tap({
                 next: () => (this.loading = false),
                 complete: () => (this.loading = false),
@@ -172,9 +174,7 @@ export class NaturalRelationsComponent<
     public constructor(
         private readonly linkMutationService: NaturalLinkMutationService,
         private readonly hierarchicSelectorDialog: NaturalHierarchicSelectorDialogService,
-    ) {
-        super();
-    }
+    ) {}
 
     /**
      * The filter used to filter relations

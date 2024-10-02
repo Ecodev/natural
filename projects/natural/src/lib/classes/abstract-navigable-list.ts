@@ -1,6 +1,6 @@
-import {Directive, Input, OnDestroy, OnInit} from '@angular/core';
+import {Directive, Input, OnInit} from '@angular/core';
 import {NavigationExtras, RouterLink} from '@angular/router';
-import {map, takeUntil} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {NaturalSearchSelections} from '../modules/search/types/values';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {NaturalAbstractList} from './abstract-list';
@@ -9,6 +9,7 @@ import {NaturalQueryVariablesManager, QueryVariables} from './query-variable-man
 import {ExtractTall, ExtractTallOne, ExtractVall, Literal} from '../types/types';
 import {first, Observable} from 'rxjs';
 import {FilterGroupCondition} from '../modules/search/classes/graphql-doctrine.types';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 type BreadcrumbItem = {
     id: string;
@@ -42,7 +43,7 @@ export class NaturalAbstractNavigableList<
         >,
     >
     extends NaturalAbstractList<TService, PaginatedData<NavigableItem<ExtractTall<TService>['items'][0]>>>
-    implements OnInit, OnDestroy
+    implements OnInit
 {
     /**
      * Name of filter for child items to access ancestor item
@@ -99,7 +100,7 @@ export class NaturalAbstractNavigableList<
 
     protected override getDataObservable(): Observable<PaginatedData<NavigableItem<ExtractTallOne<TService>>>> {
         return this.service.watchAll(this.variablesManager as unknown as any).pipe(
-            takeUntil(this.ngUnsubscribe),
+            takeUntilDestroyed(this.destroyRef),
             map(result => {
                 // On each data arriving, we query children count to show/hide chevron
                 const navigableItems: NavigableItem<ExtractTallOne<TService>>[] = result.items.map(item => {

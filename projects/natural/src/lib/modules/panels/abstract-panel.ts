@@ -1,11 +1,12 @@
-import {Directive, HostBinding, HostListener} from '@angular/core';
-import {NaturalAbstractController} from '../../classes/abstract-controller';
+import {DestroyRef, Directive, HostBinding, HostListener, inject} from '@angular/core';
 import {NaturalPanelsService} from './panels.service';
 import {NaturalPanelData} from './types';
-import {Observable, takeUntil} from 'rxjs';
+import {Observable} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Directive({standalone: true})
-export class NaturalAbstractPanel extends NaturalAbstractController {
+export class NaturalAbstractPanel {
+    protected readonly destroyRef = inject(DestroyRef);
     /**
      * The data property is the container where the resolved content is stored
      * When loading a component from a panel opening (dialog), receives the data provided by the service
@@ -50,7 +51,7 @@ export class NaturalAbstractPanel extends NaturalAbstractController {
         if (this.panelData?.data) {
             if (this.panelData.data.model instanceof Observable) {
                 // Subscribe to model to know when Apollo cache is changed, so we can reflect it into `data.model`
-                this.panelData.data.model.pipe(takeUntil(this.ngUnsubscribe)).subscribe(model => {
+                this.panelData.data.model.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(model => {
                     this.data = {
                         ...this.data,
                         ...this.panelData?.data,

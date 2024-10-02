@@ -1,8 +1,9 @@
-import {Directive, EventEmitter, HostBinding, HostListener, OnInit, Output} from '@angular/core';
+import {DestroyRef, Directive, EventEmitter, HostBinding, HostListener, inject, OnInit, Output} from '@angular/core';
 import {NaturalAbstractFile} from './abstract-file';
 import {eventToFiles, stopEvent} from './utils';
 import {asyncScheduler, Subject} from 'rxjs';
-import {takeUntil, throttleTime} from 'rxjs/operators';
+import {throttleTime} from 'rxjs/operators';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**
  * This directive has all options to select files, and adds support for drag'n'drop.
@@ -22,6 +23,7 @@ import {takeUntil, throttleTime} from 'rxjs/operators';
     standalone: true,
 })
 export class NaturalFileDropDirective extends NaturalAbstractFile implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
     @HostBinding('class.natural-file-over') public fileOverClass = false;
 
     /**
@@ -40,7 +42,7 @@ export class NaturalFileDropDirective extends NaturalAbstractFile implements OnI
         // still see flicker, but it should be better for most normal usages.
         this.rawFileOver
             .pipe(
-                takeUntil(this.ngUnsubscribe),
+                takeUntilDestroyed(this.destroyRef),
                 throttleTime(200, asyncScheduler, {
                     leading: true,
                     trailing: true,

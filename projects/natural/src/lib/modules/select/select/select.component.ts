@@ -1,9 +1,19 @@
-import {AfterViewInit, Component, ContentChild, Input, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ContentChild,
+    DestroyRef,
+    inject,
+    Input,
+    OnInit,
+    TemplateRef,
+    ViewChild,
+} from '@angular/core';
 import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {merge} from 'lodash-es';
 import {Observable} from 'rxjs';
-import {debounceTime, distinctUntilChanged, finalize, map, takeUntil} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, finalize, map} from 'rxjs/operators';
 import {PaginatedData} from '../../../classes/data-source';
 import {NaturalQueryVariablesManager, QueryVariables} from '../../../classes/query-variable-manager';
 import {NaturalAbstractModelService} from '../../../services/abstract-model.service';
@@ -19,6 +29,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatOptionModule} from '@angular/material/core';
 import {CommonModule} from '@angular/common';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 type V<TService> = string | ExtractTallOne<TService>;
 
@@ -90,8 +101,9 @@ export class NaturalSelectComponent<
         >,
     >
     extends AbstractSelect<V<TService>, V<TService>>
-    implements OnInit, OnDestroy, ControlValueAccessor, AfterViewInit
+    implements OnInit, ControlValueAccessor, AfterViewInit
 {
+    private readonly destroyRef = inject(DestroyRef);
     @ViewChild(MatAutocompleteTrigger) public autoTrigger!: MatAutocompleteTrigger;
     @ContentChild(TemplateRef) public itemTemplate?: TemplateRef<any>;
 
@@ -174,7 +186,7 @@ export class NaturalSelectComponent<
 
     public ngAfterViewInit(): void {
         this.internalCtrl.valueChanges
-            .pipe(takeUntil(this.ngUnsubscribe), distinctUntilChanged(), debounceTime(300))
+            .pipe(takeUntilDestroyed(this.destroyRef), distinctUntilChanged(), debounceTime(300))
             .subscribe(val => this.search(val));
     }
 
@@ -244,7 +256,7 @@ export class NaturalSelectComponent<
 
         // Init query, and when query results arrive, finish loading, and count items
         this.items = this.service.watchAll(this.variablesManager).pipe(
-            takeUntil(this.ngUnsubscribe),
+            takeUntilDestroyed(this.destroyRef),
             finalize(() => (this.loading = false)),
             map(data => {
                 this.loading = false;

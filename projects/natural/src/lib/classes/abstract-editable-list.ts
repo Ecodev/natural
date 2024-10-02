@@ -2,7 +2,6 @@ import {AbstractControl, UntypedFormArray, UntypedFormGroup} from '@angular/form
 import {MatTableDataSource} from '@angular/material/table';
 import {merge} from 'lodash-es';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
-import {NaturalAbstractController} from './abstract-controller';
 import {NaturalQueryVariablesManager, QueryVariables} from './query-variable-manager';
 import {ExtractTallOne, ExtractVall, Literal} from '../types/types';
 import {validateAllFormControls} from './validators';
@@ -46,15 +45,13 @@ export class NaturalAbstractEditableList<
     // The Literal here is a bit too loose. Ideally we would like to express
     // "it must be a union and one of the type in the union must be ExtractTallOne<TService>"
     T extends Literal = ExtractTallOne<TService>,
-> extends NaturalAbstractController {
+> {
     public readonly form: UntypedFormGroup;
     public readonly formArray = new UntypedFormArray([]);
     public readonly variablesManager = new NaturalQueryVariablesManager<ExtractVall<TService>>();
     public readonly dataSource = new MatTableDataSource<AbstractControl>();
 
     public constructor(protected readonly service: TService) {
-        super();
-
         // Create a form group with a line attributes that contain an array of formGroups (one by line = one by model)
         this.form = new UntypedFormGroup({rows: this.formArray});
         this.dataSource.data = this.formArray.controls;

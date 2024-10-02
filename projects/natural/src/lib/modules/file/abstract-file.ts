@@ -22,7 +22,6 @@ import {
     stopEvent,
 } from './utils';
 import {NaturalFileService} from './file.service';
-import {NaturalAbstractController} from '../../classes/abstract-controller';
 import {DOCUMENT} from '@angular/common';
 import {forkJoin, map, Observable, ObservableInput, of, tap} from 'rxjs';
 
@@ -53,7 +52,7 @@ export type FileSelection = {
  * @dynamic
  */
 @Directive({standalone: true})
-export abstract class NaturalAbstractFile extends NaturalAbstractController implements OnInit, OnDestroy, OnChanges {
+export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChanges {
     private fileElement?: HTMLInputElement;
 
     /**
@@ -112,12 +111,9 @@ export abstract class NaturalAbstractFile extends NaturalAbstractController impl
         private readonly element: ElementRef<HTMLElement>,
         protected readonly naturalFileService: NaturalFileService,
         @Inject(DOCUMENT) private readonly document: Document,
-    ) {
-        super();
-    }
+    ) {}
 
-    public override ngOnDestroy(): void {
-        super.ngOnDestroy();
+    public ngOnDestroy(): void {
         delete this.fileElement; // faster memory release of dom element
     }
 

@@ -1,5 +1,5 @@
-import {Component, Input, OnDestroy, OnInit, Optional, Self} from '@angular/core';
-import {ControlValueAccessor, NgControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Component, Input, OnInit, Optional, Self} from '@angular/core';
+import {ControlValueAccessor, FormsModule, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogConfig} from '@angular/material/dialog';
 import {Literal} from '../../../types/types';
 import {HierarchicFiltersConfiguration} from '../../hierarchic-selector/classes/hierarchic-filters-configuration';
@@ -64,7 +64,7 @@ function defaultDisplayFn(item: Literal | null): string {
 })
 export class NaturalSelectHierarchicComponent
     extends AbstractSelect<Literal, string>
-    implements OnInit, OnDestroy, ControlValueAccessor
+    implements OnInit, ControlValueAccessor
 {
     /**
      * If provided cause a new select button to appear

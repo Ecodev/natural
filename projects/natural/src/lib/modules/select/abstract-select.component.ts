@@ -1,5 +1,5 @@
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {Directive, DoCheck, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self} from '@angular/core';
+import {Directive, DoCheck, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
 import {
     AbstractControl,
     ControlValueAccessor,
@@ -10,7 +10,6 @@ import {
     Validators,
 } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {NaturalAbstractController} from '../../classes/abstract-controller';
 
 /**
  * This will completely ignore internal formControl and instead use the one from the component
@@ -34,10 +33,7 @@ class ExternalFormControlMatcher<T, I> extends ErrorStateMatcher {
 }
 
 @Directive({standalone: true})
-export abstract class AbstractSelect<V, I>
-    extends NaturalAbstractController
-    implements OnInit, OnDestroy, ControlValueAccessor, DoCheck
-{
+export abstract class AbstractSelect<V, I> implements OnInit, ControlValueAccessor, DoCheck {
     @Input() public placeholder?: string;
 
     /**
@@ -127,8 +123,6 @@ export abstract class AbstractSelect<V, I>
     public readonly matcher: ExternalFormControlMatcher<V, I>;
 
     public constructor(@Optional() @Self() public readonly ngControl: NgControl | null) {
-        super();
-
         if (this.ngControl) {
             this.ngControl.valueAccessor = this;
         }

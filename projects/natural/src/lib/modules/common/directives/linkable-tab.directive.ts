@@ -1,9 +1,7 @@
-import {AfterViewInit, Directive, Input} from '@angular/core';
+import {AfterViewInit, DestroyRef, Directive, inject, Input} from '@angular/core';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {ActivatedRoute, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 import {clone} from 'lodash-es';
-import {takeUntil} from 'rxjs/operators';
-import {NaturalAbstractController} from '../../../classes/abstract-controller';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**
@@ -28,7 +26,8 @@ function getTabId(tab: MatTab): string {
     selector: 'mat-tab-group[naturalLinkableTab]',
     standalone: true,
 })
-export class NaturalLinkableTabDirective extends NaturalAbstractController implements AfterViewInit {
+export class NaturalLinkableTabDirective implements AfterViewInit {
+    private readonly destroyRef = inject(DestroyRef);
     /**
      * If false, disables the persistent navigation
      */
@@ -40,8 +39,6 @@ export class NaturalLinkableTabDirective extends NaturalAbstractController imple
         private readonly route: ActivatedRoute,
         private readonly router: Router,
     ) {
-        super();
-
         router.events.pipe(takeUntilDestroyed()).subscribe(event => {
             if (event instanceof RouteConfigLoadStart) {
                 this.isLoadingRouteConfig = true;
@@ -57,7 +54,7 @@ export class NaturalLinkableTabDirective extends NaturalAbstractController imple
         }
 
         // When url params change, update the mat-tab-group selected tab
-        this.route.fragment.pipe(takeUntil(this.ngUnsubscribe)).subscribe(fragment => {
+        this.route.fragment.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(fragment => {
             // Get index of tab that matches wanted name
             const tabIndex = this.getTabIndex(fragment);
 
@@ -69,7 +66,7 @@ export class NaturalLinkableTabDirective extends NaturalAbstractController imple
         });
 
         // When mat-tab-groups selected tab change, update url
-        this.component.selectedTabChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(event => {
+        this.component.selectedTabChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
             if (this.isLoadingRouteConfig) {
                 return;
             }

@@ -1,16 +1,16 @@
-import {AfterViewInit, Component, Inject, OnDestroy, ViewChild} from '@angular/core';
-import {MatSelectionList, MatListModule} from '@angular/material/list';
+import {AfterViewInit, Component, DestroyRef, inject, Inject, ViewChild} from '@angular/core';
+import {MatListModule, MatSelectionList} from '@angular/material/list';
 import {BehaviorSubject, merge, Observable, of} from 'rxjs';
 import {FilterGroupConditionField, Scalar} from '../../search/classes/graphql-doctrine.types';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
 import {DropdownComponent} from '../../search/types/dropdown-component';
-import {FormControl, FormGroup, ValidatorFn, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NaturalAbstractController} from '../../../classes/abstract-controller';
-import {map, startWith, takeUntil} from 'rxjs/operators';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators} from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
 import {PossibleDiscreteOperatorKeys, possibleDiscreteOperators} from '../types';
 import {MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export type TypeSelectItem =
     | Scalar
@@ -37,10 +37,8 @@ export type TypeSelectConfiguration = {
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatListModule],
 })
-export class TypeSelectComponent
-    extends NaturalAbstractController
-    implements DropdownComponent, AfterViewInit, OnDestroy
-{
+export class TypeSelectComponent implements DropdownComponent, AfterViewInit {
+    private readonly destroyRef = inject(DestroyRef);
     public readonly renderedValue = new BehaviorSubject<string>('');
     @ViewChild(MatSelectionList, {static: false}) public list!: MatSelectionList;
     public requireValueCtrl = false;
@@ -62,7 +60,6 @@ export class TypeSelectComponent
     };
 
     public constructor(@Inject(NATURAL_DROPDOWN_DATA) data: NaturalDropdownData<TypeSelectConfiguration>) {
-        super();
         this.configuration = {...this.defaults, ...data.configuration};
 
         // Immediately initValidators and everytime the operator change later
@@ -156,7 +153,7 @@ export class TypeSelectComponent
             : this.configuration.items;
 
         return items$.pipe(
-            takeUntil(this.ngUnsubscribe),
+            takeUntilDestroyed(this.destroyRef),
             map(items => {
                 this.items = items;
 

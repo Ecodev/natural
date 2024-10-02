@@ -1,12 +1,12 @@
-import {Inject, Injectable} from '@angular/core';
+import {DestroyRef, Inject, inject, Injectable} from '@angular/core';
 import {MatDrawerMode} from '@angular/material/sidenav';
 import {NavigationEnd, Router} from '@angular/router';
-import {filter, takeUntil} from 'rxjs/operators';
-import {NaturalAbstractController} from '../../classes/abstract-controller';
+import {filter} from 'rxjs/operators';
 import {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
 import {NaturalStorage, SESSION_STORAGE} from '../common/services/memory-storage';
 import {NaturalSidenavStackService} from './sidenav-stack.service';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**
  * Assert that given value is not null
@@ -24,7 +24,8 @@ function assert<T>(value: T): asserts value {
  * Maybe the better is to wait next release
  */
 @Injectable({providedIn: 'root'})
-export class NaturalSidenavService extends NaturalAbstractController {
+export class NaturalSidenavService {
+    private readonly destroyRef = inject(DestroyRef);
     /**
      * Navigation modes
      * First is for desktop view
@@ -72,9 +73,7 @@ export class NaturalSidenavService extends NaturalAbstractController {
         private readonly router: Router,
         @Inject(SESSION_STORAGE) private readonly sessionStorage: NaturalStorage,
         private readonly naturalSidenavStackService: NaturalSidenavStackService,
-    ) {
-        super();
-    }
+    ) {}
 
     public get activeMode(): MatDrawerMode {
         return this.mode;
@@ -111,7 +110,7 @@ export class NaturalSidenavService extends NaturalAbstractController {
 
         this.breakpointObserver
             .observe([Breakpoints.XSmall, Breakpoints.Small])
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(r => {
                 this._isMobileView = r.matches;
                 const isBig = !this._isMobileView;
@@ -137,7 +136,7 @@ export class NaturalSidenavService extends NaturalAbstractController {
         if (autoClose) {
             this.router.events
                 .pipe(
-                    takeUntil(this.ngUnsubscribe),
+                    takeUntilDestroyed(this.destroyRef),
                     filter(e => e instanceof NavigationEnd),
                 )
                 .subscribe(() => {

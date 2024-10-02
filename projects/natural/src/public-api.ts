@@ -4,7 +4,6 @@
  * Public API Surface of natural
  */
 
-export * from './lib/classes/abstract-controller';
 export * from './lib/classes/abstract-detail';
 export * from './lib/classes/abstract-editable-list';
 export * from './lib/classes/abstract-list';

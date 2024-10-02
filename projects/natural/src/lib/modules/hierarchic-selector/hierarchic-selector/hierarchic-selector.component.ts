@@ -1,10 +1,19 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+    Component,
+    DestroyRef,
+    EventEmitter,
+    inject,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule} from '@angular/material/tree';
 import {Observable} from 'rxjs';
-import {finalize, takeUntil} from 'rxjs/operators';
-import {NaturalAbstractController} from '../../../classes/abstract-controller';
+import {finalize} from 'rxjs/operators';
 import {QueryVariables} from '../../../classes/query-variable-manager';
 import {Literal} from '../../../types/types';
 import {toGraphQLDoctrineFilter} from '../../search/classes/graphql-doctrine';
@@ -24,6 +33,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {CommonModule} from '@angular/common';
 import {NaturalSearchComponent} from '../../search/search/search.component';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'natural-hierarchic-selector',
@@ -43,7 +53,8 @@ import {NaturalSearchComponent} from '../../search/search/search.component';
         MatChipsModule,
     ],
 })
-export class NaturalHierarchicSelectorComponent extends NaturalAbstractController implements OnInit, OnChanges {
+export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
+    private readonly destroyRef = inject(DestroyRef);
     /**
      * Function that receives a model and returns a string for display value
      */
@@ -117,9 +128,7 @@ export class NaturalHierarchicSelectorComponent extends NaturalAbstractControlle
      */
     private flatNodeMap: Map<string, HierarchicFlatNode> = new Map<string, HierarchicFlatNode>();
 
-    public constructor(private readonly hierarchicSelectorService: NaturalHierarchicSelectorService) {
-        super();
-    }
+    public constructor(private readonly hierarchicSelectorService: NaturalHierarchicSelectorService) {}
 
     /**
      * Angular OnChange implementation
@@ -157,7 +166,7 @@ export class NaturalHierarchicSelectorComponent extends NaturalAbstractControlle
         // Update dataSource when receiving new list -> we assign the whole tree
         // The treeControl and treeFlattener will generate the displayed tree
         this.hierarchicSelectorService.dataChange
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(data => (this.dataSource.data = data));
 
         // Prevent empty screen on first load and init NaturalHierarchicSelectorService with inputted configuration

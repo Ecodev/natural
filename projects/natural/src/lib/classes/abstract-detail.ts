@@ -1,4 +1,4 @@
-import {DestroyRef, Directive, inject, OnInit} from '@angular/core';
+import {Directive, inject, OnInit} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {kebabCase} from 'lodash-es';
@@ -84,8 +84,6 @@ export class NaturalAbstractDetail<
     protected readonly route = inject(ActivatedRoute);
 
     private readonly _dialogData: unknown = inject(MAT_DIALOG_DATA, {optional: true});
-
-    private readonly destroyRef = inject(DestroyRef);
 
     /**
      * Once set, this must not change anymore, especially not right after the creation mutation,

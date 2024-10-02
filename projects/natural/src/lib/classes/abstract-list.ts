@@ -1,5 +1,5 @@
 import {SelectionModel} from '@angular/cdk/collections';
-import {Directive, inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {Directive, inject, Input, OnInit} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {ActivatedRoute, Data, NavigationEnd, NavigationExtras, NavigationStart, Router} from '@angular/router';
@@ -23,9 +23,10 @@ import {
 } from './query-variable-manager';
 import {ExtractTall, ExtractVall, Literal} from '../types/types';
 import {NavigableItem} from './abstract-navigable-list';
-import {filter, takeUntil} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
 import {AvailableColumn} from '../modules/columns-picker/types';
 import {validateColumns, validatePagination, validateSorting} from './utility';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 type MaybeNavigable = Literal | NavigableItem<Literal>;
 
@@ -71,7 +72,7 @@ export class NaturalAbstractList<
         Tall extends PaginatedData<MaybeNavigable> = ExtractTall<TService>,
     >
     extends NaturalAbstractPanel
-    implements OnInit, OnDestroy
+    implements OnInit
 {
     /**
      * Whether search should be loaded from url/storage and persisted in it too.
@@ -196,7 +197,7 @@ export class NaturalAbstractList<
         let isPopState = false;
         this.router.events
             .pipe(
-                takeUntil(this.ngUnsubscribe),
+                takeUntilDestroyed(this.destroyRef),
                 filter(event => event instanceof NavigationStart && event.navigationTrigger === 'popstate'),
             )
             .subscribe(() => {
@@ -205,7 +206,7 @@ export class NaturalAbstractList<
 
         this.router.events
             .pipe(
-                takeUntil(this.ngUnsubscribe),
+                takeUntilDestroyed(this.destroyRef),
                 filter(event => event instanceof NavigationEnd && isPopState),
             )
             .subscribe(() => {
@@ -477,7 +478,7 @@ export class NaturalAbstractList<
         // the casting and resolve things in a better way, but that's too much work for now
         return this.service
             .watchAll(this.variablesManager as unknown as any)
-            .pipe(takeUntil(this.ngUnsubscribe)) as unknown as Observable<Tall>;
+            .pipe(takeUntilDestroyed(this.destroyRef)) as unknown as Observable<Tall>;
     }
 
     protected initFromPersisted(): void {
