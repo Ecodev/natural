@@ -62,9 +62,7 @@ export class NaturalAbstractDetail<
      *
      * Other keys, if present, are whatever is returned from route resolvers as-is.
      */
-    public override data: Data<TService, ExtraResolve> = {
-        model: this.service.getDefaultForServer(),
-    } as Data<TService, ExtraResolve>;
+    public override data: Data<TService, ExtraResolve>;
 
     /**
      * Form that manages the data from the controller
@@ -98,6 +96,10 @@ export class NaturalAbstractDetail<
         public readonly service: TService,
     ) {
         super();
+
+        this.data = {
+            model: this.service.getDefaultForServer(),
+        } as Data<TService, ExtraResolve>;
     }
 
     /**
