@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {NaturalAlertService} from '@ecodev/natural';
 
@@ -9,7 +9,7 @@ import {NaturalAlertService} from '@ecodev/natural';
     imports: [MatButtonModule],
 })
 export class AlertComponent {
-    public constructor(private readonly alertService: NaturalAlertService) {}
+    private readonly alertService = inject(NaturalAlertService);
 
     public confirm(): void {
         this.alertService

@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -63,6 +63,9 @@ function selectionToJson(selection: FileSelection): JsonFileSelection {
     ],
 })
 export class FileComponent {
+    private readonly uploadService = inject(NaturalFileService);
+    private readonly fileService = inject(FileService);
+
     public disabled = false;
     public fileOver: boolean | null = null;
     public fileOverJpg: boolean | null = null;
@@ -73,11 +76,6 @@ export class FileComponent {
     private subscription: Subscription | null = null;
 
     public model: FileModel | null = null;
-
-    public constructor(
-        private readonly uploadService: NaturalFileService,
-        private readonly fileService: FileService,
-    ) {}
 
     public fileChange(file: File): void {
         console.log('fileChange', fileToJson(file));

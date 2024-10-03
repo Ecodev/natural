@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
@@ -37,6 +37,11 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     imports: [NaturalSearchComponent, MatButtonModule, CommonModule],
 })
 export class SearchComponent implements OnInit {
+    private readonly router = inject(Router);
+    private readonly route = inject(ActivatedRoute);
+    public readonly itemService = inject(ItemService);
+    public readonly errorService = inject(ErrorService);
+
     public facets1: NaturalSearchFacets = [
         {
             display: 'Active',
@@ -328,13 +333,6 @@ export class SearchComponent implements OnInit {
             },
         ],
     ];
-
-    public constructor(
-        private readonly router: Router,
-        private readonly route: ActivatedRoute,
-        public readonly itemService: ItemService,
-        public readonly errorService: ErrorService,
-    ) {}
 
     public ngOnInit(): void {
         const params = this.route.snapshot.params.search;

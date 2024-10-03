@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -103,7 +103,9 @@ export class ListComponent extends NaturalAbstractList<ItemService> implements O
 
     protected override defaultSorting: Sorting[] = [{field: 'name', order: SortingOrder.DESC}];
 
-    public constructor(service: ItemService) {
+    public constructor() {
+        const service = inject(ItemService);
+
         super(service);
     }
 }

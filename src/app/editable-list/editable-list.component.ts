@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
@@ -31,7 +31,9 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
 export class EditableListComponent extends NaturalAbstractEditableList<ItemService> {
     public columns = ['name', 'description'];
 
-    public constructor(service: ItemService) {
+    public constructor() {
+        const service = inject(ItemService);
+
         super(service);
 
         this.service

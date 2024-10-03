@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
@@ -65,7 +65,9 @@ export class NavigableListComponent extends NaturalAbstractNavigableList<ItemSer
     ];
     protected override defaultSorting: Sorting[] = [{field: 'name', order: SortingOrder.DESC}];
 
-    public constructor(service: ItemService) {
+    public constructor() {
+        const service = inject(ItemService);
+
         super(service);
     }
 }

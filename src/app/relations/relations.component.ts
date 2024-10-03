@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NaturalAbstractDetail, NaturalHierarchicConfiguration} from '@ecodev/natural';
 import {NaturalRelationsComponent} from '../../../projects/natural/src/lib/modules/relations/relations.component';
@@ -14,6 +14,9 @@ import {NoResultService} from '../../../projects/natural/src/lib/testing/no-resu
     imports: [FormsModule, ReactiveFormsModule, NaturalRelationsComponent],
 })
 export class RelationsComponent extends NaturalAbstractDetail<ItemService> implements OnInit {
+    public readonly noResultService = inject(NoResultService);
+    public readonly errorService = inject(ErrorService);
+
     public hierarchicConfig: NaturalHierarchicConfiguration[] = [
         {
             service: ItemService,
@@ -23,11 +26,9 @@ export class RelationsComponent extends NaturalAbstractDetail<ItemService> imple
         },
     ];
 
-    public constructor(
-        service: ItemService,
-        public readonly noResultService: NoResultService,
-        public readonly errorService: ErrorService,
-    ) {
+    public constructor() {
+        const service = inject(ItemService);
+
         super('any', service);
     }
 

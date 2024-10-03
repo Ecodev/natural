@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {
     HierarchicDialogConfig,
@@ -20,6 +20,8 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     imports: [NaturalHierarchicSelectorComponent, MatButtonModule],
 })
 export class HierarchicComponent {
+    private readonly hierarchicDialogService = inject(NaturalHierarchicSelectorDialogService);
+
     public searchFacets: NaturalSearchFacets = [
         {
             display: 'Number less than 100',
@@ -66,8 +68,6 @@ export class HierarchicComponent {
             selectableAtKey: 'any',
         },
     ];
-
-    public constructor(private readonly hierarchicDialogService: NaturalHierarchicSelectorDialogService) {}
 
     public log(...args: any): void {
         console.log(args);

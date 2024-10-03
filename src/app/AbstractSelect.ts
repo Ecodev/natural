@@ -3,6 +3,7 @@ import {collectErrors, validateAllFormControls} from '@ecodev/natural';
 import {Observable} from 'rxjs';
 import {ErrorService} from '../../projects/natural/src/lib/testing/error.service';
 import {Item, ItemService} from '../../projects/natural/src/lib/testing/item.service';
+import {inject} from '@angular/core';
 
 export class AbstractSelect {
     public required = true;
@@ -32,11 +33,8 @@ export class AbstractSelect {
     public disabled = false;
     public freeText: Item | string | null = null;
     public withoutModelOutput: Item | string | string[] | null = null;
-
-    public constructor(
-        public readonly service: ItemService,
-        public readonly errorService?: ErrorService,
-    ) {}
+    public readonly service = inject(ItemService);
+    public readonly errorService = inject(ErrorService);
 
     public toggleDisabledAllFormControls(): void {
         this.formControl.disabled ? this.formControl.enable() : this.formControl.disable();

@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {NaturalLoggerExtra, NaturalLoggerType} from '@ecodev/natural';
 import {Observable, of} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class DemoLoggerExtra implements NaturalLoggerExtra {
-    public constructor(private readonly snackBar: MatSnackBar) {}
+    private readonly snackBar = inject(MatSnackBar);
 
     public getExtras(): Observable<Partial<NaturalLoggerType>> {
         this.snackBar.open('An error happened', 'Yes', {

@@ -6,7 +6,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {NaturalHierarchicConfiguration} from '@ecodev/natural';
 import {NaturalSelectHierarchicComponent} from '../../../projects/natural/src/lib/modules/select/select-hierarchic/select-hierarchic.component';
-import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
 import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 import {AbstractSelect} from '../AbstractSelect';
 
@@ -33,8 +32,4 @@ export class SelectHierarchicComponent extends AbstractSelect {
             selectableAtKey: 'any',
         },
     ];
-
-    public constructor(service: ItemService, errorService: ErrorService) {
-        super(service, errorService);
-    }
 }

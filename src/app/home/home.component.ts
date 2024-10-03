@@ -1,5 +1,5 @@
 import {DOCUMENT} from '@angular/common';
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
@@ -32,10 +32,8 @@ import {ThemeService} from '../shared/services/theme.service';
     ],
 })
 export class HomeComponent implements OnInit {
-    public constructor(
-        public readonly themeService: ThemeService,
-        @Inject(DOCUMENT) private readonly document: Document,
-    ) {}
+    public readonly themeService = inject(ThemeService);
+    private readonly document = inject<Document>(DOCUMENT);
 
     public ngOnInit(): void {
         this.themeService.theme.subscribe(newTheme => {

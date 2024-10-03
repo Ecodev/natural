@@ -7,8 +7,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {NaturalSelectComponent} from '../../../projects/natural/src/lib/modules/select/select/select.component';
-import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
-import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 import {AbstractSelect} from '../AbstractSelect';
 
 @Component({
@@ -28,11 +26,4 @@ import {AbstractSelect} from '../AbstractSelect';
         CommonModule,
     ],
 })
-export class SelectComponent extends AbstractSelect {
-    public constructor(
-        service: ItemService,
-        public override readonly errorService: ErrorService,
-    ) {
-        super(service, errorService);
-    }
-}
+export class SelectComponent extends AbstractSelect {}

@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRippleModule, ThemePalette} from '@angular/material/core';
@@ -52,6 +52,8 @@ type TableButtonConfiguration = {
     ],
 })
 export class OtherComponent implements OnInit {
+    private httpClient = inject(HttpClient);
+
     /**
      * Single control
      */
@@ -211,8 +213,6 @@ export class OtherComponent implements OnInit {
     public readonly httpPrefixGroup = new FormGroup({
         prefix: new FormControl('', [Validators.required]),
     });
-
-    public constructor(private httpClient: HttpClient) {}
 
     public ngOnInit(): void {
         this.httpPrefixControl.valueChanges.subscribe(value => {

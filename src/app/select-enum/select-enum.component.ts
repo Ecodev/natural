@@ -6,8 +6,6 @@ import {IEnum, NaturalEnumService} from '@ecodev/natural';
 import {Observable, of} from 'rxjs';
 import {NaturalSelectEnumComponent} from '../../../projects/natural/src/lib/modules/select/select-enum/select-enum.component';
 import {AnyEnumService} from '../../../projects/natural/src/lib/testing/any-enum.service';
-import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
-import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 import {AbstractSelect} from '../AbstractSelect';
 
 @Component({
@@ -28,10 +26,6 @@ export class SelectEnumComponent extends AbstractSelect {
 
     public optionDisabled(e: IEnum): boolean {
         return e.value === 'val2';
-    }
-
-    public constructor(service: ItemService, errorService: ErrorService) {
-        super(service, errorService);
     }
 
     protected override getNextValue(): Observable<any> {

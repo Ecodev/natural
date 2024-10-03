@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -35,7 +35,9 @@ import {Item, ItemInput, ItemService} from '../../../projects/natural/src/lib/te
 export class DetailComponent extends NaturalAbstractDetail<ItemService, NaturalSeoResolveData> implements OnInit {
     public readonly collectErrors = collectErrors;
 
-    public constructor(service: ItemService) {
+    public constructor() {
+        const service = inject(ItemService);
+
         super('detail', service);
 
         if (this.isUpdatePage()) {
