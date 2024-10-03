@@ -44,7 +44,7 @@ let componentCount = 0;
     standalone: true,
 })
 export class NaturalCustomCssDirective implements OnDestroy {
-    private readonly document = inject<Document>(DOCUMENT);
+    private readonly document = inject(DOCUMENT);
 
     private style: HTMLStyleElement | null = null;
 

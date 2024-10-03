@@ -52,7 +52,7 @@ import {MatButtonModule} from '@angular/material/button';
 })
 export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAccessor {
     private readonly ngControl = inject(NgControl, {optional: true, self: true});
-    private readonly document = inject<Document>(DOCUMENT);
+    private readonly document = inject(DOCUMENT);
     private readonly dialog = inject(MatDialog);
     private readonly imagePlugin = inject(ImagePlugin);
 

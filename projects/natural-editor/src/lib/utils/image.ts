@@ -12,7 +12,7 @@ export class ImagePlugin {
     public readonly plugin: Plugin<DecorationSet>;
 
     public constructor() {
-        const document = inject<Document>(DOCUMENT);
+        const document = inject(DOCUMENT);
 
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;

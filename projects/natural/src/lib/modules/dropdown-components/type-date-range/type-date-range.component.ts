@@ -4,14 +4,14 @@ import {
     FormControl,
     FormGroup,
     FormGroupDirective,
+    FormsModule,
     NgForm,
+    ReactiveFormsModule,
     ValidationErrors,
     ValidatorFn,
     Validators,
-    FormsModule,
-    ReactiveFormsModule,
 } from '@angular/forms';
-import {DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MatDateFormats} from '@angular/material/core';
+import {DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS} from '@angular/material/core';
 import {BehaviorSubject, merge} from 'rxjs';
 import {DropdownComponent} from '../../search/types/dropdown-component';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
@@ -69,7 +69,7 @@ function toGreaterThanFrom<D>(dateAdapter: DateAdapter<D>): ValidatorFn {
 })
 export class TypeDateRangeComponent<D = any> implements DropdownComponent {
     private dateAdapter = inject<DateAdapter<D>>(DateAdapter);
-    private dateFormats = inject<MatDateFormats>(MAT_DATE_FORMATS);
+    private dateFormats = inject(MAT_DATE_FORMATS);
 
     public readonly renderedValue = new BehaviorSubject<string>('');
     public readonly configuration: Required<TypeDateRangeConfiguration<D>>;

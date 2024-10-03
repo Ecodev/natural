@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
-import {FormControl, FormGroup, ValidatorFn, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DateAdapter, MAT_DATE_FORMATS, MatDateFormats, MatOptionModule} from '@angular/material/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators} from '@angular/forms';
+import {DateAdapter, MAT_DATE_FORMATS, MatOptionModule} from '@angular/material/core';
 import {BehaviorSubject, merge} from 'rxjs';
 import {FilterGroupConditionField, Scalar} from '../../search/classes/graphql-doctrine.types';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
@@ -36,7 +36,7 @@ export type TypeDateConfiguration<D = Date> = {
 })
 export class TypeDateComponent<D = any> implements DropdownComponent {
     private dateAdapter = inject<DateAdapter<D>>(DateAdapter);
-    private dateFormats = inject<MatDateFormats>(MAT_DATE_FORMATS);
+    private dateFormats = inject(MAT_DATE_FORMATS);
 
     public readonly renderedValue = new BehaviorSubject<string>('');
     public readonly configuration: Required<TypeDateConfiguration<D>>;

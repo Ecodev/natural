@@ -44,7 +44,7 @@ const naturalRegistered: unique symbol = Symbol('Natural icon registered');
 export class NaturalIconDirective {
     private readonly matIconRegistry = inject(MatIconRegistry);
     private readonly domSanitizer = inject(DomSanitizer);
-    private readonly config = inject<NaturalIconsConfig | null>(NATURAL_ICONS_CONFIG, {optional: true});
+    private readonly config = inject(NATURAL_ICONS_CONFIG, {optional: true});
     private readonly matIconComponent = inject(MatIcon, {host: true, self: true});
 
     @HostBinding('style.font-size.px')

@@ -48,9 +48,9 @@ export const NaturalLoggerConfigExtra = new InjectionToken<NaturalLoggerExtra>(
 })
 export class NaturalErrorHandler extends ErrorHandler {
     private readonly http = inject(HttpClient);
-    private readonly document = inject<Document>(DOCUMENT);
+    private readonly document = inject(DOCUMENT);
     private readonly url = inject(NaturalLoggerConfigUrl, {optional: true});
-    private readonly loggerExtra = inject<NaturalLoggerExtra>(NaturalLoggerConfigExtra, {optional: true});
+    private readonly loggerExtra = inject(NaturalLoggerConfigExtra, {optional: true});
 
     public constructor() {
         super();

@@ -9,7 +9,7 @@ import {DOCUMENT} from '@angular/common';
     providedIn: 'root',
 })
 export class NaturalFileService {
-    private readonly document = inject<Document>(DOCUMENT);
+    private readonly document = inject(DOCUMENT);
 
     /**
      * Allow to subscribe to selected files in the entire application. So a

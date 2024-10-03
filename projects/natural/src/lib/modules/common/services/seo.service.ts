@@ -150,7 +150,7 @@ export class NaturalSeoService {
     private readonly router = inject(Router);
     private readonly titleService = inject(Title);
     private readonly metaTagService = inject(Meta);
-    private readonly document = inject<Document>(DOCUMENT);
+    private readonly document = inject(DOCUMENT);
     private locale = inject(LOCALE_ID);
 
     private routeData?: Data;
@@ -159,7 +159,7 @@ export class NaturalSeoService {
     };
 
     public constructor() {
-        const configToken = inject<NaturalSeoConfig>(NATURAL_SEO_CONFIG);
+        const configToken = inject(NATURAL_SEO_CONFIG);
 
         combineLatest({
             config: configToken instanceof Observable ? configToken.pipe(startWith(this.config)) : of(configToken),

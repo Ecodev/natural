@@ -15,7 +15,7 @@ const IMAGE_UPLOADER = new InjectionToken<ImageUploader | null>('Image uploader 
     imports: [FormsModule, NaturalEditorComponent],
 })
 class TestHostComponent {
-    public readonly imageUploader = inject<ImageUploader | null>(IMAGE_UPLOADER);
+    public readonly imageUploader = inject(IMAGE_UPLOADER);
 
     public myValue = '';
 }

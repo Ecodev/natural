@@ -35,7 +35,7 @@ type Paq = {
 })
 export class NaturalMatomoService {
     private readonly router = inject(Router);
-    private readonly document = inject<Document>(DOCUMENT);
+    private readonly document = inject(DOCUMENT);
     private readonly titleService = inject(Title);
     private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
     private readonly window: WindowProxy & typeof globalThis & {_paq?: Paq};

@@ -1,6 +1,6 @@
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {ComponentType} from '@angular/cdk/portal';
-import {Injectable, Injector, runInInjectionContext, inject} from '@angular/core';
+import {inject, Injectable, Injector, runInInjectionContext} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ActivatedRoute, DefaultUrlSerializer, NavigationError, Router, UrlSegment} from '@angular/router';
@@ -12,7 +12,6 @@ import {
     NaturalPanelConfig,
     NaturalPanelData,
     NaturalPanelsBeforeOpenPanel,
-    NaturalPanelsHooksConfig,
     NaturalPanelsRouterRule,
     PanelsHooksConfig,
 } from './types';
@@ -36,7 +35,7 @@ export class NaturalPanelsService {
     private readonly router = inject(Router);
     private readonly dialog = inject(MatDialog);
     private readonly injector = inject(Injector);
-    private hooksConfig = inject<NaturalPanelsHooksConfig>(PanelsHooksConfig);
+    private hooksConfig = inject(PanelsHooksConfig);
 
     private readonly panelWidth = '960px';
 

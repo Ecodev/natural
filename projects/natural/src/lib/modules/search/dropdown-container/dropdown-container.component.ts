@@ -42,7 +42,7 @@ export const NATURAL_DROPDOWN_CONTAINER_DATA = new InjectionToken<NaturalDropdow
 export class NaturalDropdownContainerComponent extends BasePortalOutlet implements OnDestroy {
     private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     private readonly focusTrapFactory = inject(ConfigurableFocusTrapFactory);
-    public readonly data = inject<NaturalDropdownContainerData>(NATURAL_DROPDOWN_CONTAINER_DATA);
+    public readonly data = inject(NATURAL_DROPDOWN_CONTAINER_DATA);
 
     @ViewChild(CdkPortalOutlet, {static: true}) public portalOutlet!: CdkPortalOutlet;
     @ViewChild(TemplateRef, {static: true}) public templateRef!: TemplateRef<any>;

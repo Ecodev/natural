@@ -41,7 +41,7 @@ import {NaturalBackgroundDensityDirective} from '../../common/directives/backgro
 export class NaturalFileComponent implements OnInit, OnChanges {
     private readonly naturalFileService = inject(NaturalFileService);
     private readonly alertService = inject(NaturalAlertService);
-    private readonly document = inject<Document>(DOCUMENT);
+    private readonly document = inject(DOCUMENT);
 
     @HostBinding('style.height.px') @Input() public height = 250;
 

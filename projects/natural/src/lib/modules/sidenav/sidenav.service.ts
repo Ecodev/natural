@@ -3,7 +3,7 @@ import {MatDrawerMode} from '@angular/material/sidenav';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
-import {NaturalStorage, SESSION_STORAGE} from '../common/services/memory-storage';
+import {SESSION_STORAGE} from '../common/services/memory-storage';
 import {NaturalSidenavStackService} from './sidenav-stack.service';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -28,7 +28,7 @@ export class NaturalSidenavService {
     private readonly destroyRef = inject(DestroyRef);
     private readonly breakpointObserver = inject(BreakpointObserver);
     private readonly router = inject(Router);
-    private readonly sessionStorage = inject<NaturalStorage>(SESSION_STORAGE);
+    private readonly sessionStorage = inject(SESSION_STORAGE);
     private readonly naturalSidenavStackService = inject(NaturalSidenavStackService);
 
     /**
