@@ -1,8 +1,8 @@
 <div class="nat-vertical">
     <mat-checkbox [(ngModel)]="disabled">Disabled</mat-checkbox>
 
-    <div class="nat-expand app-gap-50 nat-horizontal">
-        <div class="nat-expand app-gap-50 nat-vertical">
+    <div class="nat-expand nat-horizontal">
+        <div class="nat-expand nat-vertical">
             <natural-editor [(ngModel)]="htmlStringBasic" [disabled]="disabled" />
 
             <div>
@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="nat-expand app-gap-50 nat-vertical">
+        <div class="nat-expand nat-vertical">
             <natural-editor
                 [(ngModel)]="htmlStringAdvanced"
                 [imageUploader]="uploader"
