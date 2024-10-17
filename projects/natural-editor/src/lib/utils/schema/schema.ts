@@ -4,6 +4,7 @@ import {Schema} from 'prosemirror-model';
 import {paragraphWithAlignment} from './paragraph-with-alignment';
 import {heading} from './heading';
 import {tableNodes} from './table';
+import {textColor} from './text-color';
 
 // Keep only basic elements
 type BasicNodes = Omit<typeof nodes, 'image' | 'code_block' | 'blockquote' | 'horizontal_rule'>;
@@ -22,6 +23,11 @@ const basicMarks: BasicMarks = {
     strong: marks.strong,
 };
 
+const advancedMarks = {
+    ...basicMarks,
+    textColor: textColor,
+};
+
 const tmpSchema = new Schema({nodes: basicNodes, marks: basicMarks});
 
 export const basicSchema = new Schema({
@@ -29,7 +35,7 @@ export const basicSchema = new Schema({
     marks: tmpSchema.spec.marks,
 });
 
-const tmpSchema2 = new Schema({
+const tmpSchemaAdvanced = new Schema({
     nodes: {
         ...nodes,
         heading: heading,
@@ -52,10 +58,10 @@ const tmpSchema2 = new Schema({
         }),
         paragraph: paragraphWithAlignment,
     },
-    marks: basicMarks,
+    marks: advancedMarks,
 });
 
 export const advancedSchema = new Schema({
-    nodes: addListNodes(tmpSchema2.spec.nodes, 'paragraph block*', 'block'),
-    marks: basicMarks,
+    nodes: addListNodes(tmpSchemaAdvanced.spec.nodes, 'paragraph block*', 'block'),
+    marks: advancedMarks,
 });

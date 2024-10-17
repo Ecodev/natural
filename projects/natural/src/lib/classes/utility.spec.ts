@@ -3,6 +3,7 @@ import {
     formatIsoDateTime,
     makePlural,
     relationsToIds,
+    rgbToHex,
     SortingOrder,
     upperCaseFirstLetter,
     validateColumns,
@@ -449,5 +450,18 @@ describe('validateColumns', () => {
         expect(validateColumns('a')).toEqual(['a']);
         expect(validateColumns('a,b')).toEqual(['a', 'b']);
         expect(validateColumns('a,b,,,,')).toEqual(['a', 'b']);
+    });
+});
+
+describe('rgbToHex', () => {
+    it('should convert rgb to hex', () => {
+        expect(rgbToHex('red')).toBe('red');
+        expect(rgbToHex('')).toBe('');
+        expect(rgbToHex('#FF0000')).toBe('#FF0000');
+        expect(rgbToHex('rgb(255, 0, 0)')).toBe('#FF0000');
+        expect(rgbToHex('rgb(0, 255, 0)')).toBe('#00FF00');
+        expect(rgbToHex('rgb(0, 0, 255)')).toBe('#0000FF');
+        expect(rgbToHex('rgb(255, 255, 255)')).toBe('#FFFFFF');
+        expect(rgbToHex('rgb(0, 0, 0)')).toBe('#000000');
     });
 });

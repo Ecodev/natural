@@ -7,7 +7,7 @@ import {ColorDialogComponent, ColorDialogData} from '../../color-dialog/color-di
 
 const setCellBackgroundColor = setCellAttr.bind(null, 'background');
 
-function findFirstClassInSelection(state: EditorState): string {
+function findFirstBackgroundColorInSelection(state: EditorState): string {
     if (!isInTable(state)) {
         return '';
     }
@@ -47,7 +47,7 @@ export class CellBackgroundColorItem extends Item {
                 dialog
                     .open<ColorDialogComponent, ColorDialogData, ColorDialogData>(ColorDialogComponent, {
                         data: {
-                            color: findFirstClassInSelection(state),
+                            color: findFirstBackgroundColorInSelection(state),
                         },
                     })
                     .afterClosed()

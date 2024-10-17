@@ -173,6 +173,22 @@ function hexToRgb(hex: string): {r: number; g: number; b: number} {
 }
 
 /**
+ * Convert RGB color to hexadecimal color
+ *
+ * ```ts
+ * rgbToHex('rgb(255, 00, 255)'); // '#FF00FF'
+ * ```
+ */
+export function rgbToHex(rgb: string): string {
+    const m = /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/.exec(rgb);
+    if (!m) {
+        return rgb;
+    }
+
+    return '#' + [m[1], m[2], m[3]].map(x => parseInt(x).toString(16).toUpperCase().padStart(2, '0')).join('');
+}
+
+/**
  * During lodash.mergeWith, overrides arrays
  */
 export function mergeOverrideArray(destValue: unknown, source: unknown): unknown {

@@ -34,12 +34,14 @@ import {wrapListItem} from './items/wrap-list-item';
 import {ClassItem} from './items/class-item';
 import {IdItem} from './items/id-item';
 import {AddTableItem} from './items/table-item';
+import {TextColorItem} from './items/text-color-item';
 
 export type Key =
     | 'toggleStrong'
     | 'toggleEm'
     | 'toggleCode'
     | 'toggleLink'
+    | 'textColor'
     | 'wrapBulletList'
     | 'wrapOrderedList'
     | 'wrapBlockQuote'
@@ -114,6 +116,11 @@ export function buildMenuItems(schema: Schema, dialog: MatDialog): MenuItems {
     type = schema.marks.link;
     if (type) {
         r.toggleLink = new LinkItem(type, dialog);
+    }
+
+    type = schema.marks.textColor;
+    if (type) {
+        r.textColor = new TextColorItem(type, dialog);
     }
 
     type = schema.nodes.bullet_list;

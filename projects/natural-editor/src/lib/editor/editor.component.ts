@@ -1,4 +1,15 @@
-import {Component, ElementRef, EventEmitter, inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    inject,
+    input,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild,
+} from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {EditorView} from 'prosemirror-view';
 import {EditorState, Plugin, Transaction} from 'prosemirror-state';
@@ -70,6 +81,14 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
      */
     @Input() public imageUploader: ImageUploader | null = null;
 
+    /**
+     * Mode must be set on initialization. Later changes will have no effect. Possible values are:
+     *
+     * - `basic`, the default, only offers minimal formatting options
+     * - `advanced`, adds text colors, headings, alignments, and tables.  If `imageUploader` is given, it will force `advanced` mode.
+     */
+    public readonly mode = input<'basic' | 'advanced'>('basic');
+
     private schema: Schema = basicSchema;
 
     /**
@@ -99,7 +118,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
     }
 
     public ngOnInit(): void {
-        this.schema = this.imageUploader ? advancedSchema : basicSchema;
+        this.schema = this.imageUploader || this.mode() === 'advanced' ? advancedSchema : basicSchema;
         this.menu = buildMenuItems(this.schema, this.dialog);
         const serializer = DOMSerializer.fromSchema(this.schema);
         const state = this.createState();
@@ -183,9 +202,12 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
             }),
         ];
 
+        if (this.imageUploader) {
+            plugins.push(this.imagePlugin.plugin);
+        }
+
         if (this.schema === advancedSchema) {
             plugins.push(
-                this.imagePlugin.plugin,
                 tableEditing(),
                 keymap({
                     Tab: goToNextCell(1),

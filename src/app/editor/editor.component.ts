@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {Observable} from 'rxjs';
 import {NaturalCustomCssDirective} from '../../../projects/natural-editor/src/lib/custom-css/custom-css.directive';
 import {NaturalEditorComponent} from '../../../projects/natural-editor/src/lib/editor/editor.component';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-editor',
@@ -13,6 +14,7 @@ import {NaturalEditorComponent} from '../../../projects/natural-editor/src/lib/e
     imports: [MatCheckboxModule, FormsModule, NaturalEditorComponent, NaturalCustomCssDirective],
 })
 export class EditorComponent {
+    private readonly domSanitizer = inject(DomSanitizer);
     public disabled = false;
     public htmlStringBasic = `<h1>Basic</h1>
 <p>Nap all day cat dog hate mouse eat string barf pillow no baths hate everything but kitty poochy. Sleep on keyboard toy mouse squeak roll over. Mesmerizing birds. Poop on grasses licks paws destroy couch intently sniff hand. The dog smells bad gnaw the corn cob.</p>
@@ -30,6 +32,7 @@ export class EditorComponent {
   <tr><td>Four</td><td>Five</td><td>Six</td></tr>
 </table>
 <p class="my-paragraph-class">This text should be red when viewport is larger than 900px. Nap all day cat dog hate mouse eat string barf pillow no baths hate everything but kitty poochy. Sleep on keyboard toy mouse squeak roll over. Mesmerizing birds. Poop on grasses licks paws destroy couch intently sniff hand.</p>
+<p>Nap all day <span style="color: #FF0000">cat</span> <span style="color: #00FF00">dog</span> <span style="color: #0000FF">hate</span> mouse.</p>
 <p style="text-align: right">qweqweqwe qwe qw eq  eqw </p>
 <blockquote><p>Throw down all the stuff in the kitchen fooled again thinking the dog likes me play riveting piece on synthesizer keyboard chew on cable missing until dinner time. Licks your face milk the cow.</p></blockquote>
 <ul>
@@ -39,6 +42,7 @@ export class EditorComponent {
 </ul>
 <h2 class="my-title-class" id="chapter2">Title Level2 green italic</h2>
 `;
+    public htmlStringAdvancedWithImage = this.htmlStringAdvanced.replace('Advanced', 'Advanced with image');
 
     public readonly css = `
     .my-paragraph-class {background: pink}
@@ -76,5 +80,9 @@ export class EditorComponent {
 
     public update(): void {
         console.log('Save button was clicked');
+    }
+
+    public trustHTML(html: string): SafeHtml {
+        return this.domSanitizer.bypassSecurityTrustHtml(html);
     }
 }

@@ -1,13 +1,13 @@
 <div class="nat-vertical">
     <mat-checkbox [(ngModel)]="disabled">Disabled</mat-checkbox>
 
-    <div class="nat-expand nat-horizontal">
+    <div class="nat-expand nat-horizontal nat-gap">
         <div class="nat-expand nat-vertical">
             <natural-editor [(ngModel)]="htmlStringBasic" [disabled]="disabled" />
 
             <div>
                 <h1 class="mat-headline-4 nat-margin-bottom">Preview</h1>
-                <div [innerHTML]="htmlStringBasic" class="preview">&nbsp;</div>
+                <div [innerHTML]="htmlStringBasic" class="preview"></div>
             </div>
 
             <div>
@@ -19,6 +19,25 @@
         <div class="nat-expand nat-vertical">
             <natural-editor
                 [(ngModel)]="htmlStringAdvanced"
+                [naturalCustomCss]="css"
+                [disabled]="disabled"
+                mode="advanced"
+            />
+
+            <div>
+                <h1 class="mat-headline-4 nat-margin-bottom">Preview</h1>
+                <div [innerHTML]="trustHTML(htmlStringAdvanced)" class="preview" [naturalCustomCss]="css"></div>
+            </div>
+
+            <div>
+                <h1 class="mat-headline-4 nat-margin-bottom">Debug</h1>
+                <p class="debug">{{ htmlStringAdvanced }}</p>
+            </div>
+        </div>
+
+        <div class="nat-expand nat-vertical">
+            <natural-editor
+                [(ngModel)]="htmlStringAdvancedWithImage"
                 [imageUploader]="uploader"
                 (save)="update()"
                 [naturalCustomCss]="css"
@@ -27,12 +46,16 @@
 
             <div>
                 <h1 class="mat-headline-4 nat-margin-bottom">Preview</h1>
-                <div [innerHTML]="htmlStringAdvanced" class="preview" [naturalCustomCss]="css">&nbsp;</div>
+                <div
+                    [innerHTML]="trustHTML(htmlStringAdvancedWithImage)"
+                    class="preview"
+                    [naturalCustomCss]="css"
+                ></div>
             </div>
 
             <div>
                 <h1 class="mat-headline-4 nat-margin-bottom">Debug</h1>
-                <p class="debug">{{ htmlStringAdvanced }}</p>
+                <p class="debug">{{ htmlStringAdvancedWithImage }}</p>
             </div>
         </div>
     </div>
