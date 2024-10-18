@@ -13,10 +13,16 @@
 
 ::ng-deep {
     .ProseMirror {
+        --padding-right: 8px;
+        --padding-left: 14px;
         position: relative;
-    }
+        outline: none;
+        padding: 4px var(--padding-right) 4px var(--padding-left);
+        width: calc(
+            100% - var(--padding-right) - var(--padding-left)
+        ); // Without this, OKpilot empty document will shrink to 0px, making it hard to focus to type something
+        line-height: 1.2;
 
-    .ProseMirror {
         word-wrap: break-word;
         -webkit-font-variant-ligatures: none;
         font-variant-ligatures: none;
@@ -129,12 +135,6 @@
     .ProseMirror h5:first-child,
     .ProseMirror h6:first-child {
         margin-top: 10px;
-    }
-
-    .ProseMirror {
-        outline: none;
-        padding: 4px 8px 4px 14px;
-        line-height: 1.2;
     }
 
     .ProseMirror p {
