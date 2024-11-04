@@ -1,25 +1,23 @@
-import {Injectable, Injector, inject} from '@angular/core';
+import {inject, Injectable, Injector} from '@angular/core';
 import {intersection} from 'lodash-es';
 import {BehaviorSubject, first, forkJoin, Observable} from 'rxjs';
 import {finalize, map} from 'rxjs/operators';
 import {NaturalQueryVariablesManager, QueryVariables} from '../../../classes/query-variable-manager';
 import {HierarchicFlatNode} from '../classes/flat-node';
-import {
-    NaturalHierarchicConfiguration,
-    NaturalHierarchicServiceConfiguration,
-} from '../classes/hierarchic-configuration';
+import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
 import {
     HierarchicFilterConfiguration,
     HierarchicFiltersConfiguration,
 } from '../classes/hierarchic-filters-configuration';
 import {HierarchicModel, HierarchicModelNode} from '../classes/model-node';
-import {Literal} from '../../../types/types';
+import {Literal, UntypedModelService} from '../../../types/types';
 import {FilterGroupCondition} from '../../search/classes/graphql-doctrine.types';
 
 export type OrganizedModelSelection = Record<string, any[]>;
 
-type ContextualizedConfig = {
-    configuration: NaturalHierarchicServiceConfiguration;
+type ContextualizedConfig<T extends UntypedModelService = UntypedModelService> = {
+    configuration: NaturalHierarchicConfiguration;
+    injectedService: T;
     variablesManager: NaturalQueryVariablesManager;
 };
 
@@ -51,7 +49,7 @@ export class NaturalHierarchicSelectorService {
         searchVariables: QueryVariables | null = null,
     ): Observable<unknown> {
         this.validateConfiguration(config);
-        this.configuration = this.injectServicesInConfiguration(config);
+        this.configuration = config;
         return this.getList(null, contextFilter, searchVariables).pipe(map(data => this.dataChange.next(data)));
     }
 
@@ -95,7 +93,7 @@ export class NaturalHierarchicSelectorService {
         searchVariables: QueryVariables | null = null,
     ): Observable<HierarchicModelNode[]> {
         const configurations = this.getContextualizedConfigs(node, contextFilters, searchVariables);
-        const observables = configurations.map(c => c.configuration.injectedService.getAll(c.variablesManager));
+        const observables = configurations.map(c => c.injectedService.getAll(c.variablesManager));
 
         // Fire queries, and merge results, transforming apollo items into Node Object.
         return forkJoin(observables).pipe(
@@ -117,9 +115,7 @@ export class NaturalHierarchicSelectorService {
 
     public countItems(node: HierarchicFlatNode, contextFilters: HierarchicFiltersConfiguration | null = null): void {
         const configurations = this.getContextualizedConfigs(node, contextFilters, null);
-        const observables = configurations.map(c =>
-            c.configuration.injectedService.count(c.variablesManager).pipe(first()),
-        );
+        const observables = configurations.map(c => c.injectedService.count(c.variablesManager).pipe(first()));
 
         forkJoin(observables).subscribe(results => {
             const totalItems = results.reduce((total, length) => total + length, 0);
@@ -145,11 +141,10 @@ export class NaturalHierarchicSelectorService {
         const pagination = {pageIndex: 0, pageSize: 999};
 
         for (const config of configs) {
-            const item: ContextualizedConfig = {} as ContextualizedConfig;
             const contextFilter = this.getFilterByService(config, contextFilters);
             const filter = this.getServiceFilter(node, config, contextFilter, !!searchVariables);
 
-            if (!filter || !config.injectedService) {
+            if (!filter) {
                 continue;
             }
 
@@ -162,11 +157,12 @@ export class NaturalHierarchicSelectorService {
                 variablesManager.set('natural-search', searchVariables);
             }
 
-            // Cast NaturalHierarchicServiceConfiguration because the undefined
-            // injectedServices are filtered earlier and we can validate value
-            item.configuration = config as NaturalHierarchicServiceConfiguration;
-            item.variablesManager = variablesManager;
-            configsAndServices.push(item);
+            const injectedService = this.injector.get(config.service);
+            configsAndServices.push({
+                configuration: config,
+                injectedService: injectedService,
+                variablesManager: variablesManager,
+            });
         }
 
         return configsAndServices;
@@ -211,18 +207,6 @@ export class NaturalHierarchicSelectorService {
             }
         }
         return result;
-    }
-
-    private injectServicesInConfiguration(
-        configurations: NaturalHierarchicConfiguration[],
-    ): NaturalHierarchicConfiguration[] {
-        for (const config of configurations) {
-            if (!config.injectedService) {
-                config.injectedService = this.injector.get(config.service);
-            }
-        }
-
-        return configurations;
     }
 
     /**

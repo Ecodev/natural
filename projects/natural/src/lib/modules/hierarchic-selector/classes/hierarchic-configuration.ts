@@ -48,7 +48,6 @@ export type NaturalHierarchicConfiguration<T extends UntypedModelService = Untyp
      * Displayed icon for items retrieved for that config
      */
     icon?: string;
-    injectedService?: T;
 
     /**
      * Callback function that returns boolean. If true the item is selectable, if false, it's not.
@@ -63,7 +62,3 @@ export type NaturalHierarchicConfiguration<T extends UntypedModelService = Untyp
      */
     displayWith?: (item: any) => string;
 };
-
-export type NaturalHierarchicServiceConfiguration<T extends UntypedModelService = UntypedModelService> = {
-    injectedService: T;
-} & NaturalHierarchicConfiguration<T>;
