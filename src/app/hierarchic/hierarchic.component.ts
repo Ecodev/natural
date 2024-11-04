@@ -66,10 +66,11 @@ export class HierarchicComponent {
             parentsRelationNames: ['parent'],
             childrenRelationNames: ['parent'],
             selectableAtKey: 'any',
+            icon: 'deployed_code',
         },
     ];
 
-    public log(...args: any): void {
+    public log(...args: any[]): void {
         console.log(args);
     }
 

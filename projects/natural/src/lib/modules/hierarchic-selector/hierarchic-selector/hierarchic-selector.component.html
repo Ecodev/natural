@@ -43,9 +43,9 @@
         @for (node of selectedNodes; track node.model.id) {
             <mat-chip-option (removed)="unselectModelNode(node)" [removable]="true" [selectable]="false">
                 @if (node.config.icon) {
-                    <mat-icon [naturalIcon]="node.config.icon" />
+                    <mat-icon matChipAvatar [naturalIcon]="node.config.icon" />
                 }
-                <div class="mat-body chip-label">{{ node.model.name || node.model.fullName }}</div>
+                {{ node.model.name || node.model.fullName }}
                 <button matChipRemove>
                     <mat-icon naturalIcon="cancel" />
                 </button>
