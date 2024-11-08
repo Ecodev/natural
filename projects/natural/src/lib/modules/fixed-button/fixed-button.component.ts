@@ -14,7 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 })
 export class NaturalFixedButtonComponent {
     @Input({required: true}) public icon!: string;
-    @Input() public link: RouterLink['routerLink'] = [];
+    @Input() public link: RouterLink['routerLink'] | null = null;
     @Input() public color: ThemePalette = 'accent';
     @Input() public disabled = false;
 }

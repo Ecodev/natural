@@ -220,7 +220,8 @@ export class NaturalAbstractDetail<
                             const newUrl = oldUrl.replace('/new', '/' + model.id) + (nextUrl ? '/' + nextUrl : '');
                             return this.router.navigateByUrl(newUrl); // replace /new by /123
                         } else {
-                            return this.router.navigate(['..', model.id], {relativeTo: this.route});
+                            const queryParams = this.route.snapshot.queryParams;
+                            return this.router.navigate(['..', model.id], {relativeTo: this.route, queryParams});
                         }
                     }
 
