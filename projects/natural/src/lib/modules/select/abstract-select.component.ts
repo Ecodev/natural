@@ -1,5 +1,5 @@
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {Directive, DoCheck, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
+import {Directive, DoCheck, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {
     AbstractControl,
     ControlValueAccessor,
@@ -121,8 +121,9 @@ export abstract class AbstractSelect<V, I> implements OnInit, ControlValueAccess
     public onTouched?: () => void;
 
     public readonly matcher: ExternalFormControlMatcher<V, I>;
+    public readonly ngControl = inject(NgControl, {optional: true, self: true});
 
-    public constructor(@Optional() @Self() public readonly ngControl: NgControl | null) {
+    public constructor() {
         if (this.ngControl) {
             this.ngControl.valueAccessor = this;
         }

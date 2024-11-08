@@ -1,5 +1,5 @@
-import {Component, Input, OnInit, inject} from '@angular/core';
-import {ControlValueAccessor, FormsModule, NgControl, ReactiveFormsModule} from '@angular/forms';
+import {Component, inject, Input, OnInit} from '@angular/core';
+import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {IEnum, NaturalEnumService} from '../../../services/enum.service';
 import {AbstractSelect} from '../abstract-select.component';
@@ -41,12 +41,6 @@ export class NaturalSelectEnumComponent extends AbstractSelect<V, V> implements 
     @Input() public multiple = false;
 
     public items?: Observable<IEnum[]>;
-
-    public constructor() {
-        const ngControl = inject(NgControl, {optional: true, self: true});
-
-        super(ngControl);
-    }
 
     public override ngOnInit(): void {
         super.ngOnInit();

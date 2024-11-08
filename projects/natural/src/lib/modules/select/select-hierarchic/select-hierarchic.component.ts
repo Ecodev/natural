@@ -1,5 +1,5 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
-import {ControlValueAccessor, FormsModule, NgControl, ReactiveFormsModule} from '@angular/forms';
+import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogConfig} from '@angular/material/dialog';
 import {Literal} from '../../../types/types';
 import {HierarchicFiltersConfiguration} from '../../hierarchic-selector/classes/hierarchic-filters-configuration';
@@ -95,12 +95,6 @@ export class NaturalSelectHierarchicComponent
      * times This prevents it.
      */
     private lockOpenDialog = false;
-
-    public constructor() {
-        const ngControl = inject(NgControl, {optional: true, self: true});
-
-        super(ngControl);
-    }
 
     /**
      * Very important to return something, above all if [select]='displayedValue' attribute value is used
