@@ -31,7 +31,8 @@ import {MatOptionModule} from '@angular/material/core';
 import {CommonModule} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
-type V<TService> = string | ExtractTallOne<TService>;
+// Return the type of TValue for the given TService
+type ValueTypeFor<TService> = string | ExtractTallOne<TService>;
 
 /**
  * Default usage:
@@ -100,7 +101,7 @@ export class NaturalSelectComponent<
             any
         >,
     >
-    extends AbstractSelect<V<TService>, V<TService>>
+    extends AbstractSelect<ValueTypeFor<TService>, ValueTypeFor<TService>>
     implements OnInit, ControlValueAccessor, AfterViewInit
 {
     private readonly destroyRef = inject(DestroyRef);
@@ -133,7 +134,7 @@ export class NaturalSelectComponent<
      * Cache the committed value during search mode.
      * It's used to be restored in case we cancel the selection
      */
-    private lastValidValue: V<TService> | null = null;
+    private lastValidValue: ValueTypeFor<TService> | null = null;
 
     /**
      * Additional filter for query
@@ -226,7 +227,7 @@ export class NaturalSelectComponent<
         }
     }
 
-    public override writeValue(value: V<TService> | null): void {
+    public override writeValue(value: ValueTypeFor<TService> | null): void {
         super.writeValue(value);
         this.lastValidValue = this.internalCtrl.value;
     }
@@ -276,7 +277,7 @@ export class NaturalSelectComponent<
      * Commit the model change
      * Set internal form as pristine to reflect that the visible value match the model
      */
-    public override propagateValue(value: V<TService> | null): void {
+    public override propagateValue(value: ValueTypeFor<TService> | null): void {
         this.internalCtrl.markAsPristine();
         this.lastValidValue = this.internalCtrl.value;
         this.loading = false;
@@ -292,7 +293,7 @@ export class NaturalSelectComponent<
     /**
      * Very important to return something, above all if [select]='displayedValue' attribute value is used
      */
-    public getDisplayFn(): (item: V<TService> | null) => string {
+    public getDisplayFn(): (item: ValueTypeFor<TService> | null) => string {
         if (this.displayWith) {
             return this.displayWith;
         }
@@ -315,7 +316,7 @@ export class NaturalSelectComponent<
         super.clear();
     }
 
-    public search(term: V<TService> | null): void {
+    public search(term: ValueTypeFor<TService> | null): void {
         if (typeof term === 'string' || term === null) {
             if (term) {
                 this.loading = !!this.items;

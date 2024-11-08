@@ -8,7 +8,7 @@ import {CommonModule} from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
-type V = IEnum['value'] | IEnum['value'][];
+type Value = IEnum['value'] | IEnum['value'][];
 
 @Component({
     selector: 'natural-select-enum',
@@ -17,7 +17,7 @@ type V = IEnum['value'] | IEnum['value'][];
     standalone: true,
     imports: [MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, CommonModule, MatOptionModule],
 })
-export class NaturalSelectEnumComponent extends AbstractSelect<V, V> implements OnInit, ControlValueAccessor {
+export class NaturalSelectEnumComponent extends AbstractSelect<Value, Value> implements OnInit, ControlValueAccessor {
     private readonly enumService = inject(NaturalEnumService);
 
     /**
@@ -47,7 +47,7 @@ export class NaturalSelectEnumComponent extends AbstractSelect<V, V> implements 
         this.items = this.enumService.get(this.enumName);
     }
 
-    public getDisplayFn(): (item: V | null) => string {
+    public getDisplayFn(): (item: Value | null) => string {
         throw new Error('This should never be called');
     }
 }

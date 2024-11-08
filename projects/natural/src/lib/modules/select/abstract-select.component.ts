@@ -17,8 +17,8 @@ import {ErrorStateMatcher} from '@angular/material/core';
  * touched status propagation between outside and inside world, and thus get rid of our legacy
  * custom FormControl class ("NaturalFormControl").
  */
-class ExternalFormControlMatcher<T, I> extends ErrorStateMatcher {
-    public constructor(private readonly component: AbstractSelect<T, I>) {
+class ExternalFormControlMatcher<TValue, TInput> extends ErrorStateMatcher {
+    public constructor(private readonly component: AbstractSelect<TValue, TInput>) {
         super();
     }
 
@@ -33,7 +33,7 @@ class ExternalFormControlMatcher<T, I> extends ErrorStateMatcher {
 }
 
 @Directive({standalone: true})
-export abstract class AbstractSelect<V, I> implements OnInit, ControlValueAccessor, DoCheck {
+export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlValueAccessor, DoCheck {
     @Input() public placeholder?: string;
 
     /**
@@ -79,12 +79,12 @@ export abstract class AbstractSelect<V, I> implements OnInit, ControlValueAccess
     /**
      * Function to customize the rendering of the selected item as text in input
      */
-    @Input() public displayWith?: (item: V | null) => string;
+    @Input() public displayWith?: (item: TValue | null) => string;
 
     /**
      * Emit the selected value whenever it changes
      */
-    @Output() public readonly selectionChange = new EventEmitter<V | null>();
+    @Output() public readonly selectionChange = new EventEmitter<TValue | null>();
 
     /**
      * Emits when internal input is blurred
@@ -95,24 +95,24 @@ export abstract class AbstractSelect<V, I> implements OnInit, ControlValueAccess
     /**
      * Contains internal representation for current selection AND searched text (for autocomplete)
      *
-     * It is **not** necessarily `V | null`.
+     * It is **not** necessarily `TValue | null`.
      *
-     * - NaturalSelectComponent: `string | V | null`. We allow `string`
-     *   only when `optionRequired` is false, so most of the time it is `V | null`.
+     * - NaturalSelectComponent: `string | TValue | null`. We allow `string`
+     *   only when `optionRequired` is false, so most of the time it is `TValue | null`.
      * - NaturalSelectHierarchicComponent: `string | null`.
-     * - NaturalSelectEnumComponent: `V | null`.
+     * - NaturalSelectEnumComponent: `TValue | null`.
      *
      * In natural-select context, we use pristine and dirty to identify if the displayed value is search or committed model :
      *  - Pristine status (unchanged value) means the model is displayed and propagated = the selection is committed
      *  - Dirty status (changed value) means we are in search/autocomplete mode
      */
-    public readonly internalCtrl = new FormControl<I | null>(null);
+    public readonly internalCtrl = new FormControl<TInput | null>(null);
 
     /**
      * Interface with ControlValueAccessor
      * Notifies parent model / form controller
      */
-    public onChange?: (item: V | null) => void;
+    public onChange?: (item: TValue | null) => void;
 
     /**
      * Interface with ControlValueAccessor
@@ -120,7 +120,7 @@ export abstract class AbstractSelect<V, I> implements OnInit, ControlValueAccess
      */
     public onTouched?: () => void;
 
-    public readonly matcher: ExternalFormControlMatcher<V, I>;
+    public readonly matcher: ExternalFormControlMatcher<TValue, TInput>;
     public readonly ngControl = inject(NgControl, {optional: true, self: true});
 
     public constructor() {
@@ -137,7 +137,7 @@ export abstract class AbstractSelect<V, I> implements OnInit, ControlValueAccess
         }
     }
 
-    public writeValue(value: I | null): void {
+    public writeValue(value: TInput | null): void {
         this.internalCtrl.setValue(value);
     }
 
@@ -156,7 +156,7 @@ export abstract class AbstractSelect<V, I> implements OnInit, ControlValueAccess
         disabled ? this.internalCtrl.disable() : this.internalCtrl.enable();
     }
 
-    public registerOnChange(fn: (item: V | null) => void): void {
+    public registerOnChange(fn: (item: TValue | null) => void): void {
         this.onChange = fn;
     }
 
@@ -164,7 +164,7 @@ export abstract class AbstractSelect<V, I> implements OnInit, ControlValueAccess
         this.onTouched = fn;
     }
 
-    public abstract getDisplayFn(): (item: V | null) => string;
+    public abstract getDisplayFn(): (item: TValue | null) => string;
 
     /**
      * Commit the model to null
@@ -186,7 +186,7 @@ export abstract class AbstractSelect<V, I> implements OnInit, ControlValueAccess
     /**
      * Commit the model change
      */
-    public propagateValue(value: V | null): void {
+    public propagateValue(value: TValue | null): void {
         // before selectionChange to allow formControl to update before change is effectively emitted
         if (this.onChange) {
             this.onChange(value);
