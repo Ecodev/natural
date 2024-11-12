@@ -55,7 +55,8 @@ export class NaturalFileComponent implements OnInit, OnChanges {
      *
      * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
      */
-    @Input() public accept = 'image/bmp,image/gif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/svg,image/webp';
+    @Input() public accept =
+        'image/avif,image/bmp,image/gif,image/heic,image/heif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/svg,image/webp';
 
     /**
      * If given, it will be called when a new file is selected. The callback should typically upload the file
