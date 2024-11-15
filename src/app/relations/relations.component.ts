@@ -1,4 +1,4 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NaturalAbstractDetail, NaturalHierarchicConfiguration} from '@ecodev/natural';
 import {NaturalRelationsComponent} from '../../../projects/natural/src/lib/modules/relations/relations.component';

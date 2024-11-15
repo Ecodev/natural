@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {clone, defaults} from 'lodash-es';
 import {NaturalSearchFacets} from '../../search/types/facet';
 import {NaturalSearchSelections} from '../../search/types/values';

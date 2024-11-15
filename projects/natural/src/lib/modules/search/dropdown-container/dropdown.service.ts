@@ -1,6 +1,6 @@
 import {FlexibleConnectedPositionStrategy, Overlay, OverlayConfig} from '@angular/cdk/overlay';
 import {ComponentPortal, ComponentType} from '@angular/cdk/portal';
-import {ComponentRef, ElementRef, Injectable, InjectionToken, Injector, StaticProvider, inject} from '@angular/core';
+import {ComponentRef, ElementRef, inject, Injectable, InjectionToken, Injector, StaticProvider} from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
 import {FilterGroupConditionField} from '../classes/graphql-doctrine.types';
 import {

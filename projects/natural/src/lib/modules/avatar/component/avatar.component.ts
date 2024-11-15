@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnChanges, SimpleChanges, inject} from '@angular/core';
+import {Component, HostBinding, inject, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Source} from '../sources/source';
 import {AvatarService} from '../service/avatar.service';
 import {CommonModule} from '@angular/common';

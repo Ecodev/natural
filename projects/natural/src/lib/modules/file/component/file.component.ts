@@ -2,12 +2,12 @@ import {
     Component,
     EventEmitter,
     HostBinding,
+    inject,
     Input,
     OnChanges,
     OnInit,
     Output,
     SimpleChanges,
-    inject,
 } from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {Observable, of, Subject, tap} from 'rxjs';

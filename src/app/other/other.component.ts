@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRippleModule, ThemePalette} from '@angular/material/core';

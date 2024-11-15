@@ -2,7 +2,7 @@ import {Decoration, DecorationSet, EditorView} from 'prosemirror-view';
 import {EditorState, Plugin} from 'prosemirror-state';
 import {Observable} from 'rxjs';
 import {Schema} from 'prosemirror-model';
-import {Injectable, inject} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
 export type ImageUploader = (file: File) => Observable<string>;

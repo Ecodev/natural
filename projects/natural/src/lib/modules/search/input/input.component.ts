@@ -7,6 +7,7 @@ import {
     EnvironmentInjector,
     EventEmitter,
     HostListener,
+    inject,
     Input,
     OnChanges,
     OnDestroy,
@@ -14,7 +15,6 @@ import {
     Output,
     StaticProvider,
     ViewChild,
-    inject,
 } from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {ErrorStateMatcher, MatRipple, MatRippleModule} from '@angular/material/core';

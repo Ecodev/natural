@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output, inject} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnChanges, Output} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalSearchFacets} from '../types/facet';
 import {GroupSelections, NaturalSearchSelections} from '../types/values';

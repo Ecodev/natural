@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, inject} from '@angular/core';
+import {Directive, ElementRef, inject, Input} from '@angular/core';
 
 export function densities(src: string, forImageSet: boolean): string {
     const match = /^(.*\/)(\d+)$/.exec(src);

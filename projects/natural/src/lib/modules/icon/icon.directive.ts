@@ -1,4 +1,4 @@
-import {Directive, HostBinding, InjectionToken, Input, inject} from '@angular/core';
+import {Directive, HostBinding, inject, InjectionToken, Input} from '@angular/core';
 import {MatIcon, MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 

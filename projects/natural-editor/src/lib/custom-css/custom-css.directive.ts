@@ -1,4 +1,4 @@
-import {Directive, HostBinding, Input, OnDestroy, inject} from '@angular/core';
+import {Directive, HostBinding, inject, Input, OnDestroy} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
 /**

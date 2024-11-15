@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnDestroy, OnInit, ViewChild, inject} from '@angular/core';
+import {Component, HostBinding, inject, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatDrawer, MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import {NaturalSidenavService} from '../sidenav.service';
 import {CommonModule} from '@angular/common';

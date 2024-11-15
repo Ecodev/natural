@@ -1,17 +1,17 @@
 import {AnimationEvent} from '@angular/animations';
 import {ConfigurableFocusTrapFactory, FocusTrap} from '@angular/cdk/a11y';
-import {BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule} from '@angular/cdk/portal';
+import {BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalModule, TemplatePortal} from '@angular/cdk/portal';
 import {
     Component,
     ComponentRef,
     ElementRef,
     EmbeddedViewRef,
+    inject,
     InjectionToken,
     OnDestroy,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    inject,
 } from '@angular/core';
 import {Subject} from 'rxjs';
 import {naturalDropdownAnimations} from './dropdown-container-animations';

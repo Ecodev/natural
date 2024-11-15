@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NaturalQueryVariablesManager} from '../../../classes/query-variable-manager';
-import {UntypedModelService, Literal} from '../../../types/types';
+import {Literal, UntypedModelService} from '../../../types/types';
 import {NaturalHierarchicConfiguration} from '../../hierarchic-selector/classes/hierarchic-configuration';
 import {OrganizedModelSelection} from '../../hierarchic-selector/hierarchic-selector/hierarchic-selector.service';
 import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';

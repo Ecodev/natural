@@ -1,9 +1,9 @@
 import {TestBed} from '@angular/core/testing';
 import {
     memorySessionStorageProvider,
+    NATURAL_PERSISTENCE_VALIDATOR,
     NaturalPersistenceService,
     NaturalStorage,
-    NATURAL_PERSISTENCE_VALIDATOR,
     SESSION_STORAGE,
 } from '@ecodev/natural';
 import {ActivatedRoute} from '@angular/router';

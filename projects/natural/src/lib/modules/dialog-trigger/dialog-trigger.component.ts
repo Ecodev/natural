@@ -1,5 +1,5 @@
 import {ComponentType} from '@angular/cdk/portal';
-import {Component, OnDestroy, inject} from '@angular/core';
+import {Component, inject, OnDestroy} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 

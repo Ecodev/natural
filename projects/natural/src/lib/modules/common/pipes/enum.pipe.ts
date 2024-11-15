@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform, inject} from '@angular/core';
+import {inject, Pipe, PipeTransform} from '@angular/core';
 import {NaturalEnumService} from '../../../services/enum.service';
 import {Observable} from 'rxjs';
 

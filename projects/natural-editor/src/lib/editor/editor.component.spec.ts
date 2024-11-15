@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalEditorComponent} from './editor.component';
-import {Component, InjectionToken, inject} from '@angular/core';
+import {Component, inject, InjectionToken} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {ImageUploader} from '../utils/image';
