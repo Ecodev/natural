@@ -217,11 +217,19 @@
     </div>
 
     <div>
+        <label
+            >Component height: <input type="range" [(ngModel)]="height" min="0" max="1000" style="width: 50%" />
+            {{ height }}px</label
+        >
+
         <natural-file
+            [height]="height"
             (modelChange)="modelChange($event)"
             [model]="model"
             [uploader]="uploadAndLink.bind(this)"
             action="upload"
         />
+
+        <div style="height: 500px"> </div>
     </div>
 </div>

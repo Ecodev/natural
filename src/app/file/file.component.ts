@@ -66,6 +66,7 @@ export class FileComponent {
     private readonly uploadService = inject(NaturalFileService);
     private readonly fileService = inject(FileService);
 
+    public height = 250;
     public disabled = false;
     public fileOver: boolean | null = null;
     public fileOverJpg: boolean | null = null;

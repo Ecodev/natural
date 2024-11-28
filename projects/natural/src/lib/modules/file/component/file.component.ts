@@ -1,8 +1,9 @@
 import {
     Component,
+    computed,
     EventEmitter,
-    HostBinding,
     inject,
+    input,
     Input,
     OnChanges,
     OnInit,
@@ -37,13 +38,19 @@ import {NaturalBackgroundDensityDirective} from '../../common/directives/backgro
         NaturalCapitalizePipe,
         NaturalBackgroundDensityDirective,
     ],
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        '[style.height.px]': 'height()',
+    },
 })
 export class NaturalFileComponent implements OnInit, OnChanges {
     private readonly naturalFileService = inject(NaturalFileService);
     private readonly alertService = inject(NaturalAlertService);
     private readonly document = inject(DOCUMENT);
 
-    @HostBinding('style.height.px') @Input() public height = 250;
+    public height = input(250);
+    public readonly iconHeight = computed(() => Math.min(this.height() * 0.66, 120));
+    public readonly fontSize = computed(() => Math.min(this.height() * 0.3, 36));
 
     @Input() public action: 'upload' | 'download' | null = null;
 
@@ -155,7 +162,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
             }
 
             const loc = window.location;
-            const height = this.height ? '/' + this.height : '';
+            const height = this.height() ? '/' + this.height() : '';
 
             // create image url without port to stay compatible with dev mode
             const image = loc.protocol + '//' + loc.hostname + '/api/image/' + this.model.id + height;

@@ -14,18 +14,18 @@
     target="_blank"
 >
     @if (filePreview) {
-        <div class="file-preview">
-            <mat-icon [size]="height * 0.33" naturalIcon="attachment" />
+        <div class="file-preview" [style.font-size.px]="fontSize()">
+            <mat-icon [size]="iconHeight()" naturalIcon="attachment" />
             {{ filePreview | uppercase }}
         </div>
     }
 
-    <div class="action-overlay">
+    <div class="action-overlay" [style.font-size.px]="fontSize()">
         @if (action === 'upload') {
-            <mat-icon [size]="height * 0.66" naturalIcon="cloud_upload" />
+            <mat-icon [size]="iconHeight()" naturalIcon="cloud_upload" />
         }
         @if (action === 'download') {
-            <mat-icon [size]="height * 0.66" naturalIcon="get_app" />
+            <mat-icon [size]="iconHeight()" naturalIcon="get_app" />
         }
         {{ action | capitalize }}
     </div>
