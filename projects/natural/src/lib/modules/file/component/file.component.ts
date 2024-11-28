@@ -137,7 +137,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
             return;
         }
 
-        if (this.model.file?.type.includes('image/')) {
+        if (this.model.file?.type.startsWith('image/')) {
             // Model from upload (before saving)
             this.getBase64(this.model.file).subscribe(result => {
                 if (this.model?.file?.type) {
