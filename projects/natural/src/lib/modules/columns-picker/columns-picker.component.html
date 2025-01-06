@@ -6,10 +6,10 @@
         <mat-menu #mobileMenu="matMenu">
             <ng-template matMenuContent>
                 @for (button of buttons; track button) {
-                    @if (button.href) {
+                    @if (defaultTrue(button.show) && button.href) {
                         <a
                             mat-menu-item
-                            [href]="defaultTrue(button.show) && button.href"
+                            [href]="button.href"
                             (click)="button.click?.(button, $event)"
                             [disabled]="button.disabled"
                             [ngClass]="needMargin(button)"
@@ -69,10 +69,10 @@
         </mat-menu>
     } @else {
         @for (button of buttons; track button) {
-            @if (button.href) {
+            @if (defaultTrue(button.show) && button.href) {
                 <a
                     mat-icon-button
-                    [href]="defaultTrue(button.show) && button.href"
+                    [href]="button.href"
                     (click)="button.click?.(button, $event)"
                     [disabled]="button.disabled"
                     [color]="color(button)"
