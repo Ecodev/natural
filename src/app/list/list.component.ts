@@ -67,7 +67,7 @@ export class ListComponent extends NaturalAbstractList<ItemService> implements O
             click: console.log,
         },
         {
-            label: 'Button with hrasdasdef',
+            label: 'Button with href',
             icon: 'diamond',
             href: '/',
         },
