@@ -35,7 +35,7 @@
                 padding-left: 5px;
             }
 
-            &[natural-align-right] {
+            &.natural-align-right {
                 text-align: right;
 
                 .mat-sort-header-container {
@@ -43,7 +43,7 @@
                 }
             }
 
-            &[natural-align-center] {
+            &.natural-align-center {
                 text-align: center;
 
                 .mat-sort-header-container {
@@ -66,31 +66,31 @@
             font-weight: bold;
         }
 
-        [natural-1em-column] {
+        .natural-1em-column {
             width: 1em;
         }
 
-        [natural-2em-column] {
+        .natural-2em-column {
             width: 2em;
         }
 
-        [natural-3em-column] {
+        .natural-3em-column {
             width: 3em;
         }
 
-        [natural-4em-column] {
+        .natural-4em-column {
             width: 4em;
         }
 
-        [natural-5em-column] {
+        .natural-5em-column {
             width: 5em;
         }
 
-        [natural-6em-column] {
+        .natural-6em-column {
             width: 6em;
         }
 
-        [natural-7em-column] {
+        .natural-7em-column {
             width: 7em;
         }
     }

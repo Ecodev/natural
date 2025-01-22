@@ -29,6 +29,7 @@ import {SearchComponent} from './search/search.component';
 import {SelectEnumComponent} from './select-enum/select-enum.component';
 import {SelectHierarchicComponent} from './select-hierarchic/select-hierarchic.component';
 import {SelectComponent} from './select/select.component';
+import {TableStyleComponent} from './table-style/table-style.component';
 
 export const routes: Routes = [
     {
@@ -110,6 +111,13 @@ export const routes: Routes = [
                 component: EditableListComponent,
                 data: {
                     seo: {title: 'Listing of editable items'} satisfies NaturalSeo,
+                },
+            },
+            {
+                path: 'table-style',
+                component: TableStyleComponent,
+                data: {
+                    seo: {title: 'CSS style for MatTable'} satisfies NaturalSeo,
                 },
             },
             {

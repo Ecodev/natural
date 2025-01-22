@@ -27,7 +27,7 @@
                     <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
 
                     <ng-container matColumnDef="select">
-                        <th *matHeaderCellDef mat-header-cell natural-3em-column>
+                        <th *matHeaderCellDef mat-header-cell class="natural-3em-column">
                             <mat-checkbox
                                 (change)="$event ? masterToggle() : null"
                                 [checked]="selection.hasValue() && isAllSelected()"
@@ -44,7 +44,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="id">
-                        <th *matHeaderCellDef mat-header-cell natural-3em-column>id</th>
+                        <th *matHeaderCellDef mat-header-cell class="natural-3em-column">id</th>
                         <td *matCellDef="let element" mat-cell>{{ element.id }}</td>
                     </ng-container>
 
@@ -56,18 +56,26 @@
                     </ng-container>
 
                     <ng-container matColumnDef="description">
-                        <th *matHeaderCellDef mat-header-cell natural-align-right mat-sort-header>description</th>
-                        <td *matCellDef="let element" mat-cell natural-align-right>{{ element.description }}</td>
+                        <th *matHeaderCellDef mat-header-cell class="natural-align-right" mat-sort-header
+                            >description</th
+                        >
+                        <td *matCellDef="let element" mat-cell class="natural-align-right">{{
+                            element.description
+                        }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="hidden">
-                        <th *matHeaderCellDef mat-header-cell natural-align-right mat-sort-header>hidden</th>
-                        <td *matCellDef="let element" mat-cell natural-align-right>visible but hidden in dropdown</td>
+                        <th *matHeaderCellDef mat-header-cell class="natural-align-right" mat-sort-header>hidden</th>
+                        <td *matCellDef="let element" mat-cell class="natural-align-right"
+                            >visible but hidden in dropdown</td
+                        >
                     </ng-container>
 
                     <ng-container matColumnDef="not-in-picker">
-                        <th *matHeaderCellDef mat-header-cell natural-align-right mat-sort-header>Not in picker</th>
-                        <td *matCellDef="let element" mat-cell natural-align-right
+                        <th *matHeaderCellDef mat-header-cell class="natural-align-right" mat-sort-header
+                            >Not in picker</th
+                        >
+                        <td *matCellDef="let element" mat-cell class="natural-align-right"
                             >should never be visible, even if solicited by url
                         </td>
                     </ng-container>
