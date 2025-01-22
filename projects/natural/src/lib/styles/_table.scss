@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
+
 @mixin natural-table($theme) {
     $primary: map.get($theme, primary);
     $accent: map.get($theme, accent);
@@ -37,10 +38,6 @@
 
             &.natural-align-right {
                 text-align: right;
-
-                .mat-sort-header-container {
-                    justify-content: flex-end;
-                }
             }
 
             &.natural-align-center {

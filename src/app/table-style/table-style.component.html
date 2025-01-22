@@ -2,6 +2,12 @@
 
 @for (klass of classes1; track klass) {
     <h2 class="mat-headline-5">{{ klass }}</h2>
+    @if (klass === 'natural-align-right') {
+        <p class="mat-body"
+            >When used with <code>mat-sort-header</code>, it should be combined with
+            <code>arrowPosition="before"</code></p
+        >
+    }
 
     <table mat-table matSort [dataSource]="dataSource">
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
@@ -22,7 +28,13 @@
         </ng-container>
 
         <ng-container matColumnDef="sortable_value">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header [class]="klass">
+            <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                [arrowPosition]="klass === 'natural-align-right' ? 'before' : 'after'"
+                [class]="klass"
+            >
                 <span>A</span><span>B</span><span>C</span></th
             >
             <td mat-cell *matCellDef="let element" [class]="klass">

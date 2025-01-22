@@ -72,7 +72,12 @@
                     </ng-container>
 
                     <ng-container matColumnDef="description">
-                        <th *matHeaderCellDef mat-header-cell class="natural-align-right" mat-sort-header
+                        <th
+                            *matHeaderCellDef
+                            mat-header-cell
+                            class="natural-align-right"
+                            arrowPosition="before"
+                            mat-sort-header
                             >description</th
                         >
                         <td *matCellDef="let element" mat-cell class="natural-align-right">{{
