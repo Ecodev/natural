@@ -136,9 +136,9 @@
 <mat-menu #columnMenu="matMenu">
     <ng-template matMenuContent>
         @for (column of displayedColumns; track column) {
-            <div (click)="$event.stopPropagation(); column.checked = !column.checked; updateColumns()" mat-menu-item>
+            <div (click)="menuItemClicked($event, column)" mat-menu-item>
                 <mat-checkbox
-                    (click)="$event.stopPropagation()"
+                    (click)="checkboxClicked($event, column)"
                     (change)="updateColumns()"
                     [(ngModel)]="column.checked"
                     >{{ column.label }}</mat-checkbox

@@ -136,4 +136,22 @@ export class NaturalColumnsPickerComponent implements OnChanges {
 
         return visibleButtons > 0;
     }
+
+    protected menuItemClicked($event: MouseEvent, column: Required<AvailableColumn>): void {
+        $event.stopPropagation(); // Prevent closing menu
+
+        // Change checked value if we clicked anywhere inside the menuItem which is not the mat-checkbox
+        column.checked = !column.checked;
+        this.updateColumns();
+    }
+
+    protected checkboxClicked($event: MouseEvent, column: Required<AvailableColumn>): void {
+        $event.stopPropagation(); // Prevent bubbling to `menuItemClicked()`, and prevent closing menu
+
+        // Also change checked value if we clicked the small area which is inside the mat-checkbox but outside the label
+        if ($event.target instanceof HTMLDivElement) {
+            column.checked = !column.checked;
+            this.updateColumns();
+        }
+    }
 }
