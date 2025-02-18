@@ -24,7 +24,7 @@
         "@angular/material": "^18.1.0",
         "@angular/platform-browser": "^18.1.0",
         "@angular/router": "^18.1.0",
-        "apollo-angular": "^7.0.0",
+        "apollo-angular": "^10.0.0",
         "lodash-es": "^4.17.21",
         "rxjs": "^7.8.1"
     }
