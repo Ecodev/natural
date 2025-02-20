@@ -8,6 +8,7 @@ import {MatInputModule} from '@angular/material/input';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {NaturalSelectComponent} from '../../../projects/natural/src/lib/modules/select/select/select.component';
 import {AbstractSelect} from '../AbstractSelect';
+import {DebugControlComponent} from '../debug-form.component';
 
 @Component({
     selector: 'app-select',
@@ -24,6 +25,7 @@ import {AbstractSelect} from '../AbstractSelect';
         MatIconModule,
         NaturalIconDirective,
         CommonModule,
+        DebugControlComponent,
     ],
 })
 export class SelectComponent extends AbstractSelect {}

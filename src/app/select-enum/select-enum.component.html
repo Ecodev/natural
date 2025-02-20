@@ -48,11 +48,7 @@
     <div class="nat-horizontal nat-gap-10">
         <div>
             <natural-select-enum enumName="FooEnum" [formControl]="formControl" placeholder="FormControl (update)" />
-            <pre class="debug">
-touched: {{ formControl.touched | json }}dirty: {{ formControl.dirty | json }}status: {{
-                    formControl.status | json
-                }}errors: {{ formControl.errors | json }}value: {{ formControl.value | json }}
-            </pre>
+            <app-debug-control [control]="formControl" />
         </div>
 
         <div>
@@ -61,11 +57,7 @@ touched: {{ formControl.touched | json }}dirty: {{ formControl.dirty | json }}st
                 [formControl]="formControlReplace"
                 placeholder="FormControl (replace)"
             />
-            <pre class="debug">
-touched: {{ formControlReplace.touched | json }}dirty: {{ formControlReplace.dirty | json }}status: {{
-                    formControlReplace.status | json
-                }}errors: {{ formControlReplace.errors | json }}value: {{ formControlReplace.value | json }}
-            </pre>
+            <app-debug-control [control]="formControlReplace" />
         </div>
     </div>
 
@@ -79,11 +71,7 @@ touched: {{ formControlReplace.touched | json }}dirty: {{ formControlReplace.dir
                     placeholder="FormGroup (update)"
                 />
             </div>
-            <pre class="debug">
-touched: {{ formGroup.touched | json }}dirty: {{ formGroup.dirty | json }}status: {{ formGroup.status | json }}value: {{
-                    formGroup.value | json
-                }}
-            </pre>
+            <app-debug-control [control]="formGroup" />
         </div>
         <div>
             <div [formGroup]="formGroupReplace" class="form-group">
@@ -94,11 +82,7 @@ touched: {{ formGroup.touched | json }}dirty: {{ formGroup.dirty | json }}status
                 />
             </div>
 
-            <pre class="debug">
-touched: {{ formGroupReplace.touched | json }}dirty: {{ formGroupReplace.dirty | json }}status: {{
-                    formGroupReplace.status | json
-                }}value: {{ formGroupReplace.value | json }}
-            </pre>
+            <app-debug-control [control]="formGroupReplace" />
         </div>
     </div>
 
@@ -116,11 +100,5 @@ touched: {{ formGroupReplace.touched | json }}dirty: {{ formGroupReplace.dirty |
         [formControl]="formControlMultiple"
         [multiple]="true"
     />
-
-    <pre class="debug">
-touched: {{ formControlMultiple.touched | json }}dirty: {{ formControlMultiple.dirty | json }}status: {{
-            formControlMultiple.status | json
-        }}errors: {{ formControlMultiple.errors | json }}value: {{ formControlMultiple.value | json }}
-</pre
-    >
+    <app-debug-control [control]="formControlMultiple" />
 </div>

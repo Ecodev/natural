@@ -8,6 +8,7 @@ import {NaturalHierarchicConfiguration} from '@ecodev/natural';
 import {NaturalSelectHierarchicComponent} from '../../../projects/natural/src/lib/modules/select/select-hierarchic/select-hierarchic.component';
 import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 import {AbstractSelect} from '../AbstractSelect';
+import {DebugControlComponent} from '../debug-form.component';
 
 @Component({
     templateUrl: './select-hierarchic.component.html',
@@ -21,6 +22,7 @@ import {AbstractSelect} from '../AbstractSelect';
         MatFormFieldModule,
         MatInputModule,
         CommonModule,
+        DebugControlComponent,
     ],
 })
 export class SelectHierarchicComponent extends AbstractSelect {

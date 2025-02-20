@@ -52,11 +52,7 @@
             />
             <button mat-raised-button (click)="updateValidatorRequired(formControl)">required</button>
             <button mat-raised-button (click)="updateValidatorOptional(formControl)">optional</button>
-            <pre class="debug">
-touched: {{ formControl.touched | json }}dirty: {{ formControl.dirty | json }}status: {{
-                    formControl.status | json
-                }}errors: {{ formControl.errors | json }}value: {{ formControl.value | json }}
-            </pre>
+            <app-debug-control [control]="formControl" />
         </div>
 
         <div>
@@ -65,11 +61,7 @@ touched: {{ formControl.touched | json }}dirty: {{ formControl.dirty | json }}st
                 [formControl]="formControlReplace"
                 placeholder="FormControl (replace)"
             />
-            <pre class="debug">
-touched: {{ formControlReplace.touched | json }}dirty: {{ formControlReplace.dirty | json }}status: {{
-                    formControlReplace.status | json
-                }}errors: {{ formControlReplace.errors | json }}value: {{ formControlReplace.value | json }}
-            </pre>
+            <app-debug-control [control]="formControlReplace" />
         </div>
     </div>
 
@@ -85,22 +77,13 @@ touched: {{ formControlReplace.touched | json }}dirty: {{ formControlReplace.dir
             <button mat-raised-button (click)="updateValidatorOptional(formGroup.get('amazingField')!)"
                 >optional
             </button>
-            <pre class="debug">
-touched: {{ formGroup.touched | json }}dirty: {{ formGroup.dirty | json }}status: {{ formGroup.status | json }}value: {{
-                    formGroup.value | json
-                }}
-            </pre>
+            <app-debug-control [control]="formGroup" />
         </div>
         <div>
             <div [formGroup]="formGroupReplace" class="form-group">
                 <natural-select [service]="service" formControlName="amazingField" placeholder="FormGroup (replace)" />
             </div>
-
-            <pre class="debug">
-touched: {{ formGroupReplace.touched | json }}dirty: {{ formGroupReplace.dirty | json }}status: {{
-                    formGroupReplace.status | json
-                }}value: {{ formGroupReplace.value | json }}
-            </pre>
+            <app-debug-control [control]="formGroupReplace" />
         </div>
     </div>
 

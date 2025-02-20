@@ -7,6 +7,7 @@ import {Observable, of} from 'rxjs';
 import {NaturalSelectEnumComponent} from '../../../projects/natural/src/lib/modules/select/select-enum/select-enum.component';
 import {AnyEnumService} from '../../../projects/natural/src/lib/testing/any-enum.service';
 import {AbstractSelect} from '../AbstractSelect';
+import {DebugControlComponent} from '../debug-form.component';
 
 @Component({
     selector: 'app-select',
@@ -19,7 +20,14 @@ import {AbstractSelect} from '../AbstractSelect';
         },
     ],
     standalone: true,
-    imports: [MatButtonModule, NaturalSelectEnumComponent, FormsModule, ReactiveFormsModule, CommonModule],
+    imports: [
+        MatButtonModule,
+        NaturalSelectEnumComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        DebugControlComponent,
+    ],
 })
 export class SelectEnumComponent extends AbstractSelect {
     public readonly formControlMultiple = new FormControl();
