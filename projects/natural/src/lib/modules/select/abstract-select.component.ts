@@ -42,6 +42,14 @@ export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlV
     @Input() public hint: string | null = null;
 
     /**
+     * If given an error message, it will be displayed in a `<mat-error>`, but only if the control
+     * is actually in an error state via one of its validators.
+     *
+     * This is not needed for the special case of the required validator, because the message is hardcoded.
+     */
+    @Input() public error: string | null = null;
+
+    /**
      * If the field is required
      */
     @Input()

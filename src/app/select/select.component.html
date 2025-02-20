@@ -63,6 +63,16 @@
             />
             <app-debug-control [control]="formControlReplace" />
         </div>
+
+        <div>
+            <natural-select
+                [service]="service"
+                [formControl]="alwaysInvalidFormControl"
+                placeholder="Always invalid"
+                error="Custom error message"
+            />
+            <app-debug-control [control]="alwaysInvalidFormControl" />
+        </div>
     </div>
 
     <h2 class="mat-h2">FormGroup</h2>
