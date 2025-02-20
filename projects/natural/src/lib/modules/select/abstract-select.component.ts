@@ -1,7 +1,6 @@
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Directive, DoCheck, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {
-    AbstractControl,
     ControlValueAccessor,
     FormControl,
     FormControlDirective,
@@ -228,13 +227,13 @@ export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlV
      */
     private applyRequired(): void {
         // Required status on parent validator
-        const outerRequiredStatus = this?.ngControl?.control?.validator?.({} as AbstractControl)?.required;
+        const outerRequiredStatus = this?.ngControl?.control?.hasValidator(Validators.required);
 
         // Wanted required status, giving priority to template
         const newRequiredStatus = typeof this._required !== 'undefined' ? this._required : outerRequiredStatus;
 
         // Actual internal validation status
-        const currentRequiredStatus = this.internalCtrl?.validator?.({} as AbstractControl)?.required;
+        const currentRequiredStatus = this.internalCtrl.hasValidator(Validators.required);
 
         // If wanted status is similar to actual status, stop everything
         if (currentRequiredStatus === newRequiredStatus) {
