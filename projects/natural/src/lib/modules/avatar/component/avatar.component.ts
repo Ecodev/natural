@@ -163,13 +163,13 @@ export class NaturalAvatarComponent implements OnChanges {
 
     private buildTextAvatar(avatarSource: Source): void {
         this.clearAvatar();
-        this.avatarText = avatarSource.getAvatar(+this.textMaximumLength);
+        avatarSource.getAvatar(+this.textMaximumLength).then(avatarText => (this.avatarText = avatarText));
         this.avatarStyle = this.getTextualStyle(avatarSource.getValue());
     }
 
     private buildImageAvatar(avatarSource: Source): void {
         this.clearAvatar();
-        this.avatarSrc = avatarSource.getAvatar(+this.size);
+        avatarSource.getAvatar(+this.size).then(avatarSrc => (this.avatarSrc = avatarSrc));
         this.avatarStyle = this.getImageStyle();
     }
 

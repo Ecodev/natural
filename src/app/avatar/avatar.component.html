@@ -4,10 +4,26 @@
     <h2 class="mat-h2">Avatar from different sources</h2>
 
     <div class="nat-horizontal nat-gap-10">
-        <natural-avatar gravatar="webmaster@ecodev.ch" />
-        <natural-avatar gravatar="5fa7e880db8ff6741e0268ff52c22057" />
-        <natural-avatar image="assets/logo.svg" />
-        <natural-avatar initials="John Doe" />
+        <div class="nat-vertical">
+            Email
+            <natural-avatar gravatar="webmaster@ecodev.ch" />
+        </div>
+        <div class="nat-vertical">
+            Md5
+            <natural-avatar gravatar="5fa7e880db8ff6741e0268ff52c22057" />
+        </div>
+        <div class="nat-vertical">
+            Sha256
+            <natural-avatar gravatar="88122e16db0e26c4a3ddffd0844d852394649027a76524bd9f7baebf34689b96" />
+        </div>
+        <div class="nat-vertical">
+            Image
+            <natural-avatar image="assets/logo.svg" />
+        </div>
+        <div class="nat-vertical">
+            Initials
+            <natural-avatar initials="John Doe" />
+        </div>
     </div>
 
     <h2 class="mat-h2">Avatar with fallback</h2>

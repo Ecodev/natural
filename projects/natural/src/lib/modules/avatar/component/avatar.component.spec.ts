@@ -5,6 +5,10 @@ import {By} from '@angular/platform-browser';
 import {SimpleChange} from '@angular/core';
 import {Gravatar} from '../sources/gravatar';
 
+function delay(milliseconds: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
 describe('NaturalAvatarComponent', () => {
     let component: NaturalAvatarComponent;
     let fixture: ComponentFixture<NaturalAvatarComponent>;
@@ -21,7 +25,7 @@ describe('NaturalAvatarComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should display the initials of the given value', () => {
+    it('should display the initials of the given value', async () => {
         component.initials = 'John Doe';
         component.ngOnChanges({
             initials: new SimpleChange(null, component.initials, true),
@@ -29,6 +33,11 @@ describe('NaturalAvatarComponent', () => {
 
         fixture.detectChanges();
 
+        // Time for the template to react to changes
+        await delay(5);
+        fixture.detectChanges();
+
+        // const avatarTextEl = fixture.debugElement.query(By.css('.avatar-container > div'));
         const avatarTextEl = fixture.debugElement.query(By.css('.avatar-container > div'));
         expect(avatarTextEl.nativeElement.textContent.trim()).toBe('JD');
     });
@@ -51,7 +60,7 @@ describe('NaturalAvatarComponent', () => {
         expect(avatarTextEl.nativeElement.innerHTML).toBe('<!--container--><!--container-->');
     });
 
-    it('should not try again failed sources', () => {
+    it('should not try again failed sources', async () => {
         // Pretend that this avatar already failed before
         avatarService.markSourceAsFailed(new Gravatar('invalid@example.com'));
 
@@ -62,6 +71,10 @@ describe('NaturalAvatarComponent', () => {
             initials: new SimpleChange(null, component.initials, true),
         });
 
+        fixture.detectChanges();
+
+        // Time for the template to react to changes
+        await delay(5);
         fixture.detectChanges();
 
         const avatarTextEl = fixture.debugElement.query(By.css('.avatar-container > div'));

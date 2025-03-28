@@ -1,5 +1,5 @@
 import {Source} from './source';
-import {md5} from '../service/md5';
+import {sha256} from '../service/sha256';
 
 function isRetina(): boolean {
     // We cannot reasonably inject `DOCUMENT` here, but we are extra
@@ -19,12 +19,12 @@ function isRetina(): boolean {
 }
 
 /**
- * Return URL to Gravatar image from either an email or a MD5
+ * Return URL to Gravatar image from either an email or a MD5 or SHA-256 of an email
  */
 export class Gravatar extends Source {
-    public getAvatar(size: number): string {
+    public async getAvatar(size: number): Promise<string> {
         const value = this.getValue();
-        const hash = /^[a-f0-9]{32}$/.exec(value) ? value : md5(value.trim().toLowerCase()).toString();
+        const hash = /^([a-f0-9]{32}|[a-f0-9]{64})$/.exec(value) ? value : await sha256(value.trim().toLowerCase());
 
         const avatarSize = isRetina() ? size * 2 : size;
         return `https://secure.gravatar.com/avatar/${hash}?s=${avatarSize}&d=404`;

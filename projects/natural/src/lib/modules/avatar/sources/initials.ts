@@ -36,8 +36,8 @@ function getInitials(name: string, size: number): string {
  * Return the initials of the given value as avatar
  */
 export class Initials extends Source {
-    public getAvatar(size: number): string {
-        return getInitials(this.getValue(), size);
+    public getAvatar(size: number): Promise<string> {
+        return Promise.resolve(getInitials(this.getValue(), size));
     }
 
     public isTextual(): boolean {

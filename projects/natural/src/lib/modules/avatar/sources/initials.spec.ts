@@ -32,9 +32,9 @@ describe('Initials', () => {
     ];
 
     cases.forEach(([input, expected]) => {
-        it(`should return initials for '${input}'`, () => {
+        it(`should return initials for '${input}'`, async () => {
             const initials = new Initials(input);
-            expect(initials.getAvatar(2)).toBe(expected);
+            expect(await initials.getAvatar(2)).toBe(expected);
         });
     });
 });

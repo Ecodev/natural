@@ -4,8 +4,8 @@ import {Source} from './source';
  * Return custom image URL as avatar
  */
 export class Image extends Source {
-    public getAvatar(): string {
-        return this.getValue();
+    public getAvatar(): Promise<string> {
+        return Promise.resolve(this.getValue());
     }
 
     public isTextual(): boolean {

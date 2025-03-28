@@ -21,7 +21,7 @@ export abstract class Source {
      * Gets the avatar that usually is a URL, but,
      * for example it can also be a string of initials from the name.
      */
-    public abstract getAvatar(size: number): string;
+    public abstract getAvatar(size: number): Promise<string>;
 
     /**
      * Whether the avatar is purely textual or an URL for an image
