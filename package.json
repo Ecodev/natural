@@ -37,7 +37,6 @@
         "@ecodev/natural-layout": "^2.0.2",
         "@graphql-tools/mock": "^9.0.3",
         "apollo-angular": "^10.0.0",
-        "crypto-es": "^2.1.0",
         "extract-files": "^13.0.0",
         "graphql": "^16.9.0",
         "lodash-es": "^4.17.21",

@@ -1,5 +1,5 @@
 import {Source} from './source';
-import {sha256} from '../service/sha256';
+import {sha256} from '../../../classes/crypto';
 
 function isRetina(): boolean {
     // We cannot reasonably inject `DOCUMENT` here, but we are extra

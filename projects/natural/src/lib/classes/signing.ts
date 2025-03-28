@@ -1,5 +1,6 @@
 import {HttpInterceptorFn, HttpRequest} from '@angular/common/http';
-import {HmacSHA256} from 'crypto-es/lib/sha256';
+import {hmacSha256} from './crypto';
+import {from, switchMap} from 'rxjs';
 
 function getOperations(req: HttpRequest<unknown>): string {
     if (req.body instanceof FormData) {
@@ -30,13 +31,16 @@ export function graphqlQuerySigner(key: string): HttpInterceptorFn {
         const operations = getOperations(req);
         const timestamp = Math.round(Date.now() / 1000);
         const payload = timestamp + operations;
-        const hash = HmacSHA256(payload, key).toString();
-        const header = `v1.${timestamp}.${hash}`;
 
-        const signedRequest = req.clone({
-            headers: req.headers.set('X-Signature', header),
-        });
+        return from(hmacSha256(key, payload)).pipe(
+            switchMap(hash => {
+                const header = `v1.${timestamp}.${hash}`;
+                const signedRequest = req.clone({
+                    headers: req.headers.set('X-Signature', header),
+                });
 
-        return next(signedRequest);
+                return next(signedRequest);
+            }),
+        );
     };
 }
