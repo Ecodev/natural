@@ -211,7 +211,9 @@ export class NaturalAbstractList<
             )
             .subscribe(() => {
                 isPopState = false; // reset flag
-                this.naturalSearchSelections = fromUrl(this.persistenceService.getFromUrl('ns', this.route));
+                const selections = fromUrl(this.persistenceService.getFromUrl('ns', this.route));
+                this.naturalSearchSelections = selections;
+                this.search(selections);
             });
     }
 
