@@ -132,5 +132,13 @@
             />
             <pre class="debug">freeText: {{ freeText }}</pre>
         </div>
+
+        <div style="width: 250px">
+            <natural-select
+                [service]="service"
+                hint="My long hint text goes here and keep getting longer and will wrap"
+            />
+            <div>This text is pushed down by mat-hint</div>
+        </div>
     </div>
 </div>

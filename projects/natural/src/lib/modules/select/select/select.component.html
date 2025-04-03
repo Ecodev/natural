@@ -23,7 +23,7 @@
 </ng-template>
 
 <!-- Input for autocomplete -->
-<mat-form-field>
+<mat-form-field [subscriptSizing]="subscriptSizing()">
     <mat-label>{{ placeholder }}</mat-label>
 
     <input
@@ -41,8 +41,8 @@
         [errorStateMatcher]="matcher"
     />
 
-    @if (hint) {
-        <mat-hint>{{ hint }}</mat-hint>
+    @if (hint()) {
+        <mat-hint>{{ hint() }}</mat-hint>
     }
 
     <!-- Meta data -->

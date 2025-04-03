@@ -111,4 +111,12 @@
         [multiple]="true"
     />
     <app-debug-control [control]="formControlMultiple" />
+
+    <div style="width: 250px">
+        <natural-select-enum
+            enumName="myEnum"
+            hint="My long hint text goes here and keep getting longer and will wrap"
+        />
+        <div>This text is pushed down by mat-hint</div>
+    </div>
 </div>

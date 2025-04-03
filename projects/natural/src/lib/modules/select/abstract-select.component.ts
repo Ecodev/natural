@@ -1,5 +1,5 @@
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {Directive, DoCheck, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
+import {computed, Directive, DoCheck, EventEmitter, inject, input, Input, OnInit, Output} from '@angular/core';
 import {
     ControlValueAccessor,
     FormControl,
@@ -36,9 +36,12 @@ export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlV
     @Input() public placeholder?: string;
 
     /**
-     * Mat-hint
+     * Mat-hint, if given, and it is non-empty, then `subscriptSizing` will
+     * automatically be set to `dynamic` to allow for long, wrapping text.
      */
-    @Input() public hint: string | null = null;
+    public readonly hint = input<string | null>();
+
+    protected readonly subscriptSizing = computed(() => (this.hint() ? 'dynamic' : 'fixed'));
 
     /**
      * If given an error message, it will be displayed in a `<mat-error>`, but only if the control
