@@ -15,7 +15,6 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     selector: 'app-editable-list',
     templateUrl: './editable-list.component.html',
     styleUrl: './editable-list.component.scss',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

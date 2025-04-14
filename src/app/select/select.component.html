@@ -17,25 +17,25 @@
         <div>
             <!-- Never used in our projects (?), but could be usefull to pick value with (selectionChange) event only -->
             <natural-select
-                [service]="service"
                 placeholder="Without model (output only)"
+                [service]="service"
                 (selectionChange)="withoutModelOutput = $event"
             />
             <pre class="debug">value: {{ withoutModelOutput | json }}</pre>
         </div>
 
-        <natural-select [service]="service" [ngModel]="withoutModelOutput" placeholder="Input from previous output" />
+        <natural-select placeholder="Input from previous output" [service]="service" [ngModel]="withoutModelOutput" />
 
         <!-- Never used in our projects (?), but could be usefull to pick value with (selectionChange) event only -->
-        <natural-select [service]="service" [required]="required" placeholder="Without model, required" />
+        <natural-select placeholder="Without model, required" [service]="service" [required]="required" />
 
         <div>
             <natural-select
+                placeholder="With model, required"
                 [service]="service"
-                [(ngModel)]="myValue"
                 [required]="required"
                 [disabled]="disabled"
-                placeholder="With model, required"
+                [(ngModel)]="myValue"
             />
             <pre class="debug">value: {{ myValue | json }}</pre>
         </div>
@@ -46,9 +46,9 @@
         <div>
             <natural-select
                 id="test-select"
+                placeholder="FormControl (update)"
                 [service]="service"
                 [formControl]="formControl"
-                placeholder="FormControl (update)"
             />
             <button mat-raised-button (click)="updateValidatorRequired(formControl)">required</button>
             <button mat-raised-button (click)="updateValidatorOptional(formControl)">optional</button>
@@ -57,19 +57,19 @@
 
         <div>
             <natural-select
+                placeholder="FormControl (replace)"
                 [service]="service"
                 [formControl]="formControlReplace"
-                placeholder="FormControl (replace)"
             />
             <app-debug-control [control]="formControlReplace" />
         </div>
 
         <div>
             <natural-select
-                [service]="service"
-                [formControl]="alwaysInvalidFormControl"
                 placeholder="Always invalid"
                 error="Custom error message"
+                [service]="service"
+                [formControl]="alwaysInvalidFormControl"
             />
             <app-debug-control [control]="alwaysInvalidFormControl" />
         </div>
@@ -78,8 +78,8 @@
     <h2 class="mat-h2">FormGroup</h2>
     <div class="nat-horizontal nat-gap-10">
         <div>
-            <div [formGroup]="formGroup" class="form-group">
-                <natural-select [service]="service" formControlName="amazingField" placeholder="FormGroup (update)" />
+            <div class="form-group" [formGroup]="formGroup">
+                <natural-select formControlName="amazingField" placeholder="FormGroup (update)" [service]="service" />
             </div>
             <button mat-raised-button (click)="updateValidatorRequired(formGroup.get('amazingField')!)"
                 >required
@@ -90,8 +90,8 @@
             <app-debug-control [control]="formGroup" />
         </div>
         <div>
-            <div [formGroup]="formGroupReplace" class="form-group">
-                <natural-select [service]="service" formControlName="amazingField" placeholder="FormGroup (replace)" />
+            <div class="form-group" [formGroup]="formGroupReplace">
+                <natural-select formControlName="amazingField" placeholder="FormGroup (replace)" [service]="service" />
             </div>
             <app-debug-control [control]="formGroupReplace" />
         </div>
@@ -106,17 +106,17 @@
             <mat-hint>Basic input field to test alt+tab and focus on next field</mat-hint>
         </mat-form-field>
 
-        <natural-select [service]="service" navigateTo="/" placeholder="With navigateTo" />
+        <natural-select navigateTo="/" placeholder="With navigateTo" [service]="service" />
 
-        <natural-select [service]="service" [showIcon]="false" placeholder="Without icon" />
+        <natural-select placeholder="Without icon" [service]="service" [showIcon]="false" />
 
-        <natural-select [service]="service" icon="pets" placeholder="With custom icon" />
+        <natural-select icon="pets" placeholder="With custom icon" [service]="service" />
 
-        <natural-select [service]="service" clearLabel="Clear selected item" placeholder="With clear label" />
+        <natural-select clearLabel="Clear selected item" placeholder="With clear label" [service]="service" />
 
-        <natural-select [service]="errorService" placeholder="With service throwing error" />
+        <natural-select placeholder="With service throwing error" [service]="errorService" />
 
-        <natural-select [service]="service" placeholder="Custom item template">
+        <natural-select placeholder="Custom item template" [service]="service">
             <ng-template let-item="item">
                 <mat-icon naturalIcon="pets" />
                 <span>Hello {{ item.name }} !</span>
@@ -125,18 +125,18 @@
 
         <div>
             <natural-select
-                [service]="service"
-                [(ngModel)]="freeText"
-                [optionRequired]="false"
                 placeholder="Free text allowed"
+                [service]="service"
+                [optionRequired]="false"
+                [(ngModel)]="freeText"
             />
             <pre class="debug">freeText: {{ freeText }}</pre>
         </div>
 
         <div style="width: 250px">
             <natural-select
-                [service]="service"
                 hint="My long hint text goes here and keep getting longer and will wrap"
+                [service]="service"
             />
             <div>This text is pushed down by mat-hint</div>
         </div>

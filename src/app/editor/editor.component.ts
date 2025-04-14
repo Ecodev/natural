@@ -10,7 +10,6 @@ import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
     selector: 'app-editor',
     templateUrl: './editor.component.html',
     styleUrl: './editor.component.scss',
-    standalone: true,
     imports: [MatCheckboxModule, FormsModule, NaturalEditorComponent, NaturalCustomCssDirective],
 })
 export class EditorComponent {

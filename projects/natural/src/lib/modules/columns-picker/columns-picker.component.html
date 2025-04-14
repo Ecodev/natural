@@ -11,9 +11,9 @@
                             <a
                                 mat-menu-item
                                 [href]="button.href"
-                                (click)="button.click?.(button, $event)"
                                 [disabled]="button.disabled"
                                 [ngClass]="needMargin(button)"
+                                (click)="button.click?.(button, $event)"
                             >
                                 @if (useCheckbox(button)) {
                                     <mat-checkbox [checked]="button.checked" />
@@ -24,8 +24,8 @@
                             <button
                                 mat-menu-item
                                 [matMenuTriggerFor]="subMenu"
-                                (click)="button.click?.(button, $event)"
                                 [ngClass]="needMargin(button)"
+                                (click)="button.click?.(button, $event)"
                             >
                                 @if (useCheckbox(button)) {
                                     <mat-checkbox [checked]="button.checked" />
@@ -48,9 +48,9 @@
                         } @else {
                             <button
                                 mat-menu-item
-                                (click)="button.click?.(button, $event)"
                                 [disabled]="button.disabled"
                                 [ngClass]="needMargin(button)"
+                                (click)="button.click?.(button, $event)"
                             >
                                 @if (useCheckbox(button)) {
                                     <mat-checkbox [checked]="button.checked" />
@@ -62,7 +62,7 @@
                 }
 
                 @if (displayedColumns.length) {
-                    <button [matMenuTriggerFor]="columnMenu" mat-menu-item [ngClass]="needMargin(null)">
+                    <button mat-menu-item [matMenuTriggerFor]="columnMenu" [ngClass]="needMargin(null)">
                         <span i18n>Colonnes</span>
                     </button>
                 }
@@ -75,10 +75,10 @@
                     <a
                         mat-icon-button
                         [href]="button.href"
-                        (click)="button.click?.(button, $event)"
                         [disabled]="button.disabled"
                         [color]="color(button)"
                         [matTooltip]="button.label"
+                        (click)="button.click?.(button, $event)"
                     >
                         <mat-icon [naturalIcon]="button.icon" />
                     </a>
@@ -86,10 +86,10 @@
                     <button
                         mat-icon-button
                         [matMenuTriggerFor]="menu"
-                        (click)="button.click?.(button, $event)"
                         [disabled]="button.disabled"
                         [color]="color(button)"
                         [matTooltip]="button.label"
+                        (click)="button.click?.(button, $event)"
                     >
                         <mat-icon [naturalIcon]="button.icon" />
                     </button>
@@ -109,10 +109,10 @@
                 } @else {
                     <button
                         mat-icon-button
-                        (click)="button.click?.(button, $event)"
                         [disabled]="button.disabled"
                         [color]="color(button)"
                         [matTooltip]="button.label"
+                        (click)="button.click?.(button, $event)"
                     >
                         <mat-icon [naturalIcon]="button.icon" />
                     </button>
@@ -122,10 +122,10 @@
 
         @if (displayedColumns.length) {
             <button
-                [matMenuTriggerFor]="columnMenu"
                 mat-icon-button
                 i18n-matTooltip
                 matTooltip="Sélectionner les colonnes"
+                [matMenuTriggerFor]="columnMenu"
             >
                 <mat-icon naturalIcon="view_column" />
             </button>
@@ -136,11 +136,11 @@
 <mat-menu #columnMenu="matMenu">
     <ng-template matMenuContent>
         @for (column of displayedColumns; track column) {
-            <div (click)="menuItemClicked($event, column)" mat-menu-item>
+            <div mat-menu-item (click)="menuItemClicked($event, column)">
                 <mat-checkbox
+                    [(ngModel)]="column.checked"
                     (click)="checkboxClicked($event, column)"
                     (change)="updateColumns()"
-                    [(ngModel)]="column.checked"
                     >{{ column.label }}</mat-checkbox
                 >
             </div>

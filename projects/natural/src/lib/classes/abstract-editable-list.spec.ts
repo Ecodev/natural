@@ -89,10 +89,7 @@ describe('NaturalAbstractEditableList', () => {
             .withContext('invalid because some required fields have empty default value')
             .toBe(false);
 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         list.formArray.at(0).get('name')!.setValue('foo');
-
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         list.formArray.at(0).get('description')!.setValue('foo');
 
         expect(list.form.valid).withContext('valid because required field are non-empty').toBe(true);

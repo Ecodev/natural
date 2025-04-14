@@ -15,10 +15,8 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     selector: 'app-list',
     templateUrl: './list.component.html',
     styleUrl: './list.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
-
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
         MatTableModule,

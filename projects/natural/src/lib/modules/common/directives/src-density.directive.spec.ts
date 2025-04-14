@@ -5,18 +5,18 @@ import {By} from '@angular/platform-browser';
 
 @Component({
     template: `
-        <img naturalSrcDensity />
-        <img naturalSrcDensity="https://example.com/api/image/123/200" />
-        <img [naturalSrcDensity]="'https://example.com/api/image/123/200'" />
-        <img [naturalSrcDensity]="'https://example.com/api/image/123.jpg'" />
+        <img naturalSrcDensity /><img naturalSrcDensity="https://example.com/api/image/123/200" />
+        <img [naturalSrcDensity]="url1" /><img [naturalSrcDensity]="url2" />
         <img src="foo.jpg" srcset="bar.jpg" naturalSrcDensity="https://example.com/api/image/123/200" />
         <img src="foo.jpg" srcset="bar.jpg" naturalSrcDensity="https://example.com/api/image/123.jpg" />
         <img naturalSrcDensity="https://example.com/api/image/123/201" />
     `,
-    standalone: true,
     imports: [NaturalSrcDensityDirective],
 })
-class TestComponent {}
+class TestComponent {
+    protected readonly url1 = 'https://example.com/api/image/123/200';
+    protected readonly url2 = 'https://example.com/api/image/123.jpg';
+}
 
 describe('NaturalSrcDensityDirective', () => {
     let fixture: ComponentFixture<TestComponent>;

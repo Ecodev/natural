@@ -5,7 +5,7 @@
         <div class="nat-vertical">
             <div class="nat-horizontal nat-wrap">
                 @for (item of breadcrumbs; track item.id) {
-                    <a [routerLink]="getChildLink(item)" class="nat-no-padding" mat-button>
+                    <a class="nat-no-padding" mat-button [routerLink]="getChildLink(item)">
                         <mat-icon naturalIcon="chevron_right" />
                         <span>{{ item.name }}</span>
                     </a>
@@ -13,11 +13,11 @@
             </div>
             <div class="nat-margin-vertical nat-horizontal" overflow>
                 <natural-search
-                    (selectionChange)="search($event)"
+                    class="nat-expand"
                     [facets]="naturalSearchFacets"
                     [multipleGroups]="true"
                     [selections]="naturalSearchSelections"
-                    class="nat-expand"
+                    (selectionChange)="search($event)"
                 >
                     <natural-columns-picker
                         [availableColumns]="availableColumns"
@@ -27,23 +27,23 @@
                 </natural-search>
             </div>
             <div class="responsive-table">
-                <table (matSortChange)="sorting([$event])" [dataSource]="dataSource" mat-table matSort>
+                <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
                     <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
                     <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
 
                     <ng-container matColumnDef="select">
                         <th *matHeaderCellDef mat-header-cell class="natural-3em-column">
                             <mat-checkbox
-                                (change)="$event ? masterToggle() : null"
                                 [checked]="selection.hasValue() && isAllSelected()"
                                 [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                (change)="$event ? masterToggle() : null"
                             />
                         </th>
                         <td *matCellDef="let row" mat-cell>
                             <mat-checkbox
+                                [checked]="selection.isSelected(row.item)"
                                 (change)="$event ? selection.toggle(row.item) : null"
                                 (click)="$event.stopPropagation()"
-                                [checked]="selection.isSelected(row.item)"
                             />
                         </td>
                     </ng-container>
@@ -53,9 +53,9 @@
                         <td *matCellDef="let element" mat-cell>
                             @if (element.hasNavigation) {
                                 <natural-table-button
-                                    [navigate]="getChildLink(element.item)"
                                     icon="chevron_right"
                                     matTooltip="Show children"
+                                    [navigate]="getChildLink(element.item)"
                                 />
                             }
                         </td>
@@ -91,15 +91,15 @@
             }
             @if (!dataSource.data) {
                 <div class="nat-margin nat-center nat-vertical">
-                    <mat-progress-spinner [diameter]="40" mode="indeterminate" />
+                    <mat-progress-spinner mode="indeterminate" [diameter]="40" />
                 </div>
             }
             <mat-paginator
-                (page)="pagination($event)"
                 [length]="dataSource.data?.length"
                 [pageIndex]="dataSource.data?.pageIndex"
                 [pageSizeOptions]="pageSizeOptions"
                 [pageSize]="dataSource.data?.pageSize"
+                (page)="pagination($event)"
             />
         </div>
         <div class="nat-horizontal nat-gap">

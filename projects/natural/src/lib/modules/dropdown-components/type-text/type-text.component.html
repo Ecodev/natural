@@ -1,13 +1,13 @@
 <mat-form-field>
     <mat-label i18n>Valeur</mat-label>
     <input
-        (keydown.enter)="close()"
-        [errorStateMatcher]="matcher"
-        [formControl]="formCtrl"
-        [required]="true"
         matInput
         type="text"
         autocomplete="off"
+        [errorStateMatcher]="matcher"
+        [formControl]="formCtrl"
+        [required]="true"
+        (keydown.enter)="close()"
     />
     @if (formCtrl.hasError('required')) {
         <mat-error>*</mat-error>

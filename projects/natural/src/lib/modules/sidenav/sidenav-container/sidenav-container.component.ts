@@ -8,7 +8,6 @@ import {CommonModule} from '@angular/common';
     templateUrl: './sidenav-container.component.html',
     styleUrl: './sidenav-container.component.scss',
     providers: [NaturalSidenavService],
-    standalone: true,
     imports: [MatSidenavModule, CommonModule],
 })
 export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {

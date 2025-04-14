@@ -2,9 +2,9 @@
     <mat-form-field>
         <input
             matInput
-            [matDatepicker]="from"
             placeholder="De"
             i18n-placeholder
+            [matDatepicker]="from"
             [formControl]="fromCtrl"
             [errorStateMatcher]="matcher"
             [min]="configuration.min"
@@ -29,9 +29,9 @@
     <mat-form-field>
         <input
             matInput
-            [matDatepicker]="to"
             placeholder="à"
             i18n-placeholder
+            [matDatepicker]="to"
             [formControl]="toCtrl"
             [errorStateMatcher]="matcher"
             [min]="configuration.min"

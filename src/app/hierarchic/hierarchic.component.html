@@ -4,13 +4,13 @@
     <div>
         <div class="mat-headline-6">Component usage</div>
         <natural-hierarchic-selector
-            (selectionChange)="log('component usage', $event)"
             [allowUnselect]="true"
             [config]="config"
             [multiple]="true"
             [selected]="selected"
             [searchFacets]="searchFacets"
             [searchSelections]="searchSelections"
+            (selectionChange)="log('component usage', $event)"
         />
     </div>
 

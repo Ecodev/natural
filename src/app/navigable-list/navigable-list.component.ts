@@ -20,10 +20,8 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     selector: 'app-navigable-list',
     templateUrl: './navigable-list.component.html',
     styleUrl: './navigable-list.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
-
         MatButtonModule,
         RouterLink,
         MatIconModule,

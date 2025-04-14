@@ -33,7 +33,6 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     selector: 'app-search',
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss',
-    standalone: true,
     imports: [NaturalSearchComponent, MatButtonModule, CommonModule],
 })
 export class SearchComponent implements OnInit {

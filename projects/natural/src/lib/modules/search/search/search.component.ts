@@ -16,7 +16,6 @@ import {CommonModule} from '@angular/common';
     selector: 'natural-search',
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         NaturalGroupComponent,

@@ -18,10 +18,10 @@ import {UntypedModelService} from '../types/types';
 /**
  * Returns an async validator function that checks that the form control value is unique
  */
-export function unique<TService extends UntypedModelService>(
+export function unique(
     fieldName: string,
     excludedId: string | null | undefined,
-    modelService: TService,
+    modelService: UntypedModelService,
 ): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
         if (!control.value || !control.dirty) {

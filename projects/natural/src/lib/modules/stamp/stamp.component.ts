@@ -13,7 +13,6 @@ type Stamped = {
 @Component({
     selector: 'natural-stamp',
     templateUrl: './stamp.component.html',
-    standalone: true,
     imports: [DatePipe, NaturalTimeAgoPipe],
 })
 export class NaturalStampComponent {

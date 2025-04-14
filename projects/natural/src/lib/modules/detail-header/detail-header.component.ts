@@ -9,7 +9,6 @@ import {MatButtonModule} from '@angular/material/button';
     selector: 'natural-detail-header',
     templateUrl: './detail-header.component.html',
     styleUrl: './detail-header.component.scss',
-    standalone: true,
     imports: [MatButtonModule, RouterLink, MatIconModule, NaturalIconDirective],
 })
 export class NaturalDetailHeaderComponent {

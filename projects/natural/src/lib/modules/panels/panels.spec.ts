@@ -9,7 +9,7 @@ import {
     providePanels,
 } from '@ecodev/natural';
 import {Component, inject, Injector, ViewChild} from '@angular/core';
-import {provideRouter, Router, RouterOutlet, Routes, UrlSegment} from '@angular/router';
+import {provideRouter, Router, RouterOutlet, Routes, UrlSegment, withRouterConfig} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {provideNoopAnimations} from '@angular/platform-browser/animations';
 import {MatDialog} from '@angular/material/dialog';
@@ -18,7 +18,6 @@ import {fallbackIfNoOpenedPanels} from './fallback-if-no-opened-panels.urlmatche
 @Component({
     selector: 'natural-test-root',
     template: '<router-outlet />',
-    standalone: true,
     imports: [RouterOutlet],
 })
 class TestRootComponent {
@@ -38,7 +37,6 @@ class TestNoPanelComponent {}
         <h1 i18n>Page with panels</h1>
         <router-outlet />
     `,
-    standalone: true,
     imports: [RouterOutlet],
 })
 class TestWithPanelComponent {}
@@ -155,7 +153,12 @@ describe('Panels', () => {
 
     async function configure(routes: Routes): Promise<void> {
         await TestBed.configureTestingModule({
-            providers: [provideNoopAnimations(), provideRouter(routes), providePanels({}), naturalProviders],
+            providers: [
+                provideNoopAnimations(),
+                provideRouter(routes, withRouterConfig({resolveNavigationPromiseOnError: true})),
+                providePanels({}),
+                naturalProviders,
+            ],
         }).compileComponents();
 
         rootFixture = TestBed.createComponent(TestRootComponent);
@@ -305,7 +308,7 @@ describe('Panels', () => {
             await configure(routesWithFallback);
         });
 
-        // testCommonBehavior();
+        testCommonBehavior();
 
         it('can fallback to 404 page if given invalid url', fakeAsync(() => {
             expect(rootFixture).not.toBeNull();

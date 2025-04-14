@@ -25,19 +25,19 @@
 
         <natural-select-enum
             enumName="FooEnum"
-            [ngModel]="withoutModelOutput"
             placeholder="Input from previous output"
+            [ngModel]="withoutModelOutput"
         />
 
-        <natural-select-enum enumName="FooEnum" [required]="required" placeholder="Without model, required" />
+        <natural-select-enum enumName="FooEnum" placeholder="Without model, required" [required]="required" />
 
         <div>
             <natural-select-enum
                 enumName="FooEnum"
-                [(ngModel)]="myValue"
+                placeholder="With model, required"
                 [required]="required"
                 [disabled]="disabled"
-                placeholder="With model, required"
+                [(ngModel)]="myValue"
             />
 
             <pre class="debug">value: {{ myValue | json }}</pre>
@@ -47,15 +47,15 @@
     <h2 class="mat-h2">FormControl</h2>
     <div class="nat-horizontal nat-gap-10">
         <div>
-            <natural-select-enum enumName="FooEnum" [formControl]="formControl" placeholder="FormControl (update)" />
+            <natural-select-enum enumName="FooEnum" placeholder="FormControl (update)" [formControl]="formControl" />
             <app-debug-control [control]="formControl" />
         </div>
 
         <div>
             <natural-select-enum
                 enumName="FooEnum"
-                [formControl]="formControlReplace"
                 placeholder="FormControl (replace)"
+                [formControl]="formControlReplace"
             />
             <app-debug-control [control]="formControlReplace" />
         </div>
@@ -63,9 +63,9 @@
         <div>
             <natural-select-enum
                 enumName="FooEnum"
-                [formControl]="alwaysInvalidFormControl"
                 placeholder="Always invalid"
                 error="Custom error message"
+                [formControl]="alwaysInvalidFormControl"
             />
             <app-debug-control [control]="alwaysInvalidFormControl" />
         </div>
@@ -74,7 +74,7 @@
     <h2 class="mat-h2">FormGroup</h2>
     <div class="nat-horizontal nat-gap-10">
         <div>
-            <div [formGroup]="formGroup" class="form-group">
+            <div class="form-group" [formGroup]="formGroup">
                 <natural-select-enum
                     enumName="FooEnum"
                     formControlName="amazingField"
@@ -84,7 +84,7 @@
             <app-debug-control [control]="formGroup" />
         </div>
         <div>
-            <div [formGroup]="formGroupReplace" class="form-group">
+            <div class="form-group" [formGroup]="formGroupReplace">
                 <natural-select-enum
                     enumName="FooEnum"
                     formControlName="amazingField"

@@ -20,7 +20,7 @@
 
     <mat-form-field>
         <mat-label i18n>Couleur</mat-label>
-        <input matInput [formControl]="colorControl" (keydown.enter)="maybeConfirm()" cdkFocusInitial />
+        <input matInput cdkFocusInitial [formControl]="colorControl" (keydown.enter)="maybeConfirm()" />
         <div
             class="sample"
             matTextSuffix
@@ -34,5 +34,5 @@
 
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close i18n>Annuler</button>
-    <button mat-stroked-button (click)="maybeConfirm()" [disabled]="!form.valid"><span i18n>Valider</span></button>
+    <button mat-stroked-button [disabled]="!form.valid" (click)="maybeConfirm()"><span i18n>Valider</span></button>
 </mat-dialog-actions>

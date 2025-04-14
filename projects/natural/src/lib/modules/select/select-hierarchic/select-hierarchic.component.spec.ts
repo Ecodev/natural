@@ -26,17 +26,16 @@ import {provideNoopAnimations} from '@angular/platform-browser/animations';
 @Component({
     template: `
         <natural-select-hierarchic
+            placeholder="ngModel"
+            i18n-placeholder
             [config]="hierarchicConfig"
             [required]="required"
             [disabled]="disabled"
+            [(ngModel)]="myValue"
             (selectionChange)="onSelection($event)"
             (blur)="onBlur()"
-            [(ngModel)]="myValue"
-            placeholder="ngModel"
-            i18n-placeholder
         />
     `,
-    standalone: true,
     imports: [FormsModule, NaturalSelectHierarchicComponent],
 })
 class TestHostWithHierarchicAndNgModelComponent extends AbstractTestHostWithNgModelComponent {}
@@ -44,15 +43,14 @@ class TestHostWithHierarchicAndNgModelComponent extends AbstractTestHostWithNgMo
 @Component({
     template: `
         <natural-select-hierarchic
-            [config]="hierarchicConfig"
-            (selectionChange)="onSelection($event)"
-            (blur)="onBlur()"
-            [formControl]="formControl"
             placeholder="formControl"
             i18n-placeholder
+            [config]="hierarchicConfig"
+            [formControl]="formControl"
+            (selectionChange)="onSelection($event)"
+            (blur)="onBlur()"
         />
     `,
-    standalone: true,
     imports: [ReactiveFormsModule, NaturalSelectHierarchicComponent],
 })
 class TestHostWithHierarchicAndFormControlComponent extends AbstractTestHostWithFormControlComponent {}

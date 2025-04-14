@@ -6,7 +6,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     selector: 'app-modal-placeholder',
     templateUrl: './modal-placeholder.component.html',
     styleUrl: './modal-placeholder.component.scss',
-    standalone: true,
     imports: [MatDialogModule, MatButtonModule],
 })
 export class ModalPlaceholderComponent {}

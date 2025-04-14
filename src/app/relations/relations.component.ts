@@ -10,7 +10,6 @@ import {NoResultService} from '../../../projects/natural/src/lib/testing/no-resu
     selector: 'app-relations',
     templateUrl: './relations.component.html',
     styleUrl: './relations.component.scss',
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NaturalRelationsComponent],
 })
 export class RelationsComponent extends NaturalAbstractDetail<ItemService> implements OnInit {

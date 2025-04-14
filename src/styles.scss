@@ -6,7 +6,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@1');
 
 @include mat.all-component-typographies();
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 // Include components themes
 @mixin components-theme($theme) {

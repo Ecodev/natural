@@ -19,7 +19,6 @@ import {DebugControlComponent} from '../debug-form.component';
             useClass: AnyEnumService,
         },
     ],
-    standalone: true,
     imports: [
         MatButtonModule,
         NaturalSelectEnumComponent,

@@ -3,7 +3,7 @@
         {{ getDisplayFn()(item) }}
     </ng-template>
 
-    <table [dataSource]="dataSource" class="natural-row-click" mat-table>
+    <table class="natural-row-click" mat-table [dataSource]="dataSource">
         <tr *matHeaderRowDef="displayedColumns" mat-header-row style="display: none"></tr>
         <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
 
@@ -22,12 +22,12 @@
             <td *matCellDef="let element" mat-cell>
                 @if (!disabled) {
                     <button
-                        (click)="removeRelation(element)"
-                        [disabled]="removing.has(element)"
                         color="warn"
                         mat-icon-button
                         i18n-matTooltip
                         matTooltip="Dissocier"
+                        [disabled]="removing.has(element)"
+                        (click)="removeRelation(element)"
                     >
                         <mat-icon naturalIcon="link_off" />
                     </button>
@@ -38,11 +38,11 @@
 
     @if (dataSource.data && (dataSource.data.length || 0) > (dataSource.data.pageSize || 0)) {
         <mat-paginator
-            (page)="pagination($event)"
             [length]="dataSource.data.length || 0"
             [pageIndex]="dataSource.data.pageIndex || 0"
             [pageSizeOptions]="pageSizeOptions"
             [pageSize]="dataSource.data.pageSize || 0"
+            (page)="pagination($event)"
         />
     }
 
@@ -53,23 +53,23 @@
     }
 
     @if (loading) {
-        <mat-progress-spinner [diameter]="40" class="loading" mode="indeterminate" />
+        <mat-progress-spinner class="loading" mode="indeterminate" [diameter]="40" />
     }
 </div>
 
 @if (!disabled) {
     @if (hierarchicSelectorConfig) {
         <div>
-            <button (click)="openNaturalHierarchicSelector()" color="primary" mat-flat-button>{{ placeholder }}</button>
+            <button color="primary" mat-flat-button (click)="openNaturalHierarchicSelector()">{{ placeholder }}</button>
         </div>
     } @else {
         <natural-select
-            (selectionChange)="addRelations([$event])"
             [displayWith]="$any(getDisplayFn())"
             [filter]="autocompleteSelectorFilter"
             [placeholder]="placeholder"
             [service]="service"
             [showIcon]="false"
+            (selectionChange)="addRelations([$event])"
         />
     }
 }

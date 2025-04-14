@@ -1,6 +1,7 @@
 <a
-    (fileChange)="upload($event)"
     naturalFileDrop
+    matRipple
+    target="_blank"
     [selectable]="true"
     [accept]="accept"
     [attr.href]="getDownloadLink()"
@@ -10,22 +11,21 @@
     [matRippleDisabled]="!action"
     [naturalBackgroundDensity]="imagePreview"
     [style.backgroundSize]="backgroundSize"
-    matRipple
-    target="_blank"
+    (fileChange)="upload($event)"
 >
     @if (filePreview) {
         <div class="file-preview" [style.font-size.px]="fontSize()">
-            <mat-icon [size]="iconHeight()" naturalIcon="attachment" />
+            <mat-icon naturalIcon="attachment" [size]="iconHeight()" />
             {{ filePreview | uppercase }}
         </div>
     }
 
     <div class="action-overlay" [style.font-size.px]="fontSize()">
         @if (action === 'upload') {
-            <mat-icon [size]="iconHeight()" naturalIcon="cloud_upload" />
+            <mat-icon naturalIcon="cloud_upload" [size]="iconHeight()" />
         }
         @if (action === 'download') {
-            <mat-icon [size]="iconHeight()" naturalIcon="get_app" />
+            <mat-icon naturalIcon="get_app" [size]="iconHeight()" />
         }
         {{ action | capitalize }}
     </div>

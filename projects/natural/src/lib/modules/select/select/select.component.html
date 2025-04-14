@@ -1,9 +1,9 @@
 <!-- Autocomplete menu -->
 <mat-autocomplete
     #ac="matAutocomplete"
-    (optionSelected)="propagateValue($event.option.value)"
-    [displayWith]="getDisplayFn()"
     panelWidth="auto !important"
+    [displayWith]="getDisplayFn()"
+    (optionSelected)="propagateValue($event.option.value)"
 >
     @for (item of items | async; track $index) {
         <mat-option [value]="item">
@@ -27,18 +27,18 @@
     <mat-label>{{ placeholder }}</mat-label>
 
     <input
+        aria-label="Recherche et sélection"
+        i18n-aria-label
+        matInput
+        [formControl]="internalCtrl"
+        [matAutocomplete]="ac"
+        [errorStateMatcher]="matcher"
         (blur)="onBlur()"
         (change)="onInternalFormChange()"
         (click)="autoTrigger.openPanel()"
         (focus)="startSearch()"
         (keydown.esc)="reset()"
         (keydown.enter)="onKeyEnter()"
-        [formControl]="internalCtrl"
-        [matAutocomplete]="ac"
-        aria-label="Recherche et sélection"
-        i18n-aria-label
-        matInput
-        [errorStateMatcher]="matcher"
     />
 
     @if (hint()) {
@@ -47,34 +47,34 @@
 
     <!-- Meta data -->
     @if (!loading && showIcon) {
-        <mat-icon [naturalIcon]="icon" matIconPrefix />
+        <mat-icon matIconPrefix [naturalIcon]="icon" />
     }
 
     @if (loading) {
         <div class="loading-wrapper" matIconPrefix>
-            <mat-progress-spinner [diameter]="21" [strokeWidth]="5" mode="indeterminate" />
+            <mat-progress-spinner mode="indeterminate" [diameter]="21" [strokeWidth]="5" />
         </div>
     }
 
     <!-- Clear button -->
     <div matIconSuffix>
         @if (internalCtrl.pristine && internalCtrl.value && internalCtrl.enabled && !clearLabel) {
-            <button (click)="clear()" mat-icon-button i18n-matTooltip matTooltip="Désélectionner">
+            <button mat-icon-button i18n-matTooltip matTooltip="Désélectionner" (click)="clear()">
                 <mat-icon naturalIcon="close" />
             </button>
         }
         @if (internalCtrl.dirty && internalCtrl.enabled && optionRequired) {
-            <button (click)="reset()" mat-icon-button i18n-matTooltip matTooltip="Annuler la recherche">
+            <button mat-icon-button i18n-matTooltip matTooltip="Annuler la recherche" (click)="reset()">
                 <mat-icon naturalIcon="undo" />
             </button>
         }
         @if (internalCtrl.pristine && internalCtrl.value && navigateTo) {
             <button
-                [routerLink]="navigateTo"
-                (click)="$event.stopPropagation()"
                 mat-icon-button
                 i18n-matTooltip
                 matTooltip="Naviguer vers"
+                [routerLink]="navigateTo"
+                (click)="$event.stopPropagation()"
             >
                 <mat-icon naturalIcon="open_in_browser" />
             </button>
@@ -92,7 +92,7 @@
 @if (showClearButton()) {
     <div class="external-buttons">
         @if (showClearButton()) {
-            <button (click)="clear()" color="warn" mat-button>{{ clearLabel }}</button>
+            <button color="warn" mat-button (click)="clear()">{{ clearLabel }}</button>
         }
     </div>
 }

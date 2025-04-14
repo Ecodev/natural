@@ -2,7 +2,6 @@
 
 <mat-dialog-content>
     <natural-hierarchic-selector
-        (selectionChange)="config.hierarchicSelection = $event"
         [selected]="config.hierarchicSelection ?? {}"
         [config]="config.hierarchicConfig"
         [filters]="config.hierarchicFilters"
@@ -10,13 +9,14 @@
         [allowUnselect]="config.allowUnselect ?? true"
         [searchFacets]="config.searchFacets ?? []"
         [searchSelections]="config.searchSelections ?? []"
+        (selectionChange)="config.hierarchicSelection = $event"
         (searchSelectionChange)="searchSelectionsOutput = $event"
     />
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
     <button mat-dialog-close mat-button i18n>Annuler</button>
-    <button (click)="close(config.hierarchicSelection)" color="primary" mat-raised-button
+    <button color="primary" mat-raised-button (click)="close(config.hierarchicSelection)"
         ><span i18n>Valider</span>
     </button>
 </mat-dialog-actions>

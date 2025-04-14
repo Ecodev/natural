@@ -3,18 +3,18 @@
 
     <!-- Input for hierarchical selector -->
     <input
-        (blur)="blur.emit()"
-        (focus)="openDialog()"
-        [formControl]="internalCtrl"
-        [errorStateMatcher]="matcher"
         aria-label="Recherche et sélection"
         i18n-aria-label
         matInput
+        [formControl]="internalCtrl"
+        [errorStateMatcher]="matcher"
+        (blur)="blur.emit()"
+        (focus)="openDialog()"
     />
 
     <!-- Meta data -->
     @if (showIcon) {
-        <mat-icon [naturalIcon]="icon" matIconPrefix />
+        <mat-icon matIconPrefix [naturalIcon]="icon" />
     }
 
     @if (hint()) {
@@ -25,21 +25,21 @@
     <div matIconSuffix>
         @if (internalCtrl.value && internalCtrl.enabled && !clearLabel) {
             <button
-                (click)="clear(); $event.stopPropagation()"
                 mat-icon-button
                 i18n-matTooltip
                 matTooltip="Désélectionner"
+                (click)="clear(); $event.stopPropagation()"
             >
                 <mat-icon naturalIcon="close" />
             </button>
         }
         @if (internalCtrl.value && navigateTo) {
             <button
-                [routerLink]="navigateTo"
-                (click)="$event.stopPropagation()"
                 mat-icon-button
                 i18n-matTooltip
                 matTooltip="Naviguer vers"
+                [routerLink]="navigateTo"
+                (click)="$event.stopPropagation()"
             >
                 <mat-icon naturalIcon="open_in_browser" />
             </button>
@@ -57,10 +57,10 @@
 @if (showSelectButton() || showClearButton()) {
     <div class="external-buttons">
         @if (showSelectButton()) {
-            <button (click)="openDialog()" color="primary" mat-flat-button>{{ selectLabel }}</button>
+            <button color="primary" mat-flat-button (click)="openDialog()">{{ selectLabel }}</button>
         }
         @if (showClearButton()) {
-            <button (click)="clear()" color="warn" mat-button>{{ clearLabel }}</button>
+            <button color="warn" mat-button (click)="clear()">{{ clearLabel }}</button>
         }
     </div>
 }

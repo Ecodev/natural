@@ -6,7 +6,6 @@ import {RouterLink, RouterOutlet} from '@angular/router';
     selector: 'app-panels',
     templateUrl: './panels.component.html',
     styleUrl: './panels.component.scss',
-    standalone: true,
     imports: [MatButtonModule, RouterLink, RouterOutlet],
 })
 export class PanelsComponent {}

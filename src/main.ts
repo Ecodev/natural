@@ -70,6 +70,7 @@ bootstrapApplication(AppComponent, {
             routes,
             withRouterConfig({
                 paramsInheritanceStrategy: 'always',
+                resolveNavigationPromiseOnError: true, // So that panels can open and navigate across themselves
             }),
         ),
         provideSeo({

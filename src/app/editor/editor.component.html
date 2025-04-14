@@ -3,11 +3,11 @@
 
     <div class="nat-expand nat-horizontal nat-gap">
         <div class="nat-expand nat-vertical">
-            <natural-editor [(ngModel)]="htmlStringBasic" [disabled]="disabled" />
+            <natural-editor [disabled]="disabled" [(ngModel)]="htmlStringBasic" />
 
             <div>
                 <h1 class="mat-headline-4 nat-margin-bottom">Preview</h1>
-                <div [innerHTML]="htmlStringBasic" class="preview"></div>
+                <div class="preview" [innerHTML]="htmlStringBasic"></div>
             </div>
 
             <div>
@@ -18,15 +18,15 @@
 
         <div class="nat-expand nat-vertical">
             <natural-editor
-                [(ngModel)]="htmlStringAdvanced"
+                mode="advanced"
                 [naturalCustomCss]="css"
                 [disabled]="disabled"
-                mode="advanced"
+                [(ngModel)]="htmlStringAdvanced"
             />
 
             <div>
                 <h1 class="mat-headline-4 nat-margin-bottom">Preview</h1>
-                <div [innerHTML]="trustHTML(htmlStringAdvanced)" class="preview" [naturalCustomCss]="css"></div>
+                <div class="preview" [innerHTML]="trustHTML(htmlStringAdvanced)" [naturalCustomCss]="css"></div>
             </div>
 
             <div>
@@ -37,18 +37,18 @@
 
         <div class="nat-expand nat-vertical">
             <natural-editor
-                [(ngModel)]="htmlStringAdvancedWithImage"
                 [imageUploader]="uploader"
-                (save)="update()"
                 [naturalCustomCss]="css"
                 [disabled]="disabled"
+                [(ngModel)]="htmlStringAdvancedWithImage"
+                (save)="update()"
             />
 
             <div>
                 <h1 class="mat-headline-4 nat-margin-bottom">Preview</h1>
                 <div
-                    [innerHTML]="trustHTML(htmlStringAdvancedWithImage)"
                     class="preview"
+                    [innerHTML]="trustHTML(htmlStringAdvancedWithImage)"
                     [naturalCustomCss]="css"
                 ></div>
             </div>

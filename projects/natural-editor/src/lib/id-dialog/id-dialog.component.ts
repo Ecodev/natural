@@ -19,9 +19,9 @@ export type IdDialogData = {
 };
 
 @Component({
+    selector: 'natural-editor-id-dialog',
     templateUrl: './id-dialog.component.html',
     styleUrl: './id-dialog.component.scss',
-    standalone: true,
     imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
 export class IdDialogComponent {

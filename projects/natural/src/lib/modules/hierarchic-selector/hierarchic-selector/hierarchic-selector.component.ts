@@ -40,7 +40,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     templateUrl: './hierarchic-selector.component.html',
     styleUrl: './hierarchic-selector.component.scss',
     providers: [NaturalHierarchicSelectorService],
-    standalone: true,
     imports: [
         NaturalSearchComponent,
         CommonModule,

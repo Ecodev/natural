@@ -17,16 +17,15 @@ import {provideNoopAnimations} from '@angular/platform-browser/animations';
     template: `
         <natural-select-enum
             enumName="FooEnum"
-            [required]="required"
-            [disabled]="disabled"
-            (selectionChange)="onSelection($event)"
-            (blur)="onBlur()"
-            [(ngModel)]="myValue"
             placeholder="ngModel"
             i18n-placeholder
+            [required]="required"
+            [disabled]="disabled"
+            [(ngModel)]="myValue"
+            (selectionChange)="onSelection($event)"
+            (blur)="onBlur()"
         />
     `,
-    standalone: true,
     imports: [FormsModule, NaturalSelectEnumComponent],
 })
 class TestHostWithNgModelComponent extends AbstractTestHostWithNgModelComponent {}
@@ -35,14 +34,13 @@ class TestHostWithNgModelComponent extends AbstractTestHostWithNgModelComponent 
     template: `
         <natural-select-enum
             enumName="FooEnum"
-            (selectionChange)="onSelection($event)"
-            (blur)="onBlur()"
-            [formControl]="formControl"
             placeholder="formControl"
             i18n-placeholder
+            [formControl]="formControl"
+            (selectionChange)="onSelection($event)"
+            (blur)="onBlur()"
         />
     `,
-    standalone: true,
     imports: [ReactiveFormsModule, NaturalSelectEnumComponent],
 })
 class TestHostWithFormControlComponent extends AbstractTestHostWithFormControlComponent {}

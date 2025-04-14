@@ -16,17 +16,16 @@ import {provideNoopAnimations} from '@angular/platform-browser/animations';
 @Component({
     template: `
         <natural-select
+            placeholder="ngModel"
+            i18n-placeholder
             [service]="service"
             [required]="required"
             [disabled]="disabled"
+            [(ngModel)]="myValue"
             (selectionChange)="onSelection($event)"
             (blur)="onBlur()"
-            [(ngModel)]="myValue"
-            placeholder="ngModel"
-            i18n-placeholder
         />
     `,
-    standalone: true,
     imports: [FormsModule, NaturalSelectComponent],
 })
 class TestHostWithServiceAndNgModelComponent extends AbstractTestHostWithNgModelComponent {}
@@ -34,15 +33,14 @@ class TestHostWithServiceAndNgModelComponent extends AbstractTestHostWithNgModel
 @Component({
     template: `
         <natural-select
-            [service]="service"
-            (selectionChange)="onSelection($event)"
-            (blur)="onBlur()"
-            [formControl]="formControl"
             placeholder="formControl"
             i18n-placeholder
+            [service]="service"
+            [formControl]="formControl"
+            (selectionChange)="onSelection($event)"
+            (blur)="onBlur()"
         />
     `,
-    standalone: true,
     imports: [ReactiveFormsModule, NaturalSelectComponent],
 })
 class TestHostWithServiceAndFormControlComponent extends AbstractTestHostWithFormControlComponent {}

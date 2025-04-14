@@ -16,7 +16,6 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     selector: 'app-hierarchic',
     templateUrl: './hierarchic.component.html',
     styleUrl: './hierarchic.component.scss',
-    standalone: true,
     imports: [NaturalHierarchicSelectorComponent, MatButtonModule],
 })
 export class HierarchicComponent {

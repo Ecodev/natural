@@ -17,7 +17,6 @@ export type FacetSelectorConfiguration = {
 @Component({
     templateUrl: './facet-selector.component.html',
     styleUrl: './facet-selector.component.scss',
-    standalone: true,
     imports: [MatListModule],
 })
 export class FacetSelectorComponent implements DropdownComponent {

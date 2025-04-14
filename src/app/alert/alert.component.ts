@@ -5,7 +5,6 @@ import {NaturalAlertService} from '@ecodev/natural';
 @Component({
     selector: 'app-panels',
     templateUrl: './alert.component.html',
-    standalone: true,
     imports: [MatButtonModule],
 })
 export class AlertComponent {

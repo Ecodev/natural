@@ -11,7 +11,6 @@ import {NaturalLinkableTabDirective} from '@ecodev/natural';
 @Component({
     selector: 'natural-test-root',
     template: '<router-outlet />',
-    standalone: true,
     imports: [RouterOutlet],
 })
 class TestRootComponent {
@@ -27,7 +26,6 @@ class TestRootComponent {
             <mat-tab i18n label="Tab 3" i18n-label id="third">Tab content 3</mat-tab>
         </mat-tab-group>
     `,
-    standalone: true,
     imports: [MatTabsModule, NaturalLinkableTabDirective],
 })
 class TestSimpleComponent implements OnInit {

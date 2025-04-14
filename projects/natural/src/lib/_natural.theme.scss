@@ -58,8 +58,7 @@ $defaultConfig: mat.m2-define-typography-config();
 
 // This is the default Material typography, but with button with normal letter-spacing instead of wider letter-spacing.
 $typography: mat.m2-define-typography-config(
-    $button:
-        mat.m2-define-typography-level(
+    $button: mat.m2-define-typography-level(
             $font-family: mat.m2-font-family($defaultConfig, 'button'),
             $font-weight: mat.m2-font-weight($defaultConfig, 'button'),
             $font-size: mat.m2-font-size($defaultConfig, 'button'),

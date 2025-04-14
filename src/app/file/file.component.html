@@ -11,9 +11,9 @@
             <button
                 mat-raised-button
                 naturalFileSelect
+                [disabled]="disabled"
                 (fileChange)="fileChange($event)"
                 (filesChange)="filesChange($event)"
-                [disabled]="disabled"
             >
                 Select one file
             </button>
@@ -23,10 +23,10 @@
             <button
                 mat-raised-button
                 naturalFileSelect
-                (fileChange)="fileChange($event)"
-                (filesChange)="filesChange($event)"
                 [disabled]="disabled"
                 [multiple]="true"
+                (fileChange)="fileChange($event)"
+                (filesChange)="filesChange($event)"
             >
                 Select multiples files
             </button>
@@ -36,10 +36,10 @@
             <button
                 mat-raised-button
                 naturalFileSelect
+                accept="image/jpeg"
+                [disabled]="disabled"
                 (fileChange)="fileChange($event)"
                 (filesChange)="filesChange($event)"
-                [disabled]="disabled"
-                accept="image/jpeg"
             >
                 Select one JPG
             </button>
@@ -49,11 +49,11 @@
             <button
                 mat-raised-button
                 naturalFileSelect
-                (fileChange)="fileChange($event)"
-                (filesChange)="filesChange($event)"
+                accept="image/jpeg"
                 [disabled]="disabled"
                 [multiple]="true"
-                accept="image/jpeg"
+                (fileChange)="fileChange($event)"
+                (filesChange)="filesChange($event)"
             >
                 Select multiples JPG
             </button>
@@ -67,9 +67,9 @@
                 mat-raised-button
                 naturalFileDrop
                 [selectable]="true"
+                [disabled]="disabled"
                 (fileChange)="fileChange($event)"
                 (filesChange)="filesChange($event)"
-                [disabled]="disabled"
             >
                 Select one file
             </button>
@@ -80,10 +80,10 @@
                 mat-raised-button
                 naturalFileDrop
                 [selectable]="true"
-                (fileChange)="fileChange($event)"
-                (filesChange)="filesChange($event)"
                 [disabled]="disabled"
                 [multiple]="true"
+                (fileChange)="fileChange($event)"
+                (filesChange)="filesChange($event)"
             >
                 Select multiples files
             </button>
@@ -93,11 +93,11 @@
             <button
                 mat-raised-button
                 naturalFileDrop
+                accept="image/jpeg"
                 [selectable]="true"
+                [disabled]="disabled"
                 (fileChange)="fileChange($event)"
                 (filesChange)="filesChange($event)"
-                [disabled]="disabled"
-                accept="image/jpeg"
             >
                 Select one JPG
             </button>
@@ -107,12 +107,12 @@
             <button
                 mat-raised-button
                 naturalFileDrop
+                accept="image/jpeg"
                 [selectable]="true"
-                (fileChange)="fileChange($event)"
-                (filesChange)="filesChange($event)"
                 [disabled]="disabled"
                 [multiple]="true"
-                accept="image/jpeg"
+                (fileChange)="fileChange($event)"
+                (filesChange)="filesChange($event)"
             >
                 Select multiples JPG
             </button>
@@ -123,9 +123,9 @@
     <div class="nat-horizontal nat-gap-10">
         <a
             naturalFileDrop
+            [fileSelectionDisabled]="disabled"
             (fileChange)="fileChange($event)"
             (filesChange)="filesChange($event)"
-            [fileSelectionDisabled]="disabled"
             (fileOver)="fileOver = $event"
         >
             <div class="mat-body">Drag here any files</div>
@@ -136,11 +136,11 @@
     <div class="nat-horizontal nat-gap-10">
         <a
             naturalFileDrop
+            accept="image/jpeg"
+            [fileSelectionDisabled]="disabled"
             (fileChange)="fileChange($event)"
             (filesChange)="filesChange($event)"
-            [fileSelectionDisabled]="disabled"
             (fileOver)="fileOverJpg = $event"
-            accept="image/jpeg"
         >
             <div class="mat-body">Drag here only JPG</div>
             <pre>fileOver: {{ fileOverJpg | json }}</pre>
@@ -151,11 +151,11 @@
     <div class="nat-horizontal nat-gap-10">
         <a
             naturalFileDrop
+            [fileSelectionDisabled]="disabled"
+            [selectable]="true"
             (fileChange)="fileChange($event)"
             (filesChange)="filesChange($event)"
-            [fileSelectionDisabled]="disabled"
             (fileOver)="fileOverSelectable = $event"
-            [selectable]="true"
         >
             <div class="mat-body">Drag here any files</div>
             <pre>fileOver: {{ fileOverSelectable | json }}</pre>
@@ -165,12 +165,12 @@
     <div class="nat-horizontal nat-gap-10">
         <a
             naturalFileDrop
+            accept="image/jpeg"
+            [fileSelectionDisabled]="disabled"
+            [selectable]="true"
             (fileChange)="fileChange($event)"
             (filesChange)="filesChange($event)"
-            [fileSelectionDisabled]="disabled"
             (fileOver)="fileOverSelectableJpg = $event"
-            [selectable]="true"
-            accept="image/jpeg"
         >
             <div class="mat-body">Drag here only JPG</div>
             <pre>fileOver: {{ fileOverSelectableJpg | json }}</pre>
@@ -181,11 +181,11 @@
     <div class="nat-horizontal nat-gap-10">
         <a
             naturalFileDrop
+            [fileSelectionDisabled]="disabled"
+            [maxSize]="123"
             (fileChange)="fileChange($event)"
             (filesChange)="filesChange($event)"
-            [fileSelectionDisabled]="disabled"
             (fileOver)="fileOverMaxSize = $event"
-            [maxSize]="123"
         >
             <div class="mat-body">Drag here any files</div>
             <pre>fileOver: {{ fileOverMaxSize | json }}</pre>
@@ -218,16 +218,16 @@
 
     <div>
         <label
-            >Component height: <input type="range" [(ngModel)]="height" min="0" max="1000" style="width: 50%" />
+            >Component height: <input type="range" min="0" max="1000" style="width: 50%" [(ngModel)]="height" />
             {{ height }}px</label
         >
 
         <natural-file
+            action="upload"
             [height]="height"
-            (modelChange)="modelChange($event)"
             [model]="model"
             [uploader]="uploadAndLink.bind(this)"
-            action="upload"
+            (modelChange)="modelChange($event)"
         />
 
         <div style="height: 500px"> </div>

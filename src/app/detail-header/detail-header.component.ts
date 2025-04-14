@@ -7,7 +7,6 @@ import {NaturalDetailHeaderComponent} from '../../../projects/natural/src/lib/mo
     selector: 'app-detail-header',
     templateUrl: './detail-header.component.html',
     styleUrl: './detail-header.component.scss',
-    standalone: true,
     imports: [MatButtonModule, NaturalDetailHeaderComponent],
 })
 export class DetailHeaderComponent {

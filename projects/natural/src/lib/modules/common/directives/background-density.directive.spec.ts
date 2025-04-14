@@ -7,8 +7,8 @@ import {NaturalBackgroundDensityDirective} from './background-density.directive'
     template: `
         <div naturalBackgroundDensity></div>
         <div naturalBackgroundDensity="https://example.com/api/image/123/200"></div>
-        <div [naturalBackgroundDensity]="'https://example.com/api/image/123/200'"></div>
-        <div [naturalBackgroundDensity]="'https://example.com/api/image/123.jpg'"></div>
+        <div [naturalBackgroundDensity]="url1"></div>
+        <div [naturalBackgroundDensity]="url2"></div>
         <div
             style="color: red; background-image: url('foo.jpg');"
             naturalBackgroundDensity="https://example.com/api/image/123/200"
@@ -20,10 +20,12 @@ import {NaturalBackgroundDensityDirective} from './background-density.directive'
         <div naturalBackgroundDensity="https://example.com/api/image/123/201"></div>
         <div naturalBackgroundDensity="url(data:image/png;base64,aabbcc)"></div>
     `,
-    standalone: true,
     imports: [NaturalBackgroundDensityDirective],
 })
-class TestComponent {}
+class TestComponent {
+    protected readonly url1 = 'https://example.com/api/image/123/200';
+    protected readonly url2 = 'https://example.com/api/image/123.jpg';
+}
 
 describe('NaturalBackgroundDensity', () => {
     let fixture: ComponentFixture<TestComponent>;

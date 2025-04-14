@@ -11,7 +11,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 /**
  * Assert that given value is not null
  */
-function assert<T>(value: T): asserts value {
+function assert(value: unknown): asserts value {
     if (!value) {
         throw new Error('Must call NaturalSidenavService.init() before using the service');
     }

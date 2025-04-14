@@ -22,7 +22,6 @@ export type TypeNumberConfiguration = {
 @Component({
     templateUrl: './type-number.component.html',
     styleUrl: './type-number.component.scss',
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatInputModule],
 })
 export class TypeNumberComponent implements DropdownComponent {

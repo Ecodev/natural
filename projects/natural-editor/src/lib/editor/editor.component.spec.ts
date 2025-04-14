@@ -10,8 +10,7 @@ import {naturalProviders} from '@ecodev/natural';
 const IMAGE_UPLOADER = new InjectionToken<ImageUploader | null>('Image uploader for tests');
 
 @Component({
-    template: ` <natural-editor [(ngModel)]="myValue" [imageUploader]="imageUploader" />`,
-    standalone: true,
+    template: ` <natural-editor [imageUploader]="imageUploader" [(ngModel)]="myValue" />`,
     imports: [FormsModule, NaturalEditorComponent],
 })
 class TestHostComponent {

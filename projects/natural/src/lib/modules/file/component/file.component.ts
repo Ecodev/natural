@@ -28,7 +28,6 @@ import {NaturalBackgroundDensityDirective} from '../../common/directives/backgro
     selector: 'natural-file',
     templateUrl: './file.component.html',
     styleUrl: './file.component.scss',
-    standalone: true,
     imports: [
         NaturalFileDropDirective,
         MatRippleModule,
@@ -38,7 +37,6 @@ import {NaturalBackgroundDensityDirective} from '../../common/directives/backgro
         NaturalCapitalizePipe,
         NaturalBackgroundDensityDirective,
     ],
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
     host: {
         '[style.height.px]': 'height()',
     },

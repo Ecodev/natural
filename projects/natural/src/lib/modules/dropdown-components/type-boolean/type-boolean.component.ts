@@ -13,7 +13,6 @@ export type TypeBooleanConfiguration = {
 
 @Component({
     templateUrl: '../type-options/type-options.component.html',
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, CommonModule, MatButtonToggleModule],
 })
 export class TypeBooleanComponent extends TypeOptionsComponent implements DropdownComponent {

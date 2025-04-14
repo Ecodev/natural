@@ -31,11 +31,9 @@ type TableButtonConfiguration = {
     selector: 'app-other',
     templateUrl: './other.component.html',
     styleUrl: './other.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         NaturalTableButtonComponent,
-
         MatFormFieldModule,
         MatInputModule,
         FormsModule,

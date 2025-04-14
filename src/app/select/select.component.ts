@@ -14,7 +14,6 @@ import {DebugControlComponent} from '../debug-form.component';
     selector: 'app-select',
     templateUrl: './select.component.html',
     styleUrl: './select.component.scss',
-    standalone: true,
     imports: [
         MatButtonModule,
         NaturalSelectComponent,

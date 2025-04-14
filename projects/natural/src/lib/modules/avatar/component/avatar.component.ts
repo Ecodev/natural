@@ -38,13 +38,13 @@ type Style = Partial<CSSStyleDeclaration>;
         <div class="avatar-container" [ngStyle]="hostStyle">
             @if (avatarSrc) {
                 <img
+                    class="avatar-content"
+                    loading="lazy"
                     [src]="avatarSrc"
                     [width]="size"
                     [height]="size"
                     [ngStyle]="avatarStyle"
                     (error)="tryNextSource()"
-                    class="avatar-content"
-                    loading="lazy"
                 />
             }
             @if (avatarText) {
@@ -54,7 +54,6 @@ type Style = Partial<CSSStyleDeclaration>;
             }
         </div>
     `,
-    standalone: true,
     imports: [CommonModule],
 })
 export class NaturalAvatarComponent implements OnChanges {

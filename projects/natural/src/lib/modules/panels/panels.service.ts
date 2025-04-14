@@ -165,24 +165,13 @@ export class NaturalPanelsService {
     }
 
     /**
-     * Uses given configuration to add in the end of current url
-     * Neutralizes router error handling
+     * Uses given configuration to add at the end of current url
      */
     private appendConfigToCurrentUrl(config: NaturalPanelConfig[]): void {
-        const originalErrorHandler = this.router.errorHandler;
-
-        // Nullify error handler (will be de-neutralized after route redirection)
-        if (config) {
-            this.router.errorHandler = () => undefined;
-        }
-
-        // Navigate to same url + /risk/new Result : /risk/risk/new
+        // Navigate to the same url + /risk/new Result : /risk/risk/new
         const newUrl = config.map(conf => segmentsToString(conf.route.segments)).join('/');
 
-        this.router.navigateByUrl(this.router.url + '/' + newUrl).then(() => {
-            // After navigation has ended, restore original error handler because he's not a bad guy
-            this.router.errorHandler = originalErrorHandler;
-        });
+        this.router.navigateByUrl(this.router.url + '/' + newUrl);
     }
 
     public stop(): void {

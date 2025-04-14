@@ -5,7 +5,6 @@ import {NaturalAvatarComponent} from '../../../projects/natural/src/lib/modules/
 @Component({
     templateUrl: './avatar.component.html',
     styleUrl: './avatar.component.scss',
-    standalone: true,
     imports: [NaturalAvatarComponent, MatButtonModule],
 })
 export class AvatarComponent {

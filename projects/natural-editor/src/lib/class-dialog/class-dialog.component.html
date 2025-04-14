@@ -3,7 +3,7 @@
 <mat-dialog-content [formGroup]="form">
     <mat-form-field>
         <mat-label i18n>Classes CSS</mat-label>
-        <input matInput [formControl]="classControl" (keydown.enter)="maybeConfirm()" cdkFocusInitial />
+        <input matInput cdkFocusInitial [formControl]="classControl" (keydown.enter)="maybeConfirm()" />
         @if (classControl.hasError('pattern')) {
             <mat-error i18n>Doit être un ou plusieurs nom de classe CSS</mat-error>
         }
@@ -12,5 +12,5 @@
 
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close i18n>Annuler</button>
-    <button mat-stroked-button (click)="maybeConfirm()" [disabled]="!form.valid"><span i18n>Valider</span></button>
+    <button mat-stroked-button [disabled]="!form.valid" (click)="maybeConfirm()"><span i18n>Valider</span></button>
 </mat-dialog-actions>

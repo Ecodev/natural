@@ -20,7 +20,6 @@ export type TypeOptionsConfiguration = {
 
 @Component({
     templateUrl: './type-options.component.html',
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, MatButtonToggleModule],
 })
 export class TypeOptionsComponent implements DropdownComponent {

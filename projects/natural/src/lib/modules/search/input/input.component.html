@@ -9,15 +9,15 @@
 
     <input
         #input
-        (blur)="search($event)"
-        (keydown.enter)="search($event)"
+        autocomplete="off"
+        matInput
+        type="text"
         [attr.size]="length"
         [errorStateMatcher]="errorMatcher"
         [formControl]="formCtrl"
         [readonly]="(isDropdown() && !!selection) || isFlag()"
-        autocomplete="off"
-        matInput
-        type="text"
+        (blur)="search($event)"
+        (keydown.enter)="search($event)"
     />
 
     @if (!facet && !selection) {
@@ -25,13 +25,13 @@
     }
 
     @if (selection) {
-        <button (click)="clear()" mat-icon-button matIconSuffix>
+        <button mat-icon-button matIconSuffix (click)="clear()">
             <mat-icon naturalIcon="close" />
         </button>
     }
 
     @if (facet && !selection) {
-        <button (click)="clear()" mat-icon-button matIconSuffix>
+        <button mat-icon-button matIconSuffix (click)="clear()">
             <mat-icon naturalIcon="undo" />
         </button>
     }

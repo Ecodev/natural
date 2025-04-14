@@ -14,6 +14,7 @@ export * from './lib/classes/query-variable-manager';
 export {cancellableTimeout, debug} from './lib/classes/rxjs';
 export * from './lib/classes/utility';
 export * from './lib/classes/validators';
+export {NetworkActivityService, activityInterceptor} from './lib/classes/network-activity.service';
 export {validTlds} from './lib/classes/tld';
 
 export * from './lib/services/abstract-model.service';

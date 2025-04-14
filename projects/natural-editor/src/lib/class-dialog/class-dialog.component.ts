@@ -19,9 +19,9 @@ export type ClassDialogData = {
 };
 
 @Component({
+    selector: 'natural-editor-class-dialog',
     templateUrl: './class-dialog.component.html',
     styleUrl: './class-dialog.component.scss',
-    standalone: true,
     imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
 export class ClassDialogComponent {

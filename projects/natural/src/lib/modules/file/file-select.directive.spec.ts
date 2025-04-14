@@ -5,7 +5,6 @@ import {NaturalFileService} from './file.service';
 
 @Component({
     template: '<input type="file" naturalFileSelect />',
-    standalone: true,
     imports: [NaturalFileSelectDirective],
 })
 class ContainerComponent {

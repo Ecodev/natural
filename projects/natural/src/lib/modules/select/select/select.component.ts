@@ -70,7 +70,6 @@ type ValueTypeFor<TService> = string | ExtractTallOne<TService>;
     selector: 'natural-select',
     templateUrl: './select.component.html',
     styleUrl: './select.component.scss',
-    standalone: true,
     imports: [
         MatAutocompleteModule,
         CommonModule,

@@ -1,7 +1,7 @@
 <div class="nat-expand nat-vertical">
     <mat-toolbar class="nat-horizontal nat-left nat-center nat-gap">
         @if (menu) {
-            <button (click)="menu.toggle()" mat-icon-button>
+            <button mat-icon-button (click)="menu.toggle()">
                 <mat-icon naturalIcon="menu" />
             </button>
         }
@@ -13,7 +13,7 @@
 
         <div class="nat-expand"></div>
 
-        <button (click)="themeService.toggle()" mat-icon-button>
+        <button mat-icon-button (click)="themeService.toggle()">
             <mat-icon naturalIcon="invert_colors" />
         </button>
 
@@ -23,12 +23,12 @@
     </mat-toolbar>
 
     <div class="nat-expand nat-vertical">
-        <natural-sidenav-container #menu [noScroll]="true" class="nat-expand" name="menu">
+        <natural-sidenav-container #menu class="nat-expand" name="menu" [noScroll]="true">
             <natural-sidenav>
                 <div style="overflow-x: auto; margin: 20px">
                     <div id="menu">
                         <mat-accordion displayMode="flat">
-                            <mat-expansion-panel [disabled]="true" [expanded]="true" class="mat-elevation-z0">
+                            <mat-expansion-panel class="mat-elevation-z0" [disabled]="true" [expanded]="true">
                                 <mat-nav-list>
                                     <a mat-list-item routerLink="/">
                                         <mat-icon matListItemIcon naturalIcon="home" />
@@ -40,40 +40,40 @@
                                         <span>Search</span>
                                     </a>
 
-                                    <a [routerLink]="['/list', {dog: 'qwer'}]" mat-list-item>
+                                    <a mat-list-item [routerLink]="['/list', {dog: 'qwer'}]">
                                         <mat-icon matListItemIcon naturalIcon="list" />
                                         <span>List A</span>
                                     </a>
 
                                     <a
-                                        [routerLink]="['/nested/anyValue', {cat: 'cat'}, 'list', {dog: 'dog'}]"
                                         mat-list-item
+                                        [routerLink]="['/nested/anyValue', {cat: 'cat'}, 'list', {dog: 'dog'}]"
                                     >
                                         <mat-icon matListItemIcon naturalIcon="list" />
                                         <span>List B</span>
                                     </a>
 
-                                    <a [routerLink]="['/editable-list']" mat-list-item>
+                                    <a mat-list-item [routerLink]="['/editable-list']">
                                         <mat-icon matListItemIcon naturalIcon="list" />
                                         <span>Editable list</span>
                                     </a>
 
-                                    <a [routerLink]="['/table-style']" mat-list-item>
+                                    <a mat-list-item [routerLink]="['/table-style']">
                                         <mat-icon matListItemIcon naturalIcon="list" />
                                         <span>Table style</span>
                                     </a>
 
-                                    <a [routerLink]="['/navigable-list']" mat-list-item>
+                                    <a mat-list-item [routerLink]="['/navigable-list']">
                                         <mat-icon matListItemIcon naturalIcon="subdirectory_arrow_right" />
                                         <span>Navigable list</span>
                                     </a>
 
-                                    <a [routerLink]="['/detail/123']" mat-list-item>
+                                    <a mat-list-item [routerLink]="['/detail/123']">
                                         <mat-icon matListItemIcon naturalIcon="details" />
                                         <span>Detail</span>
                                     </a>
 
-                                    <a [routerLink]="['/detail-header']" mat-list-item>
+                                    <a mat-list-item [routerLink]="['/detail-header']">
                                         <mat-icon matListItemIcon naturalIcon="title" />
                                         <span>Detail header</span>
                                     </a>
@@ -134,12 +134,12 @@
                                     </a>
 
                                     @if (!menu.isMobileView) {
-                                        <a (click)="menu.toggleMinimized()" mat-list-item>
+                                        <a mat-list-item (click)="menu.toggleMinimized()">
                                             <mat-icon
+                                                matListItemIcon
                                                 [naturalIcon]="
                                                     menu.isMinimized ? 'keyboard_arrow_right' : 'keyboard_arrow_left'
                                                 "
-                                                matListItemIcon
                                             />
                                         </a>
                                     }

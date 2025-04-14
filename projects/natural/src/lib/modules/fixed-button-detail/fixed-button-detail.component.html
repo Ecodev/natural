@@ -1,22 +1,22 @@
 @if (isCreation) {
     <natural-fixed-button
-        (click)="clickCreate()"
-        [disabled]="form.disabled"
-        [color]="form.valid ? 'accent' : 'warn'"
         class="detail-speed-dial"
         icon="save"
+        [disabled]="form.disabled"
+        [color]="form.valid ? 'accent' : 'warn'"
+        (click)="clickCreate()"
     />
 }
 
 @if (!isCreation && (!model.permissions || model.permissions.delete)) {
     <natural-fixed-button
-        (click)="clickDelete()"
-        [disabled]="form.disabled"
         class="detail-speed-dial"
         color="warn"
         icon="delete_forever"
         i18n-matTooltip
         matTooltip="Supprimer définitivement"
         matTooltipPosition="left"
+        [disabled]="form.disabled"
+        (click)="clickDelete()"
     />
 }

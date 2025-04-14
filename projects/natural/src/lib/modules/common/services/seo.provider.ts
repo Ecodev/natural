@@ -1,24 +1,18 @@
-import {APP_INITIALIZER, inject, Provider} from '@angular/core';
+import {EnvironmentProviders, inject, provideAppInitializer, Provider} from '@angular/core';
 import {NATURAL_SEO_CONFIG, NaturalSeoConfig, NaturalSeoService} from './seo.service';
 
 /**
  * Configure and starts `NaturalSeoService`
  */
-export function provideSeo(config: NaturalSeoConfig): Provider[] {
+export function provideSeo(config: NaturalSeoConfig): (EnvironmentProviders | Provider)[] {
     return [
         {
             provide: NATURAL_SEO_CONFIG,
             useValue: config,
         },
-        {
-            provide: APP_INITIALIZER,
-            multi: true,
-            useFactory: (): (() => void) => {
-                // injection required, but works without doing anything else
-                inject(NaturalSeoService);
-
-                return () => undefined;
-            },
-        },
+        provideAppInitializer(() => {
+            // injection required, but works without doing anything else
+            inject(NaturalSeoService);
+        }),
     ];
 }

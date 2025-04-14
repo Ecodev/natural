@@ -26,7 +26,7 @@
     <div>
         <h2 class="mat-h2">With icon</h2>
 
-        <natural-detail-header newLabel="My new label" label="My label" [model]="model" icon="pets" />
+        <natural-detail-header newLabel="My new label" label="My label" icon="pets" [model]="model" />
     </div>
 
     <div>
@@ -35,9 +35,9 @@
         <natural-detail-header
             newLabel="My new label"
             label="My label"
+            rootLabel="My root label"
             [model]="model"
             [listRoute]="['admin', 'product']"
-            [rootLabel]="'My root label'"
         >
             <div class="nat-horizontal nat-gap-10">
                 <button mat-flat-button color="primary">Extra</button>

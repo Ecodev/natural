@@ -20,9 +20,9 @@ export type ColorDialogData = {
 };
 
 @Component({
+    selector: 'natural-editor-color-dialog',
     templateUrl: './color-dialog.component.html',
     styleUrl: './color-dialog.component.scss',
-    standalone: true,
     imports: [
         MatDialogModule,
         FormsModule,

@@ -3,19 +3,19 @@
         @for (groupSelections of innerSelections; track $index) {
             <div class="groupWrapper">
                 <natural-group
-                    (selectionChange)="updateGroup($event, $index)"
                     [facets]="facets"
                     [placeholder]="placeholder"
                     [selections]="groupSelections"
                     [dropdownTitle]="dropdownTitle"
+                    (selectionChange)="updateGroup($event, $index)"
                 />
                 <div class="endOfRowButton">
                     @if (innerSelections.length > 1) {
                         <button
-                            (click)="removeGroup($index)"
                             mat-icon-button
                             i18n-matTooltip
                             matTooltip="Supprimer ce groupe"
+                            (click)="removeGroup($index)"
                         >
                             <mat-icon naturalIcon="remove" />
                         </button>
@@ -30,17 +30,17 @@
 
     <div class="endOfRowButton">
         @if (multipleGroups) {
-            <button (click)="addGroup()" mat-icon-button i18n-matTooltip matTooltip="Ajouter un groupe logique OU">
+            <button mat-icon-button i18n-matTooltip matTooltip="Ajouter un groupe logique OU" (click)="addGroup()">
                 <mat-icon naturalIcon="add" />
             </button>
         }
 
         <button
-            (click)="clear()"
             mat-icon-button
             class="clear-button"
             i18n-matTooltip
             matTooltip="Annuler la recherche"
+            (click)="clear()"
         >
             <mat-icon naturalIcon="close" />
         </button>

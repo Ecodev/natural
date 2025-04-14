@@ -8,7 +8,6 @@ import {GroupSelections, NaturalSearchSelection} from '../types/values';
     selector: 'natural-group',
     templateUrl: './group.component.html',
     styleUrl: './group.component.scss',
-    standalone: true,
     imports: [NaturalInputComponent],
 })
 export class NaturalGroupComponent {

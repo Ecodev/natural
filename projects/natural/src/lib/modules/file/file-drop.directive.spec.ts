@@ -5,7 +5,6 @@ import {NaturalFileDropDirective} from './file-drop.directive';
 
 @Component({
     template: '<div i18n naturalFileDrop>my drag and drop area</div>',
-    standalone: true,
     imports: [NaturalFileDropDirective],
 })
 class ContainerComponent {

@@ -16,32 +16,32 @@
     <div class="nat-horizontal nat-gap-10">
         <div>
             <natural-select-hierarchic
-                [config]="hierarchicConfig"
                 placeholder="Without model (output only)"
+                [config]="hierarchicConfig"
                 (selectionChange)="withoutModelOutput = $any($event)"
             />
             <pre class="debug">value: {{ withoutModelOutput | json }}</pre>
         </div>
 
         <natural-select-hierarchic
+            placeholder="Input from previous output"
             [config]="hierarchicConfig"
             [ngModel]="withoutModelOutput"
-            placeholder="Input from previous output"
         />
 
         <natural-select-hierarchic
+            placeholder="Without model, required"
             [config]="hierarchicConfig"
             [required]="required"
-            placeholder="Without model, required"
         />
 
         <div>
             <natural-select-hierarchic
+                placeholder="With model, required"
                 [config]="hierarchicConfig"
-                [(ngModel)]="myValue"
                 [required]="required"
                 [disabled]="disabled"
-                placeholder="With model, required"
+                [(ngModel)]="myValue"
             />
 
             <pre class="debug">value: {{ myValue | json }}</pre>
@@ -52,9 +52,9 @@
     <div class="nat-horizontal nat-gap-10">
         <div>
             <natural-select-hierarchic
+                placeholder="FormControl (update)"
                 [config]="hierarchicConfig"
                 [formControl]="formControl"
-                placeholder="FormControl (update)"
             />
             <button mat-raised-button (click)="updateValidatorRequired(formControl)">required</button>
             <button mat-raised-button (click)="updateValidatorOptional(formControl)">optional</button>
@@ -63,19 +63,19 @@
 
         <div>
             <natural-select-hierarchic
+                placeholder="FormControl (replace)"
                 [config]="hierarchicConfig"
                 [formControl]="formControlReplace"
-                placeholder="FormControl (replace)"
             />
             <app-debug-control [control]="formControlReplace" />
         </div>
 
         <div>
             <natural-select-hierarchic
-                [config]="hierarchicConfig"
-                [formControl]="alwaysInvalidFormControl"
                 placeholder="Always invalid"
                 error="Custom error message"
+                [config]="hierarchicConfig"
+                [formControl]="alwaysInvalidFormControl"
             />
             <app-debug-control [control]="alwaysInvalidFormControl" />
         </div>
@@ -84,11 +84,11 @@
     <h2 class="mat-h2">FormGroup</h2>
     <div class="nat-horizontal nat-gap-10">
         <div>
-            <div [formGroup]="formGroup" class="form-group">
+            <div class="form-group" [formGroup]="formGroup">
                 <natural-select-hierarchic
-                    [config]="hierarchicConfig"
                     formControlName="amazingField"
                     placeholder="FormGroup (update)"
+                    [config]="hierarchicConfig"
                 />
             </div>
             <button mat-raised-button (click)="updateValidatorRequired(formGroup.get('amazingField')!)"
@@ -100,11 +100,11 @@
             <app-debug-control [control]="formGroup" />
         </div>
         <div>
-            <div [formGroup]="formGroupReplace" class="form-group">
+            <div class="form-group" [formGroup]="formGroupReplace">
                 <natural-select-hierarchic
-                    [config]="hierarchicConfig"
                     formControlName="amazingField"
                     placeholder="FormGroup (replace)"
+                    [config]="hierarchicConfig"
                 />
             </div>
 
@@ -120,21 +120,21 @@
             <mat-hint>Basic input field to test alt+tab and focus on next field</mat-hint>
         </mat-form-field>
 
-        <natural-select-hierarchic [config]="hierarchicConfig" navigateTo="/" placeholder="With navigateTo" />
+        <natural-select-hierarchic navigateTo="/" placeholder="With navigateTo" [config]="hierarchicConfig" />
 
-        <natural-select-hierarchic [config]="hierarchicConfig" icon="pets" placeholder="With custom icon" />
+        <natural-select-hierarchic icon="pets" placeholder="With custom icon" [config]="hierarchicConfig" />
 
         <natural-select-hierarchic
-            [config]="hierarchicConfig"
             clearLabel="Unselect"
             selectLabel="Select something"
             placeholder="With select and clear label"
+            [config]="hierarchicConfig"
         />
 
         <div style="width: 250px">
             <natural-select-hierarchic
-                [config]="hierarchicConfig"
                 hint="My long hint text goes here and keep getting longer and will wrap"
+                [config]="hierarchicConfig"
             />
             <div>This text is pushed down by mat-hint</div>
         </div>

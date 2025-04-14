@@ -18,7 +18,6 @@ import {MockApolloProvider} from '../testing/mock-apollo.provider';
         [selections]="selectedColumns"
         (selectionChange)="selectColumns($event)"
     />`,
-    standalone: true,
     imports: [NaturalColumnsPickerComponent],
 })
 class TestListComponent extends NaturalAbstractList<ItemService> {

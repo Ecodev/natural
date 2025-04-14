@@ -1,8 +1,8 @@
 <div class="nat-horizontal nat-gap-10">
-    <a [routerLink]="['panel', '2']" mat-flat-button>Panel 2 (dynamic)</a>
+    <a mat-flat-button [routerLink]="['panel', '2']">Panel 2 (dynamic)</a>
     <a mat-flat-button routerLink="panel/3">Panel 3 (static)</a>
     <a mat-flat-button routerLink="modelPanel/3">Panel with observable model (static)</a>
-    <a [routerLink]="['invalid-url']" mat-flat-button>invalid url</a>
+    <a mat-flat-button [routerLink]="['invalid-url']">invalid url</a>
 </div>
 
 <mat-tab-group [naturalLinkableTab]="false">

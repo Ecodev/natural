@@ -21,7 +21,6 @@ import {MatIconModule} from '@angular/material/icon';
     styleUrl: './table-button.component.scss',
     // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
 })
 export class NaturalTableButtonComponent implements OnChanges {

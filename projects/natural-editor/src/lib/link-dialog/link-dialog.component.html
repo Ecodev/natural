@@ -16,5 +16,5 @@
 
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close i18n>Annuler</button>
-    <button mat-stroked-button (click)="maybeConfirm()" [disabled]="!form.valid"><span i18n>Valider</span></button>
+    <button mat-stroked-button [disabled]="!form.valid" (click)="maybeConfirm()"><span i18n>Valider</span></button>
 </mat-dialog-actions>

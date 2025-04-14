@@ -16,7 +16,6 @@ import {Item, ItemInput, ItemService} from '../../../projects/natural/src/lib/te
     selector: 'app-detail',
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.scss',
-    standalone: true,
     imports: [
         NaturalDetailHeaderComponent,
         MatButtonModule,

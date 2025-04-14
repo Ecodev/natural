@@ -2,7 +2,7 @@
     @if (configuration.operators) {
         <mat-form-field style="max-width: 7em; margin-right: 1em">
             <mat-label i18n="Mathematical operator < > =">Opérateur</mat-label>
-            <mat-select [formControl]="operatorCtrl" [required]="true" panelWidth="">
+            <mat-select panelWidth="" [formControl]="operatorCtrl" [required]="true">
                 @for (item of operators; track item) {
                     <mat-option [value]="item.key">
                         {{ item.label }}
@@ -15,7 +15,7 @@
     @if (requireValueCtrl) {
         <mat-selection-list [formControl]="valueCtrl">
             @for (item of items; track item) {
-                <mat-list-option [value]="getId(item)" togglePosition="before">
+                <mat-list-option togglePosition="before" [value]="getId(item)">
                     {{ getDisplay(item) }}
                 </mat-list-option>
             }

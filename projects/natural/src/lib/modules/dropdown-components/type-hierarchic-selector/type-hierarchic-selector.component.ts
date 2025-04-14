@@ -29,7 +29,6 @@ export type TypeHierarchicSelectorConfiguration = {
 
 @Component({
     templateUrl: './type-hierarchic-selector.component.html',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

@@ -50,7 +50,6 @@ import {MatButtonModule} from '@angular/material/button';
     templateUrl: './editor.component.html',
     styleUrl: './editor.component.scss',
     providers: [ImagePlugin],
-    standalone: true,
     imports: [
         MatButtonModule,
         MatTooltipModule,

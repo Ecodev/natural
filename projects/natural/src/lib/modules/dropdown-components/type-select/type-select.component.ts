@@ -34,7 +34,6 @@ export type TypeSelectConfiguration = {
 
 @Component({
     templateUrl: './type-select.component.html',
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatListModule],
 })
 export class TypeSelectComponent implements DropdownComponent, AfterViewInit {

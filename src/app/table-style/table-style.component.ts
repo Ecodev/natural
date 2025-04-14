@@ -11,7 +11,6 @@ type Item = {
     selector: 'app-table-list',
     templateUrl: './table-style.component.html',
     styleUrl: './table-style.component.scss',
-    standalone: true,
     imports: [MatTableModule, MatSortHeader, MatSort],
 })
 export class TableStyleComponent {

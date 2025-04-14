@@ -12,9 +12,9 @@ export type LinkDialogData = {
 };
 
 @Component({
+    selector: 'natural-editor-link-dialog',
     templateUrl: './link-dialog.component.html',
     styleUrl: './link-dialog.component.scss',
-    standalone: true,
     imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
 export class LinkDialogComponent {

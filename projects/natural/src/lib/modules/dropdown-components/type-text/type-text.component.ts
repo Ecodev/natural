@@ -21,7 +21,6 @@ export class InvalidWithValueStateMatcher implements ErrorStateMatcher {
 @Component({
     templateUrl: './type-text.component.html',
     styleUrl: './type-text.component.scss',
-    standalone: true,
     imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule],
 })
 export class TypeTextComponent implements DropdownComponent {

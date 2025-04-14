@@ -57,7 +57,6 @@ function isComponentValid(component: DropdownComponent): ValidatorFn {
     selector: 'natural-input',
     templateUrl: './input.component.html',
     styleUrl: './input.component.scss',
-    standalone: true,
     imports: [
         MatFormFieldModule,
         MatRippleModule,

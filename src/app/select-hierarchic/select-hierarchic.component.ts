@@ -13,7 +13,6 @@ import {DebugControlComponent} from '../debug-form.component';
 @Component({
     templateUrl: './select-hierarchic.component.html',
     styleUrl: './select-hierarchic.component.scss',
-    standalone: true,
     imports: [
         MatButtonModule,
         NaturalSelectHierarchicComponent,

@@ -2,19 +2,19 @@
 
 <div class="nat-vertical nat-gap">
     <natural-search
-        (selectionChange)="updateFilter($event); selectionsDone = $event"
+        dropdownTitle="Very long dropdown title asdf"
         [facets]="facets"
         [multipleGroups]="true"
         [selections]="selections"
-        dropdownTitle="Very long dropdown title asdf"
+        (selectionChange)="updateFilter($event); selectionsDone = $event"
     >
         <button color="primary" mat-raised-button>extern.</button>
     </natural-search>
 
     <div class="nat-horizontal nat-gap">
-        <button (click)="facets = facets1" color="primary" mat-raised-button>Config 1</button>
-        <button (click)="facets = facets2" color="primary" mat-raised-button>Config 2</button>
-        <button (click)="facets = []" color="primary" mat-raised-button>No config</button>
+        <button color="primary" mat-raised-button (click)="facets = facets1">Config 1</button>
+        <button color="primary" mat-raised-button (click)="facets = facets2">Config 2</button>
+        <button color="primary" mat-raised-button (click)="facets = []">No config</button>
     </div>
 
     <div class="nat-horizontal nat-gap">

@@ -17,7 +17,6 @@ export type TypeSelectNaturalConfiguration<TService extends UntypedModelService>
 
 @Component({
     templateUrl: './type-natural-select.component.html',
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,

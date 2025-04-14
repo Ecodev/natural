@@ -7,7 +7,6 @@ import {By} from '@angular/platform-browser';
 @Component({
     template: ` <div id="test1" naturalCustomCss="p {background: pink;}"></div>
         <div id="test2" [naturalCustomCss]="css"></div>`,
-    standalone: true,
     imports: [NaturalCustomCssDirective],
 })
 class TestComponent {

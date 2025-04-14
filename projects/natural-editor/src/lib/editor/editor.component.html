@@ -1,63 +1,63 @@
-@if (menu && !this.disabled) {
+@if (menu && !disabled) {
     <div class="menu-container">
         <div class="menu">
             @if (save.observed) {
-                <button mat-icon-button (click)="save.emit()" i18n-matTooltip matTooltip="Enregistrer">
+                <button mat-icon-button i18n-matTooltip matTooltip="Enregistrer" (click)="save.emit()">
                     <mat-icon fontIcon="save" />
                 </button>
             }
             <mat-button-toggle-group hideMultipleSelectionIndicator multiple>
                 @if (menu.toggleStrong) {
                     <mat-button-toggle
+                        i18n-matTooltip
+                        matTooltip="Gras"
                         [disabled]="menu.toggleStrong.disabled"
                         [checked]="menu.toggleStrong.active"
                         (click)="run($event, 'toggleStrong')"
-                        i18n-matTooltip
-                        matTooltip="Gras"
                     >
                         <mat-icon fontIcon="format_bold" />
                     </mat-button-toggle>
                 }
                 @if (menu.toggleEm) {
                     <mat-button-toggle
+                        i18n-matTooltip
+                        matTooltip="Italique"
                         [disabled]="menu.toggleEm.disabled"
                         [checked]="menu.toggleEm.active"
                         (click)="run($event, 'toggleEm')"
-                        i18n-matTooltip
-                        matTooltip="Italique"
                     >
                         <mat-icon fontIcon="format_italic" />
                     </mat-button-toggle>
                 }
                 @if (menu.toggleCode) {
                     <mat-button-toggle
+                        i18n-matTooltip
+                        matTooltip="Code"
                         [disabled]="menu.toggleCode.disabled"
                         [checked]="menu.toggleCode.active"
                         (click)="run($event, 'toggleCode')"
-                        i18n-matTooltip
-                        matTooltip="Code"
                     >
                         <mat-icon fontIcon="code" />
                     </mat-button-toggle>
                 }
                 @if (menu.toggleLink) {
                     <mat-button-toggle
+                        i18n-matTooltip
+                        matTooltip="Insérer un lien..."
                         [disabled]="menu.toggleLink.disabled"
                         [checked]="menu.toggleLink.active"
                         (click)="run($event, 'toggleLink')"
-                        i18n-matTooltip
-                        matTooltip="Insérer un lien..."
                     >
                         <mat-icon fontIcon="insert_link" />
                     </mat-button-toggle>
                 }
                 @if (menu.textColor) {
                     <mat-button-toggle
+                        i18n-matTooltip
+                        matTooltip="Couleur du texte..."
                         [disabled]="menu.textColor.disabled"
                         [checked]="menu.textColor.active"
                         (click)="run($event, 'textColor')"
-                        i18n-matTooltip
-                        matTooltip="Couleur du texte..."
                     >
                         <mat-icon fontIcon="format_color_text" />
                     </mat-button-toggle>
@@ -71,48 +71,48 @@
                 @if (menu.makeParagraph) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.makeParagraph.disabled"
                         (click)="run($event, 'makeParagraph')"
-                        i18n
                         >Paragraphe
                     </button>
                 }
                 @if (menu.makeCodeBlock) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.makeCodeBlock.disabled"
                         (click)="run($event, 'makeCodeBlock')"
-                        i18n
                         >Code
                     </button>
                 }
                 @if (menu.makeHead1) {
-                    <button mat-menu-item [disabled]="menu.makeHead1.disabled" (click)="run($event, 'makeHead1')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.makeHead1.disabled" (click)="run($event, 'makeHead1')"
                         >Titre 1
                     </button>
                 }
                 @if (menu.makeHead2) {
-                    <button mat-menu-item [disabled]="menu.makeHead2.disabled" (click)="run($event, 'makeHead2')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.makeHead2.disabled" (click)="run($event, 'makeHead2')"
                         >Titre 2
                     </button>
                 }
                 @if (menu.makeHead3) {
-                    <button mat-menu-item [disabled]="menu.makeHead3.disabled" (click)="run($event, 'makeHead3')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.makeHead3.disabled" (click)="run($event, 'makeHead3')"
                         >Titre 3
                     </button>
                 }
                 @if (menu.makeHead4) {
-                    <button mat-menu-item [disabled]="menu.makeHead4.disabled" (click)="run($event, 'makeHead4')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.makeHead4.disabled" (click)="run($event, 'makeHead4')"
                         >Titre 4
                     </button>
                 }
                 @if (menu.makeHead5) {
-                    <button mat-menu-item [disabled]="menu.makeHead5.disabled" (click)="run($event, 'makeHead5')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.makeHead5.disabled" (click)="run($event, 'makeHead5')"
                         >Titre 5
                     </button>
                 }
                 @if (menu.makeHead6) {
-                    <button mat-menu-item [disabled]="menu.makeHead6.disabled" (click)="run($event, 'makeHead6')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.makeHead6.disabled" (click)="run($event, 'makeHead6')"
                         >Titre 6
                     </button>
                 }
@@ -120,7 +120,7 @@
                     <mat-divider />
                 }
                 @if (menu.blockClass) {
-                    <button mat-menu-item [disabled]="menu.blockClass.disabled" (click)="run($event, 'blockClass')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.blockClass.disabled" (click)="run($event, 'blockClass')"
                         >Classe...
                     </button>
                 }
@@ -140,42 +140,42 @@
                 @if (menu.insertTable) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.insertTable.disabled"
                         (click)="run($event, 'insertTable')"
-                        i18n
                         >Insérer un tableau
                     </button>
                 }
                 @if (menu.deleteTable) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.deleteTable.disabled"
                         (click)="run($event, 'deleteTable')"
-                        i18n
                         >Supprimer le tableau
                     </button>
                 }
                 @if (menu.mergeCells) {
-                    <button mat-menu-item [disabled]="menu.mergeCells.disabled" (click)="run($event, 'mergeCells')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.mergeCells.disabled" (click)="run($event, 'mergeCells')"
                         >Fusionner les cellules
                     </button>
                 }
                 @if (menu.splitCell) {
-                    <button mat-menu-item [disabled]="menu.splitCell.disabled" (click)="run($event, 'splitCell')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.splitCell.disabled" (click)="run($event, 'splitCell')"
                         >Scinder les cellules
                     </button>
                 }
                 @if (menu.cellBackgroundColor) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.cellBackgroundColor.disabled"
                         (click)="run($event, 'cellBackgroundColor')"
-                        i18n
                         >Couleur de fond...
                     </button>
                 }
                 @if (menu.tableClass) {
-                    <button mat-menu-item [disabled]="menu.tableClass.disabled" (click)="run($event, 'tableClass')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.tableClass.disabled" (click)="run($event, 'tableClass')"
                         >Classe...
                     </button>
                 }
@@ -188,27 +188,27 @@
                 @if (menu.addColumnBefore) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.addColumnBefore.disabled"
                         (click)="run($event, 'addColumnBefore')"
-                        i18n
                         >Insérer une colonne avant
                     </button>
                 }
                 @if (menu.addColumnAfter) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.addColumnAfter.disabled"
                         (click)="run($event, 'addColumnAfter')"
-                        i18n
                         >Insérer une colonne après
                     </button>
                 }
                 @if (menu.deleteColumn) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.deleteColumn.disabled"
                         (click)="run($event, 'deleteColumn')"
-                        i18n
                         >Supprimer la colonne
                     </button>
                 }
@@ -216,23 +216,23 @@
                 @if (menu.addRowBefore) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.addRowBefore.disabled"
                         (click)="run($event, 'addRowBefore')"
-                        i18n
                         >Insérer une ligne avant
                     </button>
                 }
                 @if (menu.addRowAfter) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.addRowAfter.disabled"
                         (click)="run($event, 'addRowAfter')"
-                        i18n
                         >Insérer une ligne après
                     </button>
                 }
                 @if (menu.deleteRow) {
-                    <button mat-menu-item [disabled]="menu.deleteRow.disabled" (click)="run($event, 'deleteRow')" i18n
+                    <button mat-menu-item i18n [disabled]="menu.deleteRow.disabled" (click)="run($event, 'deleteRow')"
                         >Supprimer la ligne
                     </button>
                 }
@@ -240,27 +240,27 @@
                 @if (menu.toggleHeaderColumn) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.toggleHeaderColumn.disabled"
                         (click)="run($event, 'toggleHeaderColumn')"
-                        i18n
                         >Entête de colonne
                     </button>
                 }
                 @if (menu.toggleHeaderRow) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.toggleHeaderRow.disabled"
                         (click)="run($event, 'toggleHeaderRow')"
-                        i18n
                         >Entête de ligne
                     </button>
                 }
                 @if (menu.toggleHeaderCell) {
                     <button
                         mat-menu-item
+                        i18n
                         [disabled]="menu.toggleHeaderCell.disabled"
                         (click)="run($event, 'toggleHeaderCell')"
-                        i18n
                         >Entête de cellule
                     </button>
                 }
@@ -269,10 +269,10 @@
                 <button
                     mat-icon-button
                     naturalFileDrop
-                    [selectable]="true"
-                    [broadcast]="false"
                     i18n-matTooltip
                     matTooltip="Insérer une image"
+                    [selectable]="true"
+                    [broadcast]="false"
                     (fileChange)="upload($event)"
                 >
                     <mat-icon fontIcon="insert_photo" />
@@ -282,44 +282,44 @@
                 <mat-button-toggle-group hideSingleSelectionIndicator>
                     @if (menu.alignLeft) {
                         <mat-button-toggle
+                            i18n-matTooltip
+                            matTooltip="Aligner gauche"
                             [disabled]="menu.alignLeft.disabled"
                             [checked]="menu.alignLeft.active"
                             (click)="run($event, 'alignLeft')"
-                            i18n-matTooltip
-                            matTooltip="Aligner gauche"
                         >
                             <mat-icon fontIcon="format_align_left" />
                         </mat-button-toggle>
                     }
                     @if (menu.alignCenter) {
                         <mat-button-toggle
+                            i18n-matTooltip
+                            matTooltip="Centrer"
                             [disabled]="menu.alignCenter.disabled"
                             [checked]="menu.alignCenter.active"
                             (click)="run($event, 'alignCenter')"
-                            i18n-matTooltip
-                            matTooltip="Centrer"
                         >
                             <mat-icon fontIcon="format_align_center" />
                         </mat-button-toggle>
                     }
                     @if (menu.alignRight) {
                         <mat-button-toggle
+                            i18n-matTooltip
+                            matTooltip="Aligner droite"
                             [disabled]="menu.alignRight.disabled"
                             [checked]="menu.alignRight.active"
                             (click)="run($event, 'alignRight')"
-                            i18n-matTooltip
-                            matTooltip="Aligner droite"
                         >
                             <mat-icon fontIcon="format_align_right" />
                         </mat-button-toggle>
                     }
                     @if (menu.alignJustify) {
                         <mat-button-toggle
+                            i18n-matTooltip
+                            matTooltip="Justifier"
                             [disabled]="menu.alignJustify.disabled"
                             [checked]="menu.alignJustify.active"
                             (click)="run($event, 'alignJustify')"
-                            i18n-matTooltip
-                            matTooltip="Justifier"
                         >
                             <mat-icon fontIcon="format_align_justify" />
                         </mat-button-toggle>
@@ -329,10 +329,10 @@
             @if (menu.undo) {
                 <button
                     mat-icon-button
-                    [disabled]="menu.undo.disabled"
-                    (click)="run($event, 'undo')"
                     i18n-matTooltip
                     matTooltip="Annuler"
+                    [disabled]="menu.undo.disabled"
+                    (click)="run($event, 'undo')"
                 >
                     <mat-icon fontIcon="undo" />
                 </button>
@@ -340,10 +340,10 @@
             @if (menu.redo) {
                 <button
                     mat-icon-button
-                    [disabled]="menu.redo.disabled"
-                    (click)="run($event, 'redo')"
                     i18n-matTooltip
                     matTooltip="Refaire"
+                    [disabled]="menu.redo.disabled"
+                    (click)="run($event, 'redo')"
                 >
                     <mat-icon fontIcon="redo" />
                 </button>
@@ -351,10 +351,10 @@
             @if (menu.wrapBulletList && menu.wrapBulletList.show) {
                 <button
                     mat-icon-button
-                    [disabled]="menu.wrapBulletList.disabled"
-                    (click)="run($event, 'wrapBulletList')"
                     i18n-matTooltip
                     matTooltip="Liste à puce"
+                    [disabled]="menu.wrapBulletList.disabled"
+                    (click)="run($event, 'wrapBulletList')"
                 >
                     <mat-icon fontIcon="format_list_bulleted" />
                 </button>
@@ -362,10 +362,10 @@
             @if (menu.wrapOrderedList && menu.wrapOrderedList.show) {
                 <button
                     mat-icon-button
-                    [disabled]="menu.wrapOrderedList.disabled"
-                    (click)="run($event, 'wrapOrderedList')"
                     i18n-matTooltip
                     matTooltip="Liste à numéro"
+                    [disabled]="menu.wrapOrderedList.disabled"
+                    (click)="run($event, 'wrapOrderedList')"
                 >
                     <mat-icon fontIcon="format_list_numbered" />
                 </button>
@@ -373,10 +373,10 @@
             @if (menu.wrapBlockQuote && menu.wrapBlockQuote.show) {
                 <button
                     mat-icon-button
-                    [disabled]="menu.wrapBlockQuote.disabled"
-                    (click)="run($event, 'wrapBlockQuote')"
                     i18n-matTooltip
                     matTooltip="Citation"
+                    [disabled]="menu.wrapBlockQuote.disabled"
+                    (click)="run($event, 'wrapBlockQuote')"
                 >
                     <mat-icon fontIcon="format_quote" />
                 </button>
@@ -384,10 +384,10 @@
             @if (menu.joinUp && menu.joinUp.show) {
                 <button
                     mat-icon-button
-                    [disabled]="menu.joinUp.disabled"
-                    (click)="run($event, 'joinUp')"
                     i18n-matTooltip
                     matTooltip="Fusionner avec l'élément du haut"
+                    [disabled]="menu.joinUp.disabled"
+                    (click)="run($event, 'joinUp')"
                 >
                     <mat-icon fontIcon="move_up" />
                 </button>
@@ -395,10 +395,10 @@
             @if (menu.lift && menu.lift.show) {
                 <button
                     mat-icon-button
-                    [disabled]="menu.lift.disabled"
-                    (click)="run($event, 'lift')"
                     i18n-matTooltip
                     matTooltip="Désindenter"
+                    [disabled]="menu.lift.disabled"
+                    (click)="run($event, 'lift')"
                 >
                     <mat-icon fontIcon="format_indent_decrease" />
                 </button>
@@ -406,10 +406,10 @@
             @if (menu.selectParentNode && menu.selectParentNode.show) {
                 <button
                     mat-icon-button
-                    [disabled]="menu.selectParentNode.disabled"
-                    (click)="run($event, 'selectParentNode')"
                     i18n-matTooltip
                     matTooltip="Sélectionner l'élément parent"
+                    [disabled]="menu.selectParentNode.disabled"
+                    (click)="run($event, 'selectParentNode')"
                 >
                     <mat-icon fontIcon="select_all" />
                 </button>
@@ -417,4 +417,4 @@
         </div>
     </div>
 }
-<div class="editor-container" #editor></div>
+<div #editor class="editor-container"></div>

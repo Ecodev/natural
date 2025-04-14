@@ -1,11 +1,11 @@
 <mat-form-field [subscriptSizing]="subscriptSizing()">
     <mat-label>{{ placeholder }}</mat-label>
     <mat-select
-        (selectionChange)="propagateValue($event.value)"
         [formControl]="internalCtrl"
-        (blur)="onBlur()"
         [errorStateMatcher]="matcher"
         [multiple]="multiple"
+        (selectionChange)="propagateValue($event.value)"
+        (blur)="onBlur()"
     >
         @if (nullLabel) {
             <mat-option [value]="null">{{ nullLabel }}</mat-option>

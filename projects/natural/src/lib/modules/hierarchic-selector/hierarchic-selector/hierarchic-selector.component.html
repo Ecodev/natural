@@ -1,23 +1,23 @@
 <div [style.margin-bottom.px]="20">
-    <natural-search (selectionChange)="search($event)" [facets]="searchFacets" [selections]="searchSelections" />
+    <natural-search [facets]="searchFacets" [selections]="searchSelections" (selectionChange)="search($event)" />
 </div>
 
 <div class="body">
     @if (loading) {
-        <mat-progress-spinner [diameter]="36" mode="indeterminate" style="margin: 10px" />
+        <mat-progress-spinner mode="indeterminate" style="margin: 10px" [diameter]="36" />
     }
 
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <mat-tree-node *matTreeNodeDef="let node" [ngClass]="{leaf: !node.expandable}" matTreeNodePadding>
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [ngClass]="{leaf: !node.expandable}">
             @if (node.expandable) {
                 <button
-                    (click)="loadChildren(node)"
-                    [attr.aria-label]="'toggle ' + node.name"
                     mat-icon-button
                     matTreeNodeToggle
+                    [attr.aria-label]="'toggle ' + node.name"
+                    (click)="loadChildren(node)"
                 >
                     @if (node.loading) {
-                        <mat-progress-spinner [diameter]="24" [strokeWidth]="5" mode="indeterminate" />
+                        <mat-progress-spinner mode="indeterminate" [diameter]="24" [strokeWidth]="5" />
                     }
                     @if (!node.loading) {
                         <mat-icon [naturalIcon]="treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'" />
@@ -26,13 +26,13 @@
             }
 
             <mat-checkbox
-                (change)="toggleFlatNode(node)"
+                style="margin-right: 10px"
                 [checked]="flatNodesSelection.isSelected(node)"
                 [disabled]="!isNodeTogglable(node)"
-                style="margin-right: 10px"
+                (change)="toggleFlatNode(node)"
             >
                 @if (node.node.config.icon) {
-                    <mat-icon [naturalIcon]="node.node.config.icon" style="margin-right: 10px" />
+                    <mat-icon style="margin-right: 10px" [naturalIcon]="node.node.config.icon" />
                 }
                 <span>{{ node.name }}</span>
             </mat-checkbox>
@@ -41,7 +41,7 @@
 
     <mat-chip-listbox aria-orientation="vertical" class="mat-mdc-chip-set-stacked">
         @for (node of selectedNodes; track node.model.id) {
-            <mat-chip-option (removed)="unselectModelNode(node)" [removable]="true" [selectable]="false">
+            <mat-chip-option [removable]="true" [selectable]="false" (removed)="unselectModelNode(node)">
                 @if (node.config.icon) {
                     <mat-icon matChipAvatar [naturalIcon]="node.config.icon" />
                 }

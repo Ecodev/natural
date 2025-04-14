@@ -43,7 +43,7 @@
         <div [formGroup]="httpPrefixGroup">
             <mat-form-field>
                 <mat-label>formGroup</mat-label>
-                <input matInput [naturalHttpPrefix]="httpPrefixGroup.get('prefix')" formControlName="prefix" />
+                <input matInput formControlName="prefix" [naturalHttpPrefix]="httpPrefixGroup.get('prefix')" />
             </mat-form-field>
             <pre class="debug">
         touched: {{ httpPrefixGroup.touched | json }}dirty: {{ httpPrefixGroup.dirty | json }}status: {{
@@ -75,8 +75,8 @@
         <button
             mat-raised-button
             color="accent"
-            [matMenuTriggerFor]="menu"
             aria-label="Example icon-button with a menu"
+            [matMenuTriggerFor]="menu"
         >
             <mat-icon fontIcon="search" />
             Button with native mat-icon
@@ -85,8 +85,8 @@
         <button
             mat-raised-button
             color="accent"
-            [matMenuTriggerFor]="menu"
             aria-label="Example icon-button with a menu"
+            [matMenuTriggerFor]="menu"
         >
             <mat-icon naturalIcon="search" />
             Button with naturalIcon

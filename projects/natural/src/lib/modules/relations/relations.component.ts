@@ -47,7 +47,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     selector: 'natural-relations',
     templateUrl: './relations.component.html',
     styleUrl: './relations.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         MatTableModule,

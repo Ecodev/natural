@@ -36,7 +36,6 @@ export const NATURAL_DROPDOWN_CONTAINER_DATA = new InjectionToken<NaturalDropdow
     encapsulation: ViewEncapsulation.None,
     preserveWhitespaces: false,
     animations: [naturalDropdownAnimations.transformMenu, naturalDropdownAnimations.fadeInItems],
-    standalone: true,
     imports: [PortalModule, MatButtonModule],
 })
 export class NaturalDropdownContainerComponent extends BasePortalOutlet implements OnDestroy {

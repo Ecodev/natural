@@ -8,7 +8,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
  * Returns an identifier for the tab
  */
 function getTabId(tab: MatTab): string {
-    return tab.content?.viewContainerRef.element.nativeElement.id ?? '';
+    return tab.id ?? '';
 }
 
 /**

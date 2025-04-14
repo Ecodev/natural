@@ -64,7 +64,6 @@ function toGreaterThanFrom<D>(dateAdapter: DateAdapter<D>): ValidatorFn {
  */
 @Component({
     templateUrl: './type-date-range.component.html',
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
 })
 export class TypeDateRangeComponent<D = any> implements DropdownComponent {

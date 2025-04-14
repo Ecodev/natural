@@ -9,13 +9,13 @@
         <div class="nat-horizontal nat-gap-10">
             <button mat-flat-button color="primary" routerLink="panel/123">Open panel</button>
             <button mat-flat-button color="primary" [routerLink]="['.']">Clear fragment</button>
-            <button mat-flat-button color="primary" [routerLink]="['.']" fragment="asdasfd">Invalid fragment</button>
+            <button mat-flat-button color="primary" fragment="asdasfd" [routerLink]="['.']">Invalid fragment</button>
         </div>
     </natural-detail-header>
 
     <mat-tab-group naturalLinkableTab>
         <mat-tab label="Tab 1" id="tab-1">
-            <div [formGroup]="form" class="detail-body nat-padding-top">
+            <div class="detail-body nat-padding-top" [formGroup]="form">
                 <div class="nat-horizontal nat-wrap nat-left nat-gap">
                     <mat-form-field>
                         <mat-label>Name</mat-label>
@@ -27,7 +27,7 @@
                         <input matInput formControlName="description" (change)="update()" />
                     </mat-form-field>
 
-                    <button (click)="setIdToTestDeleteButton()" color="primary" mat-raised-button
+                    <button color="primary" mat-raised-button (click)="setIdToTestDeleteButton()"
                         >Set ID to test delete button</button
                     >
                 </div>

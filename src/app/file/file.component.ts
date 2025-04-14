@@ -51,7 +51,6 @@ function selectionToJson(selection: FileSelection): JsonFileSelection {
     selector: 'app-file',
     templateUrl: './file.component.html',
     styleUrl: './file.component.scss',
-    standalone: true,
     imports: [
         MatCheckboxModule,
         FormsModule,

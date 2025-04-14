@@ -14,7 +14,6 @@ type Value = IEnum['value'] | IEnum['value'][];
     selector: 'natural-select-enum',
     templateUrl: './select-enum.component.html',
     styleUrl: './select-enum.component.scss',
-    standalone: true,
     imports: [MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, CommonModule, MatOptionModule],
 })
 export class NaturalSelectEnumComponent extends AbstractSelect<Value, Value> implements OnInit, ControlValueAccessor {

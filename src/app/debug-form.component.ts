@@ -11,7 +11,6 @@ status: {{ control().status | json }}
 errors: {{ control().errors | json }}
 value: {{ control().value | json }}
 </pre>`,
-    standalone: true,
     imports: [JsonPipe],
 })
 export class DebugControlComponent {

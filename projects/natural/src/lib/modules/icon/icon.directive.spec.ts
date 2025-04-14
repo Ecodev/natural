@@ -16,7 +16,6 @@ import {provideHttpClient} from '@angular/common/http';
         <mat-icon naturalIcon="" />
         <mat-icon naturalIcon="customFontNameWhichIsEmpty" />
     `,
-    standalone: true,
     imports: [MatIconModule, NaturalIconDirective],
 })
 class TestComponent {}
