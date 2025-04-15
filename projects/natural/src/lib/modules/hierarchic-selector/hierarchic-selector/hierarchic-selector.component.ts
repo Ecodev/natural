@@ -1,16 +1,6 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {
-    Component,
-    DestroyRef,
-    EventEmitter,
-    inject,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-} from '@angular/core';
+import {Component, DestroyRef, inject, Input, OnChanges, OnInit, SimpleChanges, output} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule} from '@angular/material/tree';
 import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
@@ -100,7 +90,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     /**
      * Emits when natural-search selections change
      */
-    @Output() public readonly searchSelectionChange = new EventEmitter<NaturalSearchSelections>();
+    public readonly searchSelectionChange = output<NaturalSearchSelections>();
 
     /**
      * Inner representation of selected @Input() to allow flat listing as mat-chip.
@@ -111,7 +101,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
      * Emits selection change
      * Returns a Literal where selected models are organized by key
      */
-    @Output() public readonly selectionChange = new EventEmitter<OrganizedModelSelection>();
+    public readonly selectionChange = output<OrganizedModelSelection>();
 
     /**
      * Controller for nodes selection

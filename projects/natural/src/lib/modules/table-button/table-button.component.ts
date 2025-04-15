@@ -1,9 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, Output, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnChanges, ViewEncapsulation} from '@angular/core';
 import {Params, QueryParamsHandling, RouterLink, UrlTree} from '@angular/router';
 import {ThemePalette} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import {NaturalIconDirective} from '../icon/icon.directive';
 import {MatIconModule} from '@angular/material/icon';
+import {Subject} from 'rxjs';
+import {outputFromObservable} from '@angular/core/rxjs-interop';
 
 /**
  * Button that fits well in a `<mat-table>` and support either
@@ -35,7 +37,8 @@ export class NaturalTableButtonComponent implements OnChanges {
     @Input() public disabled = false;
     @Input() public raised = false;
     @Input() public color: ThemePalette;
-    @Output() public readonly buttonClick = new EventEmitter<MouseEvent>();
+    protected readonly buttonClick$ = new Subject<MouseEvent>();
+    public readonly buttonClick = outputFromObservable(this.buttonClick$);
     public type: 'routerLink' | 'href' | 'click' | 'none' = 'none';
 
     public ngOnChanges(): void {
@@ -43,7 +46,7 @@ export class NaturalTableButtonComponent implements OnChanges {
             this.type = 'routerLink';
         } else if (this.href) {
             this.type = 'href';
-        } else if (this.buttonClick.observed) {
+        } else if (this.buttonClick$.observed) {
             this.type = 'click';
         } else {
             this.type = 'none';

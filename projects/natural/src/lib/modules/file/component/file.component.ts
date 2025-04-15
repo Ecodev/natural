@@ -1,15 +1,4 @@
-import {
-    Component,
-    computed,
-    EventEmitter,
-    inject,
-    input,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-} from '@angular/core';
+import {Component, computed, inject, input, Input, OnChanges, OnInit, SimpleChanges, output} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {Observable, of, Subject, tap} from 'rxjs';
 import {NaturalFileService} from '../file.service';
@@ -91,7 +80,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
      * This **must not** be used to mutate the server, because it is very likely it will never be called if the
      * human navigates away from the page before the upload is finished. Instead, you should use `[uploader]`.
      */
-    @Output() public readonly modelChange = new EventEmitter<FileModel>();
+    public readonly modelChange = output<FileModel>();
 
     public imagePreview = '';
     public filePreview: string | null = null;

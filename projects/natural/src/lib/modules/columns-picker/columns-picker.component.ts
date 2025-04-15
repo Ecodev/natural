@@ -1,4 +1,4 @@
-import {Component, DestroyRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, DestroyRef, inject, Input, OnChanges, SimpleChanges, output} from '@angular/core';
 import {AvailableColumn, Button} from './types';
 import {cancellableTimeout} from '../../classes/rxjs';
 import {map} from 'rxjs';
@@ -77,7 +77,7 @@ export class NaturalColumnsPickerComponent implements OnChanges {
     /**
      * Emit a list of valid and selected column keys whenever the selection changes
      */
-    @Output() public readonly selectionChange = new EventEmitter<string[]>();
+    public readonly selectionChange = output<string[]>();
 
     /**
      * Displayed options in the dropdown menu

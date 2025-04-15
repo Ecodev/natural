@@ -50,7 +50,7 @@
     }
     <!-- Click with label... -->
     @if (type === 'click' && label) {
-        <a mat-button [color]="color" [disabled]="disabled" (click)="buttonClick.emit($event)">
+        <a mat-button [color]="color" [disabled]="disabled" (click)="buttonClick$.next($event)">
             @if (icon) {
                 <mat-icon [naturalIcon]="icon" />
             }
@@ -59,7 +59,7 @@
     }
     <!-- ... and without label -->
     @if (type === 'click' && !label) {
-        <a mat-icon-button [disabled]="disabled" (click)="buttonClick.emit($event)">
+        <a mat-icon-button [disabled]="disabled" (click)="buttonClick$.next($event)">
             @if (icon) {
                 <mat-icon [naturalIcon]="icon" />
             }
@@ -123,7 +123,7 @@
     }
     <!-- Click with label... -->
     @if (type === 'click' && label) {
-        <a mat-raised-button [color]="color" [disabled]="disabled" (click)="buttonClick.emit($event)">
+        <a mat-raised-button [color]="color" [disabled]="disabled" (click)="buttonClick$.next($event)">
             @if (icon) {
                 <mat-icon [naturalIcon]="icon" />
             }
@@ -137,7 +137,7 @@
             class="mat-elevation-z4"
             [color]="color"
             [disabled]="disabled"
-            (click)="buttonClick.emit($event)"
+            (click)="buttonClick$.next($event)"
         >
             @if (icon) {
                 <mat-icon [naturalIcon]="icon" />

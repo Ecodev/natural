@@ -1,4 +1,4 @@
-import {DestroyRef, Directive, EventEmitter, HostBinding, HostListener, inject, OnInit, Output} from '@angular/core';
+import {DestroyRef, Directive, HostBinding, HostListener, inject, OnInit, output} from '@angular/core';
 import {NaturalAbstractFile} from './abstract-file';
 import {eventToFiles, stopEvent} from './utils';
 import {asyncScheduler, Subject} from 'rxjs';
@@ -29,7 +29,7 @@ export class NaturalFileDropDirective extends NaturalAbstractFile implements OnI
     /**
      * Emits whenever files are being dragged over
      */
-    @Output() public readonly fileOver = new EventEmitter<boolean>();
+    public readonly fileOver = output<boolean>();
 
     private readonly rawFileOver = new Subject<boolean>();
 
@@ -104,13 +104,5 @@ export class NaturalFileDropDirective extends NaturalAbstractFile implements OnI
 
         stopEvent(event);
         this.closeDrags();
-    }
-
-    private hasObservers(): boolean {
-        return (
-            this.fileChange.observed ||
-            this.filesChange.observed ||
-            (this.broadcast && this.naturalFileService.filesChanged.observed)
-        );
     }
 }

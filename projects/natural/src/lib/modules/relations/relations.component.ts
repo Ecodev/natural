@@ -2,14 +2,13 @@ import {
     Component,
     ContentChild,
     DestroyRef,
-    EventEmitter,
     inject,
     Input,
     OnChanges,
     OnInit,
-    Output,
     TemplateRef,
     viewChild,
+    output,
 } from '@angular/core';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {NaturalDataSource, PaginatedData} from '../../classes/data-source';
@@ -131,7 +130,7 @@ export class NaturalRelationsComponent<
     /**
      * Emits after relations were successfully added on the server
      */
-    @Output() public readonly selectionChange = new EventEmitter<void>();
+    public readonly selectionChange = output();
 
     /**
      * Filters for hierarchic selector

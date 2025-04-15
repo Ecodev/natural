@@ -1,15 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    inject,
-    input,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    viewChild,
-} from '@angular/core';
+import {Component, ElementRef, inject, input, Input, OnDestroy, OnInit, output, viewChild} from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {EditorView} from 'prosemirror-view';
 import {EditorState, Plugin, Transaction} from 'prosemirror-state';
@@ -34,6 +23,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
+import {Subject} from 'rxjs';
+import {outputFromObservable} from '@angular/core/rxjs-interop';
 
 /**
  * Prosemirror component
@@ -70,7 +61,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
 
     private readonly editor = viewChild.required('editor', {read: ElementRef});
 
-    @Output() public readonly contentChange = new EventEmitter<string>();
+    public readonly contentChange = output<string>();
 
     /**
      * Callback to upload an image.
@@ -103,10 +94,12 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
 
     public menu: MenuItems | null = null;
 
+    protected readonly save$ = new Subject<void>();
+
     /**
      * If subscribed to, then the save button will be shown and click events forwarded
      */
-    @Output() public readonly save = new EventEmitter<void>();
+    public readonly save = outputFromObservable(this.save$);
 
     public disabled = false;
 

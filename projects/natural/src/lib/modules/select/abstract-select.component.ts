@@ -1,5 +1,5 @@
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {computed, Directive, DoCheck, EventEmitter, inject, input, Input, OnInit, Output} from '@angular/core';
+import {computed, Directive, DoCheck, inject, input, Input, OnInit, output} from '@angular/core';
 import {
     ControlValueAccessor,
     FormControl,
@@ -94,13 +94,13 @@ export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlV
     /**
      * Emit the selected value whenever it changes
      */
-    @Output() public readonly selectionChange = new EventEmitter<TValue | null>();
+    public readonly selectionChange = output<TValue | null>();
 
     /**
      * Emits when internal input is blurred
      */
     // eslint-disable-next-line @angular-eslint/no-output-native
-    @Output() public readonly blur = new EventEmitter<void>();
+    public readonly blur = output();
 
     /**
      * Contains internal representation for current selection AND searched text (for autocomplete)

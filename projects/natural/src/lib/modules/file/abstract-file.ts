@@ -1,14 +1,12 @@
 import {
     Directive,
     ElementRef,
-    EventEmitter,
     HostListener,
     Inject,
     Input,
     OnChanges,
     OnDestroy,
     OnInit,
-    Output,
     SimpleChanges,
 } from '@angular/core';
 import {
@@ -23,7 +21,8 @@ import {
 } from './utils';
 import {NaturalFileService} from './file.service';
 import {DOCUMENT} from '@angular/common';
-import {forkJoin, map, Observable, ObservableInput, of, tap} from 'rxjs';
+import {forkJoin, map, Observable, ObservableInput, of, Subject, tap} from 'rxjs';
+import {outputFromObservable} from '@angular/core/rxjs-interop';
 
 export type InvalidFile = {
     file: File;
@@ -94,18 +93,22 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
      */
     @Input() public broadcast = true;
 
+    private readonly fileChange$ = new Subject<File>();
+
     /**
      * The single valid file that has been selected.
      *
      * It is for convenience of use, and will only emit if there is at least one
      * valid file. See `filesChange` for a more complete output.
      */
-    @Output() public readonly fileChange = new EventEmitter<File>();
+    public readonly fileChange = outputFromObservable(this.fileChange$);
+
+    private readonly filesChange$ = new Subject<FileSelection>();
 
     /**
      * The list of files that have been selected.
      */
-    @Output() public readonly filesChange = new EventEmitter<FileSelection>();
+    public readonly filesChange = outputFromObservable(this.filesChange$);
 
     public constructor(
         private readonly element: ElementRef<HTMLElement>,
@@ -191,11 +194,11 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
             ),
         ).subscribe(() => {
             if (selection.valid.length) {
-                this.fileChange.emit(selection.valid[0]);
+                this.fileChange$.next(selection.valid[0]);
             }
 
             if (selection.valid.length || selection.invalid.length) {
-                this.filesChange.emit(selection);
+                this.filesChange$.next(selection);
 
                 if (this.broadcast) {
                     this.naturalFileService.filesChanged.next(selection);
@@ -279,6 +282,14 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
 
                 return null;
             }),
+        );
+    }
+
+    protected hasObservers(): boolean {
+        return (
+            this.fileChange$.observed ||
+            this.filesChange$.observed ||
+            (this.broadcast && this.naturalFileService.filesChanged.observed)
         );
     }
 }

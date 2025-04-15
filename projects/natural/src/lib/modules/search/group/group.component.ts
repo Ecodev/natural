@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, viewChild} from '@angular/core';
+import {Component, Input, viewChild, output} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalInputComponent} from '../input/input.component';
 import {NaturalSearchFacets} from '../types/facet';
@@ -19,7 +19,7 @@ export class NaturalGroupComponent {
     @Input() public dropdownTitle = '';
     @Input({required: true}) public placeholder!: string;
     @Input({required: true}) public facets!: NaturalSearchFacets;
-    @Output() public readonly selectionChange = new EventEmitter<GroupSelections>();
+    public readonly selectionChange = output<GroupSelections>();
     public innerSelections: GroupSelections = [];
 
     @Input() public set selections(selection: GroupSelections) {

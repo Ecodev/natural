@@ -1,8 +1,8 @@
 @if (menu && !disabled) {
     <div class="menu-container">
         <div class="menu">
-            @if (save.observed) {
-                <button mat-icon-button i18n-matTooltip matTooltip="Enregistrer" (click)="save.emit()">
+            @if (save$.observed) {
+                <button mat-icon-button i18n-matTooltip matTooltip="Enregistrer" (click)="save$.next()">
                     <mat-icon fontIcon="save" />
                 </button>
             }

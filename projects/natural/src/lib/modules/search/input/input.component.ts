@@ -5,16 +5,15 @@ import {
     createEnvironmentInjector,
     ElementRef,
     EnvironmentInjector,
-    EventEmitter,
     HostListener,
     inject,
     Input,
     OnChanges,
     OnDestroy,
     OnInit,
-    Output,
     StaticProvider,
     viewChild,
+    output,
 } from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {ErrorStateMatcher, MatRipple, MatRippleModule} from '@angular/material/core';
@@ -111,12 +110,12 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     /**
      * Emits when user a added/updated/deleted a search (from global context or from facet)
      */
-    @Output() public readonly selectionChange = new EventEmitter<NaturalSearchSelection>();
+    public readonly selectionChange = output<NaturalSearchSelection>();
 
     /**
      * Emits when user removes the search by pressing the cross icon
      */
-    @Output() public readonly cleared = new EventEmitter<NaturalInputComponent>();
+    public readonly cleared = output<NaturalInputComponent>();
 
     /**
      * Selected facet from the list of available facets

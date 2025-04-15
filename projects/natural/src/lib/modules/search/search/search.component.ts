@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnChanges, Output} from '@angular/core';
+import {Component, inject, Input, OnChanges, output} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalSearchFacets} from '../types/facet';
 import {GroupSelections, NaturalSearchSelections} from '../types/values';
@@ -52,7 +52,7 @@ export class NaturalSearchComponent implements OnChanges {
     /**
      * Emits when some selection has been setted by the user
      */
-    @Output() public readonly selectionChange = new EventEmitter<NaturalSearchSelections>();
+    public readonly selectionChange = output<NaturalSearchSelections>();
 
     /**
      * Cleaned inputted selections. Allow valid selections to be manipulated inside component
