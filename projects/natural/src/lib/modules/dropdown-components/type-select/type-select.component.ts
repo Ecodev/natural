@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, DestroyRef, inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, DestroyRef, inject, viewChild} from '@angular/core';
 import {MatListModule, MatSelectionList} from '@angular/material/list';
 import {BehaviorSubject, merge, Observable, of} from 'rxjs';
 import {FilterGroupConditionField, Scalar} from '../../search/classes/graphql-doctrine.types';
@@ -39,7 +39,7 @@ export type TypeSelectConfiguration = {
 export class TypeSelectComponent implements DropdownComponent, AfterViewInit {
     private readonly destroyRef = inject(DestroyRef);
     public readonly renderedValue = new BehaviorSubject<string>('');
-    @ViewChild(MatSelectionList, {static: false}) public list!: MatSelectionList;
+    public readonly list = viewChild.required(MatSelectionList);
     public requireValueCtrl = false;
     public readonly operators = possibleDiscreteOperators;
     public readonly operatorCtrl = new FormControl<PossibleDiscreteOperatorKeys>('is', {nonNullable: true});
@@ -75,8 +75,9 @@ export class TypeSelectComponent implements DropdownComponent, AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        if (!this.isMultiple() && this.list) {
-            (this.list.selectedOptions as any)._multiple = false;
+        const list = this.list();
+        if (!this.isMultiple() && list) {
+            (list.selectedOptions as any)._multiple = false;
         }
     }
 

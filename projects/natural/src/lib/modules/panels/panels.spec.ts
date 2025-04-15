@@ -8,7 +8,7 @@ import {
     naturalProviders,
     providePanels,
 } from '@ecodev/natural';
-import {Component, inject, Injector, ViewChild} from '@angular/core';
+import {Component, inject, Injector, viewChild} from '@angular/core';
 import {provideRouter, Router, RouterOutlet, Routes, UrlSegment, withRouterConfig} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {provideNoopAnimations} from '@angular/platform-browser/animations';
@@ -21,7 +21,7 @@ import {fallbackIfNoOpenedPanels} from './fallback-if-no-opened-panels.urlmatche
     imports: [RouterOutlet],
 })
 class TestRootComponent {
-    @ViewChild(RouterOutlet) public routerOutlet!: RouterOutlet;
+    public readonly routerOutlet = viewChild.required(RouterOutlet);
 }
 
 @Component({
@@ -257,7 +257,7 @@ describe('Panels', () => {
             navigate(['no-panels']);
             tick(100);
 
-            expect(rootComponent.routerOutlet.component).toBeInstanceOf(TestNoPanelComponent);
+            expect(rootComponent.routerOutlet().component).toBeInstanceOf(TestNoPanelComponent);
             expect(getOpenedPanelData()).withContext('nothing opened yet').toEqual([]);
         }));
 
@@ -266,7 +266,7 @@ describe('Panels', () => {
             navigate(['with-panels']);
             tick(100);
 
-            expect(rootComponent.routerOutlet.component).toBeInstanceOf(TestWithPanelComponent);
+            expect(rootComponent.routerOutlet().component).toBeInstanceOf(TestWithPanelComponent);
             expect(getOpenedPanelData()).withContext('nothing opened yet').toEqual([]);
 
             // Open panel A 2
@@ -290,7 +290,7 @@ describe('Panels', () => {
             navigate(['with-panels', 'panel-a', '2', 'panel-a', '3', 'panel-b', '1']);
             tick(100);
 
-            expect(rootComponent.routerOutlet.component).toBeInstanceOf(TestWithPanelComponent);
+            expect(rootComponent.routerOutlet().component).toBeInstanceOf(TestWithPanelComponent);
             expect(getOpenedPanelData()).toEqual([panelA2, panelA3, panelB1]);
         }));
     }
@@ -315,7 +315,7 @@ describe('Panels', () => {
             navigate(['my-invalid-url']);
             tick(100);
 
-            expect(rootComponent.routerOutlet.component).toBeInstanceOf(TestFallbackComponent);
+            expect(rootComponent.routerOutlet().component).toBeInstanceOf(TestFallbackComponent);
             expect(getOpenedPanelData()).toEqual([]);
         }));
 
@@ -331,7 +331,7 @@ describe('Panels', () => {
             navigate(['my-invalid-url', '123']);
             tick(1000);
 
-            expect(rootComponent.routerOutlet.component).toBeInstanceOf(TestFallbackComponent);
+            expect(rootComponent.routerOutlet().component).toBeInstanceOf(TestFallbackComponent);
             expect(getOpenedPanelData()).toEqual([]);
         }));
 
@@ -340,7 +340,7 @@ describe('Panels', () => {
             navigate(['with-panels', 'panel-a', '2', 'panel-a', '3', 'my-invalid-url']);
             tick(100);
 
-            expect(rootComponent.routerOutlet.component).toBeInstanceOf(TestFallbackComponent);
+            expect(rootComponent.routerOutlet().component).toBeInstanceOf(TestFallbackComponent);
             expect(getOpenedPanelData()).toEqual([]);
         }));
     });

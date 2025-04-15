@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, viewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalFileSelectDirective} from './file-select.directive';
 import {NaturalFileService} from './file.service';
@@ -8,7 +8,7 @@ import {NaturalFileService} from './file.service';
     imports: [NaturalFileSelectDirective],
 })
 class ContainerComponent {
-    @ViewChild(NaturalFileSelectDirective) public ngf!: NaturalFileSelectDirective;
+    public readonly ngf = viewChild.required(NaturalFileSelectDirective);
 }
 
 describe('naturalFileSelect', () => {
@@ -26,7 +26,7 @@ describe('naturalFileSelect', () => {
     it('inits', () => {
         expect(fixture).not.toBeNull();
         expect(component).not.toBeNull();
-        expect(component.ngf.selectable).toBe(true);
+        expect(component.ngf().selectable).toBe(true);
     });
 
     it('should broadcast to service', done => {
@@ -34,7 +34,7 @@ describe('naturalFileSelect', () => {
 
         let called = 0;
         service.filesChanged.subscribe(() => called++);
-        component.ngf.onChange(new CustomEvent('custom'));
+        component.ngf().onChange(new CustomEvent('custom'));
 
         setTimeout(() => {
             expect(called).toBe(1);
@@ -47,8 +47,8 @@ describe('naturalFileSelect', () => {
 
         let called = 0;
         service.filesChanged.subscribe(() => called++);
-        component.ngf.broadcast = false;
-        component.ngf.onChange(new CustomEvent('custom'));
+        component.ngf().broadcast = false;
+        component.ngf().onChange(new CustomEvent('custom'));
 
         setTimeout(() => {
             expect(called).toBe(0);
@@ -65,7 +65,7 @@ describe('naturalFileSelect', () => {
             done();
         });
 
-        component.ngf.onChange(new CustomEvent('custom'));
+        component.ngf().onChange(new CustomEvent('custom'));
     });
 
     it('should reject directories', done => {
@@ -79,7 +79,7 @@ describe('naturalFileSelect', () => {
             done();
         });
 
-        component.ngf.onChange(new CustomEvent('custom'));
+        component.ngf().onChange(new CustomEvent('custom'));
     });
 });
 

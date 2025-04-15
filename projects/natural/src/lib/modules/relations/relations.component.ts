@@ -9,7 +9,7 @@ import {
     OnInit,
     Output,
     TemplateRef,
-    ViewChild,
+    viewChild,
 } from '@angular/core';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {NaturalDataSource, PaginatedData} from '../../classes/data-source';
@@ -78,7 +78,7 @@ export class NaturalRelationsComponent<
     private readonly destroyRef = inject(DestroyRef);
     private readonly linkMutationService = inject(NaturalLinkMutationService);
     private readonly hierarchicSelectorDialog = inject(NaturalHierarchicSelectorDialogService);
-    @ViewChild(NaturalSelectComponent) private select?: NaturalSelectComponent<TService>;
+    private readonly select = viewChild<NaturalSelectComponent<TService>>(NaturalSelectComponent);
     @ContentChild(TemplateRef) public itemTemplate?: TemplateRef<unknown>;
 
     private _service!: TService;
@@ -225,7 +225,7 @@ export class NaturalRelationsComponent<
 
         forkJoin(observables).subscribe(() => {
             this.selectionChange.emit();
-            this.select?.clear();
+            this.select()?.clear();
         });
     }
 

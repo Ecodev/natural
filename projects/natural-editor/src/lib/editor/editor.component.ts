@@ -8,7 +8,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    ViewChild,
+    viewChild,
 } from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {EditorView} from 'prosemirror-view';
@@ -68,7 +68,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
 
     private view: EditorView | null = null;
 
-    @ViewChild('editor', {read: ElementRef, static: true}) private editor!: ElementRef<HTMLElement>;
+    private readonly editor = viewChild.required('editor', {read: ElementRef});
 
     @Output() public readonly contentChange = new EventEmitter<string>();
 
@@ -122,7 +122,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
         const serializer = DOMSerializer.fromSchema(this.schema);
         const state = this.createState();
 
-        this.view = new EditorView(this.editor.nativeElement, {
+        this.view = new EditorView(this.editor().nativeElement, {
             state: state,
             editable: () => !this.disabled,
             dispatchTransaction: (transaction: Transaction) => {

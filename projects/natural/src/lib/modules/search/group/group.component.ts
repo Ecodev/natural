@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, viewChild} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalInputComponent} from '../input/input.component';
 import {NaturalSearchFacets} from '../types/facet';
@@ -11,7 +11,7 @@ import {GroupSelections, NaturalSearchSelection} from '../types/values';
     imports: [NaturalInputComponent],
 })
 export class NaturalGroupComponent {
-    @ViewChild('newValueInput') public newValueInput!: NaturalInputComponent;
+    public readonly newValueInput = viewChild.required<NaturalInputComponent>('newValueInput');
 
     /**
      * Text display in the dropdown to select the facet
@@ -32,7 +32,7 @@ export class NaturalGroupComponent {
     }
 
     public addInput(selection: NaturalSearchSelection): void {
-        this.newValueInput.clear();
+        this.newValueInput().clear();
         this.innerSelections.push(selection);
         this.selectionChange.emit(this.innerSelections);
     }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, viewChild} from '@angular/core';
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {provideNoopAnimations} from '@angular/platform-browser/animations';
 import {provideRouter, Router, RouterOutlet} from '@angular/router';
@@ -14,7 +14,7 @@ import {NaturalLinkableTabDirective} from '@ecodev/natural';
     imports: [RouterOutlet],
 })
 class TestRootComponent {
-    @ViewChild(RouterOutlet) public routerOutlet!: RouterOutlet;
+    public readonly routerOutlet = viewChild.required(RouterOutlet);
 }
 
 @Component({
@@ -55,7 +55,7 @@ describe('NaturalLinkableTabDirective', () => {
         expect(router.url).toBe(url);
 
         // Assert component was initialized only once (and not re-initialized on every tab change)
-        const component = rootComponent.routerOutlet.component as TestSimpleComponent;
+        const component = rootComponent.routerOutlet().component as TestSimpleComponent;
         expect(component.initialized).toBe(1);
     }
 

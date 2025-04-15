@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, viewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalFileService} from '@ecodev/natural';
 import {NaturalFileDropDirective} from './file-drop.directive';
@@ -8,7 +8,7 @@ import {NaturalFileDropDirective} from './file-drop.directive';
     imports: [NaturalFileDropDirective],
 })
 class ContainerComponent {
-    @ViewChild(NaturalFileDropDirective) public ngf!: NaturalFileDropDirective;
+    public readonly ngf = viewChild.required(NaturalFileDropDirective);
 }
 
 describe('NaturalFileDropDirective', () => {
@@ -53,7 +53,7 @@ describe('NaturalFileDropDirective', () => {
         const element: HTMLElement = fixture.nativeElement.childNodes[0];
 
         // Disable broadcast
-        component.ngf.broadcast = false;
+        component.ngf().broadcast = false;
 
         // Subscribe to files
         uploadService.filesChanged.subscribe();

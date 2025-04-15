@@ -35,7 +35,7 @@
         [errorStateMatcher]="matcher"
         (blur)="onBlur()"
         (change)="onInternalFormChange()"
-        (click)="autoTrigger.openPanel()"
+        (click)="autoTrigger().openPanel()"
         (focus)="startSearch()"
         (keydown.esc)="reset()"
         (keydown.enter)="onKeyEnter()"

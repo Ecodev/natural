@@ -7,7 +7,7 @@ import {
     Input,
     OnInit,
     TemplateRef,
-    ViewChild,
+    viewChild,
 } from '@angular/core';
 import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule, MatAutocompleteTrigger} from '@angular/material/autocomplete';
@@ -104,7 +104,7 @@ export class NaturalSelectComponent<
     implements OnInit, ControlValueAccessor, AfterViewInit
 {
     private readonly destroyRef = inject(DestroyRef);
-    @ViewChild(MatAutocompleteTrigger) public autoTrigger!: MatAutocompleteTrigger;
+    public readonly autoTrigger = viewChild.required(MatAutocompleteTrigger);
     @ContentChild(TemplateRef) public itemTemplate?: TemplateRef<any>;
 
     /**
@@ -222,7 +222,7 @@ export class NaturalSelectComponent<
     public onKeyEnter(): void {
         if (!this.internalCtrl.value) {
             this.clear();
-            this.autoTrigger.closePanel();
+            this.autoTrigger().closePanel();
         }
     }
 

@@ -14,7 +14,7 @@ import {
     OnInit,
     Output,
     StaticProvider,
-    ViewChild,
+    viewChild,
 } from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {ErrorStateMatcher, MatRipple, MatRippleModule} from '@angular/material/core';
@@ -76,12 +76,12 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     /**
      * Controls the ripple effect, used when opening a dropdown
      */
-    @ViewChild(MatRipple, {static: true}) public ripple!: MatRipple;
+    public readonly ripple = viewChild.required(MatRipple);
 
     /**
      * Native element ref for <input> related to this <natural-input> component
      */
-    @ViewChild('input', {static: true}) public input!: ElementRef<HTMLInputElement>;
+    public readonly input = viewChild.required<ElementRef<HTMLInputElement>>('input');
 
     /**
      * Label for this field
@@ -169,7 +169,7 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     @HostListener('focus')
     public focus(): void {
         this.neutralizeDropdownOpening = true;
-        this.input.nativeElement.focus();
+        this.input().nativeElement.focus();
         this.neutralizeDropdownOpening = false;
     }
 
@@ -202,11 +202,11 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.input.nativeElement.addEventListener('focus', () => {
+        this.input().nativeElement.addEventListener('focus', () => {
             this.openDropdown();
         });
 
-        this.input.nativeElement.addEventListener('keyup', () => {
+        this.input().nativeElement.addEventListener('keyup', () => {
             if (!this.dropdownRef) {
                 return;
             }
@@ -321,7 +321,7 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private launchRipple(): void {
-        const rippleRef = this.ripple.launch({
+        const rippleRef = this.ripple().launch({
             persistent: true,
             centered: true,
         });
@@ -395,7 +395,7 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
                 condition: (facet as FlagFacet<FilterGroupConditionField>).condition,
             });
         } else {
-            this.input.nativeElement.focus();
+            this.input().nativeElement.focus();
         }
     }
 

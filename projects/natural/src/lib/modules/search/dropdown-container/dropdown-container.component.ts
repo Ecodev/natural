@@ -9,8 +9,7 @@ import {
     inject,
     InjectionToken,
     OnDestroy,
-    TemplateRef,
-    ViewChild,
+    viewChild,
     ViewEncapsulation,
 } from '@angular/core';
 import {Subject} from 'rxjs';
@@ -43,8 +42,7 @@ export class NaturalDropdownContainerComponent extends BasePortalOutlet implemen
     private readonly focusTrapFactory = inject(ConfigurableFocusTrapFactory);
     public readonly data = inject(NATURAL_DROPDOWN_CONTAINER_DATA);
 
-    @ViewChild(CdkPortalOutlet, {static: true}) public portalOutlet!: CdkPortalOutlet;
-    @ViewChild(TemplateRef, {static: true}) public templateRef!: TemplateRef<any>;
+    public readonly portalOutlet = viewChild.required(CdkPortalOutlet);
 
     public readonly closed = new Subject<void>();
 
@@ -70,15 +68,16 @@ export class NaturalDropdownContainerComponent extends BasePortalOutlet implemen
     }
 
     public attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
-        return this.portalOutlet.attachTemplatePortal(portal);
+        return this.portalOutlet().attachTemplatePortal(portal);
     }
 
     public attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
-        if (this.portalOutlet.hasAttached()) {
+        const portalOutlet = this.portalOutlet();
+        if (portalOutlet.hasAttached()) {
             throwMatDialogContentAlreadyAttachedError();
         }
 
-        return this.portalOutlet.attachComponentPortal(portal);
+        return portalOutlet.attachComponentPortal(portal);
     }
 
     public startAnimation(): void {
