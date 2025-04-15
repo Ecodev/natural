@@ -1,5 +1,3 @@
-/// <reference types="@angular/localize" />
-
 /*
  * Public API Surface of natural-editor
  */

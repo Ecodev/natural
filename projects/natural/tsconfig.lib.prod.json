@@ -2,8 +2,7 @@
 {
     "extends": "./tsconfig.lib.json",
     "compilerOptions": {
-        "declarationMap": false,
-        "types": ["@angular/localize"]
+        "declarationMap": false
     },
     "angularCompilerOptions": {
         "compilationMode": "partial"
