@@ -10,7 +10,7 @@
                     (selectionChange)="updateGroup($event, $index)"
                 />
                 <div class="endOfRowButton">
-                    @if (innerSelections.length > 1) {
+                    @if ($count > 1) {
                         <button
                             mat-icon-button
                             i18n-matTooltip
