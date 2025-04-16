@@ -75,8 +75,8 @@ function mergeConcatArray(destValue: any, source: any): any {
  * ```
  */
 export class NaturalQueryVariablesManager<T extends QueryVariables = QueryVariables> {
-    public readonly variables: BehaviorSubject<T | undefined> = new BehaviorSubject<T | undefined>(undefined);
-    private readonly channels: Map<string, Partial<T>> = new Map<string, Partial<T>>();
+    public readonly variables = new BehaviorSubject<T | undefined>(undefined);
+    private readonly channels = new Map<string, Partial<T>>();
 
     public constructor(queryVariablesManager?: NaturalQueryVariablesManager<T>) {
         if (queryVariablesManager) {

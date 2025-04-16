@@ -23,7 +23,7 @@ export type TypeOptionsConfiguration = {
     imports: [FormsModule, ReactiveFormsModule, MatButtonToggleModule],
 })
 export class TypeOptionsComponent implements DropdownComponent {
-    public readonly renderedValue: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    public readonly renderedValue = new BehaviorSubject<string>('');
 
     public readonly formControl = new FormControl<TypeOption>({} as TypeOption, {nonNullable: true});
 

@@ -5,7 +5,7 @@ import {NameOrFullName} from '../../../types/types';
 export type HierarchicModel = {__typename: string} & NameOrFullName;
 
 export class HierarchicModelNode {
-    public childrenChange: BehaviorSubject<HierarchicModelNode[]> = new BehaviorSubject<HierarchicModelNode[]>([]);
+    public readonly childrenChange = new BehaviorSubject<HierarchicModelNode[]>([]);
 
     public constructor(
         public readonly model: HierarchicModel,

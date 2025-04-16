@@ -1,6 +1,6 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, DestroyRef, inject, Input, OnChanges, OnInit, SimpleChanges, output} from '@angular/core';
+import {Component, DestroyRef, inject, Input, OnChanges, OnInit, output, SimpleChanges} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule} from '@angular/material/tree';
 import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
@@ -120,7 +120,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     /**
      * Cache for transformed nodes
      */
-    private flatNodeMap: Map<string, HierarchicFlatNode> = new Map<string, HierarchicFlatNode>();
+    private flatNodeMap = new Map<string, HierarchicFlatNode>();
 
     /**
      * Angular OnChange implementation

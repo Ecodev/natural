@@ -30,7 +30,7 @@ export class NaturalHierarchicSelectorService {
      * This observable contains Node.
      * When it's updated, the TreeController and TreeFlattener process the new array to generate the flat tree.
      */
-    public readonly dataChange: BehaviorSubject<HierarchicModelNode[]> = new BehaviorSubject<HierarchicModelNode[]>([]);
+    public readonly dataChange = new BehaviorSubject<HierarchicModelNode[]>([]);
 
     /**
      * Configuration for relations and selection constraints
