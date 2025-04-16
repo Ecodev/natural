@@ -6,6 +6,6 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class NaturalEllipsisPipe implements PipeTransform {
     public transform(value: string, limit: number): string {
-        return value.substr(0, limit - 1) + (value.length > limit ? '…' : '');
+        return value.substring(0, limit - 1) + (value.length > limit ? '…' : '');
     }
 }

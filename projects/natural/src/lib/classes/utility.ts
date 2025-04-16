@@ -206,6 +206,7 @@ export function copyToClipboard(document: Document, text: string): void {
     document.body.append(input);
     input.value = text;
     input.select();
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     document.execCommand('copy');
     document.body.removeChild(input);
 }

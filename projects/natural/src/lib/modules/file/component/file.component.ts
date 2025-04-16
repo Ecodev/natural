@@ -174,6 +174,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
             subject.next(btoa(ev.target.result));
             subject.complete();
         });
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         reader.readAsBinaryString(file);
 
         return subject.asObservable();

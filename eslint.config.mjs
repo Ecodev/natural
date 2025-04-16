@@ -77,7 +77,6 @@ function tsFiles(files, extraRules = {}) {
             '@typescript-eslint/no-unsafe-return': 'off',
             '@typescript-eslint/prefer-nullish-coalescing': 'off', // Usually a good idea, but sometimes dangerous false-positive
             '@typescript-eslint/unbound-method': 'off',
-            '@typescript-eslint/no-deprecated': 'off', // TODO Angular 19: enable and solves them
             '@typescript-eslint/no-unnecessary-type-parameters': 'off', // The doc is scary, let's revisit this when we have time
             '@angular-eslint/prefer-signals': [
                 'error',

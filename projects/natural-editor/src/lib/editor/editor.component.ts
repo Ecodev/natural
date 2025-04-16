@@ -175,6 +175,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
     }
 
     private createPlugins(): Plugin[] {
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         const isMac = !!this.document.defaultView?.navigator.platform.match(/Mac/);
 
         const plugins = [
