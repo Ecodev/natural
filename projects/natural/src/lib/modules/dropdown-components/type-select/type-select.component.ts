@@ -39,7 +39,7 @@ export type TypeSelectConfiguration = {
 export class TypeSelectComponent implements DropdownComponent, AfterViewInit {
     private readonly destroyRef = inject(DestroyRef);
     public readonly renderedValue = new BehaviorSubject<string>('');
-    public readonly list = viewChild.required(MatSelectionList);
+    public readonly list = viewChild(MatSelectionList);
     public requireValueCtrl = false;
     public readonly operators = possibleDiscreteOperators;
     public readonly operatorCtrl = new FormControl<PossibleDiscreteOperatorKeys>('is', {nonNullable: true});
