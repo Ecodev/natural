@@ -7,9 +7,10 @@
 >
     @for (item of items | async; track $index) {
         <mat-option [value]="item">
+            @let customTemplate = itemTemplate();
             <ng-template
                 [ngTemplateOutletContext]="{item: item}"
-                [ngTemplateOutlet]="itemTemplate ? itemTemplate : defaultACItem"
+                [ngTemplateOutlet]="customTemplate ? customTemplate : defaultACItem"
             />
         </mat-option>
     }

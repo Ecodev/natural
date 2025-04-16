@@ -10,9 +10,10 @@
         <ng-container matColumnDef="name">
             <th *matHeaderCellDef i18n mat-header-cell>Titre</th>
             <td *matCellDef="let item" mat-cell>
+                @let customTemplate = itemTemplate();
                 <ng-template
                     [ngTemplateOutletContext]="{item: item}"
-                    [ngTemplateOutlet]="itemTemplate ? itemTemplate : defaultNameCell"
+                    [ngTemplateOutlet]="customTemplate ? customTemplate : defaultNameCell"
                 />
             </td>
         </ng-container>

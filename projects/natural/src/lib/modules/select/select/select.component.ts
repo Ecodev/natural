@@ -1,7 +1,7 @@
 import {
     AfterViewInit,
     Component,
-    ContentChild,
+    contentChild,
     DestroyRef,
     inject,
     Input,
@@ -105,7 +105,7 @@ export class NaturalSelectComponent<
 {
     private readonly destroyRef = inject(DestroyRef);
     public readonly autoTrigger = viewChild.required(MatAutocompleteTrigger);
-    @ContentChild(TemplateRef) public itemTemplate?: TemplateRef<any>;
+    public readonly itemTemplate = contentChild(TemplateRef);
 
     /**
      * Service with watchAll function that accepts queryVariables.

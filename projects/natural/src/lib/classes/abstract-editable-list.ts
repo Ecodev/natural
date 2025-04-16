@@ -15,8 +15,9 @@ import {PaginatedData} from './data-source';
  *
  * To access data of this component from a parent component, use:
  *
- * ```
- * @ViewChildren(ComponentType) cmp: ComponentType;
+ * ```ts
+ * private readonly cmp = viewChildren(ComponentType);
+ *
  * this.cmp.getItems();
  * ```
  *

@@ -1,6 +1,5 @@
 import {
     Component,
-    ContentChild,
     DestroyRef,
     inject,
     Input,
@@ -9,6 +8,7 @@ import {
     TemplateRef,
     viewChild,
     output,
+    contentChild,
 } from '@angular/core';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {NaturalDataSource, PaginatedData} from '../../classes/data-source';
@@ -78,7 +78,7 @@ export class NaturalRelationsComponent<
     private readonly linkMutationService = inject(NaturalLinkMutationService);
     private readonly hierarchicSelectorDialog = inject(NaturalHierarchicSelectorDialogService);
     private readonly select = viewChild<NaturalSelectComponent<TService>>(NaturalSelectComponent);
-    @ContentChild(TemplateRef) public itemTemplate?: TemplateRef<unknown>;
+    public readonly itemTemplate = contentChild<TemplateRef<unknown>>(TemplateRef);
 
     private _service!: TService;
 

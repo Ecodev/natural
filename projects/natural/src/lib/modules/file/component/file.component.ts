@@ -35,7 +35,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
     private readonly alertService = inject(NaturalAlertService);
     private readonly document = inject(DOCUMENT);
 
-    public height = input(250);
+    public readonly height = input(250);
     public readonly iconHeight = computed(() => Math.min(this.height() * 0.66, 120));
     public readonly fontSize = computed(() => Math.min(this.height() * 0.3, 36));
 

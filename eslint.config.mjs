@@ -79,7 +79,12 @@ function tsFiles(files, extraRules = {}) {
             '@typescript-eslint/unbound-method': 'off',
             '@typescript-eslint/no-deprecated': 'off', // TODO Angular 19: enable and solves them
             '@typescript-eslint/no-unnecessary-type-parameters': 'off', // The doc is scary, let's revisit this when we have time
-            '@angular-eslint/prefer-signals': 'off', // Only when our code will be ready
+            '@angular-eslint/prefer-signals': [
+                'error',
+                {
+                    preferInputSignals: false, // Only when our code will be entirely migrated to `input()`
+                },
+            ],
             '@angular-eslint/runtime-localize': 'off', // Because we never use runtime translations loading
             '@angular-eslint/directive-selector': [
                 'error',
