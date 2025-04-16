@@ -10,21 +10,21 @@
         }
     },
     "dependencies": {
-        "tslib": "^2.5.3",
+        "tslib": "^2.8.1",
         "extract-files": "^13.0.0"
     },
     "peerDependencies": {
-        "@angular/animations": "^18.1.0",
-        "@angular/cdk": "^18.1.0",
-        "@angular/common": "^18.1.0",
-        "@angular/core": "^18.1.0",
-        "@angular/forms": "^18.1.0",
-        "@angular/localize": "^18.1.0",
-        "@angular/material": "^18.1.0",
-        "@angular/platform-browser": "^18.1.0",
-        "@angular/router": "^18.1.0",
+        "@angular/animations": "^19.2.0",
+        "@angular/cdk": "^19.2.0",
+        "@angular/common": "^19.2.0",
+        "@angular/core": "^19.2.0",
+        "@angular/forms": "^19.2.0",
+        "@angular/localize": "^19.2.0",
+        "@angular/material": "^19.2.0",
+        "@angular/platform-browser": "^19.2.0",
+        "@angular/router": "^19.2.0",
         "apollo-angular": "^10.0.0",
         "lodash-es": "^4.17.21",
-        "rxjs": "^7.8.1"
+        "rxjs": "^7.8.2"
     }
 }
