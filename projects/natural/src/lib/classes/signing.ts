@@ -1,6 +1,6 @@
 import {HttpInterceptorFn, HttpRequest} from '@angular/common/http';
 import {hmacSha256} from './crypto';
-import {from, switchMap} from 'rxjs';
+import {from, switchMap, throwError} from 'rxjs';
 
 function getOperations(req: HttpRequest<unknown>): string {
     if (req.body instanceof FormData) {
@@ -22,6 +22,18 @@ function getOperations(req: HttpRequest<unknown>): string {
  * The server will validate the signature before executing the GraphQL query.
  */
 export function graphqlQuerySigner(key: string): HttpInterceptorFn {
+    // Validates the configuration exactly 1 time (not for
+    // every query), and if not reject **all** HTTP requests
+    if (!key) {
+        return () =>
+            throwError(
+                () =>
+                    new Error(
+                        'graphqlQuerySigner requires a non-empty key. Configure it in local.php under signedQueries.',
+                    ),
+            );
+    }
+
     return (req, next) => {
         const mustSign = req.method === 'POST' && /\/graphql(\?|$)/.exec(req.url);
         if (!mustSign) {

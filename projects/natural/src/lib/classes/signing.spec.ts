@@ -19,11 +19,15 @@ const batchedGraphqlQuery = [
 
 const key = 'my-secret-1';
 
-function expectSigned(request: HttpRequest<unknown>, done: DoneFn): void {
-    const signer = graphqlQuerySigner(key);
-
+function createHandlerSpy(): jasmine.Spy<HttpHandlerFn> {
     const handler = jasmine.createSpy<HttpHandlerFn>('HttpHandlerFn');
     handler.and.callFake(() => of(new HttpResponse()));
+    return handler;
+}
+
+function expectSigned(request: HttpRequest<unknown>, done: DoneFn): void {
+    const signer = graphqlQuerySigner(key);
+    const handler = createHandlerSpy();
 
     signer(request, handler).subscribe(() => {
         expect(handler).toHaveBeenCalledTimes(1);
@@ -35,9 +39,7 @@ function expectSigned(request: HttpRequest<unknown>, done: DoneFn): void {
 
 function expectNotSigned(request: HttpRequest<unknown>, done: DoneFn): void {
     const signer = graphqlQuerySigner(key);
-
-    const handler = jasmine.createSpy<HttpHandlerFn>('HttpHandlerFn');
-    handler.and.callFake(() => of(new HttpResponse()));
+    const handler = createHandlerSpy();
 
     signer(request, handler).subscribe(() => {
         expect(handler).toHaveBeenCalledOnceWith(request);
@@ -83,5 +85,23 @@ describe('graphqlQuerySigner', () => {
         const request = new HttpRequest('GET', '/graphql', graphqlQuery);
 
         expectNotSigned(request, done);
+    });
+
+    it('if mis-configured, will always error, even if query should not be signed', done => {
+        const request = new HttpRequest('GET', 'foo');
+        const signer = graphqlQuerySigner('');
+        const handler = createHandlerSpy();
+
+        signer(request, handler).subscribe({
+            error: error => {
+                expect(handler).not.toHaveBeenCalled();
+                expect(error).toBeInstanceOf(Error);
+                expect('message' in error).toBeTrue();
+                expect(error.message).toBe(
+                    'graphqlQuerySigner requires a non-empty key. Configure it in local.php under signedQueries.',
+                );
+                done();
+            },
+        });
     });
 });
