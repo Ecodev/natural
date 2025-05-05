@@ -13,6 +13,7 @@ export type TypeSelectNaturalConfiguration<TService extends UntypedModelService>
     service: TService;
     placeholder: string;
     filter?: ExtractVall<TService>['filter'];
+    pageSize?: number;
 };
 
 @Component({

@@ -164,7 +164,7 @@ export class NaturalSelectComponent<
     /**
      * Default page size
      */
-    private pageSize = 10;
+    @Input() public pageSize = 10;
 
     /**
      * Init search options
