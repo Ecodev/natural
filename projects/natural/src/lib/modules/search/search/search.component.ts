@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnChanges, output} from '@angular/core';
+import {Component, inject, Input, OnChanges, output, signal} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalSearchFacets} from '../types/facet';
 import {GroupSelections, NaturalSearchSelections} from '../types/values';
@@ -57,14 +57,19 @@ export class NaturalSearchComponent implements OnChanges {
     /**
      * Cleaned inputted selections. Allow valid selections to be manipulated inside component
      */
-    public innerSelections: NaturalSearchSelections = [[]];
+    readonly #innerSelections = signal<NaturalSearchSelections>([[]]);
+
+    /**
+     * Cleaned inputted selections. This public API is useful because `selectionChange` does not emit changes made via `[selections]`
+     */
+    public readonly innerSelections = this.#innerSelections.asReadonly();
 
     /**
      * Input to display at component initialisation
      */
     @Input()
     public set selections(selections: NaturalSearchSelections) {
-        this.innerSelections = selections?.[0] ? deepClone(selections) : [[]];
+        this.#innerSelections.set(selections?.[0] ? deepClone(selections) : [[]]);
     }
 
     public readonly isMobile = this.breakpointObserver.observe(Breakpoints.XSmall).pipe(map(result => result.matches));
@@ -76,25 +81,35 @@ export class NaturalSearchComponent implements OnChanges {
     }
 
     public updateGroup(groupSelections: GroupSelections, groupIndex: number): void {
+        const selections = [...this.#innerSelections()];
         for (let i = 0; i < groupSelections.length; i++) {
-            this.innerSelections[groupIndex][i] = groupSelections[i];
+            selections[groupIndex][i] = groupSelections[i];
         }
-        this.innerSelections[groupIndex].length = groupSelections.length;
-        this.selectionChange.emit(this.innerSelections);
+        selections[groupIndex].length = groupSelections.length;
+
+        this.#notify(selections);
     }
 
     public addGroup(): void {
-        this.innerSelections.push([]);
-        this.selectionChange.emit(this.innerSelections);
+        const selections = [...this.#innerSelections()];
+        selections.push([]);
+
+        this.#notify(selections);
     }
 
     public removeGroup(index: number): void {
-        this.innerSelections.splice(index, 1);
-        this.selectionChange.emit(this.innerSelections);
+        const selections = [...this.#innerSelections()];
+        selections.splice(index, 1);
+
+        this.#notify(selections);
     }
 
     public clear(): void {
-        this.innerSelections = [[]];
-        this.selectionChange.emit([[]]);
+        this.#notify([[]]);
+    }
+
+    #notify(selections: NaturalSearchSelections): void {
+        this.#innerSelections.set(selections);
+        this.selectionChange.emit(selections);
     }
 }

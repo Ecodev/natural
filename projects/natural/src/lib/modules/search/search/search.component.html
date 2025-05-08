@@ -1,6 +1,6 @@
-<div class="natural-search" [ngClass]="{mobile: isMobile | async, hasMultipleGroups: innerSelections.length > 1}">
+<div class="natural-search" [ngClass]="{mobile: isMobile | async, hasMultipleGroups: innerSelections().length > 1}">
     <div class="groupsWrapper">
-        @for (groupSelections of innerSelections; track $index) {
+        @for (groupSelections of innerSelections(); track $index) {
             <div class="groupWrapper">
                 <natural-group
                     [facets]="facets"
