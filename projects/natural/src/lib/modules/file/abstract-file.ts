@@ -60,7 +60,7 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
     @Input() public multiple = false;
 
     /**
-     * Comma-separated list of unique file type specifiers. Like the native element
+     * Comma-separated list of unique file type specifiers. Like the native element,
      * it can be a mix of mime-type and file extensions.
      *
      * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
@@ -88,7 +88,7 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
     /**
      * If true, the file selection will be broadcast through `NaturalFileService.filesChanged`.
      *
-     * It is useful to set this to false if there is two upload on a page with different purpose
+     * It is useful to set this to false if there are two uploads on a page with different purposes,
      * and the second upload should not be confused with the first one.
      */
     @Input() public broadcast = true;
