@@ -4,6 +4,7 @@ import {
     NaturalPanelData,
     NaturalPanelsComponent,
     NaturalPanelsRouterRule,
+    NaturalPanelsService,
     naturalPanelsUrlMatcher,
     naturalProviders,
     providePanels,
@@ -148,6 +149,7 @@ describe('Panels', () => {
     let panelA2: NaturalPanelData;
     let panelA3: NaturalPanelData;
     let panelB1: NaturalPanelData;
+    let service: NaturalPanelsService;
 
     function navigate(commands: string[]): void {
         router.navigate(commands).then(() => rootFixture.detectChanges());
@@ -162,6 +164,7 @@ describe('Panels', () => {
         rootComponent = rootFixture.componentInstance;
         router = TestBed.inject(Router);
         dialog = TestBed.inject(MatDialog);
+        service = TestBed.inject(NaturalPanelsService);
         const injector = TestBed.inject(Injector);
 
         rootFixture.detectChanges();
@@ -289,6 +292,8 @@ describe('Panels', () => {
 
             expect(rootComponent.routerOutlet.component).toBeInstanceOf(TestWithPanelComponent);
             expect(getOpenedPanelData()).toEqual([panelA2, panelA3, panelB1]);
+
+            expect(dialog.openDialogs.map(d => service.isTopPanel(d.componentInstance))).toEqual([false, false, true]);
         }));
     }
 
