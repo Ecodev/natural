@@ -108,6 +108,11 @@ export class NaturalPanelsService {
             });
     }
 
+    /**
+     * Notify the service to start listening to route changes to open panels
+     *
+     * @internal
+     */
     public start(route: ActivatedRoute): void {
         NaturalPanelsService._opened = true;
         this.routeSub = route.url.subscribe(segments => {
@@ -174,6 +179,11 @@ export class NaturalPanelsService {
         this.router.navigateByUrl(this.router.url + '/' + newUrl);
     }
 
+    /**
+     * Notify the service that all panels were closed
+     *
+     * @internal
+     */
     public stop(): void {
         NaturalPanelsService._opened = false;
         this.routeSub?.unsubscribe();
@@ -185,6 +195,8 @@ export class NaturalPanelsService {
 
     /**
      * Go to panel matching given component. Causes an url change.
+     *
+     * @internal
      */
     public goToPanelByComponent(component: NaturalAbstractPanel): void {
         this.goToPanelByIndex(this.getPanelIndex(component));
@@ -358,6 +370,14 @@ export class NaturalPanelsService {
         }
 
         return this.dialog.openDialogs.findIndex(dialog => dialog.componentInstance === component);
+    }
+
+    /**
+     * Whether the given panel is currently the top, visible, panel. If there are no panels opened at all, then any panel given is considered top, visible, panel.
+     */
+    public isTopPanel(component: NaturalAbstractPanel): boolean {
+        const length = this.dialog.openDialogs.length;
+        return !length || this.dialog.openDialogs[length - 1]?.componentInstance === component;
     }
 
     /**
