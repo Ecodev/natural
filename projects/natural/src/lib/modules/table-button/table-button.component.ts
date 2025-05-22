@@ -1,4 +1,4 @@
-import {Component, computed, input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation} from '@angular/core';
 import {Params, QueryParamsHandling, RouterLink, UrlTree} from '@angular/router';
 import {ThemePalette} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -23,6 +23,7 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
     styleUrl: './table-button.component.scss',
     // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
 })
 export class NaturalTableButtonComponent {
