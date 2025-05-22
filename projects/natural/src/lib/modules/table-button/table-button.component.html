@@ -1,82 +1,83 @@
 <!-- Because directives can't be applied conditionally (routerLink, mat-button and mat-icon-button), we have to use different elements -->
+@let theIcon = icon();
 
 <!-- Edge case of a button without any kind of link at all -->
-@if (type === 'none') {
+@if (type() === 'none') {
     <span>
-        @if (icon) {
-            <mat-icon [naturalIcon]="icon" />
+        @if (theIcon) {
+            <mat-icon [naturalIcon]="theIcon" />
         }
-        @if (label) {
-            <span>{{ label }}</span>
+        @if (label()) {
+            <span>{{ label() }}</span>
         }
     </span>
-} @else if (!raised) {
-    @switch (type) {
+} @else if (!raised()) {
+    @switch (type()) {
         <!-- App routed link -->
         @case ('routerLink') {
-            @if (label) {
+            @if (label()) {
                 <a
                     mat-button
-                    [color]="color"
-                    [queryParams]="queryParams"
-                    [queryParamsHandling]="queryParamsHandling"
-                    [routerLink]="navigate"
-                    [fragment]="fragment"
-                    [preserveFragment]="preserveFragment"
-                    [disabled]="disabled"
+                    [color]="color()"
+                    [queryParams]="queryParams()"
+                    [queryParamsHandling]="queryParamsHandling()"
+                    [routerLink]="navigate()"
+                    [fragment]="fragment()"
+                    [preserveFragment]="preserveFragment()"
+                    [disabled]="disabled()"
                 >
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
-                    <span>{{ label }}</span>
+                    <span>{{ label() }}</span>
                 </a>
             } @else {
                 <a
                     mat-icon-button
-                    [color]="color"
-                    [queryParams]="queryParams"
-                    [queryParamsHandling]="queryParamsHandling"
-                    [routerLink]="navigate"
-                    [fragment]="fragment"
-                    [preserveFragment]="preserveFragment"
-                    [disabled]="disabled"
+                    [color]="color()"
+                    [queryParams]="queryParams()"
+                    [queryParamsHandling]="queryParamsHandling()"
+                    [routerLink]="navigate()"
+                    [fragment]="fragment()"
+                    [preserveFragment]="preserveFragment()"
+                    [disabled]="disabled()"
                 >
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
                 </a>
             }
         }
         <!-- Click -->
         @case ('click') {
-            @if (label) {
-                <a mat-button [color]="color" [disabled]="disabled" (click)="buttonClick$.next($event)">
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+            @if (label()) {
+                <a mat-button [color]="color()" [disabled]="disabled()" (click)="buttonClick$.next($event)">
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
-                    <span>{{ label }}</span>
+                    <span>{{ label() }}</span>
                 </a>
             } @else {
-                <a mat-icon-button [disabled]="disabled" (click)="buttonClick$.next($event)">
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+                <a mat-icon-button [disabled]="disabled()" (click)="buttonClick$.next($event)">
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
                 </a>
             }
         }
         <!-- External link -->
         @case ('href') {
-            @if (label) {
-                <a mat-button target="_blank" [attr.href]="href" [color]="color" [disabled]="disabled">
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+            @if (label()) {
+                <a mat-button target="_blank" [attr.href]="href()" [color]="color()" [disabled]="disabled()">
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
-                    <span>{{ label }}</span>
+                    <span>{{ label() }}</span>
                 </a>
             } @else {
-                <a mat-icon-button target="_blank" [attr.href]="href" [color]="color" [disabled]="disabled">
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+                <a mat-icon-button target="_blank" [attr.href]="href()" [color]="color()" [disabled]="disabled()">
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
                 </a>
             }
@@ -84,85 +85,85 @@
     }
 } @else {
     <!-- App routed link -->
-    @switch (type) {
+    @switch (type()) {
         @case ('routerLink') {
-            @if (label) {
+            @if (label()) {
                 <a
                     mat-raised-button
-                    [color]="color"
-                    [queryParams]="queryParams"
-                    [queryParamsHandling]="queryParamsHandling"
-                    [routerLink]="navigate"
-                    [fragment]="fragment"
-                    [preserveFragment]="preserveFragment"
-                    [disabled]="disabled"
+                    [color]="color()"
+                    [queryParams]="queryParams()"
+                    [queryParamsHandling]="queryParamsHandling()"
+                    [routerLink]="navigate()"
+                    [fragment]="fragment()"
+                    [preserveFragment]="preserveFragment()"
+                    [disabled]="disabled()"
                 >
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
-                    <span>{{ label }}</span>
+                    <span>{{ label() }}</span>
                 </a>
             } @else {
                 <a
                     mat-icon-button
                     class="mat-elevation-z4"
-                    [color]="color"
-                    [queryParams]="queryParams"
-                    [queryParamsHandling]="queryParamsHandling"
-                    [routerLink]="navigate"
-                    [fragment]="fragment"
-                    [preserveFragment]="preserveFragment"
-                    [disabled]="disabled"
+                    [color]="color()"
+                    [queryParams]="queryParams()"
+                    [queryParamsHandling]="queryParamsHandling()"
+                    [routerLink]="navigate()"
+                    [fragment]="fragment()"
+                    [preserveFragment]="preserveFragment()"
+                    [disabled]="disabled()"
                 >
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
                 </a>
             }
         }
         <!-- Click  -->
         @case ('click') {
-            @if (label) {
-                <a mat-raised-button [color]="color" [disabled]="disabled" (click)="buttonClick$.next($event)">
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+            @if (label()) {
+                <a mat-raised-button [color]="color()" [disabled]="disabled()" (click)="buttonClick$.next($event)">
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
-                    <span>{{ label }}</span>
+                    <span>{{ label() }}</span>
                 </a>
             } @else {
                 <a
                     mat-icon-button
                     class="mat-elevation-z4"
-                    [color]="color"
-                    [disabled]="disabled"
+                    [color]="color()"
+                    [disabled]="disabled()"
                     (click)="buttonClick$.next($event)"
                 >
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
                 </a>
             }
         }
         <!-- External link -->
         @case ('href') {
-            @if (label) {
-                <a mat-raised-button target="_blank" [attr.href]="href" [color]="color" [disabled]="disabled">
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+            @if (label()) {
+                <a mat-raised-button target="_blank" [attr.href]="href()" [color]="color()" [disabled]="disabled()">
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
-                    <span>{{ label }}</span>
+                    <span>{{ label() }}</span>
                 </a>
             } @else {
                 <a
                     mat-icon-button
                     class="mat-elevation-z4"
                     target="_blank"
-                    [attr.href]="href"
-                    [color]="color"
-                    [disabled]="disabled"
+                    [attr.href]="href()"
+                    [color]="color()"
+                    [disabled]="disabled()"
                 >
-                    @if (icon) {
-                        <mat-icon [naturalIcon]="icon" />
+                    @if (theIcon) {
+                        <mat-icon [naturalIcon]="theIcon" />
                     }
                 </a>
             }

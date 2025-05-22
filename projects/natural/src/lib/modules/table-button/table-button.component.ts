@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, ViewEncapsulation} from '@angular/core';
+import {Component, computed, input, ViewEncapsulation} from '@angular/core';
 import {Params, QueryParamsHandling, RouterLink, UrlTree} from '@angular/router';
 import {ThemePalette} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -25,31 +25,32 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
     encapsulation: ViewEncapsulation.None,
     imports: [MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
 })
-export class NaturalTableButtonComponent implements OnChanges {
-    @Input() public queryParams: Params = {};
-    @Input() public queryParamsHandling: QueryParamsHandling = '';
-    @Input() public label?: string | null;
-    @Input() public icon?: string | null;
-    @Input() public href?: string | null;
-    @Input() public navigate: RouterLink['routerLink'] = [];
-    @Input() public fragment?: string | undefined;
-    @Input() public preserveFragment = false;
-    @Input() public disabled = false;
-    @Input() public raised = false;
-    @Input() public color: ThemePalette;
+export class NaturalTableButtonComponent {
+    public readonly queryParams = input<Params>({});
+    public readonly queryParamsHandling = input<QueryParamsHandling>('');
+    public readonly label = input<string | null | undefined>();
+    public readonly icon = input<string | null | undefined>();
+    public readonly href = input<string | null | undefined>();
+    public readonly navigate = input<RouterLink['routerLink']>([]);
+    public readonly fragment = input<string | undefined>();
+    public readonly preserveFragment = input(false);
+    public readonly disabled = input(false);
+    public readonly raised = input(false);
+    public readonly color = input<ThemePalette>();
+
     protected readonly buttonClick$ = new Subject<MouseEvent>();
     public readonly buttonClick = outputFromObservable(this.buttonClick$);
-    public type: 'routerLink' | 'href' | 'click' | 'none' = 'none';
 
-    public ngOnChanges(): void {
-        if (this.navigate instanceof UrlTree || this.navigate?.length || Object.keys(this.queryParams).length) {
-            this.type = 'routerLink';
-        } else if (this.href) {
-            this.type = 'href';
+    protected readonly type = computed(() => {
+        const navigate = this.navigate();
+        if (navigate instanceof UrlTree || navigate?.length || Object.keys(this.queryParams()).length) {
+            return 'routerLink';
+        } else if (this.href()) {
+            return 'href';
         } else if (this.buttonClick$.observed) {
-            this.type = 'click';
+            return 'click';
         } else {
-            this.type = 'none';
+            return 'none';
         }
-    }
+    });
 }
