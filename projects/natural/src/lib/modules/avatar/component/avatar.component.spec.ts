@@ -2,7 +2,6 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalAvatarComponent} from './avatar.component';
 import {AvatarService} from '../service/avatar.service';
 import {By} from '@angular/platform-browser';
-import {SimpleChange} from '@angular/core';
 import {Gravatar} from '../sources/gravatar';
 
 function delay(milliseconds: number): Promise<void> {
@@ -26,10 +25,7 @@ describe('NaturalAvatarComponent', () => {
     });
 
     it('should display the initials of the given value', async () => {
-        component.initials = 'John Doe';
-        component.ngOnChanges({
-            initials: new SimpleChange(null, component.initials, true),
-        });
+        fixture.componentRef.setInput('initials', 'John Doe');
 
         fixture.detectChanges();
 
@@ -43,12 +39,8 @@ describe('NaturalAvatarComponent', () => {
     });
 
     it('should display nothing at all if image fails, and initials is empty', () => {
-        component.image = 'https://totaly-non-existing-domain-with-404-image.com/impossible.jpg';
-        component.initials = '';
-        component.ngOnChanges({
-            image: new SimpleChange(null, component.image, true),
-            initials: new SimpleChange(null, component.initials, true),
-        });
+        fixture.componentRef.setInput('image', 'https://totaly-non-existing-domain-with-404-image.com/impossible.jpg');
+        fixture.componentRef.setInput('initials', '');
 
         // Simulate the image failing to load, because in our test the image will never
         // attempt to load because of the `loading="lazy"` attribute
@@ -64,12 +56,8 @@ describe('NaturalAvatarComponent', () => {
         // Pretend that this avatar already failed before
         avatarService.markSourceAsFailed(new Gravatar('invalid@example.com'));
 
-        component.gravatar = 'invalid@example.com';
-        component.initials = 'John Doe';
-        component.ngOnChanges({
-            gravatar: new SimpleChange(null, component.gravatar, true),
-            initials: new SimpleChange(null, component.initials, true),
-        });
+        fixture.componentRef.setInput('gravatar', 'invalid@example.com');
+        fixture.componentRef.setInput('initials', 'John Doe');
 
         fixture.detectChanges();
 

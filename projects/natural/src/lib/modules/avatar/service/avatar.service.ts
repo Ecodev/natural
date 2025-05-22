@@ -3,7 +3,8 @@ import {Source, SourceCreator} from '../sources/source';
 import {Gravatar} from '../sources/gravatar';
 import {Initials} from '../sources/initials';
 import {Image} from '../sources/image';
-import {NaturalAvatarComponent} from '../component/avatar.component';
+
+type SourceType = 'gravatar' | 'image' | 'initials';
 
 /**
  * Provides utilities methods related to Avatar component
@@ -16,7 +17,7 @@ export class AvatarService {
      * Ordered pairs of possible sources. First in the list is the highest priority.
      * And key must match one the input of AvatarComponent.
      */
-    private readonly sourceCreators = new Map<keyof NaturalAvatarComponent, SourceCreator>([
+    private readonly sourceCreators = new Map<SourceType, SourceCreator>([
         ['gravatar', Gravatar],
         ['image', Image],
         ['initials', Initials],
@@ -32,7 +33,7 @@ export class AvatarService {
         '#3b3b3b', // 11.2 pass https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=3b3b3b
     ];
 
-    private readonly failedSources = new Map<string, Source>();
+    private readonly failedSources = new Map<string, true>();
 
     public getRandomColor(avatarText: string): string {
         if (!avatarText) {
@@ -43,7 +44,7 @@ export class AvatarService {
         return this.avatarColors[asciiCodeSum % this.avatarColors.length];
     }
 
-    public getCreators(): IterableIterator<[keyof NaturalAvatarComponent, SourceCreator]> {
+    public getCreators(): IterableIterator<[SourceType, SourceCreator]> {
         return this.sourceCreators.entries();
     }
 
@@ -56,7 +57,7 @@ export class AvatarService {
     }
 
     public markSourceAsFailed(source: Source): void {
-        this.failedSources.set(this.getSourceKey(source), source);
+        this.failedSources.set(this.getSourceKey(source), true);
     }
 
     private calculateAsciiCode(value: string): number {

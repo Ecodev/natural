@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, input, linkedSignal} from '@angular/core';
 import {Source} from '../sources/source';
 import {AvatarService} from '../service/avatar.service';
 import {CommonModule} from '@angular/common';
@@ -35,169 +35,133 @@ type Style = Partial<CSSStyleDeclaration>;
         }
     `,
     template: `
-        <div class="avatar-container" [ngStyle]="hostStyle">
-            @if (avatarSrc) {
-                <img
-                    class="avatar-content"
-                    loading="lazy"
-                    [src]="avatarSrc"
-                    [width]="size"
-                    [height]="size"
-                    [ngStyle]="avatarStyle"
-                    (error)="tryNextSource()"
-                />
-            }
-            @if (avatarText) {
-                <div class="avatar-content" [class.natural-elevation]="decorated" [ngStyle]="avatarStyle">
-                    {{ avatarText }}
+        @let source = currentSource();
+        <div class="avatar-container" [style.height.px]="size()" [style.width.px]="size()">
+            @if (source && source?.isTextual()) {
+                <div class="avatar-content" [class.natural-elevation]="decorated()" [ngStyle]="textualStyle()">
+                    {{ textAvatar() | async }}
                 </div>
+            } @else if (source) {
+                @if (imageAvatar() | async; as src) {
+                    <img
+                        class="avatar-content"
+                        loading="lazy"
+                        [src]="src"
+                        [width]="size()"
+                        [height]="size()"
+                        [ngStyle]="imageStyle()"
+                        (error)="tryNextSource()"
+                    />
+                }
             }
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[style.height.px]': 'size()',
+        '[style.width.px]': 'size()',
+        '[class.decorated]': 'decorated()',
+    },
     imports: [CommonModule],
 })
-export class NaturalAvatarComponent implements OnChanges {
+export class NaturalAvatarComponent {
     private readonly avatarService = inject(AvatarService);
 
-    @Input() public image?: string | null;
-    @Input() public initials?: string | null;
-    @Input() public gravatar?: string | null;
+    public readonly image = input<string | null>();
+    public readonly initials = input<string | null>();
+    public readonly gravatar = input<string | null>();
+    public readonly size = input(50);
+    public readonly decorated = input(true);
+    public readonly textSizeRatio = input(2.25);
+    public readonly bgColor = input<string | undefined>();
+    public readonly fgColor = input('#FFF');
+    public readonly borderRadius = input('');
+    public readonly textMaximumLength = input(2);
 
-    @HostBinding('style.height.px')
-    @HostBinding('style.width.px')
-    @Input()
-    public size = 50;
-
-    @HostBinding('class.decorated')
-    @Input()
-    public decorated = true;
-
-    @Input() public textSizeRatio = 2.25;
-    @Input() public bgColor: string | undefined;
-    @Input() public fgColor = '#FFF';
-    @Input() public borderRadius = '';
-    @Input() public textMaximumLength = 2;
-
-    public avatarSrc: string | null = null;
-    public avatarText: string | null = null;
-    public avatarStyle: Style = {};
-    public hostStyle: Style = {};
-
-    private currentIndex = -1;
-    private sources: Source[] = [];
-
-    /**
-     * Detect inputs change
-     */
-    public ngOnChanges(changes: SimpleChanges): void {
-        this.sources.length = 0;
+    private readonly sources = linkedSignal<{currentIndex: number; sources: Source[]}>(() => {
+        const sources: Source[] = [];
         for (const [propName, creator] of this.avatarService.getCreators()) {
-            if (!changes[propName]) {
-                continue;
-            }
-
-            const currentValue = changes[propName].currentValue;
-            if (currentValue && typeof currentValue === 'string') {
-                this.sources.push(new creator(currentValue));
+            const value = this[propName]();
+            if (value) {
+                sources.push(new creator(value));
             }
         }
 
-        // reinitialize the avatar component when a source property value has changed
-        // the fallback system must be re-invoked with the new values.
-        this.initializeAvatar();
-    }
+        return {
+            currentIndex: this.findNextNonFailingIndex(-1, sources),
+            sources,
+        };
+    });
+
+    protected readonly currentSource = computed<Source | undefined>(() => {
+        const sources = this.sources();
+
+        return sources.sources[sources.currentIndex];
+    });
+
+    protected readonly imageAvatar = computed(() => this.currentSource()?.getAvatar(+this.size()));
+
+    protected readonly textAvatar = computed(() => this.currentSource()?.getAvatar(+this.textMaximumLength()));
 
     /**
-     * Fetch avatar source
+     * Try to use the next available avatar source that has not already failed in the past
      */
     public tryNextSource(): void {
-        const previousSource = this.sources[this.currentIndex];
+        const previousSource = this.currentSource();
         if (previousSource) {
             this.avatarService.markSourceAsFailed(previousSource);
         }
 
-        const source = this.findNextSource();
-        if (!source) {
-            this.clearAvatar();
-            return;
-        }
-
-        if (source.isTextual()) {
-            this.buildTextAvatar(source);
-        } else {
-            this.buildImageAvatar(source);
-        }
+        const {currentIndex, sources} = this.sources();
+        this.sources.set({
+            currentIndex: this.findNextNonFailingIndex(currentIndex, sources),
+            sources,
+        });
     }
 
-    private findNextSource(): Source | null {
-        while (++this.currentIndex < this.sources.length) {
-            const source = this.sources[this.currentIndex];
+    private findNextNonFailingIndex(currentIndex: number, sources: Source[]): number {
+        while (++currentIndex < sources.length) {
+            const source = sources[currentIndex];
             if (source && !this.avatarService.sourceHasFailedBefore(source)) {
-                return source;
+                return currentIndex;
             }
         }
 
-        return null;
-    }
-
-    /**
-     * Initialize the avatar component and its fallback system
-     */
-    private initializeAvatar(): void {
-        this.currentIndex = -1;
-        if (this.sources.length > 0) {
-            this.tryNextSource();
-            this.hostStyle = {
-                width: this.size + 'px',
-                height: this.size + 'px',
-            };
-        }
-    }
-
-    private clearAvatar(): void {
-        this.avatarSrc = null;
-        this.avatarText = null;
-        this.avatarStyle = {};
-    }
-
-    private buildTextAvatar(avatarSource: Source): void {
-        this.clearAvatar();
-        avatarSource.getAvatar(+this.textMaximumLength).then(avatarText => (this.avatarText = avatarText));
-        this.avatarStyle = this.getTextualStyle(avatarSource.getValue());
-    }
-
-    private buildImageAvatar(avatarSource: Source): void {
-        this.clearAvatar();
-        avatarSource.getAvatar(+this.size).then(avatarSrc => (this.avatarSrc = avatarSrc));
-        this.avatarStyle = this.getImageStyle();
+        return currentIndex;
     }
 
     /**
      * Returns initials style
      */
-    private getTextualStyle(avatarValue: string): Style {
+    protected readonly textualStyle = computed<Style>(() => {
+        const bgColor = this.bgColor();
+
+        const backgroundColor = bgColor
+            ? bgColor
+            : this.avatarService.getRandomColor(this.currentSource()?.getValue() ?? '');
+
         return {
             textAlign: 'center',
-            borderRadius: this.borderRadius || '100%',
+            borderRadius: this.borderRadius() || '100%',
             textTransform: 'uppercase',
-            color: this.fgColor,
-            backgroundColor: this.bgColor ? this.bgColor : this.avatarService.getRandomColor(avatarValue),
-            font: Math.floor(+this.size / this.textSizeRatio) + 'px Helvetica, Arial, sans-serif',
-            lineHeight: this.size + 'px',
-            width: this.size + 'px',
-            height: this.size + 'px',
+            color: this.fgColor(),
+            backgroundColor: backgroundColor,
+            font: Math.floor(+this.size() / this.textSizeRatio()) + 'px Helvetica, Arial, sans-serif',
+            lineHeight: this.size() + 'px',
+            width: this.size() + 'px',
+            height: this.size() + 'px',
         };
-    }
+    });
 
     /**
      * Returns image style
      */
-    private getImageStyle(): Style {
+    protected readonly imageStyle = computed<Style>(() => {
         return {
             maxWidth: '100%',
-            borderRadius: this.borderRadius || '100%',
-            width: this.size + 'px',
-            height: this.size + 'px',
+            borderRadius: this.borderRadius() || '100%',
+            width: this.size() + 'px',
+            height: this.size() + 'px',
         };
-    }
+    });
 }
