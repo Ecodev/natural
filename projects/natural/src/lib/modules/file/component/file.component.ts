@@ -47,7 +47,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
      * Overrides the default download link by passing a function that received the
      * file object and returns the download link
      */
-    @Input() private downloadLinkFn?: (file: FileModel | null) => null | string;
+    @Input() public downloadLinkFn?: (file: FileModel | null) => null | string;
 
     /**
      * Comma-separated list of unique file type specifiers. Like the native element,
