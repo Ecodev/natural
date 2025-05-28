@@ -44,6 +44,12 @@ export class NaturalFileComponent implements OnInit, OnChanges {
     @Input() public backgroundSize = 'contain';
 
     /**
+     * Overrides the default download link by passing a function that received the
+     * file object and returns the download link
+     */
+    @Input() private downloadLinkFn?: (file: FileModel | null) => null | string;
+
+    /**
      * Comma-separated list of unique file type specifiers. Like the native element,
      * it can be a mix of mime-type and file extensions.
      *
@@ -121,7 +127,9 @@ export class NaturalFileComponent implements OnInit, OnChanges {
             return null;
         }
 
-        return this.naturalFileService.getDownloadLink(this.model);
+        return this.downloadLinkFn
+            ? this.downloadLinkFn(this.model)
+            : this.naturalFileService.getDownloadLink(this.model);
     }
 
     private updateImage(): void {
