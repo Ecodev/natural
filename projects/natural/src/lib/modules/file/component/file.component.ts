@@ -1,4 +1,4 @@
-import {Component, computed, inject, input, Input, OnChanges, OnInit, SimpleChanges, output} from '@angular/core';
+import {Component, computed, inject, input, Input, OnChanges, OnInit, output, SimpleChanges} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {Observable, of, Subject, tap} from 'rxjs';
 import {NaturalFileService} from '../file.service';
@@ -42,12 +42,6 @@ export class NaturalFileComponent implements OnInit, OnChanges {
     @Input() public action: 'upload' | 'download' | null = null;
 
     @Input() public backgroundSize = 'contain';
-
-    /**
-     * Overrides the default download link by passing a function that received the
-     * file object and returns the download link
-     */
-    @Input() public downloadLinkFn?: (file: FileModel | null) => null | string;
 
     /**
      * Comma-separated list of unique file type specifiers. Like the native element,
@@ -127,9 +121,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
             return null;
         }
 
-        return this.downloadLinkFn
-            ? this.downloadLinkFn(this.model)
-            : this.naturalFileService.getDownloadLink(this.model);
+        return this.naturalFileService.getDownloadLink(this.model);
     }
 
     private updateImage(): void {
