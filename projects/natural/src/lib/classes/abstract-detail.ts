@@ -1,6 +1,6 @@
 import {Directive, inject, OnInit} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, type NavigationExtras, Router} from '@angular/router';
 import {kebabCase} from 'lodash-es';
 import {NaturalAlertService} from '../modules/alert/alert.service';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
@@ -235,7 +235,15 @@ export class NaturalAbstractDetail<
     /**
      * `confirmer` can be used to open a custom dialog, or anything else, to confirm the deletion, instead of the standard dialog
      */
-    public delete(redirectionRoute?: unknown[], confirmer?: Observable<boolean | undefined>): void {
+    public delete(
+        redirectionRoute?:
+            | unknown[]
+            | {
+                  commands: unknown[];
+                  extras: NavigationExtras;
+              },
+        confirmer?: Observable<boolean | undefined>,
+    ): void {
         this.form.disable();
 
         (
@@ -263,10 +271,17 @@ export class NaturalAbstractDetail<
 
                                 return EMPTY;
                             } else {
-                                const defaultRoute = ['../../' + kebabCase(this.key)];
-                                return this.router.navigate(redirectionRoute ? redirectionRoute : defaultRoute, {
-                                    relativeTo: this.route,
-                                });
+                                let commands: unknown[] = ['../../' + kebabCase(this.key)];
+                                let extras: NavigationExtras = {relativeTo: this.route};
+
+                                if (redirectionRoute && 'extras' in redirectionRoute) {
+                                    commands = redirectionRoute.commands;
+                                    extras = {...extras, ...redirectionRoute.extras};
+                                } else if (redirectionRoute) {
+                                    commands = redirectionRoute;
+                                }
+
+                                return this.router.navigate(commands, extras);
                             }
                         }),
                     );
