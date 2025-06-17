@@ -296,6 +296,22 @@ describe('NaturalAbstractDetail', () => {
         expect(router.url).toBe('/item/456');
     });
 
+    it('should delete and redirect to specific route', async () => {
+        await configure({data: {model: of(model)}});
+        detail.ngOnInit();
+        await harness.fixture.whenStable();
+
+        const deleteSpy = spyOn(service, 'delete').and.callFake(() => of(true));
+        const confirmSpy = spyOn(TestBed.inject(NaturalAlertService), 'confirm').and.callFake(() => of(true));
+
+        detail.delete({commands: ['/item/456'], extras: {fragment: 'my-fragment'}});
+
+        await harness.fixture.whenStable();
+        expect(deleteSpy).toHaveBeenCalledOnceWith([model]);
+        expect(confirmSpy).toHaveBeenCalledTimes(1);
+        expect(router.url).toBe('/item/456#my-fragment');
+    });
+
     it('should delete with custom confirmer', async () => {
         await configure({data: {model: of(model)}});
         detail.ngOnInit();
