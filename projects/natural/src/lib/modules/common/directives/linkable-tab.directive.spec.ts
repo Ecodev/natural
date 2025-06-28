@@ -1,6 +1,5 @@
 import {Component, OnInit, viewChild} from '@angular/core';
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 import {provideRouter, Router, RouterOutlet} from '@angular/router';
 import {MatTabGroupHarness} from '@angular/material/tabs/testing';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -62,7 +61,6 @@ describe('NaturalLinkableTabDirective', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             providers: [
-                provideNoopAnimations(),
                 provideRouter([
                     {
                         path: 'test-route',

@@ -12,7 +12,6 @@ import {
 import {Component, inject, Injector, viewChild} from '@angular/core';
 import {provideRouter, Router, RouterOutlet, Routes, UrlSegment, withRouterConfig} from '@angular/router';
 import {Observable, of} from 'rxjs';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 import {MatDialog} from '@angular/material/dialog';
 import {fallbackIfNoOpenedPanels} from './fallback-if-no-opened-panels.urlmatcher';
 
@@ -156,7 +155,6 @@ describe('Panels', () => {
     async function configure(routes: Routes): Promise<void> {
         await TestBed.configureTestingModule({
             providers: [
-                provideNoopAnimations(),
                 provideRouter(routes, withRouterConfig({resolveNavigationPromiseOnError: true})),
                 providePanels({}),
                 naturalProviders,

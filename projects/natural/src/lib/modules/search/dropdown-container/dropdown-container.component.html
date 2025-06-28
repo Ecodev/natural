@@ -2,8 +2,9 @@
     class="natural-dropdown-container mat-elevation-z2"
     role="menu"
     tabindex="-1"
-    [@transformMenu]="panelAnimationState"
-    (@transformMenu.done)="onAnimationDone($event)"
+    [class.mat-menu-panel-exit-animation]="panelAnimationState === 'void'"
+    (animationend)="onAnimationDone($event.animationName)"
+    (animationcancel)="onAnimationDone($event.animationName)"
 >
     <div class="natural-dropdown-container-content">
         <ng-template cdkPortalOutlet />

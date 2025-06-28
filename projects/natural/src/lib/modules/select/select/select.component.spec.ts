@@ -11,7 +11,6 @@ import {
 } from '../testing/utils';
 import {By} from '@angular/platform-browser';
 import {ItemService} from '../../../testing/item.service';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Component({
     template: `
@@ -54,7 +53,7 @@ describe('NaturalSelectComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            providers: [provideNoopAnimations(), MockApolloProvider],
+            providers: [MockApolloProvider],
         }).compileComponents();
     });
 

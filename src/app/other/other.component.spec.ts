@@ -1,7 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {OtherComponent} from './other.component';
 import {provideRouter} from '@angular/router';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 import {provideHttpClient} from '@angular/common/http';
 
 describe('OtherComponent', () => {
@@ -10,7 +9,7 @@ describe('OtherComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            providers: [provideNoopAnimations(), provideRouter([]), provideHttpClient()],
+            providers: [provideRouter([]), provideHttpClient()],
         }).compileComponents();
         fixture = TestBed.createComponent(OtherComponent);
         component = fixture.componentInstance;

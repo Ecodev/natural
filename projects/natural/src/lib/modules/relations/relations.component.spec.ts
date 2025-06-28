@@ -3,7 +3,6 @@ import {NaturalLinkMutationService, naturalProviders, NaturalRelationsComponent}
 import {ItemService} from '../../testing/item.service';
 import {MockApolloProvider} from '../../testing/mock-apollo.provider';
 import {of} from 'rxjs';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('NaturalRelationsComponent', () => {
     let component: NaturalRelationsComponent<ItemService>;
@@ -15,7 +14,7 @@ describe('NaturalRelationsComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            providers: [naturalProviders, MockApolloProvider, provideNoopAnimations()],
+            providers: [naturalProviders, MockApolloProvider],
         }).compileComponents();
         fixture = TestBed.createComponent(NaturalRelationsComponent<ItemService>);
         component = fixture.componentInstance;

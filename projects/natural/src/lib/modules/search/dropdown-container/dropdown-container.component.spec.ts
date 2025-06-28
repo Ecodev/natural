@@ -4,7 +4,6 @@ import {
     NaturalDropdownContainerComponent,
     NaturalDropdownContainerData,
 } from './dropdown-container.component';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('NaturalDropdownContainerComponent', () => {
     let component: NaturalDropdownContainerComponent;
@@ -13,7 +12,6 @@ describe('NaturalDropdownContainerComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             providers: [
-                provideNoopAnimations(),
                 {
                     provide: NATURAL_DROPDOWN_CONTAINER_DATA,
                     useValue: {showValidateButton: false} satisfies NaturalDropdownContainerData,

@@ -6,7 +6,6 @@ import {
     NaturalDropdownRef,
 } from '@ecodev/natural';
 import {TypeTextComponent} from './type-text.component';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('TypeTextComponent', () => {
     let component: TypeTextComponent;
@@ -27,7 +26,6 @@ describe('TypeTextComponent', () => {
 
         await TestBed.configureTestingModule({
             providers: [
-                provideNoopAnimations(),
                 {
                     provide: NATURAL_DROPDOWN_DATA,
                     useValue: data,

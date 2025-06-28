@@ -11,7 +11,6 @@ import {
     testAllSelectCommonBehavior,
     TestFixture,
 } from '../testing/utils';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Component({
     template: `
@@ -55,7 +54,6 @@ describe('NaturalSelectEnumComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             providers: [
-                provideNoopAnimations(),
                 {
                     provide: NaturalEnumService,
                     useClass: AnyEnumService,

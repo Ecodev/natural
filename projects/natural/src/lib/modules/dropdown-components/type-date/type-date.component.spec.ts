@@ -8,7 +8,6 @@ import {
     TypeDateConfiguration,
 } from '@ecodev/natural';
 import {Injectable} from '@angular/core';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Injectable({providedIn: 'root'})
 class ImpossibleParsingDateAdapter extends NativeDateAdapter {
@@ -88,7 +87,6 @@ describe('TypeDateComponent', () => {
         await TestBed.configureTestingModule({
             providers: [
                 provideNativeDateAdapter(),
-                provideNoopAnimations(),
                 {
                     provide: NATURAL_DROPDOWN_DATA,
                     useValue: data,

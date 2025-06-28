@@ -4,7 +4,6 @@ import {DateAdapter, provideNativeDateAdapter} from '@angular/material/core';
 import {MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions} from '@angular/material/paginator';
 import {MAT_TABS_CONFIG, MatTabsConfig} from '@angular/material/tabs';
 import {bootstrapApplication} from '@angular/platform-browser';
-import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {provideRouter, withRouterConfig} from '@angular/router';
 import {
     NaturalLinkMutationService,
@@ -64,7 +63,6 @@ bootstrapApplication(AppComponent, {
                 stretchTabs: false,
             } satisfies MatTabsConfig,
         },
-        provideAnimationsAsync(),
         provideHttpClient(),
         provideRouter(
             routes,

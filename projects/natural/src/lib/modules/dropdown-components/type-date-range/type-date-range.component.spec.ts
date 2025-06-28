@@ -7,7 +7,6 @@ import {
     TypeDateRangeComponent,
     TypeDateRangeConfiguration,
 } from '@ecodev/natural';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('TypeDateRangeComponent', () => {
     let component: TypeDateRangeComponent;
@@ -40,7 +39,6 @@ describe('TypeDateRangeComponent', () => {
         TestBed.configureTestingModule({
             providers: [
                 provideNativeDateAdapter(),
-                provideNoopAnimations(),
                 {
                     provide: NATURAL_DROPDOWN_DATA,
                     useValue: data,

@@ -1,4 +1,3 @@
-import {AnimationEvent} from '@angular/animations';
 import {ConfigurableFocusTrapFactory, FocusTrap} from '@angular/cdk/a11y';
 import {BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalModule, TemplatePortal} from '@angular/cdk/portal';
 import {
@@ -13,7 +12,6 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import {Subject} from 'rxjs';
-import {naturalDropdownAnimations} from './dropdown-container-animations';
 import {MatButtonModule} from '@angular/material/button';
 
 export function throwMatDialogContentAlreadyAttachedError(): void {
@@ -28,13 +26,18 @@ export const NATURAL_DROPDOWN_CONTAINER_DATA = new InjectionToken<NaturalDropdow
     'NaturalDropdownContainerData',
 );
 
+/** Name of the enter animation `@keyframes`. */
+const ENTER_ANIMATION = '_mat-menu-enter';
+
+/** Name of the exit animation `@keyframes`. */
+const EXIT_ANIMATION = '_mat-menu-exit';
+
 @Component({
     templateUrl: './dropdown-container.component.html',
     styleUrl: './dropdown-container.component.scss',
     // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
     encapsulation: ViewEncapsulation.None,
     preserveWhitespaces: false,
-    animations: [naturalDropdownAnimations.transformMenu, naturalDropdownAnimations.fadeInItems],
     imports: [PortalModule, MatButtonModule],
 })
 export class NaturalDropdownContainerComponent extends BasePortalOutlet implements OnDestroy {
@@ -47,24 +50,20 @@ export class NaturalDropdownContainerComponent extends BasePortalOutlet implemen
     public readonly closed = new Subject<void>();
 
     /** Current state of the panel animation. */
-    public panelAnimationState: 'void' | 'enter' = 'void';
+    protected panelAnimationState: 'void' | 'enter' = 'enter';
 
     /** Emits whenever an animation on the menu completes. */
-    private readonly animationDone = new Subject<void>();
+    private readonly animationDone = new Subject<'void' | 'enter'>();
 
     private focusTrap: FocusTrap | null = null;
     private elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;
-
-    public constructor() {
-        super();
-    }
 
     public ngOnDestroy(): void {
         this.closed.complete();
     }
 
     public close(): void {
-        this.closed.next();
+        this.panelAnimationState = 'void';
     }
 
     public attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
@@ -80,18 +79,19 @@ export class NaturalDropdownContainerComponent extends BasePortalOutlet implemen
         return portalOutlet.attachComponentPortal(portal);
     }
 
-    public startAnimation(): void {
-        this.panelAnimationState = 'enter';
-    }
+    /** Callback that is invoked when the panel animation completes. */
+    protected onAnimationDone(state: string): void {
+        const isExit = state === EXIT_ANIMATION;
 
-    public onAnimationDone(event: AnimationEvent): void {
-        if (event.toState === 'enter') {
-            this.trapFocus();
-        } else if (event.toState === 'exit') {
-            this.restoreFocus();
+        if (isExit || state === ENTER_ANIMATION) {
+            if (isExit) {
+                this.restoreFocus();
+                this.closed.next();
+            } else {
+                this.trapFocus();
+            }
+            this.animationDone.next(isExit ? 'void' : 'enter');
         }
-
-        this.animationDone.next();
     }
 
     private trapFocus(): void {

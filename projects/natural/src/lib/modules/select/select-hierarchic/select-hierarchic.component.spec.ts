@@ -21,7 +21,6 @@ import {By} from '@angular/platform-browser';
 import {of} from 'rxjs';
 import {MatDialogRef} from '@angular/material/dialog';
 import {ItemService} from '../../../testing/item.service';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Component({
     template: `
@@ -64,7 +63,7 @@ describe('NaturalSelectHierarchicComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            providers: [provideNoopAnimations(), naturalProviders, MockApolloProvider],
+            providers: [naturalProviders, MockApolloProvider],
         }).compileComponents();
     });
 

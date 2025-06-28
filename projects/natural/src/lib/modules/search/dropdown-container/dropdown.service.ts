@@ -60,9 +60,6 @@ export class NaturalDropdownService {
             containerRef,
         );
 
-        // Start animation that shows menu
-        dropdownContainer.startAnimation();
-
         const close = (): void => {
             if (dropdownRef.componentInstance.isValid() && dropdownRef.componentInstance.isDirty()) {
                 dropdownRef.close({

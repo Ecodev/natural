@@ -6,7 +6,6 @@ import {Component, inject, Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, provideRouter, Route, Router} from '@angular/router';
 import {RouterTestingHarness} from '@angular/router/testing';
 import {BehaviorSubject, of, Subject} from 'rxjs';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 @Component({
     standalone: true,
@@ -61,7 +60,6 @@ describe('NaturalAbstractDetail', () => {
                         ...dataAndResolve,
                     },
                 ]),
-                provideNoopAnimations(),
                 TestSimpleComponent,
                 {
                     provide: ItemService,

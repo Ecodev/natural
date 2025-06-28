@@ -14,7 +14,6 @@
         "extract-files": "^13.0.0"
     },
     "peerDependencies": {
-        "@angular/animations": "^19.2.0",
         "@angular/cdk": "^19.2.0",
         "@angular/common": "^19.2.0",
         "@angular/core": "^19.2.0",

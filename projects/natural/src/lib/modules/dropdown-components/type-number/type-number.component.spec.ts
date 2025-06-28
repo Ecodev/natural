@@ -7,7 +7,6 @@ import {
     TypeNumberComponent,
     TypeNumberConfiguration,
 } from '@ecodev/natural';
-import {provideNoopAnimations} from '@angular/platform-browser/animations';
 
 describe('TypeNumberComponent', () => {
     let component: TypeNumberComponent;
@@ -43,7 +42,6 @@ describe('TypeNumberComponent', () => {
 
         await TestBed.configureTestingModule({
             providers: [
-                provideNoopAnimations(),
                 {
                     provide: NATURAL_DROPDOWN_DATA,
                     useValue: data,
