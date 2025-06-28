@@ -191,6 +191,10 @@ export class NaturalAbstractList<
         this.dataSource = new NaturalDataSource<Tall>(this.getDataObservable());
         this.selection.clear();
 
+        this.handleHistoryNavigation();
+    }
+
+    protected handleHistoryNavigation(): void {
         // Update natural search when history changes (back/forward buttons)
         // History state is detectable only on NavigationStart (popstate trigger)
         // But we need parameters from url after NavigationEnd. So proceed in two steps with a flag.
@@ -200,14 +204,13 @@ export class NaturalAbstractList<
                 takeUntilDestroyed(this.destroyRef),
                 filter(event => event instanceof NavigationStart && event.navigationTrigger === 'popstate'),
             )
-            .subscribe(() => {
-                isPopState = true;
-            });
+            .subscribe(() => (isPopState = true));
 
         this.router.events
             .pipe(
                 takeUntilDestroyed(this.destroyRef),
                 filter(event => event instanceof NavigationEnd && isPopState),
+                filter(() => this.historyNavigationFilter()),
             )
             .subscribe(() => {
                 isPopState = false; // reset flag
@@ -215,6 +218,10 @@ export class NaturalAbstractList<
                 this.naturalSearchSelections = selections;
                 this.search(selections);
             });
+    }
+
+    protected historyNavigationFilter(): boolean {
+        return true;
     }
 
     /**
@@ -311,7 +318,7 @@ export class NaturalAbstractList<
     /**
      * Return current pagination, either the user defined one, or the default one
      */
-    private getPagination(): PaginationInput {
+    protected getPagination(): PaginationInput {
         const paginationChannel: Partial<ExtractVall<TService>> | undefined = this.variablesManager.get('pagination');
 
         if (paginationChannel && paginationChannel.pagination) {
