@@ -52,9 +52,6 @@ export class NaturalDropdownContainerComponent extends BasePortalOutlet implemen
     /** Current state of the panel animation. */
     protected panelAnimationState: 'void' | 'enter' = 'enter';
 
-    /** Emits whenever an animation on the menu completes. */
-    private readonly animationDone = new Subject<'void' | 'enter'>();
-
     private focusTrap: FocusTrap | null = null;
     private elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;
 
@@ -90,7 +87,6 @@ export class NaturalDropdownContainerComponent extends BasePortalOutlet implemen
             } else {
                 this.trapFocus();
             }
-            this.animationDone.next(isExit ? 'void' : 'enter');
         }
     }
 
