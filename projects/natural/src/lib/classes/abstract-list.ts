@@ -1,11 +1,13 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {Directive, inject, Input, OnInit} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
-import {ActivatedRoute, Data, NavigationEnd, NavigationExtras, NavigationStart, Router} from '@angular/router';
+import {ActivatedRoute, Data, NavigationExtras, Router} from '@angular/router';
 import {defaults, isEmpty, isEqual, pick} from 'lodash-es';
 import {Observable, Subject} from 'rxjs';
 import {NaturalAlertService} from '../modules/alert/alert.service';
+import {AvailableColumn} from '../modules/columns-picker/types';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
 import {toGraphQLDoctrineFilter} from '../modules/search/classes/graphql-doctrine';
 import {fromUrl, toUrl} from '../modules/search/classes/url';
@@ -13,6 +15,8 @@ import {NaturalSearchFacets} from '../modules/search/types/facet';
 import {NaturalSearchSelections} from '../modules/search/types/values';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {NaturalPersistenceService} from '../services/persistence.service';
+import {ExtractTall, ExtractVall, Literal} from '../types/types';
+import {NavigableItem} from './abstract-navigable-list';
 import {NaturalDataSource, PaginatedData} from './data-source';
 import {
     NaturalQueryVariablesManager,
@@ -21,12 +25,7 @@ import {
     Sorting,
     SortingOrder,
 } from './query-variable-manager';
-import {ExtractTall, ExtractVall, Literal} from '../types/types';
-import {NavigableItem} from './abstract-navigable-list';
-import {filter} from 'rxjs/operators';
-import {AvailableColumn} from '../modules/columns-picker/types';
-import {validateColumns, validatePagination, validateSorting} from './utility';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {onHistoryEvent, validateColumns, validatePagination, validateSorting} from './utility';
 
 type MaybeNavigable = Literal | NavigableItem<Literal>;
 
@@ -195,33 +194,13 @@ export class NaturalAbstractList<
     }
 
     protected handleHistoryNavigation(): void {
-        // Update natural search when history changes (back/forward buttons)
-        // History state is detectable only on NavigationStart (popstate trigger)
-        // But we need parameters from url after NavigationEnd. So proceed in two steps with a flag.
-        let isPopState = false;
-        this.router.events
-            .pipe(
-                takeUntilDestroyed(this.destroyRef),
-                filter(event => event instanceof NavigationStart && event.navigationTrigger === 'popstate'),
-            )
-            .subscribe(() => (isPopState = true));
-
-        this.router.events
-            .pipe(
-                takeUntilDestroyed(this.destroyRef),
-                filter(event => event instanceof NavigationEnd && isPopState),
-                filter(() => this.historyNavigationFilter()),
-            )
+        onHistoryEvent(this.router)
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(() => {
-                isPopState = false; // reset flag
                 const selections = fromUrl(this.persistenceService.getFromUrl('ns', this.route));
                 this.naturalSearchSelections = selections;
                 this.search(selections);
             });
-    }
-
-    protected historyNavigationFilter(): boolean {
-        return true;
     }
 
     /**

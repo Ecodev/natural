@@ -1,6 +1,9 @@
+import {NavigationEnd, NavigationStart, Router} from '@angular/router';
 import {pickBy} from 'lodash-es';
-import {Literal} from '../types/types';
+import {Observable, switchMap, take} from 'rxjs';
+import {filter} from 'rxjs/operators';
 import type {ReadonlyDeep} from 'type-fest';
+import {Literal} from '../types/types';
 import {PaginationInput, Sorting, SortingOrder} from './query-variable-manager';
 
 /**
@@ -297,4 +300,16 @@ export function validateColumns(data: unknown): string[] | null {
     }
 
     return data.split(',').filter(string => string);
+}
+
+export function onHistoryEvent(router: Router): Observable<NavigationEnd> {
+    return router.events.pipe(
+        filter(e => e instanceof NavigationStart && e.navigationTrigger === 'popstate'),
+        switchMap(() =>
+            router.events.pipe(
+                filter(e => e instanceof NavigationEnd),
+                take(1),
+            ),
+        ),
+    );
 }
