@@ -1,7 +1,7 @@
 import {Directive, inject, OnInit} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {ActivatedRoute, type NavigationExtras, Router} from '@angular/router';
-import {kebabCase} from 'lodash-es';
+import {kebabCase} from 'es-toolkit';
 import {NaturalAlertService} from '../modules/alert/alert.service';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
 import {NaturalAbstractModelService, WithId} from '../services/abstract-model.service';

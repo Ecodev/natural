@@ -4,7 +4,8 @@ import {inject, Injectable, Injector, runInInjectionContext} from '@angular/core
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ActivatedRoute, DefaultUrlSerializer, NavigationError, Router, UrlSegment} from '@angular/router';
-import {differenceWith, flatten, isEqual} from 'lodash-es';
+import {differenceWith, flatten} from 'es-toolkit';
+import {isEqual} from 'es-toolkit/compat';
 import {forkJoin, Observable, of, Subject, Subscription} from 'rxjs';
 import {NaturalAbstractPanel} from './abstract-panel';
 import {getStackConfig} from './panels.urlmatcher';

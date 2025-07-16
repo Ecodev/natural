@@ -1,7 +1,7 @@
 import {AfterViewInit, DestroyRef, Directive, inject, Input} from '@angular/core';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {ActivatedRoute, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
-import {clone} from 'lodash-es';
+import {clone} from 'es-toolkit';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**

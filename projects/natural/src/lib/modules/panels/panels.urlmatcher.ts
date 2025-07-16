@@ -1,6 +1,6 @@
 import {Injector} from '@angular/core';
 import {Route, UrlMatcher, UrlMatchResult, UrlSegment, UrlSegmentGroup} from '@angular/router';
-import {flatten, merge} from 'lodash-es';
+import {flatten, merge} from 'es-toolkit';
 import {NaturalPanelConfig, NaturalPanelsRouterRule} from './types';
 import {Literal} from '../../types/types';
 

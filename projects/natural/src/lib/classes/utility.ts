@@ -1,10 +1,11 @@
 import {NavigationEnd, NavigationStart, Router} from '@angular/router';
-import {pickBy} from 'lodash-es';
+import {pickBy} from 'es-toolkit';
 import {Observable, switchMap, take} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import type {ReadonlyDeep} from 'type-fest';
 import {Literal} from '../types/types';
 import {PaginationInput, Sorting, SortingOrder} from './query-variable-manager';
+import {cloneDeepWith} from 'es-toolkit';
 
 /**
  * Very basic formatting to get only date, without time and ignoring entirely the timezone
@@ -192,10 +193,25 @@ export function rgbToHex(rgb: string): string {
 }
 
 /**
+ * Deep clone given values except for `File` that will be referencing the original value
+ */
+export function cloneDeepButSkipFile<T>(value: T): T {
+    return cloneDeepWith(value, v => (isFile(v) ? v : undefined));
+}
+
+export function isFile(value: unknown): boolean {
+    return (
+        (typeof File !== 'undefined' && value instanceof File) ||
+        (typeof Blob !== 'undefined' && value instanceof Blob) ||
+        (typeof FileList !== 'undefined' && value instanceof FileList)
+    );
+}
+
+/**
  * During lodash.mergeWith, overrides arrays
  */
 export function mergeOverrideArray(destValue: unknown, source: unknown): unknown {
-    if (Array.isArray(source)) {
+    if (Array.isArray(source) || isFile(source)) {
         return source;
     }
 }

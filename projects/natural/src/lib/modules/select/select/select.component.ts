@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule, MatAutocompleteTrigger} from '@angular/material/autocomplete';
-import {merge} from 'lodash-es';
+import {merge} from 'es-toolkit';
 import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, finalize, map} from 'rxjs/operators';
 import {PaginatedData} from '../../../classes/data-source';

@@ -1,5 +1,6 @@
-import {cloneDeep, isEqual} from 'lodash-es';
+import {isEqual} from 'es-toolkit';
 import {Literal} from '../types/types';
+import {cloneDeepButSkipFile} from './utility';
 
 /**
  * Cumulate all changes made to an object over time
@@ -12,7 +13,7 @@ export class CumulativeChanges<T extends Literal> {
      * Initialize the original values, should be called exactly one time per instance
      */
     public initialize(originalValues: Readonly<T>): void {
-        this.original = cloneDeep(originalValues);
+        this.original = cloneDeepButSkipFile(originalValues);
         this.diff = {};
     }
 
@@ -46,7 +47,7 @@ export class CumulativeChanges<T extends Literal> {
     public commit(newValues: Readonly<T>): void {
         this.original = {
             ...this.original,
-            ...cloneDeep(newValues),
+            ...cloneDeepButSkipFile(newValues),
         };
 
         Object.keys(newValues).forEach(key => {

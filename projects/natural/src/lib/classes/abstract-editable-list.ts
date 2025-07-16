@@ -1,6 +1,6 @@
 import {AbstractControl, UntypedFormArray, UntypedFormGroup} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
-import {merge} from 'lodash-es';
+import {merge} from 'es-toolkit';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {NaturalQueryVariablesManager, QueryVariables} from './query-variable-manager';
 import {ExtractTallOne, ExtractVall, Literal} from '../types/types';

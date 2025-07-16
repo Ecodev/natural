@@ -1,4 +1,4 @@
-import {cloneDeep, groupBy, uniq} from 'lodash-es';
+import {cloneDeep, groupBy, uniq} from 'es-toolkit';
 import {LogicalOperator} from '../modules/search/classes/graphql-doctrine.types';
 import {Literal} from '../types/types';
 
@@ -12,7 +12,7 @@ export function hasMixedGroupLogic(groups: Literal[]): boolean {
         return group;
     });
 
-    const groupLogics = uniq(Object.keys(groupBy(completedGroups.slice(1), 'groupLogic')));
+    const groupLogics = uniq(Object.keys(groupBy(completedGroups.slice(1), group => group.groupLogic)));
 
     return groupLogics.length > 1;
 }

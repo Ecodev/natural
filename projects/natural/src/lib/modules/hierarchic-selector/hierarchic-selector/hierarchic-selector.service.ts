@@ -1,5 +1,5 @@
 import {inject, Injectable, Injector} from '@angular/core';
-import {intersection} from 'lodash-es';
+import {intersection} from 'es-toolkit';
 import {BehaviorSubject, first, forkJoin, Observable} from 'rxjs';
 import {finalize, map} from 'rxjs/operators';
 import {NaturalQueryVariablesManager, QueryVariables} from '../../../classes/query-variable-manager';

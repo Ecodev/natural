@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
-import {defaults} from 'lodash-es';
+import {defaults} from 'es-toolkit/compat';
 import {
     HierarchicDialogConfig,
     HierarchicDialogResult,

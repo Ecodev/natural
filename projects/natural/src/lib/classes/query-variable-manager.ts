@@ -1,7 +1,8 @@
-import {cloneDeep, defaultsDeep, mergeWith, omit} from 'lodash-es';
+import {defaultsDeep, mergeWith} from 'es-toolkit/compat';
+import {cloneDeep, omit} from 'es-toolkit';
 import {BehaviorSubject} from 'rxjs';
 import {Literal} from '../types/types';
-import {mergeOverrideArray} from './utility';
+import {cloneDeepButSkipFile, isFile, mergeOverrideArray} from './utility';
 import {hasMixedGroupLogic} from './query-variable-manager-utils';
 
 export type QueryVariables = {
@@ -32,9 +33,13 @@ export enum SortingOrder {
 /**
  * During lodash merge, concat arrays
  */
-function mergeConcatArray(destValue: any, source: any): any {
+function mergeConcatArray(destValue: unknown, source: unknown): unknown {
+    if (isFile(source)) {
+        return source;
+    }
+
     if (Array.isArray(source)) {
-        if (destValue) {
+        if (Array.isArray(destValue)) {
             return destValue.concat(source);
         } else {
             return source;
@@ -91,7 +96,7 @@ export class NaturalQueryVariablesManager<T extends QueryVariables = QueryVariab
     public set(channelName: string, variables: Partial<T> | null | undefined): void {
         // cloneDeep to change reference and prevent some interactions when merge
         if (variables) {
-            this.channels.set(channelName, cloneDeep(variables));
+            this.channels.set(channelName, cloneDeepButSkipFile(variables));
         } else {
             this.channels.delete(channelName);
         }
@@ -105,7 +110,7 @@ export class NaturalQueryVariablesManager<T extends QueryVariables = QueryVariab
      * used this changed attribute without having explicitly asked QueryVariablesManager to update it.
      */
     public get(channelName: string): Partial<T> | undefined {
-        return cloneDeep(this.channels.get(channelName));
+        return cloneDeepButSkipFile(this.channels.get(channelName));
     }
 
     /**
@@ -168,7 +173,7 @@ export class NaturalQueryVariablesManager<T extends QueryVariables = QueryVariab
             }
 
             // Merge other attributes than filter
-            mergeWith(merged, omit(channelVariables, 'filter'), mergeConcatArray);
+            mergeWith(merged, omit(channelVariables, ['filter']), mergeConcatArray);
         });
 
         this.variables.next(merged);

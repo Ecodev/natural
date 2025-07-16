@@ -1,6 +1,5 @@
 import {ApolloLink, DocumentNode} from '@apollo/client/core';
-import {isObject} from 'lodash-es';
-import {formatIsoDateTime} from './utility';
+import {formatIsoDateTime, isFile} from './utility';
 import {HttpBatchLink, HttpLink, Options} from 'apollo-angular/http';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
@@ -10,21 +9,13 @@ import extractFiles from 'extract-files/extractFiles.mjs';
 import isExtractableFile from 'extract-files/isExtractableFile.mjs';
 import {Kind, OperationTypeNode} from 'graphql/language';
 
-function isFile(value: unknown): boolean {
-    return (
-        (typeof File !== 'undefined' && value instanceof File) ||
-        (typeof Blob !== 'undefined' && value instanceof Blob) ||
-        (typeof FileList !== 'undefined' && value instanceof FileList)
-    );
-}
-
 /**
  * Detect if the given variables have a file to be uploaded or not, and
  * also convert date to be serialized with their timezone.
  */
 export function hasFilesAndProcessDate(variables: unknown): boolean {
     let fileFound = false;
-    if (!isObject(variables)) {
+    if (!variables || typeof variables !== 'object') {
         return false;
     }
 

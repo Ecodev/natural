@@ -2,7 +2,8 @@ import {Apollo, gql, MutationResult} from 'apollo-angular';
 import {FetchResult, NetworkStatus, WatchQueryFetchPolicy} from '@apollo/client/core';
 import {AbstractControl, AsyncValidatorFn, UntypedFormControl, UntypedFormGroup, ValidatorFn} from '@angular/forms';
 import {DocumentNode} from 'graphql';
-import {defaults, merge, pick} from 'lodash-es';
+import {merge, pick} from 'es-toolkit';
+import {defaults} from 'es-toolkit/compat';
 import {catchError, combineLatest, EMPTY, first, from, Observable, of, OperatorFunction} from 'rxjs';
 import {debounceTime, filter, map, shareReplay, startWith, switchMap, takeWhile, tap} from 'rxjs/operators';
 import {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
@@ -358,7 +359,6 @@ export abstract class NaturalAbstractModelService<
         this.throwIfNotQuery(this.createMutation);
 
         const variables = merge(
-            {},
             {input: this.getInput(object, true)},
             this.getPartialVariablesForCreation(object),
         ) as Vcreate;
@@ -649,7 +649,7 @@ export abstract class NaturalAbstractModelService<
      */
     private getVariablesForOne(id: string): Observable<Vone> {
         return this.getPartialVariablesForOne().pipe(
-            map(partialVariables => merge({}, {id: id} as Vone, partialVariables)),
+            map(partialVariables => merge({id: id} as Vone, partialVariables)),
         );
     }
 

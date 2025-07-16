@@ -1,6 +1,6 @@
 import {inject, Injectable, InjectionToken} from '@angular/core';
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
-import {clone} from 'lodash-es';
+import {clone} from 'es-toolkit';
 import {SESSION_STORAGE} from '../modules/common/services/memory-storage';
 
 /**
