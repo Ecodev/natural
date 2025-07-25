@@ -1,14 +1,14 @@
 import {
     Component,
+    contentChild,
     DestroyRef,
     inject,
     Input,
     OnChanges,
     OnInit,
+    output,
     TemplateRef,
     viewChild,
-    output,
-    contentChild,
 } from '@angular/core';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {NaturalDataSource, PaginatedData} from '../../classes/data-source';
@@ -180,6 +180,17 @@ export class NaturalRelationsComponent<
     @Input()
     public set filter(filter: ExtractVall<TService>['filter']) {
         this.variablesManager.set('relations-filter', {filter: filter});
+    }
+
+    /**
+     * The sorting used to sort relations
+     *
+     * So if the relations are from one action -> to many objectives, then the sorting must sort
+     * the objectives that have indeed a relation to the particular action.
+     */
+    @Input()
+    public set sorting(sorting: ExtractVall<TService>['sorting']) {
+        this.variablesManager.set('relations-sorting', {sorting: sorting});
     }
 
     public ngOnChanges(): void {
