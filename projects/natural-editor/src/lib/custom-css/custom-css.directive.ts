@@ -48,7 +48,7 @@ export class NaturalCustomCssDirective implements OnDestroy {
 
     private style: HTMLStyleElement | null = null;
 
-    @HostBinding('attr.data-natural-id') private readonly id = 'n' + ++uniqueId;
+    @HostBinding('attr.data-natural-id') protected readonly id = 'n' + ++uniqueId;
 
     @Input({required: true})
     public set naturalCustomCss(value: string | undefined) {

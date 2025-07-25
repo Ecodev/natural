@@ -50,9 +50,9 @@ export class NaturalIconDirective {
     @HostBinding('style.font-size.px')
     @HostBinding('style.min-height.px')
     @HostBinding('style.min-width.px')
-    private _size: number | undefined = undefined;
+    protected _size: number | undefined = undefined;
 
-    @HostBinding('class') private classes = '';
+    @HostBinding('class') protected classes = '';
 
     public constructor() {
         const config = this.config;
