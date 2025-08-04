@@ -18,7 +18,7 @@
         "build-demo": "yarn build-natural && yarn build-natural-editor && ng build demo --aot --base-href /natural/ && cp dist/demo/browser/index.html dist/demo/browser/404.html",
         "serve-demo": "echo '💡 open http://localhost:8000/natural/' && mkdir -p dist/server && ln -fs ../demo/browser dist/server/natural && php -S localhost:8000 -t dist/server/",
         "relink": "cd dist/natural && (yarn unlink ; yarn link) && cd ../natural-editor && (yarn unlink ; yarn link)",
-        "prettier": "./node_modules/.bin/prettier --write ."
+        "prettier": "./node_modules/.bin/prettier --experimental-cli --write ."
     },
     "private": true,
     "dependencies": {
