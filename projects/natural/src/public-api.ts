@@ -8,7 +8,7 @@ export * from './lib/classes/abstract-detail';
 export * from './lib/classes/abstract-editable-list';
 export * from './lib/classes/abstract-list';
 export * from './lib/classes/abstract-navigable-list';
-export {createHttpLink} from './lib/classes/apollo-utils';
+export {createHttpLink, hasFilesAndProcessDate} from './lib/classes/apollo-utils';
 export * from './lib/classes/data-source';
 export * from './lib/classes/query-variable-manager';
 export {cancellableTimeout, debug} from './lib/classes/rxjs';
