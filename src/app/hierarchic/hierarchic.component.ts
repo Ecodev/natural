@@ -79,6 +79,7 @@ export class HierarchicComponent {
             hierarchicSelection: this.selected,
             searchFacets: this.searchFacets,
             searchSelections: this.searchSelections,
+            allowSelectAll: true,
         };
 
         this.hierarchicDialogService

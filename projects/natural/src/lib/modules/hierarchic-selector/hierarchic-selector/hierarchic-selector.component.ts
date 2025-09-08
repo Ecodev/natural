@@ -1,12 +1,22 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, DestroyRef, inject, Input, OnChanges, OnInit, output, SimpleChanges} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Component, DestroyRef, inject, input, Input, OnChanges, OnInit, output, SimpleChanges} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule} from '@angular/material/tree';
 import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {QueryVariables} from '../../../classes/query-variable-manager';
+import {replaceObjectKeepingReference} from '../../../classes/utility';
 import {Literal} from '../../../types/types';
+import {NaturalIconDirective} from '../../icon/icon.directive';
 import {toGraphQLDoctrineFilter} from '../../search/classes/graphql-doctrine';
+import {NaturalSearchComponent} from '../../search/search/search.component';
 import {NaturalSearchFacets} from '../../search/types/facet';
 import {NaturalSearchSelections} from '../../search/types/values';
 import {HierarchicFlatNode} from '../classes/flat-node';
@@ -14,16 +24,6 @@ import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuratio
 import {HierarchicFiltersConfiguration} from '../classes/hierarchic-filters-configuration';
 import {HierarchicModelNode} from '../classes/model-node';
 import {NaturalHierarchicSelectorService, OrganizedModelSelection} from './hierarchic-selector.service';
-import {replaceObjectKeepingReference} from '../../../classes/utility';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {NaturalIconDirective} from '../../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {CommonModule} from '@angular/common';
-import {NaturalSearchComponent} from '../../search/search/search.component';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'natural-hierarchic-selector',
@@ -86,6 +86,15 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
      * Selections to apply on natural-search on component initialisation
      */
     @Input() public searchSelections: NaturalSearchSelections = [];
+
+    /**
+     * Select all fetched items of the current search result
+     *
+     * Use very carefully as recursivity is ignored. The selection includes children (if any) even if the child list has been closed
+     *
+     * Should be used __only__ for non-recursive use cases. Avoid with recursive because it's not intuitive for end user
+     */
+    public readonly allowSelectAll = input<boolean>(false);
 
     /**
      * Emits when natural-search selections change
@@ -194,6 +203,15 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
                 this.selectSingleFlatNode(flatNode);
             }
         }
+    }
+
+    protected selectAll(): void {
+        this.flatNodeMap.forEach(flatNode => {
+            if (!this.isNodeSelected(flatNode.node)) {
+                this.selectFlatNode(flatNode);
+            }
+        });
+        this.updateSelection(this.selectedNodes);
     }
 
     /**
@@ -392,8 +410,8 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
         this.selectionChange.emit(organizedFlatNodesSelection);
     }
 
-    private isNodeSelected(node: HierarchicModelNode): boolean {
-        const key = this.getMapKey(node.model);
+    private isNodeSelected(modelNode: HierarchicModelNode): boolean {
+        const key = this.getMapKey(modelNode.model);
 
         return this.selectedNodes.some(n => this.getMapKey(n.model) === key);
     }

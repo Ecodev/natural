@@ -42,6 +42,11 @@ export type HierarchicDialogConfig = {
     allowUnselect?: boolean;
 
     /**
+     * Allow to select all items with dedicated button
+     */
+    allowSelectAll?: boolean;
+
+    /**
      * Facets for natural-search in HierarchicComponent
      */
     searchFacets?: NaturalSearchFacets;
