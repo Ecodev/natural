@@ -15,8 +15,6 @@ import {NaturalBackgroundDensityDirective} from '../../common/directives/backgro
 // @dynamic
 @Component({
     selector: 'natural-file',
-    templateUrl: './file.component.html',
-    styleUrl: './file.component.scss',
     imports: [
         NaturalFileDropDirective,
         MatRippleModule,
@@ -26,6 +24,8 @@ import {NaturalBackgroundDensityDirective} from '../../common/directives/backgro
         NaturalCapitalizePipe,
         NaturalBackgroundDensityDirective,
     ],
+    templateUrl: './file.component.html',
+    styleUrl: './file.component.scss',
     host: {
         '[style.height.px]': 'height()',
     },

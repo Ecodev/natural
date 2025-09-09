@@ -14,8 +14,6 @@ import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'natural-search',
-    templateUrl: './search.component.html',
-    styleUrl: './search.component.scss',
     imports: [
         CommonModule,
         NaturalGroupComponent,
@@ -25,6 +23,8 @@ import {CommonModule} from '@angular/common';
         NaturalIconDirective,
         MatDividerModule,
     ],
+    templateUrl: './search.component.html',
+    styleUrl: './search.component.scss',
 })
 export class NaturalSearchComponent implements OnChanges {
     private readonly breakpointObserver = inject(BreakpointObserver);

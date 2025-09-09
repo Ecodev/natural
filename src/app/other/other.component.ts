@@ -29,8 +29,6 @@ type TableButtonConfiguration = {
 
 @Component({
     selector: 'app-other',
-    templateUrl: './other.component.html',
-    styleUrl: './other.component.scss',
     imports: [
         CommonModule,
         NaturalTableButtonComponent,
@@ -48,6 +46,8 @@ type TableButtonConfiguration = {
         MatRippleModule,
         RouterOutlet,
     ],
+    templateUrl: './other.component.html',
+    styleUrl: './other.component.scss',
 })
 export class OtherComponent implements OnInit {
     private httpClient = inject(HttpClient);

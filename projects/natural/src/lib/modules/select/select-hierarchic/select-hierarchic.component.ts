@@ -47,8 +47,6 @@ function defaultDisplayFn(item: Literal | null): string {
  */
 @Component({
     selector: 'natural-select-hierarchic',
-    templateUrl: './select-hierarchic.component.html',
-    styleUrl: './select-hierarchic.component.scss',
     imports: [
         MatFormFieldModule,
         MatInputModule,
@@ -60,6 +58,8 @@ function defaultDisplayFn(item: Literal | null): string {
         MatTooltipModule,
         RouterLink,
     ],
+    templateUrl: './select-hierarchic.component.html',
+    styleUrl: './select-hierarchic.component.scss',
 })
 export class NaturalSelectHierarchicComponent
     extends AbstractSelect<Literal, string>

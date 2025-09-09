@@ -27,9 +27,6 @@ import {NaturalHierarchicSelectorService, OrganizedModelSelection} from './hiera
 
 @Component({
     selector: 'natural-hierarchic-selector',
-    templateUrl: './hierarchic-selector.component.html',
-    styleUrl: './hierarchic-selector.component.scss',
-    providers: [NaturalHierarchicSelectorService],
     imports: [
         NaturalSearchComponent,
         CommonModule,
@@ -41,6 +38,9 @@ import {NaturalHierarchicSelectorService, OrganizedModelSelection} from './hiera
         MatCheckboxModule,
         MatChipsModule,
     ],
+    templateUrl: './hierarchic-selector.component.html',
+    styleUrl: './hierarchic-selector.component.scss',
+    providers: [NaturalHierarchicSelectorService],
 })
 export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     private readonly destroyRef = inject(DestroyRef);

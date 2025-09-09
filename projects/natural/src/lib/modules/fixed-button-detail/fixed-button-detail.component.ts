@@ -14,9 +14,9 @@ type Model = {
 
 @Component({
     selector: 'natural-fixed-button-detail',
+    imports: [NaturalFixedButtonComponent, MatTooltipModule],
     templateUrl: './fixed-button-detail.component.html',
     styleUrl: './fixed-button-detail.component.scss',
-    imports: [NaturalFixedButtonComponent, MatTooltipModule],
 })
 export class NaturalFixedButtonDetailComponent {
     private canChange = true;

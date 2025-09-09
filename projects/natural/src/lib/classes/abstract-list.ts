@@ -162,6 +162,7 @@ export class NaturalAbstractList<
     protected readonly alertService = inject(NaturalAlertService);
     protected readonly persistenceService = inject(NaturalPersistenceService);
 
+    // eslint-disable-next-line @angular-eslint/prefer-inject
     public constructor(public readonly service: TService) {
         super();
     }
@@ -301,7 +302,7 @@ export class NaturalAbstractList<
     protected getPagination(): PaginationInput {
         const paginationChannel: Partial<ExtractVall<TService>> | undefined = this.variablesManager.get('pagination');
 
-        if (paginationChannel && paginationChannel.pagination) {
+        if (paginationChannel?.pagination) {
             // The cast should not be necessary because Typescript correctly narrow down the type to `PaginationInput`
             // but somehow still get confused when returning it
             return paginationChannel.pagination;

@@ -191,6 +191,12 @@ function htmlFiles(files, extraRules = {}) {
             '@angular-eslint/template/no-call-expression': 'off',
             '@angular-eslint/template/no-inline-styles': 'off', // We sometimes use short inline styles
             '@angular-eslint/template/prefer-ngsrc': 'off', // TODO: experiment with ngsrc and see if we need to use it or not
+            '@angular-eslint/template/cyclomatic-complexity': [
+                'error',
+                {
+                    maxComplexity: 10, // More permissive than default because a lot of templates should be fixed for default values
+                },
+            ],
             '@angular-eslint/template/eqeqeq': [
                 'error',
                 {

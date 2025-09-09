@@ -38,9 +38,6 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
 // @dynamic
 @Component({
     selector: 'natural-editor',
-    templateUrl: './editor.component.html',
-    styleUrl: './editor.component.scss',
-    providers: [ImagePlugin],
     imports: [
         MatButtonModule,
         MatTooltipModule,
@@ -50,6 +47,9 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
         MatDividerModule,
         NaturalFileDropDirective,
     ],
+    templateUrl: './editor.component.html',
+    styleUrl: './editor.component.scss',
+    providers: [ImagePlugin],
 })
 export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAccessor {
     private readonly ngControl = inject(NgControl, {optional: true, self: true});

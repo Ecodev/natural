@@ -9,9 +9,9 @@ type Item = {
 
 @Component({
     selector: 'app-table-list',
+    imports: [MatTableModule, MatSortHeader, MatSort],
     templateUrl: './table-style.component.html',
     styleUrl: './table-style.component.scss',
-    imports: [MatTableModule, MatSortHeader, MatSort],
 })
 export class TableStyleComponent {
     public readonly columns = ['name', 'value', 'sortable_value'];

@@ -17,7 +17,7 @@
                 <button
                     mat-icon-button
                     matTreeNodeToggle
-                    [attr.aria-label]="'toggle ' + node.name"
+                    [attr.aria-label]="`toggle ${node.name}`"
                     (click)="loadChildren(node)"
                 >
                     @if (node.loading) {

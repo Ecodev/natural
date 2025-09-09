@@ -18,8 +18,6 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
 
 @Component({
     selector: 'app-navigable-list',
-    templateUrl: './navigable-list.component.html',
-    styleUrl: './navigable-list.component.scss',
     imports: [
         CommonModule,
         MatButtonModule,
@@ -36,6 +34,8 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
         MatProgressSpinnerModule,
         MatPaginatorModule,
     ],
+    templateUrl: './navigable-list.component.html',
+    styleUrl: './navigable-list.component.scss',
 })
 export class NavigableListComponent extends NaturalAbstractNavigableList<ItemService> implements OnInit {
     protected override defaultPagination = {

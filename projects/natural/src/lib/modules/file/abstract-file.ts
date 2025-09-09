@@ -2,7 +2,7 @@ import {
     Directive,
     ElementRef,
     HostListener,
-    Inject,
+    inject,
     Input,
     OnChanges,
     OnDestroy,
@@ -110,11 +110,9 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
      */
     public readonly filesChange = outputFromObservable(this.filesChange$);
 
-    public constructor(
-        private readonly element: ElementRef<HTMLElement>,
-        protected readonly naturalFileService: NaturalFileService,
-        @Inject(DOCUMENT) private readonly document: Document,
-    ) {}
+    private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
+    protected readonly naturalFileService = inject(NaturalFileService);
+    private readonly document = inject(DOCUMENT);
 
     public ngOnDestroy(): void {
         delete this.fileElement; // faster memory release of dom element

@@ -54,6 +54,7 @@ export class NaturalAbstractNavigableList<
 
     public breadcrumbs: BreadcrumbItem[] = [];
 
+    // eslint-disable-next-line @angular-eslint/prefer-inject
     public constructor(service: TService) {
         super(service);
     }

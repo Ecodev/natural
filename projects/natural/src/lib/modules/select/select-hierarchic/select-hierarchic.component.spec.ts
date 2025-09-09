@@ -23,6 +23,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {ItemService} from '../../../testing/item.service';
 
 @Component({
+    imports: [FormsModule, NaturalSelectHierarchicComponent],
     template: `
         <natural-select-hierarchic
             placeholder="ngModel"
@@ -35,11 +36,11 @@ import {ItemService} from '../../../testing/item.service';
             (blur)="onBlur()"
         />
     `,
-    imports: [FormsModule, NaturalSelectHierarchicComponent],
 })
 class TestHostWithHierarchicAndNgModelComponent extends AbstractTestHostWithNgModelComponent {}
 
 @Component({
+    imports: [ReactiveFormsModule, NaturalSelectHierarchicComponent],
     template: `
         <natural-select-hierarchic
             placeholder="formControl"
@@ -50,7 +51,6 @@ class TestHostWithHierarchicAndNgModelComponent extends AbstractTestHostWithNgMo
             (blur)="onBlur()"
         />
     `,
-    imports: [ReactiveFormsModule, NaturalSelectHierarchicComponent],
 })
 class TestHostWithHierarchicAndFormControlComponent extends AbstractTestHostWithFormControlComponent {}
 

@@ -8,9 +8,9 @@ import {NoResultService} from '../../../projects/natural/src/lib/testing/no-resu
 
 @Component({
     selector: 'app-relations',
+    imports: [FormsModule, ReactiveFormsModule, NaturalRelationsComponent],
     templateUrl: './relations.component.html',
     styleUrl: './relations.component.scss',
-    imports: [FormsModule, ReactiveFormsModule, NaturalRelationsComponent],
 })
 export class RelationsComponent extends NaturalAbstractDetail<ItemService> implements OnInit {
     public readonly noResultService = inject(NoResultService);

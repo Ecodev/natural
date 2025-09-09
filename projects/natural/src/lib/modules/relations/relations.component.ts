@@ -44,8 +44,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
  */
 @Component({
     selector: 'natural-relations',
-    templateUrl: './relations.component.html',
-    styleUrl: './relations.component.scss',
     imports: [
         CommonModule,
         MatTableModule,
@@ -57,6 +55,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         MatProgressSpinnerModule,
         NaturalSelectComponent,
     ],
+    templateUrl: './relations.component.html',
+    styleUrl: './relations.component.scss',
 })
 export class NaturalRelationsComponent<
         TService extends NaturalAbstractModelService<

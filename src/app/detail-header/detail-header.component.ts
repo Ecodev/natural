@@ -5,9 +5,9 @@ import {NaturalDetailHeaderComponent} from '../../../projects/natural/src/lib/mo
 
 @Component({
     selector: 'app-detail-header',
+    imports: [MatButtonModule, NaturalDetailHeaderComponent],
     templateUrl: './detail-header.component.html',
     styleUrl: './detail-header.component.scss',
-    imports: [MatButtonModule, NaturalDetailHeaderComponent],
 })
 export class DetailHeaderComponent {
     public model: Literal = {};

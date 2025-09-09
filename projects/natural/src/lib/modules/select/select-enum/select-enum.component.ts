@@ -12,9 +12,9 @@ type Value = IEnum['value'] | IEnum['value'][];
 
 @Component({
     selector: 'natural-select-enum',
+    imports: [MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, CommonModule, MatOptionModule],
     templateUrl: './select-enum.component.html',
     styleUrl: './select-enum.component.scss',
-    imports: [MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, CommonModule, MatOptionModule],
 })
 export class NaturalSelectEnumComponent extends AbstractSelect<Value, Value> implements OnInit, ControlValueAccessor {
     private readonly enumService = inject(NaturalEnumService);

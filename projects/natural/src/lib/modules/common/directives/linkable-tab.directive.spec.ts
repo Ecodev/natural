@@ -9,8 +9,8 @@ import {NaturalLinkableTabDirective} from '@ecodev/natural';
 
 @Component({
     selector: 'natural-test-root',
-    template: '<router-outlet />',
     imports: [RouterOutlet],
+    template: '<router-outlet />',
 })
 class TestRootComponent {
     public readonly routerOutlet = viewChild.required(RouterOutlet);
@@ -18,6 +18,7 @@ class TestRootComponent {
 
 @Component({
     selector: 'natural-test-simple',
+    imports: [MatTabsModule, NaturalLinkableTabDirective],
     template: `
         <mat-tab-group naturalLinkableTab>
             <mat-tab i18n label="Tab 1" i18n-label>Tab content 1</mat-tab>
@@ -25,7 +26,6 @@ class TestRootComponent {
             <mat-tab i18n label="Tab 3" i18n-label id="third">Tab content 3</mat-tab>
         </mat-tab-group>
     `,
-    imports: [MatTabsModule, NaturalLinkableTabDirective],
 })
 class TestSimpleComponent implements OnInit {
     public initialized = 0;

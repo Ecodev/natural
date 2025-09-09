@@ -12,8 +12,8 @@ type Stamped = {
 
 @Component({
     selector: 'natural-stamp',
-    templateUrl: './stamp.component.html',
     imports: [DatePipe, NaturalTimeAgoPipe],
+    templateUrl: './stamp.component.html',
 })
 export class NaturalStampComponent {
     @Input({required: true}) public item!: Stamped;

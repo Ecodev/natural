@@ -20,9 +20,9 @@ export type TypeNumberConfiguration = {
 };
 
 @Component({
+    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatInputModule],
     templateUrl: './type-number.component.html',
     styleUrl: './type-number.component.scss',
-    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatInputModule],
 })
 export class TypeNumberComponent implements DropdownComponent {
     protected dropdownRef = inject(NaturalDropdownRef);

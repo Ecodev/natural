@@ -11,8 +11,6 @@ import {AbstractSelect} from '../AbstractSelect';
 import {DebugControlComponent} from '../debug-form.component';
 
 @Component({
-    templateUrl: './select-hierarchic.component.html',
-    styleUrl: './select-hierarchic.component.scss',
     imports: [
         MatButtonModule,
         NaturalSelectHierarchicComponent,
@@ -23,6 +21,8 @@ import {DebugControlComponent} from '../debug-form.component';
         CommonModule,
         DebugControlComponent,
     ],
+    templateUrl: './select-hierarchic.component.html',
+    styleUrl: './select-hierarchic.component.scss',
 })
 export class SelectHierarchicComponent extends AbstractSelect {
     public hierarchicConfig: NaturalHierarchicConfiguration[] = [

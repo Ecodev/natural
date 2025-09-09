@@ -21,8 +21,6 @@ export type ColorDialogData = {
 
 @Component({
     selector: 'natural-editor-color-dialog',
-    templateUrl: './color-dialog.component.html',
-    styleUrl: './color-dialog.component.scss',
     imports: [
         MatDialogModule,
         FormsModule,
@@ -33,6 +31,8 @@ export type ColorDialogData = {
         MatFormFieldModule,
         MatInputModule,
     ],
+    templateUrl: './color-dialog.component.html',
+    styleUrl: './color-dialog.component.scss',
 })
 export class ColorDialogComponent {
     private dialogRef = inject<MatDialogRef<ColorDialogComponent, ColorDialogData>>(MatDialogRef);

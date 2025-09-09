@@ -1,4 +1,4 @@
-import {Directive, Inject} from '@angular/core';
+import {Directive, inject} from '@angular/core';
 import {BehaviorSubject, merge, Observable} from 'rxjs';
 import {FilterGroupConditionField} from '../search/classes/graphql-doctrine.types';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../search/dropdown-container/dropdown.service';
@@ -21,7 +21,8 @@ export abstract class AbstractAssociationSelectComponent<C> implements DropdownC
         value: this.valueCtrl,
     });
 
-    public constructor(@Inject(NATURAL_DROPDOWN_DATA) data: NaturalDropdownData<C>) {
+    public constructor() {
+        const data = inject<NaturalDropdownData<C>>(NATURAL_DROPDOWN_DATA);
         this.configuration = data.configuration;
 
         // Immediately initValidators and everytime the operator change later

@@ -63,8 +63,8 @@ function toGreaterThanFrom<D>(dateAdapter: DateAdapter<D>): ValidatorFn {
  * If you need optional bounding date, then use `TypeDateComponent` instead.
  */
 @Component({
-    templateUrl: './type-date-range.component.html',
     imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
+    templateUrl: './type-date-range.component.html',
 })
 export class TypeDateRangeComponent<D = any> implements DropdownComponent {
     private dateAdapter = inject<DateAdapter<D>>(DateAdapter);

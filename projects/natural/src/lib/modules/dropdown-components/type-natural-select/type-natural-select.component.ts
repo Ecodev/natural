@@ -17,7 +17,6 @@ export type TypeSelectNaturalConfiguration<TService extends UntypedModelService>
 };
 
 @Component({
-    templateUrl: './type-natural-select.component.html',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -26,6 +25,7 @@ export type TypeSelectNaturalConfiguration<TService extends UntypedModelService>
         MatOptionModule,
         NaturalSelectComponent,
     ],
+    templateUrl: './type-natural-select.component.html',
 })
 export class TypeNaturalSelectComponent<
     TService extends UntypedModelService,

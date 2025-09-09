@@ -15,8 +15,6 @@ import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'natural-columns-picker',
-    templateUrl: './columns-picker.component.html',
-    styleUrl: './columns-picker.component.scss',
     imports: [
         CommonModule,
         MatButtonModule,
@@ -27,6 +25,8 @@ import {CommonModule} from '@angular/common';
         MatTooltipModule,
         FormsModule,
     ],
+    templateUrl: './columns-picker.component.html',
+    styleUrl: './columns-picker.component.scss',
 })
 export class NaturalColumnsPickerComponent implements OnChanges {
     private readonly destroyRef = inject(DestroyRef);

@@ -49,8 +49,6 @@ function selectionToJson(selection: FileSelection): JsonFileSelection {
 
 @Component({
     selector: 'app-file',
-    templateUrl: './file.component.html',
-    styleUrl: './file.component.scss',
     imports: [
         MatCheckboxModule,
         FormsModule,
@@ -60,6 +58,8 @@ function selectionToJson(selection: FileSelection): JsonFileSelection {
         NaturalFileComponent,
         CommonModule,
     ],
+    templateUrl: './file.component.html',
+    styleUrl: './file.component.scss',
 })
 export class FileComponent {
     private readonly uploadService = inject(NaturalFileService);

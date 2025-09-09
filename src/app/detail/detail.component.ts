@@ -14,8 +14,6 @@ import {Item, ItemInput, ItemService} from '../../../projects/natural/src/lib/te
 
 @Component({
     selector: 'app-detail',
-    templateUrl: './detail.component.html',
-    styleUrl: './detail.component.scss',
     imports: [
         NaturalDetailHeaderComponent,
         MatButtonModule,
@@ -30,6 +28,8 @@ import {Item, ItemInput, ItemService} from '../../../projects/natural/src/lib/te
         NaturalFixedButtonDetailComponent,
         RouterOutlet,
     ],
+    templateUrl: './detail.component.html',
+    styleUrl: './detail.component.scss',
 })
 export class DetailComponent extends NaturalAbstractDetail<ItemService, NaturalSeoResolveData> implements OnInit {
     public readonly collectErrors = collectErrors;

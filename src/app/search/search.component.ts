@@ -31,9 +31,9 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
 
 @Component({
     selector: 'app-search',
+    imports: [NaturalSearchComponent, MatButtonModule, CommonModule],
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss',
-    imports: [NaturalSearchComponent, MatButtonModule, CommonModule],
 })
 export class SearchComponent implements OnInit {
     private readonly router = inject(Router);

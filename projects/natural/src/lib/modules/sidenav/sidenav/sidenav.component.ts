@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
     selector: 'natural-sidenav',
-    template: '<ng-content />',
     standalone: true,
+    template: '<ng-content />',
 })
 export class NaturalSidenavComponent {}

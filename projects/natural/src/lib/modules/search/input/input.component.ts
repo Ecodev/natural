@@ -54,8 +54,6 @@ function isComponentValid(component: DropdownComponent): ValidatorFn {
 
 @Component({
     selector: 'natural-input',
-    templateUrl: './input.component.html',
-    styleUrl: './input.component.scss',
     imports: [
         MatFormFieldModule,
         MatRippleModule,
@@ -66,6 +64,8 @@ function isComponentValid(component: DropdownComponent): ValidatorFn {
         NaturalIconDirective,
         MatButtonModule,
     ],
+    templateUrl: './input.component.html',
+    styleUrl: './input.component.scss',
 })
 export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);

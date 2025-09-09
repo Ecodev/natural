@@ -15,9 +15,9 @@ export type FacetSelectorConfiguration = {
 };
 
 @Component({
+    imports: [MatListModule],
     templateUrl: './facet-selector.component.html',
     styleUrl: './facet-selector.component.scss',
-    imports: [MatListModule],
 })
 export class FacetSelectorComponent implements DropdownComponent {
     public readonly data = inject<NaturalDropdownData<FacetSelectorConfiguration>>(NATURAL_DROPDOWN_DATA);

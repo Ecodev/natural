@@ -13,12 +13,12 @@ import {ActivatedRoute, Data} from '@angular/router';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
 
 @Component({
+    imports: [NaturalColumnsPickerComponent],
     template: ` <natural-columns-picker
         [availableColumns]="availableColumns"
         [selections]="selectedColumns"
         (selectionChange)="selectColumns($event)"
     />`,
-    imports: [NaturalColumnsPickerComponent],
 })
 class TestListComponent extends NaturalAbstractList<ItemService> {
     public override availableColumns: AvailableColumn[] = [

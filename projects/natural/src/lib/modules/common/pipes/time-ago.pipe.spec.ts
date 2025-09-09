@@ -44,7 +44,8 @@ describe('NaturalTimeAgoPipe', () => {
 
     cases.forEach(parameters => {
         it('with ' + JSON.stringify(parameters), () => {
-            const pipe = new NaturalTimeAgoPipe(Date.parse('2010-06-15T06:30:30'));
+            const pipe = new NaturalTimeAgoPipe();
+            pipe.fakedNow = Date.parse('2010-06-15T06:30:30');
             expect(pipe.transform(new Date(parameters[0]))).toBe(parameters[1]);
             expect(pipe.transform(parameters[0])).toBe(parameters[1]);
         });

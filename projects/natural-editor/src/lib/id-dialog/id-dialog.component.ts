@@ -20,9 +20,9 @@ export type IdDialogData = {
 
 @Component({
     selector: 'natural-editor-id-dialog',
+    imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
     templateUrl: './id-dialog.component.html',
     styleUrl: './id-dialog.component.scss',
-    imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
 export class IdDialogComponent {
     private dialogRef = inject<MatDialogRef<IdDialogComponent, IdDialogData>>(MatDialogRef);

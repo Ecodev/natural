@@ -14,8 +14,6 @@ import {ThemeService} from '../shared/services/theme.service';
 
 @Component({
     selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss',
     imports: [
         MatToolbarModule,
         MatButtonModule,
@@ -29,6 +27,8 @@ import {ThemeService} from '../shared/services/theme.service';
         NaturalSidenavContentComponent,
         RouterOutlet,
     ],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
     public readonly themeService = inject(ThemeService);

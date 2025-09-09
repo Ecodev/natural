@@ -4,6 +4,7 @@ import {NaturalSrcDensityDirective} from './src-density.directive';
 import {By} from '@angular/platform-browser';
 
 @Component({
+    imports: [NaturalSrcDensityDirective],
     template: `
         <img naturalSrcDensity /><img naturalSrcDensity="https://example.com/api/image/123/200" />
         <img [naturalSrcDensity]="url1" /><img [naturalSrcDensity]="url2" />
@@ -11,7 +12,6 @@ import {By} from '@angular/platform-browser';
         <img src="foo.jpg" srcset="bar.jpg" naturalSrcDensity="https://example.com/api/image/123.jpg" />
         <img naturalSrcDensity="https://example.com/api/image/123/201" />
     `,
-    imports: [NaturalSrcDensityDirective],
 })
 class TestComponent {
     protected readonly url1 = 'https://example.com/api/image/123/200';

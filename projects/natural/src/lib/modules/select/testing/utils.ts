@@ -1,7 +1,7 @@
 import {ComponentFixture, fakeAsync, tick} from '@angular/core/testing';
 import {NaturalHierarchicConfiguration} from '@ecodev/natural';
 import {By} from '@angular/platform-browser';
-import {DebugElement, Directive} from '@angular/core';
+import {DebugElement, Directive, inject} from '@angular/core';
 import {ItemService} from '../../../testing/item.service';
 import {FormControl, Validators} from '@angular/forms';
 import {AbstractSelect} from '../abstract-select.component';
@@ -23,8 +23,7 @@ abstract class TestHostComponent {
     public selectedValue: any;
     public blurred = 0;
     public hierarchicConfig = itemHierarchicConfig;
-
-    public constructor(public readonly service: ItemService) {}
+    public readonly service = inject(ItemService);
 
     public onSelection($event: any): void {
         this.selectedValue = $event;

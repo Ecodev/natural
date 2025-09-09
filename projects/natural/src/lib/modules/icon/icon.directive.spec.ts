@@ -7,6 +7,7 @@ import {NaturalIconDirective, provideIcons} from '@ecodev/natural';
 import {provideHttpClient} from '@angular/common/http';
 
 @Component({
+    imports: [MatIconModule, NaturalIconDirective],
     template: `
         <mat-icon fontIcon="search" />
         <mat-icon naturalIcon="search" />
@@ -16,7 +17,6 @@ import {provideHttpClient} from '@angular/common/http';
         <mat-icon naturalIcon="" />
         <mat-icon naturalIcon="customFontNameWhichIsEmpty" />
     `,
-    imports: [MatIconModule, NaturalIconDirective],
 })
 class TestComponent {}
 

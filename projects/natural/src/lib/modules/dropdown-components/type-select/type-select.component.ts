@@ -33,8 +33,8 @@ export type TypeSelectConfiguration = {
 };
 
 @Component({
-    templateUrl: './type-select.component.html',
     imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatListModule],
+    templateUrl: './type-select.component.html',
 })
 export class TypeSelectComponent implements DropdownComponent, AfterViewInit {
     private readonly destroyRef = inject(DestroyRef);

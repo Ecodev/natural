@@ -28,7 +28,6 @@ export type TypeHierarchicSelectorConfiguration = {
 };
 
 @Component({
-    templateUrl: './type-hierarchic-selector.component.html',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -37,6 +36,7 @@ export type TypeHierarchicSelectorConfiguration = {
         MatOptionModule,
         NaturalHierarchicSelectorComponent,
     ],
+    templateUrl: './type-hierarchic-selector.component.html',
 })
 export class TypeHierarchicSelectorComponent extends AbstractAssociationSelectComponent<TypeHierarchicSelectorConfiguration> {
     public getCondition(): FilterGroupConditionField {

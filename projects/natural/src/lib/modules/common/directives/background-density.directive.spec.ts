@@ -4,6 +4,7 @@ import {By} from '@angular/platform-browser';
 import {NaturalBackgroundDensityDirective} from './background-density.directive';
 
 @Component({
+    imports: [NaturalBackgroundDensityDirective],
     template: `
         <div naturalBackgroundDensity></div>
         <div naturalBackgroundDensity="https://example.com/api/image/123/200"></div>
@@ -20,7 +21,6 @@ import {NaturalBackgroundDensityDirective} from './background-density.directive'
         <div naturalBackgroundDensity="https://example.com/api/image/123/201"></div>
         <div naturalBackgroundDensity="url(data:image/png;base64,aabbcc)"></div>
     `,
-    imports: [NaturalBackgroundDensityDirective],
 })
 class TestComponent {
     protected readonly url1 = 'https://example.com/api/image/123/200';

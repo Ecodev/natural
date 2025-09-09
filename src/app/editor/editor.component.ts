@@ -8,9 +8,9 @@ import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-editor',
+    imports: [MatCheckboxModule, FormsModule, NaturalEditorComponent, NaturalCustomCssDirective],
     templateUrl: './editor.component.html',
     styleUrl: './editor.component.scss',
-    imports: [MatCheckboxModule, FormsModule, NaturalEditorComponent, NaturalCustomCssDirective],
 })
 export class EditorComponent {
     private readonly domSanitizer = inject(DomSanitizer);

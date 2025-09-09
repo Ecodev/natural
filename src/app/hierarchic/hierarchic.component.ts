@@ -14,9 +14,9 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
 
 @Component({
     selector: 'app-hierarchic',
+    imports: [NaturalHierarchicSelectorComponent, MatButtonModule],
     templateUrl: './hierarchic.component.html',
     styleUrl: './hierarchic.component.scss',
-    imports: [NaturalHierarchicSelectorComponent, MatButtonModule],
 })
 export class HierarchicComponent {
     private readonly hierarchicDialogService = inject(NaturalHierarchicSelectorDialogService);

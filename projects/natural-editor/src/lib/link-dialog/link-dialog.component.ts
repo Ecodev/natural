@@ -13,9 +13,9 @@ export type LinkDialogData = {
 
 @Component({
     selector: 'natural-editor-link-dialog',
+    imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
     templateUrl: './link-dialog.component.html',
     styleUrl: './link-dialog.component.scss',
-    imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
 export class LinkDialogComponent {
     private dialogRef = inject<MatDialogRef<LinkDialogComponent, LinkDialogData>>(MatDialogRef);

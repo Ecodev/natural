@@ -1,4 +1,4 @@
-import {Inject, Optional, Pipe, PipeTransform} from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 function isDate(value: any): value is Date {
     return value instanceof Date && !isNaN(value.valueOf());
@@ -18,9 +18,7 @@ function isDate(value: any): value is Date {
     standalone: true,
 })
 export class NaturalTimeAgoPipe implements PipeTransform {
-    public constructor(
-        @Optional() @Inject('SHOULD_NEVER_BE_INJECTED') private readonly fakedNow: number | null = null,
-    ) {}
+    public fakedNow: number | null = null;
 
     private getNow(): number {
         return this.fakedNow ?? Date.now();

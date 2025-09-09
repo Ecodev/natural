@@ -20,8 +20,6 @@ export type TypeDateConfiguration<D = Date> = {
 };
 
 @Component({
-    templateUrl: './type-date.component.html',
-    styleUrl: './type-date.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -32,6 +30,8 @@ export type TypeDateConfiguration<D = Date> = {
         MatDatepickerModule,
         MatCheckboxModule,
     ],
+    templateUrl: './type-date.component.html',
+    styleUrl: './type-date.component.scss',
 })
 export class TypeDateComponent<D = any> implements DropdownComponent {
     private dateAdapter = inject<DateAdapter<D>>(DateAdapter);

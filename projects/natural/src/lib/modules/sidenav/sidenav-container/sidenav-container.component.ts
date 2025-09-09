@@ -5,10 +5,10 @@ import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'natural-sidenav-container',
+    imports: [MatSidenavModule, CommonModule],
     templateUrl: './sidenav-container.component.html',
     styleUrl: './sidenav-container.component.scss',
     providers: [NaturalSidenavService],
-    imports: [MatSidenavModule, CommonModule],
 })
 export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
     public readonly sidenavService = inject(NaturalSidenavService);

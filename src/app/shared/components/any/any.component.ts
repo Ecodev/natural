@@ -8,9 +8,9 @@ import {NaturalLinkableTabDirective} from '../../../../../projects/natural/src/l
 
 @Component({
     selector: 'app-any',
+    imports: [MatButtonModule, RouterLink, MatTabsModule, NaturalLinkableTabDirective, CommonModule],
     templateUrl: './any.component.html',
     styleUrl: './any.component.scss',
-    imports: [MatButtonModule, RouterLink, MatTabsModule, NaturalLinkableTabDirective, CommonModule],
 })
 export class AnyComponent extends NaturalAbstractPanel {
     public constructor() {

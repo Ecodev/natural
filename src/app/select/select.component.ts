@@ -12,8 +12,6 @@ import {DebugControlComponent} from '../debug-form.component';
 
 @Component({
     selector: 'app-select',
-    templateUrl: './select.component.html',
-    styleUrl: './select.component.scss',
     imports: [
         MatButtonModule,
         NaturalSelectComponent,
@@ -26,5 +24,7 @@ import {DebugControlComponent} from '../debug-form.component';
         CommonModule,
         DebugControlComponent,
     ],
+    templateUrl: './select.component.html',
+    styleUrl: './select.component.scss',
 })
 export class SelectComponent extends AbstractSelect {}

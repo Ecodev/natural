@@ -4,8 +4,8 @@ import {NaturalFileService} from '@ecodev/natural';
 import {NaturalFileDropDirective} from './file-drop.directive';
 
 @Component({
-    template: '<div i18n naturalFileDrop>my drag and drop area</div>',
     imports: [NaturalFileDropDirective],
+    template: '<div i18n naturalFileDrop>my drag and drop area</div>',
 })
 class ContainerComponent {
     public readonly ngf = viewChild.required(NaturalFileDropDirective);

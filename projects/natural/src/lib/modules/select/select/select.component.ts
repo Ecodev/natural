@@ -68,8 +68,6 @@ type ValueTypeFor<TService> = string | ExtractTallOne<TService>;
  */
 @Component({
     selector: 'natural-select',
-    templateUrl: './select.component.html',
-    styleUrl: './select.component.scss',
     imports: [
         MatAutocompleteModule,
         CommonModule,
@@ -85,6 +83,8 @@ type ValueTypeFor<TService> = string | ExtractTallOne<TService>;
         MatTooltipModule,
         RouterLink,
     ],
+    templateUrl: './select.component.html',
+    styleUrl: './select.component.scss',
 })
 export class NaturalSelectComponent<
         TService extends NaturalAbstractModelService<

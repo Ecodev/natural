@@ -13,6 +13,7 @@ import {By} from '@angular/platform-browser';
 import {ItemService} from '../../../testing/item.service';
 
 @Component({
+    imports: [FormsModule, NaturalSelectComponent],
     template: `
         <natural-select
             placeholder="ngModel"
@@ -25,11 +26,11 @@ import {ItemService} from '../../../testing/item.service';
             (blur)="onBlur()"
         />
     `,
-    imports: [FormsModule, NaturalSelectComponent],
 })
 class TestHostWithServiceAndNgModelComponent extends AbstractTestHostWithNgModelComponent {}
 
 @Component({
+    imports: [ReactiveFormsModule, NaturalSelectComponent],
     template: `
         <natural-select
             placeholder="formControl"
@@ -40,7 +41,6 @@ class TestHostWithServiceAndNgModelComponent extends AbstractTestHostWithNgModel
             (blur)="onBlur()"
         />
     `,
-    imports: [ReactiveFormsModule, NaturalSelectComponent],
 })
 class TestHostWithServiceAndFormControlComponent extends AbstractTestHostWithFormControlComponent {}
 

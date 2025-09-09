@@ -4,8 +4,8 @@ import {NaturalAlertService} from '@ecodev/natural';
 
 @Component({
     selector: 'app-panels',
-    templateUrl: './alert.component.html',
     imports: [MatButtonModule],
+    templateUrl: './alert.component.html',
 })
 export class AlertComponent {
     private readonly alertService = inject(NaturalAlertService);

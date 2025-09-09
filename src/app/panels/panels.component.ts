@@ -4,8 +4,8 @@ import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
     selector: 'app-panels',
+    imports: [MatButtonModule, RouterLink, RouterOutlet],
     templateUrl: './panels.component.html',
     styleUrl: './panels.component.scss',
-    imports: [MatButtonModule, RouterLink, RouterOutlet],
 })
 export class PanelsComponent {}

@@ -6,9 +6,9 @@ import {GroupSelections, NaturalSearchSelection} from '../types/values';
 
 @Component({
     selector: 'natural-group',
+    imports: [NaturalInputComponent],
     templateUrl: './group.component.html',
     styleUrl: './group.component.scss',
-    imports: [NaturalInputComponent],
 })
 export class NaturalGroupComponent {
     public readonly newValueInput = viewChild.required<NaturalInputComponent>('newValueInput');

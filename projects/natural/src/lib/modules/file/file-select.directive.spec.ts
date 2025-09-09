@@ -4,8 +4,8 @@ import {NaturalFileSelectDirective} from './file-select.directive';
 import {NaturalFileService} from './file.service';
 
 @Component({
-    template: '<input type="file" naturalFileSelect />',
     imports: [NaturalFileSelectDirective],
+    template: '<input type="file" naturalFileSelect />',
 })
 class ContainerComponent {
     public readonly ngf = viewChild.required(NaturalFileSelectDirective);

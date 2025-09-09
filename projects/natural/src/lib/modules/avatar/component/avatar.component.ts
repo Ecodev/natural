@@ -10,6 +10,29 @@ type Style = Partial<CSSStyleDeclaration>;
  */
 @Component({
     selector: 'natural-avatar',
+    imports: [CommonModule],
+    template: `
+        @let source = currentSource();
+        <div class="avatar-container" [style.height.px]="size()" [style.width.px]="size()">
+            @if (source && source?.isTextual()) {
+                <div class="avatar-content" [class.natural-elevation]="decorated()" [ngStyle]="textualStyle()">
+                    {{ textAvatar() | async }}
+                </div>
+            } @else if (source) {
+                @if (imageAvatar() | async; as src) {
+                    <img
+                        class="avatar-content"
+                        loading="lazy"
+                        [src]="src"
+                        [width]="size()"
+                        [height]="size()"
+                        [ngStyle]="imageStyle()"
+                        (error)="tryNextSource()"
+                    />
+                }
+            }
+        </div>
+    `,
     styles: `
         :host {
             display: block;
@@ -34,35 +57,12 @@ type Style = Partial<CSSStyleDeclaration>;
             }
         }
     `,
-    template: `
-        @let source = currentSource();
-        <div class="avatar-container" [style.height.px]="size()" [style.width.px]="size()">
-            @if (source && source?.isTextual()) {
-                <div class="avatar-content" [class.natural-elevation]="decorated()" [ngStyle]="textualStyle()">
-                    {{ textAvatar() | async }}
-                </div>
-            } @else if (source) {
-                @if (imageAvatar() | async; as src) {
-                    <img
-                        class="avatar-content"
-                        loading="lazy"
-                        [src]="src"
-                        [width]="size()"
-                        [height]="size()"
-                        [ngStyle]="imageStyle()"
-                        (error)="tryNextSource()"
-                    />
-                }
-            }
-        </div>
-    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[style.height.px]': 'size()',
         '[style.width.px]': 'size()',
         '[class.decorated]': 'decorated()',
     },
-    imports: [CommonModule],
 })
 export class NaturalAvatarComponent {
     private readonly avatarService = inject(AvatarService);
@@ -99,9 +99,9 @@ export class NaturalAvatarComponent {
         return sources.sources[sources.currentIndex];
     });
 
-    protected readonly imageAvatar = computed(() => this.currentSource()?.getAvatar(+this.size()));
+    protected readonly imageAvatar = computed(() => this.currentSource()?.getAvatar(this.size()));
 
-    protected readonly textAvatar = computed(() => this.currentSource()?.getAvatar(+this.textMaximumLength()));
+    protected readonly textAvatar = computed(() => this.currentSource()?.getAvatar(this.textMaximumLength()));
 
     /**
      * Try to use the next available avatar source that has not already failed in the past
@@ -146,7 +146,7 @@ export class NaturalAvatarComponent {
             textTransform: 'uppercase',
             color: this.fgColor(),
             backgroundColor: backgroundColor,
-            font: Math.floor(+this.size() / this.textSizeRatio()) + 'px Helvetica, Arial, sans-serif',
+            font: Math.floor(this.size() / this.textSizeRatio()) + 'px Helvetica, Arial, sans-serif',
             lineHeight: this.size() + 'px',
             width: this.size() + 'px',
             height: this.size() + 'px',

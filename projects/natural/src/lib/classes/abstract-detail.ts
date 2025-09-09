@@ -92,7 +92,9 @@ export class NaturalAbstractDetail<
     private readonly changes = new CumulativeChanges<typeof this.form.getRawValue>();
 
     public constructor(
+        // eslint-disable-next-line @angular-eslint/prefer-inject
         protected readonly key: string,
+        // eslint-disable-next-line @angular-eslint/prefer-inject
         public readonly service: TService,
     ) {
         super();

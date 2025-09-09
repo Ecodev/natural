@@ -19,12 +19,12 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
  */
 @Component({
     selector: 'natural-table-button',
+    imports: [MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
     templateUrl: './table-button.component.html',
     styleUrl: './table-button.component.scss',
     // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
 })
 export class NaturalTableButtonComponent {
     public readonly queryParams = input<Params>({});

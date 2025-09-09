@@ -52,6 +52,7 @@ export class NaturalAbstractEditableList<
     public readonly variablesManager = new NaturalQueryVariablesManager<ExtractVall<TService>>();
     public readonly dataSource = new MatTableDataSource<AbstractControl>();
 
+    // eslint-disable-next-line @angular-eslint/prefer-inject
     public constructor(protected readonly service: TService) {
         // Create a form group with a line attributes that contain an array of formGroups (one by line = one by model)
         this.form = new UntypedFormGroup({rows: this.formArray});

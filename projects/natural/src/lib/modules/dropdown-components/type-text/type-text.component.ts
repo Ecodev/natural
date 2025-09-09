@@ -19,9 +19,9 @@ export class InvalidWithValueStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
+    imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule],
     templateUrl: './type-text.component.html',
     styleUrl: './type-text.component.scss',
-    imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule],
 })
 export class TypeTextComponent implements DropdownComponent {
     protected dropdownRef = inject(NaturalDropdownRef);
@@ -34,7 +34,7 @@ export class TypeTextComponent implements DropdownComponent {
         const data = inject<NaturalDropdownData<never>>(NATURAL_DROPDOWN_DATA);
 
         this.formCtrl.valueChanges.subscribe(value => {
-            this.renderedValue.next(value === null ? '' : this.formCtrl.value + '');
+            this.renderedValue.next(value === null ? '' : this.formCtrl.value);
         });
 
         this.formCtrl.setValidators([Validators.required]);

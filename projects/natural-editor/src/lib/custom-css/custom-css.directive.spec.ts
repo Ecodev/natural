@@ -5,9 +5,9 @@ import {DOCUMENT} from '@angular/common';
 import {By} from '@angular/platform-browser';
 
 @Component({
+    imports: [NaturalCustomCssDirective],
     template: ` <div id="test1" naturalCustomCss="p {background: pink;}"></div>
         <div id="test2" [naturalCustomCss]="css"></div>`,
-    imports: [NaturalCustomCssDirective],
 })
 class TestComponent {
     public readonly missing = undefined;

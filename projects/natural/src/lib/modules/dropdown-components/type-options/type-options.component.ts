@@ -19,8 +19,8 @@ export type TypeOptionsConfiguration = {
 };
 
 @Component({
-    templateUrl: './type-options.component.html',
     imports: [FormsModule, ReactiveFormsModule, MatButtonToggleModule],
+    templateUrl: './type-options.component.html',
 })
 export class TypeOptionsComponent implements DropdownComponent {
     public readonly renderedValue = new BehaviorSubject<string>('');
@@ -35,6 +35,7 @@ export class TypeOptionsComponent implements DropdownComponent {
     protected readonly dropdownRef = inject(NaturalDropdownRef);
 
     public constructor(
+        // eslint-disable-next-line @angular-eslint/prefer-inject
         @Inject(NATURAL_DROPDOWN_DATA) public readonly data: NaturalDropdownData<TypeOptionsConfiguration>,
     ) {
         this.configuration = {...this.defaults, ...data.configuration};

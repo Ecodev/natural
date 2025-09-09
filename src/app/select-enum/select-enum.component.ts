@@ -11,14 +11,6 @@ import {DebugControlComponent} from '../debug-form.component';
 
 @Component({
     selector: 'app-select',
-    templateUrl: './select-enum.component.html',
-    styleUrl: './select-enum.component.scss',
-    providers: [
-        {
-            provide: NaturalEnumService,
-            useClass: AnyEnumService,
-        },
-    ],
     imports: [
         MatButtonModule,
         NaturalSelectEnumComponent,
@@ -26,6 +18,14 @@ import {DebugControlComponent} from '../debug-form.component';
         ReactiveFormsModule,
         CommonModule,
         DebugControlComponent,
+    ],
+    templateUrl: './select-enum.component.html',
+    styleUrl: './select-enum.component.scss',
+    providers: [
+        {
+            provide: NaturalEnumService,
+            useClass: AnyEnumService,
+        },
     ],
 })
 export class SelectEnumComponent extends AbstractSelect {

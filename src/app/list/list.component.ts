@@ -13,8 +13,6 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
 
 @Component({
     selector: 'app-list',
-    templateUrl: './list.component.html',
-    styleUrl: './list.component.scss',
     imports: [
         CommonModule,
         NaturalColumnsPickerComponent,
@@ -26,6 +24,8 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
         MatProgressSpinnerModule,
         MatPaginatorModule,
     ],
+    templateUrl: './list.component.html',
+    styleUrl: './list.component.scss',
 })
 export class ListComponent extends NaturalAbstractList<ItemService> implements OnInit {
     public override readonly pageSizeOptions = [1, 2, 3, 4, 5];

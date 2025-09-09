@@ -10,9 +10,9 @@ export type NaturalConfirmData = {
 };
 
 @Component({
+    imports: [MatDialogModule, MatButtonModule],
     templateUrl: './confirm.component.html',
     styleUrl: './confirm.component.scss',
-    imports: [MatDialogModule, MatButtonModule],
 })
 export class NaturalConfirmComponent {
     public readonly data = inject<NaturalConfirmData>(MAT_DIALOG_DATA);

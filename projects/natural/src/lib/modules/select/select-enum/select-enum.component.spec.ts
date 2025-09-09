@@ -13,6 +13,7 @@ import {
 } from '../testing/utils';
 
 @Component({
+    imports: [FormsModule, NaturalSelectEnumComponent],
     template: `
         <natural-select-enum
             enumName="FooEnum"
@@ -25,11 +26,11 @@ import {
             (blur)="onBlur()"
         />
     `,
-    imports: [FormsModule, NaturalSelectEnumComponent],
 })
 class TestHostWithNgModelComponent extends AbstractTestHostWithNgModelComponent {}
 
 @Component({
+    imports: [ReactiveFormsModule, NaturalSelectEnumComponent],
     template: `
         <natural-select-enum
             enumName="FooEnum"
@@ -40,7 +41,6 @@ class TestHostWithNgModelComponent extends AbstractTestHostWithNgModelComponent 
             (blur)="onBlur()"
         />
     `,
-    imports: [ReactiveFormsModule, NaturalSelectEnumComponent],
 })
 class TestHostWithFormControlComponent extends AbstractTestHostWithFormControlComponent {}
 

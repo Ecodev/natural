@@ -13,8 +13,6 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
 
 @Component({
     selector: 'app-editable-list',
-    templateUrl: './editable-list.component.html',
-    styleUrl: './editable-list.component.scss',
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -26,6 +24,8 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
         MatIconModule,
         NaturalIconDirective,
     ],
+    templateUrl: './editable-list.component.html',
+    styleUrl: './editable-list.component.scss',
 })
 export class EditableListComponent extends NaturalAbstractEditableList<ItemService> {
     public columns = ['name', 'description'];
