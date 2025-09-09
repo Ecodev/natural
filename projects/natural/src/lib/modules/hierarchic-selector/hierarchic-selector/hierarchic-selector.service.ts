@@ -61,7 +61,7 @@ export class NaturalHierarchicSelectorService {
         flatNode: HierarchicFlatNode,
         contextFilter: HierarchicFiltersConfiguration | null = null,
     ): void {
-        // Dont refetch children. Improve performances
+        // Don't refetch children. Improve performances
         // Prevents interferences between HierarchicModelNode structure and angular components navigation.
         // Prevents a bug where grand children were lost if closing root
         if (flatNode.node.children.length) {

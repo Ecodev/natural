@@ -73,14 +73,8 @@ export class ItemService extends NaturalAbstractModelService<
                 });
             } else {
                 return deepFreeze({
-                    items: [
-                        this.getItem(true),
-                        this.getItem(true),
-                        this.getItem(true),
-                        this.getItem(true),
-                        this.getItem(true),
-                    ],
-                    length: 20,
+                    items: Array.from({length: 5}, () => this.getItem(true)),
+                    length: 1000,
                     pageIndex: 0,
                     pageSize: 5,
                 });

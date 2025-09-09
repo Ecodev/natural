@@ -3,7 +3,9 @@
 </div>
 
 @if (allowSelectAll() && multiple) {
-    <a i18n mat-button (click)="selectAll()">Tout sélectionner</a>
+    <div class="select-all" [matTooltip]="tooBig() ? 'Trop de résultats, veuillez affiner la recherche' : null">
+        <a i18n mat-button [disabled]="tooBig()" (click)="selectAll()">Tout sélectionner</a>
+    </div>
 }
 
 <div class="body">

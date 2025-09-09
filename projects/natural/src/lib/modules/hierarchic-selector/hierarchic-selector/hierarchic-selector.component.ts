@@ -1,13 +1,27 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {CommonModule} from '@angular/common';
-import {Component, DestroyRef, inject, input, Input, OnChanges, OnInit, output, SimpleChanges} from '@angular/core';
+import {
+    Component,
+    computed,
+    DestroyRef,
+    inject,
+    input,
+    Input,
+    OnChanges,
+    OnInit,
+    output,
+    signal,
+    SimpleChanges,
+    WritableSignal,
+} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule} from '@angular/material/tree';
 import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
@@ -37,6 +51,7 @@ import {NaturalHierarchicSelectorService, OrganizedModelSelection} from './hiera
         NaturalIconDirective,
         MatCheckboxModule,
         MatChipsModule,
+        MatTooltipModule,
     ],
     templateUrl: './hierarchic-selector.component.html',
     styleUrl: './hierarchic-selector.component.scss',
@@ -129,7 +144,14 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     /**
      * Cache for transformed nodes
      */
-    private flatNodeMap = new Map<string, HierarchicFlatNode>();
+    private readonly flatNodeMap: WritableSignal<Map<string, HierarchicFlatNode>> = signal(
+        new Map<string, HierarchicFlatNode>(),
+        {equal: () => false},
+    );
+
+    protected readonly tooBig = computed(() => {
+        return this.flatNodeMap().size === 999;
+    });
 
     /**
      * Angular OnChange implementation
@@ -206,7 +228,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     }
 
     protected selectAll(): void {
-        this.flatNodeMap.forEach(flatNode => {
+        this.flatNodeMap().forEach(flatNode => {
             if (!this.isNodeSelected(flatNode.node)) {
                 this.selectFlatNode(flatNode);
             }
@@ -332,7 +354,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
 
     private loadRoots(searchVariables?: QueryVariables): void {
         this.loading = true;
-        this.flatNodeMap = new Map<string, HierarchicFlatNode>();
+        this.flatNodeMap.set(new Map<string, HierarchicFlatNode>());
         this.hierarchicSelectorService
             .init(this.config, this.filters, searchVariables || null)
             .pipe(finalize(() => (this.loading = false)))
@@ -418,7 +440,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
 
     private getFlatNode(node: HierarchicModelNode): HierarchicFlatNode | null {
         const key = this.getMapKey(node.model);
-        return this.flatNodeMap.get(key) || null;
+        return this.flatNodeMap().get(key) || null;
     }
 
     private createFlatNode(node: HierarchicModelNode, level: number): HierarchicFlatNode {
@@ -443,7 +465,10 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
         }
 
         // Cache FlatNode
-        this.flatNodeMap.set(key, flatNode);
+        this.flatNodeMap.update(map => {
+            map.set(key, flatNode);
+            return map;
+        });
 
         return flatNode;
     }
