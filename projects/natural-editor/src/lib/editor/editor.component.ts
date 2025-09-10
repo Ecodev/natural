@@ -1,9 +1,20 @@
-import {Component, ElementRef, inject, input, Input, OnDestroy, OnInit, output, viewChild} from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    inject,
+    input,
+    Input,
+    OnDestroy,
+    OnInit,
+    output,
+    viewChild,
+    DOCUMENT,
+} from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {EditorView} from 'prosemirror-view';
 import {EditorState, Plugin, Transaction} from 'prosemirror-state';
 import {DOMParser, DOMSerializer, Schema} from 'prosemirror-model';
-import {DOCUMENT} from '@angular/common';
+
 import {MatDialog} from '@angular/material/dialog';
 import {goToNextCell, tableEditing} from 'prosemirror-tables';
 import {keymap} from 'prosemirror-keymap';

@@ -10,7 +10,7 @@
             border-right: none;
         }
 
-        mat-sidenav[ng-reflect-mode='side'] {
+        mat-sidenav.modeSide {
             .mat-drawer-inner-container {
                 display: flex;
                 flex-direction: column;

@@ -5,6 +5,7 @@ import {DestroyRef} from '@angular/core';
 
 class TestDestroyRef extends DestroyRef {
     private callback: (() => void) | null = null;
+    public destroyed = false;
 
     public override onDestroy(callback: () => void): () => void {
         this.callback = callback;
@@ -12,6 +13,7 @@ class TestDestroyRef extends DestroyRef {
     }
 
     public destroy(): void {
+        this.destroyed = true;
         this.callback?.();
         this.callback = null;
     }

@@ -1,7 +1,8 @@
 <mat-sidenav-container (backdropClick)="sidenavService.setOpened(false)">
     <mat-sidenav
         [mode]="sidenavService.activeMode"
-        [ngClass]="sidenavService.isMinimized ? 'menuMinimized' : ''"
+        [class.menuMinimized]="sidenavService.isMinimized"
+        [class.modeSide]="sidenavService.activeMode === 'side'"
         [opened]="sidenavService.isOpened"
         [style.min-width.px]="sidenavService.isMinimized && minimizedWidth ? minimizedWidth : null"
         [style.width.px]="sidenavService.isMinimized && minimizedWidth ? minimizedWidth : null"

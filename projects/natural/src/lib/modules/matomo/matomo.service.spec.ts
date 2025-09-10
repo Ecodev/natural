@@ -6,9 +6,9 @@ import {
     NaturalSeoConfig,
     NaturalSeoService,
 } from '@ecodev/natural';
-import {Component} from '@angular/core';
+import {Component, DOCUMENT} from '@angular/core';
 import {provideRouter, Router, Routes} from '@angular/router';
-import {DOCUMENT} from '@angular/common';
+
 import {PaqItem} from './matomo.service';
 
 @Component({

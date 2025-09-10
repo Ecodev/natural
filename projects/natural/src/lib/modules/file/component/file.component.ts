@@ -1,8 +1,19 @@
-import {Component, computed, inject, input, Input, OnChanges, OnInit, output, SimpleChanges} from '@angular/core';
+import {
+    Component,
+    computed,
+    inject,
+    input,
+    Input,
+    OnChanges,
+    OnInit,
+    output,
+    SimpleChanges,
+    DOCUMENT,
+} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {Observable, of, Subject, tap} from 'rxjs';
 import {NaturalFileService} from '../file.service';
-import {CommonModule, DOCUMENT} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FileModel} from '../types';
 import {NaturalAlertService} from '../../alert/alert.service';
 import {NaturalCapitalizePipe} from '../../common/pipes/capitalize.pipe';

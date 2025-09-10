@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, DOCUMENT} from '@angular/core';
 import {NaturalCustomCssDirective, prefixCss} from './custom-css.directive';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {DOCUMENT} from '@angular/common';
+
 import {By} from '@angular/platform-browser';
 
 @Component({

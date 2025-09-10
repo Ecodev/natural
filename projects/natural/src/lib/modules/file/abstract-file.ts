@@ -8,6 +8,7 @@ import {
     OnDestroy,
     OnInit,
     SimpleChanges,
+    DOCUMENT,
 } from '@angular/core';
 import {
     acceptType,
@@ -20,7 +21,7 @@ import {
     stopEvent,
 } from './utils';
 import {NaturalFileService} from './file.service';
-import {DOCUMENT} from '@angular/common';
+
 import {forkJoin, map, Observable, ObservableInput, of, Subject, tap} from 'rxjs';
 import {outputFromObservable} from '@angular/core/rxjs-interop';
 

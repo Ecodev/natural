@@ -1,5 +1,4 @@
-import {Directive, HostBinding, inject, Input, OnDestroy} from '@angular/core';
-import {DOCUMENT} from '@angular/common';
+import {Directive, HostBinding, inject, Input, OnDestroy, DOCUMENT} from '@angular/core';
 
 /**
  * Prefix all CSS selectors with the given selector

@@ -38,7 +38,6 @@ const EXIT_ANIMATION = '_mat-menu-exit';
     styleUrl: './dropdown-container.component.scss',
     // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
     encapsulation: ViewEncapsulation.None,
-    preserveWhitespaces: false,
 })
 export class NaturalDropdownContainerComponent extends BasePortalOutlet implements OnDestroy {
     private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
