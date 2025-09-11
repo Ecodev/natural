@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation} from '@angular/core';
 import {Params, QueryParamsHandling, RouterLink, UrlTree} from '@angular/router';
 import {ThemePalette} from '@angular/material/core';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton, type MatButtonAppearance, MatIconButton} from '@angular/material/button';
 import {NaturalIconDirective} from '../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
+import {MatIcon} from '@angular/material/icon';
 import {Subject} from 'rxjs';
 import {outputFromObservable} from '@angular/core/rxjs-interop';
 
@@ -19,7 +19,7 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
  */
 @Component({
     selector: 'natural-table-button',
-    imports: [MatIconModule, NaturalIconDirective, MatButtonModule, RouterLink],
+    imports: [MatIcon, NaturalIconDirective, MatButton, MatIconButton, RouterLink],
     templateUrl: './table-button.component.html',
     styleUrl: './table-button.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,6 +37,8 @@ export class NaturalTableButtonComponent {
     public readonly preserveFragment = input(false);
     public readonly disabled = input(false);
     public readonly raised = input(false);
+    protected readonly appearance = computed<MatButtonAppearance>(() => (this.raised() ? 'elevated' : 'text'));
+    protected readonly iconClass = computed(() => (this.raised() ? 'mat-elevation-z4' : ''));
     public readonly color = input<ThemePalette>();
 
     protected readonly buttonClick$ = new Subject<MouseEvent>();
