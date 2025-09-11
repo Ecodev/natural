@@ -14,7 +14,6 @@ describe('PanelComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(NaturalPanelsComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should be created', () => {

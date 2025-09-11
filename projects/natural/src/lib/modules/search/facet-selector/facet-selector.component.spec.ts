@@ -28,7 +28,6 @@ describe('FacetSelectorComponent', () => {
 
         fixture = TestBed.createComponent(FacetSelectorComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

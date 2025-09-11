@@ -50,9 +50,9 @@ export class NaturalFileComponent implements OnInit, OnChanges {
     public readonly iconHeight = computed(() => Math.min(this.height() * 0.66, 120));
     public readonly fontSize = computed(() => Math.min(this.height() * 0.3, 36));
 
-    @Input() public action: 'upload' | 'download' | null = null;
+    public readonly action = input<'upload' | 'download' | null>(null);
 
-    @Input() public backgroundSize = 'contain';
+    public readonly backgroundSize = input('contain');
 
     /**
      * Comma-separated list of unique file type specifiers. Like the native element,
@@ -60,8 +60,9 @@ export class NaturalFileComponent implements OnInit, OnChanges {
      *
      * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
      */
-    @Input() public accept =
-        'image/avif,image/bmp,image/gif,image/heic,image/heif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/svg,image/webp';
+    public readonly accept = input(
+        'image/avif,image/bmp,image/gif,image/heic,image/heif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/svg,image/webp',
+    );
 
     /**
      * If given, it will be called when a new file is selected. The callback should typically upload the file
@@ -77,7 +78,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
      * Also, you probably **should** set a `[formCtrl]` so that the form is updated automatically, instead of doing
      * it manually within the callback.
      */
-    @Input() public uploader?: (file: File) => Observable<FileModel>;
+    public readonly uploader = input<(file: File) => Observable<FileModel>>();
 
     @Input() public model: FileModel | null = null;
 
@@ -85,7 +86,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
      * If provided, its value will get updated when the model changes.
      * But its value is never read, so if you want to set a value use `[model]` instead.
      */
-    @Input() public formCtrl: AbstractControl | null | undefined = null;
+    public readonly formCtrl = input<AbstractControl | null | undefined>(null);
 
     /**
      * This **must not** be used to mutate the server, because it is very likely it will never be called if the
@@ -110,17 +111,19 @@ export class NaturalFileComponent implements OnInit, OnChanges {
         this.model = {file: file};
         this.updateImage();
 
-        if (this.formCtrl) {
-            this.formCtrl.setValue(this.model);
+        const formCtrl = this.formCtrl();
+        if (formCtrl) {
+            formCtrl.setValue(this.model);
         }
 
         const observable =
-            this.uploader?.(file).pipe(tap(() => this.alertService.info($localize`Mis à jour`))) ?? of(this.model);
+            this.uploader()?.(file).pipe(tap(() => this.alertService.info($localize`Mis à jour`))) ?? of(this.model);
 
         observable.subscribe(result => {
             this.model = result;
-            if (this.formCtrl) {
-                this.formCtrl.setValue(this.model);
+            const formCtrlValue = this.formCtrl();
+            if (formCtrlValue) {
+                formCtrlValue.setValue(this.model);
             }
 
             this.modelChange.emit(this.model);
@@ -128,7 +131,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
     }
 
     public getDownloadLink(): null | string {
-        if (this.action !== 'download') {
+        if (this.action() !== 'download') {
             return null;
         }
 

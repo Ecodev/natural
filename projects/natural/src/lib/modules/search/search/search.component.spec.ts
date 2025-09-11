@@ -8,7 +8,6 @@ describe('NaturalSearchComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(NaturalSearchComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

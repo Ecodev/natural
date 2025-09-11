@@ -1,15 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    inject,
-    input,
-    Input,
-    OnDestroy,
-    OnInit,
-    output,
-    viewChild,
-    DOCUMENT,
-} from '@angular/core';
+import {Component, ElementRef, inject, input, OnDestroy, OnInit, output, viewChild, DOCUMENT} from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {EditorView} from 'prosemirror-view';
 import {EditorState, Plugin, Transaction} from 'prosemirror-state';
@@ -80,7 +69,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
      * If given it will enable advanced schema, including image and tables.
      * It must be given on initialization and cannot be changed later on.
      */
-    @Input() public imageUploader: ImageUploader | null = null;
+    public readonly imageUploader = input<ImageUploader | null>(null);
 
     /**
      * Mode must be set on initialization. Later changes will have no effect. Possible values are:
@@ -121,7 +110,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
     }
 
     public ngOnInit(): void {
-        this.schema = this.imageUploader || this.mode() === 'advanced' ? advancedSchema : basicSchema;
+        this.schema = this.imageUploader() || this.mode() === 'advanced' ? advancedSchema : basicSchema;
         this.menu = buildMenuItems(this.schema, this.dialog);
         const serializer = DOMSerializer.fromSchema(this.schema);
         const state = this.createState();
@@ -206,7 +195,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
             }),
         ];
 
-        if (this.imageUploader) {
+        if (this.imageUploader()) {
             plugins.push(this.imagePlugin.plugin);
         }
 
@@ -270,12 +259,13 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
     }
 
     public upload(file: File): void {
-        if (!this.view || !this.imageUploader) {
+        const imageUploader = this.imageUploader();
+        if (!this.view || !imageUploader) {
             return;
         }
 
         if (this.view.state.selection.$from.parent.inlineContent) {
-            this.imagePlugin.startImageUpload(this.view, file, this.imageUploader, this.schema);
+            this.imagePlugin.startImageUpload(this.view, file, imageUploader, this.schema);
         }
 
         this.view.focus();

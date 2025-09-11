@@ -1,6 +1,6 @@
 @for (selection of innerSelections; track $index) {
     <natural-input
-        [facets]="facets"
+        [facets]="facets()"
         [selection]="selection"
         (cleared)="removeInput($index)"
         (selectionChange)="updateInput($event, $index)"
@@ -11,8 +11,8 @@
     #newValueInput
     tabIndex="10"
     cdkFocusInitial
-    [facets]="facets"
-    [placeholder]="placeholder"
-    [dropdownTitle]="dropdownTitle"
+    [facets]="facets()"
+    [placeholder]="placeholder()"
+    [dropdownTitle]="dropdownTitle()"
     (selectionChange)="addInput($event)"
 />

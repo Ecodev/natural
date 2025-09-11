@@ -8,7 +8,6 @@ describe('NaturalInputComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(NaturalInputComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

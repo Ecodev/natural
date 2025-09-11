@@ -14,6 +14,7 @@ import {
     StaticProvider,
     viewChild,
     output,
+    input,
 } from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {ErrorStateMatcher, MatRipple, MatRippleModule} from '@angular/material/core';
@@ -90,7 +91,7 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     /**
      * Name of the field on which do a global search (without facet)
      */
-    @Input() public searchFieldName = 'search';
+    public readonly searchFieldName = input('search');
 
     /**
      * Selected setted for this component
@@ -100,12 +101,12 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     /**
      * Available facets, allows the user to pick one, than generated then a selection
      */
-    @Input({required: true}) public facets!: NaturalSearchFacets;
+    public readonly facets = input.required<NaturalSearchFacets>();
 
     /**
      * Text display in the dropdown to select the facet
      */
-    @Input() public dropdownTitle = '';
+    public readonly dropdownTitle = input('');
 
     /**
      * Emits when user a added/updated/deleted a search (from global context or from facet)
@@ -173,10 +174,11 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     public ngOnChanges(): void {
-        if (!this.facets && this.selection) {
+        const facets = this.facets();
+        if (!facets && this.selection) {
             setTimeout(() => this.clear());
-        } else if (this.facets && this.selection) {
-            this.facet = getFacetFromSelection(this.facets, this.selection);
+        } else if (facets && this.selection) {
+            this.facet = getFacetFromSelection(facets, this.selection);
 
             if (this.isDropdown()) {
                 const dropdownComponent = this.createComponent(this.facet as DropdownFacet<FacetSelectorConfiguration>);
@@ -188,7 +190,7 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
                 this.formCtrl.setValue('');
             } else if (
                 this.selection &&
-                this.selection.field === this.searchFieldName &&
+                this.selection.field === this.searchFieldName() &&
                 this.selection.condition.like
             ) {
                 // global search mode
@@ -269,7 +271,7 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
 
         // If there is no facet and no string typed, show panel to select the facet
         if (!this.facet && !this.formCtrl.value) {
-            this.openFacetSelectorDropdown(this.dropdownTitle);
+            this.openFacetSelectorDropdown(this.dropdownTitle());
         } else {
             // If a facet is selected, open specific component dropdown
             this.openTypeDropdown();
@@ -329,7 +331,8 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private openFacetSelectorDropdown(title: string | undefined): void {
-        if (!this.facets || (this.facets && !this.facets.length)) {
+        const facets = this.facets();
+        if (!facets || (facets && !facets.length)) {
             return;
         }
 
@@ -337,7 +340,7 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
             condition: {},
             title: title,
             configuration: {
-                facets: this.facets,
+                facets: facets,
             },
         };
 
@@ -406,7 +409,7 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
 
     private getSelection(condition: NaturalSearchSelection['condition']): NaturalSearchSelection {
         const selection: NaturalSearchSelection = {
-            field: this.facet ? this.facet.field : this.searchFieldName,
+            field: this.facet ? this.facet.field : this.searchFieldName(),
             condition: condition,
         };
 

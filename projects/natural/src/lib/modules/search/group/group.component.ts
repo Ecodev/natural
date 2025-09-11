@@ -1,4 +1,4 @@
-import {Component, Input, viewChild, output} from '@angular/core';
+import {Component, Input, viewChild, output, input} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalInputComponent} from '../input/input.component';
 import {NaturalSearchFacets} from '../types/facet';
@@ -16,9 +16,9 @@ export class NaturalGroupComponent {
     /**
      * Text display in the dropdown to select the facet
      */
-    @Input() public dropdownTitle = '';
-    @Input({required: true}) public placeholder!: string;
-    @Input({required: true}) public facets!: NaturalSearchFacets;
+    public readonly dropdownTitle = input('');
+    public readonly placeholder = input.required<string>();
+    public readonly facets = input.required<NaturalSearchFacets>();
     public readonly selectionChange = output<GroupSelections>();
     public innerSelections: GroupSelections = [];
 

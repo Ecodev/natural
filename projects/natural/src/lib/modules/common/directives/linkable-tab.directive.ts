@@ -1,4 +1,4 @@
-import {AfterViewInit, DestroyRef, Directive, inject, Input} from '@angular/core';
+import {AfterViewInit, DestroyRef, Directive, inject, input} from '@angular/core';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {ActivatedRoute, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 import {clone} from 'es-toolkit';
@@ -35,7 +35,7 @@ export class NaturalLinkableTabDirective implements AfterViewInit {
     /**
      * If false, disables the persistent navigation
      */
-    @Input() public naturalLinkableTab: boolean | '' = true;
+    public readonly naturalLinkableTab = input<boolean | ''>(true);
     private isLoadingRouteConfig = false;
 
     public constructor() {
@@ -49,7 +49,7 @@ export class NaturalLinkableTabDirective implements AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        if (this.naturalLinkableTab === false) {
+        if (this.naturalLinkableTab() === false) {
             return;
         }
 

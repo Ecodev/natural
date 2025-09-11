@@ -26,7 +26,7 @@ describe('naturalFileSelect', () => {
     it('inits', () => {
         expect(fixture).not.toBeNull();
         expect(component).not.toBeNull();
-        expect(component.ngf().selectable).toBe(true);
+        expect(component.ngf().selectable()).toBe(true);
     });
 
     it('should broadcast to service', done => {

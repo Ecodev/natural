@@ -1,4 +1,4 @@
-import {Directive, HostListener, Input} from '@angular/core';
+import {Directive, HostListener, input} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 
 /**
@@ -27,14 +27,15 @@ export function ensureHttpPrefix(value: string | null): string | null {
     standalone: true,
 })
 export class NaturalHttpPrefixDirective {
-    @Input() public naturalHttpPrefix: AbstractControl | null = null;
+    public readonly naturalHttpPrefix = input<AbstractControl | null>(null);
 
     @HostListener('ngModelChange', ['$event'])
     public httpize($event: string): void {
-        if (this.naturalHttpPrefix) {
+        const naturalHttpPrefix = this.naturalHttpPrefix();
+        if (naturalHttpPrefix) {
             const newValue = ensureHttpPrefix($event) || $event;
             if ($event !== newValue) {
-                this.naturalHttpPrefix.setValue(newValue);
+                naturalHttpPrefix.setValue(newValue);
             }
         }
     }

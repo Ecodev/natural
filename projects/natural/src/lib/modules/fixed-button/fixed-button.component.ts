@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
 import {RouterLink} from '@angular/router';
 import {NaturalIconDirective} from '../icon/icon.directive';
@@ -12,8 +12,8 @@ import {MatButtonModule} from '@angular/material/button';
     styleUrl: './fixed-button.component.scss',
 })
 export class NaturalFixedButtonComponent {
-    @Input({required: true}) public icon!: string;
-    @Input() public link: RouterLink['routerLink'] | null = null;
-    @Input() public color: ThemePalette = 'accent';
-    @Input() public disabled = false;
+    public readonly icon = input.required<string>();
+    public readonly link = input<RouterLink['routerLink'] | null>(null);
+    public readonly color = input<ThemePalette>('accent');
+    public readonly disabled = input(false);
 }

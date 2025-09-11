@@ -20,7 +20,6 @@ describe('NaturalDropdownContainerComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(NaturalDropdownContainerComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

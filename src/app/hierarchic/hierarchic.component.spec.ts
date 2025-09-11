@@ -13,7 +13,6 @@ describe('HierarchicComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(HierarchicComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

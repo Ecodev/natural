@@ -1,5 +1,5 @@
 <mat-form-field [subscriptSizing]="subscriptSizing()">
-    <mat-label>{{ placeholder }}</mat-label>
+    <mat-label>{{ placeholder() }}</mat-label>
 
     <!-- Input for hierarchical selector -->
     <input
@@ -13,8 +13,8 @@
     />
 
     <!-- Meta data -->
-    @if (showIcon) {
-        <mat-icon matIconPrefix [naturalIcon]="icon" />
+    @if (showIcon()) {
+        <mat-icon matIconPrefix [naturalIcon]="icon()" />
     }
 
     @if (hint()) {
@@ -23,7 +23,7 @@
 
     <!-- Clear button -->
     <div matIconSuffix>
-        @if (internalCtrl.value && internalCtrl.enabled && !clearLabel) {
+        @if (internalCtrl.value && internalCtrl.enabled && !clearLabel()) {
             <button
                 mat-icon-button
                 i18n-matTooltip
@@ -60,7 +60,7 @@
             <button color="primary" mat-flat-button (click)="openDialog()">{{ selectLabel }}</button>
         }
         @if (showClearButton()) {
-            <button color="warn" mat-button (click)="clear()">{{ clearLabel }}</button>
+            <button color="warn" mat-button (click)="clear()">{{ clearLabel() }}</button>
         }
     </div>
 }

@@ -13,7 +13,6 @@ describe('Demo SelectEnumComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(SelectEnumComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

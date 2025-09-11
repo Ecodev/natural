@@ -3,14 +3,14 @@
     matRipple
     target="_blank"
     [selectable]="true"
-    [accept]="accept"
+    [accept]="accept()"
     [attr.href]="getDownloadLink()"
-    [class.has-action]="!!action"
-    [class.suggest-upload]="!model && action === 'upload'"
-    [fileSelectionDisabled]="action !== 'upload'"
-    [matRippleDisabled]="!action"
+    [class.has-action]="!!action()"
+    [class.suggest-upload]="!model && action() === 'upload'"
+    [fileSelectionDisabled]="action() !== 'upload'"
+    [matRippleDisabled]="!action()"
     [naturalBackgroundDensity]="imagePreview"
-    [style.backgroundSize]="backgroundSize"
+    [style.backgroundSize]="backgroundSize()"
     (fileChange)="upload($event)"
 >
     @if (filePreview) {
@@ -21,12 +21,12 @@
     }
 
     <div class="action-overlay" [style.font-size.px]="fontSize()">
-        @if (action === 'upload') {
+        @if (action() === 'upload') {
             <mat-icon naturalIcon="cloud_upload" [size]="iconHeight()" />
         }
-        @if (action === 'download') {
+        @if (action() === 'download') {
             <mat-icon naturalIcon="get_app" [size]="iconHeight()" />
         }
-        {{ action | capitalize }}
+        {{ action() | capitalize }}
     </div>
 </a>

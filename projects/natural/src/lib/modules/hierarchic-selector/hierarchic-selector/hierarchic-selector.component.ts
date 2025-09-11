@@ -7,7 +7,6 @@ import {
     DestroyRef,
     inject,
     input,
-    Input,
     OnChanges,
     OnInit,
     output,
@@ -64,43 +63,43 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     /**
      * Function that receives a model and returns a string for display value
      */
-    @Input() public displayWith?: (item: any) => string;
+    public readonly displayWith = input<(item: any) => string>();
 
     /**
      * Config for items and relations arrangement
      */
-    @Input({required: true}) public config!: NaturalHierarchicConfiguration[];
+    public readonly config = input.required<NaturalHierarchicConfiguration[]>();
 
     /**
      * If multiple or single item selection
      */
-    @Input() public multiple = false;
+    public readonly multiple = input(false);
 
     /**
      * Selected items
      * Organized by key, containing each an array of selected items of same type
      */
-    @Input() public selected: OrganizedModelSelection = {};
+    public readonly selected = input<OrganizedModelSelection>({});
 
     /**
      * Whether selectable elements can be unselected
      */
-    @Input() public allowUnselect = true;
+    public readonly allowUnselect = input(true);
 
     /**
      * Filters that apply to each query
      */
-    @Input() public filters?: HierarchicFiltersConfiguration | null;
+    public readonly filters = input<HierarchicFiltersConfiguration | null>();
 
     /**
      * Search facets
      */
-    @Input() public searchFacets: NaturalSearchFacets = [];
+    public readonly searchFacets = input<NaturalSearchFacets>([]);
 
     /**
      * Selections to apply on natural-search on component initialisation
      */
-    @Input() public searchSelections: NaturalSearchSelections = [];
+    public readonly searchSelections = input<NaturalSearchSelections>([]);
 
     /**
      * Select all fetched items of the current search result
@@ -158,7 +157,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
      */
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.selected && !changes.selected.firstChange) {
-            this.updateInnerSelection(this.selected);
+            this.updateInnerSelection(this.selected());
         }
 
         if (changes.filters && !changes.filters.firstChange) {
@@ -171,7 +170,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
      */
     public ngOnInit(): void {
         // Init tree checkbox selectors
-        this.flatNodesSelection = new SelectionModel<any>(this.multiple);
+        this.flatNodesSelection = new SelectionModel<any>(this.multiple());
 
         // Tree controllers and manipulators
         // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -197,27 +196,29 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
 
         // Prevent empty screen on first load and init NaturalHierarchicSelectorService with inputted configuration
         let variables;
-        if (this.searchSelections.some(s => s.length)) {
-            variables = {filter: toGraphQLDoctrineFilter(this.searchFacets, this.searchSelections)};
+        const searchSelections = this.searchSelections();
+        if (searchSelections.some(s => s.length)) {
+            variables = {filter: toGraphQLDoctrineFilter(this.searchFacets(), searchSelections)};
         }
         this.loadRoots(variables);
 
         // OrganizedSelection into list usable by template
-        this.updateInnerSelection(this.selected);
+        this.updateInnerSelection(this.selected());
     }
 
     /**
      * Toggle selection of a FlatNode, considering if multiple selection is activated or not
      */
     public toggleFlatNode(flatNode: HierarchicFlatNode): void {
-        if (this.multiple) {
+        const multiple = this.multiple();
+        if (multiple) {
             // Is multiple allowed, just toggle element
             if (this.flatNodesSelection.isSelected(flatNode)) {
                 this.unselectFlatNode(flatNode);
             } else {
                 this.selectFlatNode(flatNode);
             }
-        } else if (!this.multiple) {
+        } else if (!multiple) {
             if (this.flatNodesSelection.isSelected(flatNode)) {
                 this.unselectSingleFlatNode();
             } else {
@@ -264,8 +265,9 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
             return config.displayWith;
         }
 
-        if (this.displayWith) {
-            return this.displayWith;
+        const displayWith = this.displayWith();
+        if (displayWith) {
+            return displayWith;
         }
 
         return item => (item ? item.fullName || item.name : '');
@@ -273,7 +275,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
 
     public loadChildren(flatNode: HierarchicFlatNode): void {
         if (this.treeControl.isExpanded(flatNode)) {
-            this.hierarchicSelectorService.loadChildren(flatNode, this.filters);
+            this.hierarchicSelectorService.loadChildren(flatNode, this.filters());
         }
     }
 
@@ -345,8 +347,8 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     public search(selections: NaturalSearchSelections): void {
         this.searchSelectionChange.emit(selections);
         if (selections.some(s => s.length)) {
-            const variables = {filter: toGraphQLDoctrineFilter(this.searchFacets, selections)};
-            this.hierarchicSelectorService.search(variables, this.filters);
+            const variables = {filter: toGraphQLDoctrineFilter(this.searchFacets(), selections)};
+            this.hierarchicSelectorService.search(variables, this.filters());
         } else {
             this.loadRoots();
         }
@@ -356,7 +358,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
         this.loading = true;
         this.flatNodeMap.set(new Map<string, HierarchicFlatNode>());
         this.hierarchicSelectorService
-            .init(this.config, this.filters, searchVariables || null)
+            .init(this.config(), this.filters(), searchVariables || null)
             .pipe(finalize(() => (this.loading = false)))
             .subscribe();
     }
@@ -428,7 +430,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
      */
     private updateSelection(selected: HierarchicModelNode[]): void {
         const organizedFlatNodesSelection = this.hierarchicSelectorService.toOrganizedSelection(selected);
-        replaceObjectKeepingReference(this.selected, organizedFlatNodesSelection);
+        replaceObjectKeepingReference(this.selected(), organizedFlatNodesSelection);
         this.selectionChange.emit(organizedFlatNodesSelection);
     }
 
@@ -454,11 +456,11 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
 
         const flatNode = new HierarchicFlatNode(node, name, level, expandable, isSelectable);
 
-        this.hierarchicSelectorService.countItems(flatNode, this.filters);
+        this.hierarchicSelectorService.countItems(flatNode, this.filters());
 
         // Mark node as selected if needed (checks the selected processed input)
         if (this.isNodeSelected(node)) {
-            if (!this.allowUnselect) {
+            if (!this.allowUnselect()) {
                 flatNode.deselectable = false;
             }
             this.flatNodesSelection.select(flatNode);

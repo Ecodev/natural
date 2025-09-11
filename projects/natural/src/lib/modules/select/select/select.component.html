@@ -26,7 +26,7 @@
 
 <!-- Input for autocomplete -->
 <mat-form-field [subscriptSizing]="subscriptSizing()">
-    <mat-label>{{ placeholder }}</mat-label>
+    <mat-label>{{ placeholder() }}</mat-label>
 
     <input
         aria-label="Recherche et sélection"
@@ -48,8 +48,8 @@
     }
 
     <!-- Meta data -->
-    @if (!loading && showIcon) {
-        <mat-icon matIconPrefix [naturalIcon]="icon" />
+    @if (!loading && showIcon()) {
+        <mat-icon matIconPrefix [naturalIcon]="icon()" />
     }
 
     @if (loading) {
@@ -60,12 +60,12 @@
 
     <!-- Clear button -->
     <div matIconSuffix>
-        @if (internalCtrl.pristine && internalCtrl.value && internalCtrl.enabled && !clearLabel) {
+        @if (internalCtrl.pristine && internalCtrl.value && internalCtrl.enabled && !clearLabel()) {
             <button mat-icon-button i18n-matTooltip matTooltip="Désélectionner" (click)="clear()">
                 <mat-icon naturalIcon="close" />
             </button>
         }
-        @if (internalCtrl.dirty && internalCtrl.enabled && optionRequired) {
+        @if (internalCtrl.dirty && internalCtrl.enabled && optionRequired()) {
             <button mat-icon-button i18n-matTooltip matTooltip="Annuler la recherche" (click)="reset()">
                 <mat-icon naturalIcon="undo" />
             </button>
@@ -94,7 +94,7 @@
 @if (showClearButton()) {
     <div class="external-buttons">
         @if (showClearButton()) {
-            <button color="warn" mat-button (click)="clear()">{{ clearLabel }}</button>
+            <button color="warn" mat-button (click)="clear()">{{ clearLabel() }}</button>
         }
     </div>
 }

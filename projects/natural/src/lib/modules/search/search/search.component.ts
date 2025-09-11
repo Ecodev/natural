@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnChanges, output, signal} from '@angular/core';
+import {Component, inject, Input, OnChanges, output, signal, input} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalSearchFacets} from '../types/facet';
 import {GroupSelections, NaturalSearchSelections} from '../types/values';
@@ -32,7 +32,7 @@ export class NaturalSearchComponent implements OnChanges {
     /**
      * Placeholder for last input (the free search input)
      */
-    @Input() public placeholder = $localize`Rechercher`;
+    public readonly placeholder = input($localize`Rechercher`);
 
     /**
      * Exhaustive list of facets to be used in this <natural-search>
@@ -42,12 +42,12 @@ export class NaturalSearchComponent implements OnChanges {
     /**
      * Whether to allow end-user to create multiple `OR` groups
      */
-    @Input() public multipleGroups = false;
+    public readonly multipleGroups = input(false);
 
     /**
      * Text display in the dropdown to select the facet
      */
-    @Input() public dropdownTitle = '';
+    public readonly dropdownTitle = input('');
 
     /**
      * Emits when some selection has been setted by the user

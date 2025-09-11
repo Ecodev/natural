@@ -12,7 +12,6 @@ describe('Demo PanelsComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(PanelsComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

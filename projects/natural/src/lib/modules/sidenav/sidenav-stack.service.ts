@@ -21,11 +21,11 @@ export class NaturalSidenavStackService {
      * @internal
      */
     public register(sidenav: NaturalSidenavContainerComponent): void {
-        const exists = this.sidenavs.some(s => s.name === sidenav.name);
+        const exists = this.sidenavs.some(s => s.name() === sidenav.name());
 
         // Prevent duplicated name, and so on local storage or further access conflicts
         if (exists) {
-            throw new Error('Duplicated side nav name: ' + sidenav.name);
+            throw new Error('Duplicated side nav name: ' + sidenav.name());
         }
 
         this.sidenavs.push(sidenav);

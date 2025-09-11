@@ -6,7 +6,7 @@
         </button>
         <mat-menu #mobileMenu="matMenu">
             <ng-template matMenuContent>
-                @for (button of buttons; track button) {
+                @for (button of buttons(); track button) {
                     @if (defaultTrue(button.show)) {
                         @if (button.href) {
                             <a
@@ -70,7 +70,7 @@
             </ng-template>
         </mat-menu>
     } @else {
-        @for (button of buttons; track button) {
+        @for (button of buttons(); track button) {
             @if (defaultTrue(button.show)) {
                 @if (button.href) {
                     <a

@@ -4,9 +4,9 @@
             <div class="groupWrapper">
                 <natural-group
                     [facets]="facets"
-                    [placeholder]="placeholder"
+                    [placeholder]="placeholder()"
                     [selections]="groupSelections"
-                    [dropdownTitle]="dropdownTitle"
+                    [dropdownTitle]="dropdownTitle()"
                     (selectionChange)="updateGroup($event, $index)"
                 />
                 <div class="endOfRowButton">
@@ -29,7 +29,7 @@
     </div>
 
     <div class="endOfRowButton">
-        @if (multipleGroups) {
+        @if (multipleGroups()) {
             <button mat-icon-button i18n-matTooltip matTooltip="Ajouter un groupe logique OU" (click)="addGroup()">
                 <mat-icon naturalIcon="add" />
             </button>

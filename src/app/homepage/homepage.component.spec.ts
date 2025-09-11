@@ -8,7 +8,6 @@ describe('Demo HomepageComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(HomepageComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

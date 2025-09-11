@@ -14,7 +14,6 @@ describe('RelationsComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(RelationsComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

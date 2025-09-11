@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, input} from '@angular/core';
 import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogConfig} from '@angular/material/dialog';
 import {Literal} from '../../../types/types';
@@ -82,7 +82,7 @@ export class NaturalSelectHierarchicComponent
     /**
      * Filters formatted for hierarchic selector
      */
-    @Input() public filters?: HierarchicFiltersConfiguration;
+    public readonly filters = input<HierarchicFiltersConfiguration>();
 
     /**
      * The selected value as an object. The internal value is `internalCtrl.value`, and that is a string.
@@ -99,8 +99,9 @@ export class NaturalSelectHierarchicComponent
      * Very important to return something, above all if [select]='displayedValue' attribute value is used
      */
     public getDisplayFn(): (item: Literal | null) => string {
-        if (this.displayWith) {
-            return this.displayWith;
+        const displayWith = this.displayWith();
+        if (displayWith) {
+            return displayWith;
         }
 
         return defaultDisplayFn;
@@ -143,7 +144,7 @@ export class NaturalSelectHierarchicComponent
         const hierarchicConfig: HierarchicDialogConfig = {
             hierarchicConfig: this.config,
             hierarchicSelection: selected,
-            hierarchicFilters: this.filters,
+            hierarchicFilters: this.filters(),
             multiple: false,
         };
 

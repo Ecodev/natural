@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, input} from '@angular/core';
 import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {IEnum, NaturalEnumService} from '../../../services/enum.service';
@@ -22,7 +22,7 @@ export class NaturalSelectEnumComponent extends AbstractSelect<Value, Value> imp
     /**
      * The name of the enum type, eg: `"ActionStatus"`
      */
-    @Input({required: true}) public enumName!: string;
+    public readonly enumName = input.required<string>();
 
     /**
      * If given an extra option is added to select `null` with given label
@@ -37,13 +37,13 @@ export class NaturalSelectEnumComponent extends AbstractSelect<Value, Value> imp
     /**
      * Whether the user should be allowed to select multiple options
      */
-    @Input() public multiple = false;
+    public readonly multiple = input(false);
 
     public items?: Observable<IEnum[]>;
 
     public override ngOnInit(): void {
         super.ngOnInit();
-        this.items = this.enumService.get(this.enumName);
+        this.items = this.enumService.get(this.enumName());
     }
 
     public getDisplayFn(): (item: Value | null) => string {

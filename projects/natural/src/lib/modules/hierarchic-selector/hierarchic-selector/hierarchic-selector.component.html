@@ -1,8 +1,8 @@
 <div [style.margin-bottom.px]="20">
-    <natural-search [facets]="searchFacets" [selections]="searchSelections" (selectionChange)="search($event)" />
+    <natural-search [facets]="searchFacets()" [selections]="searchSelections()" (selectionChange)="search($event)" />
 </div>
 
-@if (allowSelectAll() && multiple) {
+@if (allowSelectAll() && multiple()) {
     <div class="select-all" [matTooltip]="tooBig() ? 'Trop de résultats, veuillez affiner la recherche' : null">
         <a i18n mat-button [disabled]="tooBig()" (click)="selectAll()">Tout sélectionner</a>
     </div>

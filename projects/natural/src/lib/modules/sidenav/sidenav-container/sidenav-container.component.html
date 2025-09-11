@@ -4,9 +4,9 @@
         [class.menuMinimized]="sidenavService.isMinimized"
         [class.modeSide]="sidenavService.activeMode === 'side'"
         [opened]="sidenavService.isOpened"
-        [style.min-width.px]="sidenavService.isMinimized && minimizedWidth ? minimizedWidth : null"
-        [style.width.px]="sidenavService.isMinimized && minimizedWidth ? minimizedWidth : null"
-        [position]="position"
+        [style.min-width.px]="sidenavService.isMinimized && minimizedWidth() ? minimizedWidth() : null"
+        [style.width.px]="sidenavService.isMinimized && minimizedWidth() ? minimizedWidth() : null"
+        [position]="position()"
     >
         <ng-content select="natural-sidenav" />
     </mat-sidenav>

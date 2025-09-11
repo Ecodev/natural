@@ -13,7 +13,6 @@ describe('EditorComponent', () => {
 
         fixture = TestBed.createComponent(EditorComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

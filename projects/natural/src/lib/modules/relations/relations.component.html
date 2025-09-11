@@ -59,15 +59,17 @@
 </div>
 
 @if (!disabled) {
-    @if (hierarchicSelectorConfig) {
+    @if (hierarchicSelectorConfig()) {
         <div>
-            <button color="primary" mat-flat-button (click)="openNaturalHierarchicSelector()">{{ placeholder }}</button>
+            <button color="primary" mat-flat-button (click)="openNaturalHierarchicSelector()">{{
+                placeholder()
+            }}</button>
         </div>
     } @else {
         <natural-select
             [displayWith]="$any(getDisplayFn())"
-            [filter]="autocompleteSelectorFilter"
-            [placeholder]="placeholder"
+            [filter]="autocompleteSelectorFilter()"
+            [placeholder]="placeholder()"
             [service]="service"
             [showIcon]="false"
             (selectionChange)="addRelations([$event])"

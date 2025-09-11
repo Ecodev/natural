@@ -1,4 +1,4 @@
-import {Directive, Input} from '@angular/core';
+import {Directive, input} from '@angular/core';
 import {NaturalAbstractFile} from './abstract-file';
 
 /**
@@ -14,5 +14,5 @@ export class NaturalFileSelectDirective extends NaturalAbstractFile {
      *
      * Override parent to enable it by default
      */
-    @Input() public override selectable = true;
+    public override readonly selectable = input(true);
 }

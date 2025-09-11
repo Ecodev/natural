@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, Input, OnChanges, SimpleChanges, output} from '@angular/core';
+import {Component, DestroyRef, inject, Input, OnChanges, SimpleChanges, output, input} from '@angular/core';
 import {AvailableColumn, Button} from './types';
 import {cancellableTimeout} from '../../classes/rxjs';
 import {map} from 'rxjs';
@@ -35,8 +35,7 @@ export class NaturalColumnsPickerComponent implements OnChanges {
     private _selections?: string[];
     private _availableColumns: Required<AvailableColumn>[] = [];
 
-    @Input()
-    public buttons: readonly Readonly<Button>[] | null = [];
+    public readonly buttons = input<readonly Readonly<Button>[] | null>([]);
 
     /**
      * Set all the columns that are available.
@@ -125,13 +124,13 @@ export class NaturalColumnsPickerComponent implements OnChanges {
     }
 
     public needMargin(button: Button | null = null): string {
-        return this.buttons?.some(this.useCheckbox) && (!button || !this.useCheckbox(button))
+        return this.buttons()?.some(this.useCheckbox) && (!button || !this.useCheckbox(button))
             ? 'align-with-checkbox'
             : '';
     }
 
     public someVisibleButtons(): boolean {
-        const visibleButtons = this.buttons?.reduce((sum, button) => (this.defaultTrue(button.show) ? 1 : 0), 0) ?? 0;
+        const visibleButtons = this.buttons()?.reduce((sum, button) => (this.defaultTrue(button.show) ? 1 : 0), 0) ?? 0;
 
         return visibleButtons > 0;
     }

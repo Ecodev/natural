@@ -1,4 +1,4 @@
-import {Directive, Input, OnInit} from '@angular/core';
+import {Directive, OnInit, input} from '@angular/core';
 import {NavigationExtras, RouterLink} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {NaturalSearchSelections} from '../modules/search/types/values';
@@ -48,7 +48,7 @@ export class NaturalAbstractNavigableList<
     /**
      * Name of filter for child items to access ancestor item
      */
-    @Input() public ancestorRelationName = 'parent';
+    public readonly ancestorRelationName = input('parent');
 
     private oldAncertorId: string | null = null;
 
@@ -89,7 +89,7 @@ export class NaturalAbstractNavigableList<
             }
 
             const condition: Literal = {};
-            condition[this.ancestorRelationName] = navigationConditionValue;
+            condition[this.ancestorRelationName()] = navigationConditionValue;
             const variables: QueryVariables = {filter: {groups: [{conditions: [condition]}]}};
 
             // todo : check why without "as Vall" it errors. Vall is supposed to be QueryVariables, and filter too.
@@ -111,7 +111,7 @@ export class NaturalAbstractNavigableList<
                     };
 
                     const condition: Literal = {};
-                    condition[this.ancestorRelationName] = {have: {values: [item.id]}};
+                    condition[this.ancestorRelationName()] = {have: {values: [item.id]}};
                     const variables: QueryVariables = {filter: {groups: [{conditions: [condition]}]}};
 
                     const qvm = new NaturalQueryVariablesManager();
@@ -177,7 +177,7 @@ export class NaturalAbstractNavigableList<
      * @param item with an ancestor relation (must match ancestorRelationName attribute)
      */
     protected getBreadcrumb(item: BreadcrumbItem): BreadcrumbItem[] {
-        const ancestor = item[this.ancestorRelationName];
+        const ancestor = item[this.ancestorRelationName()];
         if (ancestor) {
             return this.getBreadcrumb(ancestor).concat([item]);
         }

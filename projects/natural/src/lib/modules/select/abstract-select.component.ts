@@ -33,7 +33,7 @@ class ExternalFormControlMatcher<TValue, TInput> extends ErrorStateMatcher {
 
 @Directive({standalone: true})
 export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlValueAccessor, DoCheck {
-    @Input() public placeholder?: string;
+    public readonly placeholder = input<string>();
 
     /**
      * Mat-hint, if given, and it is non-empty, then `subscriptSizing` will
@@ -74,22 +74,22 @@ export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlV
     /**
      * If provided cause a new clear button to appear
      */
-    @Input() public clearLabel?: string;
+    public readonly clearLabel = input<string>();
 
     /**
      * Whether to show the search icon
      */
-    @Input() public showIcon = true;
+    public readonly showIcon = input(true);
 
     /**
      * Icon name
      */
-    @Input() public icon = 'search';
+    public readonly icon = input('search');
 
     /**
      * Function to customize the rendering of the selected item as text in input
      */
-    @Input() public displayWith?: (item: TValue | null) => string;
+    public readonly displayWith = input<(item: TValue | null) => string>();
 
     /**
      * Emit the selected value whenever it changes
@@ -210,7 +210,7 @@ export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlV
     }
 
     public showClearButton(): boolean {
-        return this.internalCtrl?.enabled && !!this.clearLabel && !!this.internalCtrl.value;
+        return this.internalCtrl?.enabled && !!this.clearLabel() && !!this.internalCtrl.value;
     }
 
     public touch(): void {

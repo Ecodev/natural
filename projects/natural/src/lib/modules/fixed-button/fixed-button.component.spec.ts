@@ -12,7 +12,6 @@ describe('FixedButtonComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(NaturalFixedButtonComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should be created', () => {

@@ -8,6 +8,7 @@ import {
     OnInit,
     TemplateRef,
     viewChild,
+    input,
 } from '@angular/core';
 import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule, MatAutocompleteTrigger} from '@angular/material/autocomplete';
@@ -110,12 +111,12 @@ export class NaturalSelectComponent<
     /**
      * Service with watchAll function that accepts queryVariables.
      */
-    @Input({required: true}) public service!: TService;
+    public readonly service = input.required<TService>();
 
     /**
      * If false, allows to input free string without selecting an option from autocomplete suggestions
      */
-    @Input() public optionRequired = true;
+    public readonly optionRequired = input(true);
 
     /**
      * The field on which to search for, default to 'custom'.
@@ -164,7 +165,7 @@ export class NaturalSelectComponent<
     /**
      * Default page size
      */
-    @Input() public pageSize = 10;
+    public readonly pageSize = input(10);
 
     /**
      * Init search options
@@ -192,7 +193,7 @@ export class NaturalSelectComponent<
 
     public onInternalFormChange(): void {
         // If we allow free string typing, then we propagate it as it is being typed
-        if (!this.optionRequired) {
+        if (!this.optionRequired()) {
             this.propagateValue(this.internalCtrl.value);
         }
     }
@@ -233,14 +234,14 @@ export class NaturalSelectComponent<
 
     private initService(): void {
         // Assert given service has a watchAll function
-        if (typeof this.service.watchAll !== 'function') {
+        if (typeof this.service().watchAll !== 'function') {
             throw new TypeError('Provided service does not contain watchAll function');
         }
 
         const defaultPagination = {
             pagination: {
                 pageIndex: 0,
-                pageSize: this.pageSize,
+                pageSize: this.pageSize(),
             },
         };
 
@@ -255,18 +256,20 @@ export class NaturalSelectComponent<
         }
 
         // Init query, and when query results arrive, finish loading, and count items
-        this.items = this.service.watchAll(this.variablesManager).pipe(
-            takeUntilDestroyed(this.destroyRef),
-            finalize(() => (this.loading = false)),
-            map(data => {
-                this.loading = false;
-                this.nbTotal = data.length;
-                const nbListed = Math.min(data.length, this.pageSize);
-                this.hasMoreItems = this.nbTotal > nbListed;
+        this.items = this.service()
+            .watchAll(this.variablesManager)
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                finalize(() => (this.loading = false)),
+                map(data => {
+                    this.loading = false;
+                    this.nbTotal = data.length;
+                    const nbListed = Math.min(data.length, this.pageSize());
+                    this.hasMoreItems = this.nbTotal > nbListed;
 
-                return data.items;
-            }),
-        );
+                    return data.items;
+                }),
+            );
 
         this.loading = true;
         this.items.subscribe();
@@ -282,7 +285,7 @@ export class NaturalSelectComponent<
         this.loading = false;
 
         // If we cleared value via button, but we allow free string typing, then force to empty string
-        if (!this.optionRequired && value === null) {
+        if (!this.optionRequired() && value === null) {
             value = '';
         }
 
@@ -293,8 +296,9 @@ export class NaturalSelectComponent<
      * Very important to return something, above all if [select]='displayedValue' attribute value is used
      */
     public getDisplayFn(): (item: ValueTypeFor<TService> | null) => string {
-        if (this.displayWith) {
-            return this.displayWith;
+        const displayWith = this.displayWith();
+        if (displayWith) {
+            return displayWith;
         }
 
         return (item: any) => {
@@ -326,7 +330,7 @@ export class NaturalSelectComponent<
     }
 
     public override showClearButton(): boolean {
-        return this.internalCtrl?.enabled && !!this.clearLabel && !!this.internalCtrl.value;
+        return this.internalCtrl?.enabled && !!this.clearLabel() && !!this.internalCtrl.value;
     }
 
     private getSearchFilter(term: string | null): QueryVariables {

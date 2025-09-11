@@ -43,7 +43,6 @@ describe('TypeTextComponent', () => {
         TestBed.overrideProvider(NATURAL_DROPDOWN_DATA, {useValue: data});
         fixture = TestBed.createComponent<TypeTextComponent>(TypeTextComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     }
 
     it('should create', () => {

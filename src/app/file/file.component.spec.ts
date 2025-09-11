@@ -13,7 +13,6 @@ describe('Demo FileComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(FileComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

@@ -8,7 +8,6 @@ describe('GroupComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(NaturalGroupComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

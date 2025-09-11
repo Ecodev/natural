@@ -9,6 +9,7 @@ import {
     OnInit,
     SimpleChanges,
     DOCUMENT,
+    input,
 } from '@angular/core';
 import {
     acceptType,
@@ -58,7 +59,7 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
     /**
      * Whether we should accept a single file or multiple files
      */
-    @Input() public multiple = false;
+    public readonly multiple = input(false);
 
     /**
      * Comma-separated list of unique file type specifiers. Like the native element,
@@ -66,17 +67,17 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
      *
      * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
      */
-    @Input() public accept = '';
+    public readonly accept = input('');
 
     /**
      * Maximum file size in bytes. 0 means no validation at all.
      */
-    @Input() public maxSize = 0;
+    public readonly maxSize = input(0);
 
     /**
      * Disable the file selection entirely
      */
-    @Input() public fileSelectionDisabled = false;
+    public readonly fileSelectionDisabled = input(false);
 
     /**
      * Whether the user can click on the element to select something
@@ -84,7 +85,7 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
      * This has only effect during initialization. Subsequent changes will have
      * no effect.
      */
-    @Input() public selectable = false;
+    public readonly selectable = input(false);
 
     /**
      * If true, the file selection will be broadcast through `NaturalFileService.filesChanged`.
@@ -120,11 +121,11 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
     }
 
     public ngOnInit(): void {
-        if (this.selectable) {
+        if (this.selectable()) {
             this.enableSelecting();
         }
 
-        this.getFileElement().multiple = this.multiple;
+        this.getFileElement().multiple = this.multiple();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -228,7 +229,7 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
 
     private clickHandler(event: Event): boolean {
         const elm = this.element.nativeElement;
-        if (elm.getAttribute('disabled') || this.fileSelectionDisabled) {
+        if (elm.getAttribute('disabled') || this.fileSelectionDisabled()) {
             return false;
         }
 
@@ -267,9 +268,10 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
     }
 
     private validate(file: File): Observable<string | null> {
+        const maxSize = this.maxSize();
         return forkJoin<Record<string, ObservableInput<boolean>>>({
-            accept: of(acceptType(this.accept, file.type, file.name)),
-            fileSize: of(!(this.maxSize && file.size > this.maxSize)),
+            accept: of(acceptType(this.accept(), file.type, file.name)),
+            fileSize: of(!(maxSize && file.size > maxSize)),
             directory: isDirectory(file),
         }).pipe(
             map(result => {

@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, OnDestroy, OnInit, viewChild} from '@angular/core';
+import {Component, HostBinding, inject, Input, OnDestroy, OnInit, viewChild, input} from '@angular/core';
 import {MatDrawer, MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import {NaturalSidenavService} from '../sidenav.service';
 import {CommonModule} from '@angular/common';
@@ -16,23 +16,23 @@ export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
     /**
      * Unique identifier used for the local storage
      */
-    @Input({required: true}) public name!: string;
+    public readonly name = input.required<string>();
 
     /**
      * The side that the drawer is attached to
      */
-    @Input() public position: MatDrawer['position'] = 'start';
+    public readonly position = input<MatDrawer['position']>('start');
 
     /**
      * If true listens to route changes to close side nav after a route change if mobile view is active
      * Actually a navigation to current route does not emit a route change, and the sidenav don't close.
      */
-    @Input() public mobileAutoClose = true;
+    public readonly mobileAutoClose = input(true);
 
     /**
      * Width of the minimized menu
      */
-    @Input() public minimizedWidth = 150;
+    public readonly minimizedWidth = input(150);
 
     /**
      * If true, prevents "native" material sidenav to scroll at container level and delegates the scroll responsability to the transcluded
@@ -54,7 +54,7 @@ export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.sidenavService.init(this.name, this, this.mobileAutoClose);
+        this.sidenavService.init(this.name(), this, this.mobileAutoClose());
     }
 
     public ngOnDestroy(): void {

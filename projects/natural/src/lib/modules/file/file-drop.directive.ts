@@ -56,7 +56,7 @@ export class NaturalFileDropDirective extends NaturalAbstractFile implements OnI
 
     @HostListener('drop', ['$event'])
     public onDrop(event: DragEvent): void {
-        if (this.fileSelectionDisabled) {
+        if (this.fileSelectionDisabled()) {
             return;
         }
 
@@ -77,7 +77,7 @@ export class NaturalFileDropDirective extends NaturalAbstractFile implements OnI
             return;
         }
 
-        if (this.fileSelectionDisabled) {
+        if (this.fileSelectionDisabled()) {
             return;
         }
 
@@ -98,7 +98,7 @@ export class NaturalFileDropDirective extends NaturalAbstractFile implements OnI
 
     @HostListener('dragleave', ['$event'])
     public onDragLeave(event: DragEvent): void {
-        if (this.fileSelectionDisabled) {
+        if (this.fileSelectionDisabled()) {
             return;
         }
 

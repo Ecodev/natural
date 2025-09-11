@@ -1,7 +1,7 @@
 import {Source} from './source';
 import {sha256} from '../../../classes/crypto';
 
-function isRetina(): boolean {
+export function isRetina(): boolean {
     // We cannot reasonably inject `DOCUMENT` here, but we are extra
     // careful about usage of `window` and its possible non-existence in SSR,
     // so we should be fine.

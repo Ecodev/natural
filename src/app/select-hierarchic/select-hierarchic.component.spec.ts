@@ -14,7 +14,6 @@ describe('Demo SelectHierarchicComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(SelectHierarchicComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should create', () => {

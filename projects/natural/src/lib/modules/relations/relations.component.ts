@@ -9,6 +9,7 @@ import {
     output,
     TemplateRef,
     viewChild,
+    input,
 } from '@angular/core';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {NaturalDataSource, PaginatedData} from '../../classes/data-source';
@@ -105,17 +106,17 @@ export class NaturalRelationsComponent<
     /**
      * The placeholder used in the button to add a new relation
      */
-    @Input() public placeholder = '';
+    public readonly placeholder = input('');
 
     /**
      * Filter for autocomplete selector
      */
-    @Input() public autocompleteSelectorFilter?: ExtractVall<TService>['filter'] | null | undefined;
+    public readonly autocompleteSelectorFilter = input<ExtractVall<TService>['filter'] | null>();
 
     /**
      * Function to customize the rendering of the selected item as text in input
      */
-    @Input() public displayWith?: (item: ExtractTallOne<TService> | null) => string;
+    public readonly displayWith = input<(item: ExtractTallOne<TService> | null) => string>();
 
     /**
      * Whether the relations can be changed
@@ -135,12 +136,12 @@ export class NaturalRelationsComponent<
     /**
      * Filters for hierarchic selector
      */
-    @Input() public hierarchicSelectorFilters?: HierarchicFiltersConfiguration | null;
+    public readonly hierarchicSelectorFilters = input<HierarchicFiltersConfiguration | null>();
 
     /**
      * Configuration in case we prefer hierarchic selection over autocomplete selection
      */
-    @Input() public hierarchicSelectorConfig?: NaturalHierarchicConfiguration[];
+    public readonly hierarchicSelectorConfig = input<NaturalHierarchicConfiguration[]>();
 
     /**
      * Link mutation semantic
@@ -255,8 +256,9 @@ export class NaturalRelationsComponent<
     }
 
     public getDisplayFn(): (item: ExtractTallOne<TService> | null) => string {
-        if (this.displayWith) {
-            return this.displayWith;
+        const displayWith = this.displayWith();
+        if (displayWith) {
+            return displayWith;
         }
 
         return (item: any) => (item ? item.fullName || item.name : '');
@@ -265,16 +267,17 @@ export class NaturalRelationsComponent<
     public openNaturalHierarchicSelector(): void {
         const selectAtKey = this.getSelectKey();
 
-        if (!selectAtKey || !this.hierarchicSelectorConfig) {
+        const hierarchicSelectorConfig = this.hierarchicSelectorConfig();
+        if (!selectAtKey || !hierarchicSelectorConfig) {
             return;
         }
 
         const selected = {};
 
         const hierarchicConfig: HierarchicDialogConfig = {
-            hierarchicConfig: this.hierarchicSelectorConfig,
+            hierarchicConfig: hierarchicSelectorConfig,
             hierarchicSelection: selected,
-            hierarchicFilters: this.hierarchicSelectorFilters,
+            hierarchicFilters: this.hierarchicSelectorFilters(),
             multiple: true,
         };
 
@@ -292,10 +295,11 @@ export class NaturalRelationsComponent<
     }
 
     private getSelectKey(): string | undefined {
-        if (!this.hierarchicSelectorConfig) {
+        const hierarchicSelectorConfig = this.hierarchicSelectorConfig();
+        if (!hierarchicSelectorConfig) {
             return;
         }
 
-        return this.hierarchicSelectorConfig.find(c => !!c.selectableAtKey)?.selectableAtKey;
+        return hierarchicSelectorConfig.find(c => !!c.selectableAtKey)?.selectableAtKey;
     }
 }
