@@ -15,48 +15,17 @@
 } @else {
     @switch (type()) {
         <!-- App routed link -->
-        @case ('routerLink') {
-            @if (label()) {
-                <a
-                    [matButton]="appearance()"
-                    [color]="color()"
-                    [queryParams]="queryParams()"
-                    [queryParamsHandling]="queryParamsHandling()"
-                    [routerLink]="navigate()"
-                    [fragment]="fragment()"
-                    [preserveFragment]="preserveFragment()"
-                    [disabled]="disabled()"
-                >
-                    @if (theIcon) {
-                        <mat-icon [naturalIcon]="theIcon" />
-                    }
-                    <span>{{ label() }}</span>
-                </a>
-            } @else {
-                <a
-                    mat-icon-button
-                    [class]="iconClass()"
-                    [color]="color()"
-                    [queryParams]="queryParams()"
-                    [queryParamsHandling]="queryParamsHandling()"
-                    [routerLink]="navigate()"
-                    [fragment]="fragment()"
-                    [preserveFragment]="preserveFragment()"
-                    [disabled]="disabled()"
-                >
-                    @if (theIcon) {
-                        <mat-icon [naturalIcon]="theIcon" />
-                    }
-                </a>
-            }
-        }
-        <!-- Click -->
-        @case ('click') {
+        @case ('routerLinkOrClick') {
             @if (label()) {
                 <a
                     [matButton]="appearance()"
                     [color]="color()"
                     [disabled]="disabled()"
+                    [queryParams]="queryParams()"
+                    [queryParamsHandling]="queryParamsHandling()"
+                    [routerLink]="navigate()"
+                    [fragment]="fragment()"
+                    [preserveFragment]="preserveFragment()"
                     (click)="buttonClick$.next($event)"
                 >
                     @if (theIcon) {
@@ -70,6 +39,11 @@
                     [class]="iconClass()"
                     [color]="color()"
                     [disabled]="disabled()"
+                    [queryParams]="queryParams()"
+                    [queryParamsHandling]="queryParamsHandling()"
+                    [routerLink]="navigate()"
+                    [fragment]="fragment()"
+                    [preserveFragment]="preserveFragment()"
                     (click)="buttonClick$.next($event)"
                 >
                     @if (theIcon) {

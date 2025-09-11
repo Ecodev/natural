@@ -32,7 +32,7 @@ export class NaturalTableButtonComponent {
     public readonly label = input<string | null | undefined>();
     public readonly icon = input<string | null | undefined>();
     public readonly href = input<string | null | undefined>();
-    public readonly navigate = input<RouterLink['routerLink']>([]);
+    public readonly navigate = input<RouterLink['routerLink']>(null);
     public readonly fragment = input<string | undefined>();
     public readonly preserveFragment = input(false);
     public readonly disabled = input(false);
@@ -46,12 +46,15 @@ export class NaturalTableButtonComponent {
 
     protected readonly type = computed(() => {
         const navigate = this.navigate();
-        if (navigate instanceof UrlTree || navigate?.length || Object.keys(this.queryParams()).length) {
-            return 'routerLink';
+        if (
+            navigate instanceof UrlTree ||
+            navigate?.length ||
+            Object.keys(this.queryParams()).length ||
+            this.buttonClick$.observed
+        ) {
+            return 'routerLinkOrClick';
         } else if (this.href()) {
             return 'href';
-        } else if (this.buttonClick$.observed) {
-            return 'click';
         } else {
             return 'none';
         }
