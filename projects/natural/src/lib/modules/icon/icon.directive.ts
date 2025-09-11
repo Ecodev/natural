@@ -1,4 +1,4 @@
-import {Directive, HostBinding, inject, InjectionToken, Input} from '@angular/core';
+import {computed, Directive, effect, inject, InjectionToken, input} from '@angular/core';
 import {MatIcon, MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -40,6 +40,12 @@ const naturalRegistered: unique symbol = Symbol('Natural icon registered');
 @Directive({
     selector: 'mat-icon[naturalIcon]',
     standalone: true,
+    host: {
+        '[style.font-size.px]': 'size()',
+        '[style.min-height.px]': 'size()',
+        '[style.min-width.px]': 'size()',
+        '[class]': 'icon().class',
+    },
 })
 export class NaturalIconDirective {
     private readonly matIconRegistry = inject(MatIconRegistry);
@@ -47,43 +53,33 @@ export class NaturalIconDirective {
     private readonly config = inject(NATURAL_ICONS_CONFIG, {optional: true});
     private readonly matIconComponent = inject(MatIcon, {host: true, self: true});
 
-    @HostBinding('style.font-size.px')
-    @HostBinding('style.min-height.px')
-    @HostBinding('style.min-width.px')
-    protected _size: number | undefined = undefined;
+    public readonly naturalIcon = input.required<string>();
+    public readonly size = input<number | undefined | null>(undefined);
 
-    @HostBinding('class') protected classes = '';
+    protected readonly icon = computed<NaturalIconType>(() => {
+        const value = this.naturalIcon();
+        return {
+            name: value,
+            ...(this.config?.[value] ?? {font: value}),
+        };
+    });
 
     public constructor() {
         const config = this.config;
 
         this.registerIcons(config ?? {});
-    }
 
-    @Input({required: true})
-    public set naturalIcon(value: string) {
-        const newIcon: NaturalIconType = {
-            name: value,
-            ...(this.config?.[value] ?? {font: value}),
-        };
+        effect(() => {
+            this.matIconComponent.fontIcon = undefined!;
+            this.matIconComponent.svgIcon = undefined!;
 
-        if (newIcon.class) {
-            this.classes = newIcon.class;
-        }
-
-        this.matIconComponent.fontIcon = undefined!;
-        this.matIconComponent.svgIcon = undefined!;
-
-        if (newIcon.font) {
-            this.matIconComponent.fontIcon = newIcon.font;
-        } else if (newIcon.svg) {
-            this.matIconComponent.svgIcon = newIcon.name;
-        }
-    }
-
-    @Input()
-    public set size(size: number | undefined | null) {
-        this._size = size ?? undefined;
+            const icon = this.icon();
+            if (icon.font) {
+                this.matIconComponent.fontIcon = icon.font;
+            } else if (icon.svg) {
+                this.matIconComponent.svgIcon = icon.name;
+            }
+        });
     }
 
     private registerIcons(config: NaturalIconsConfig): void {

@@ -1,32 +1,32 @@
-@if (item) {
-    @if (item.creationDate || item.creator) {
-        <div>
-            <span class="mat-subtitle-2" i18n>Création</span>
-            :
-            @if (item.creator) {
-                <span>{{ item.creator.fullName || item.creator.name }}</span>
-            }
-            @if (item.creator && item.creationDate) {
-                <span>,&nbsp;</span>
-            }
-            @if (item.creationDate) {
-                <span>{{ item.creationDate | date }} ({{ item.creationDate | timeAgo }})</span>
-            }
-        </div>
-    }
-    @if (showUpdate()) {
-        <div>
-            <span class="mat-subtitle-2" i18n>Modification</span>
-            :
-            @if (item.updater) {
-                <span>{{ item.updater.fullName || item.updater.name }}</span>
-            }
-            @if (item.updater && item.updateDate) {
-                <span>,&nbsp;</span>
-            }
-            @if (item.updateDate) {
-                <span>{{ item.updateDate | date }} ({{ item.updateDate | timeAgo }})</span>
-            }
-        </div>
-    }
+@let theItem = item();
+@if (theItem.creationDate || theItem.creator) {
+    <div>
+        <span class="mat-subtitle-2" i18n>Création</span>
+        :
+        @if (theItem.creator) {
+            <span>{{ theItem.creator.fullName || theItem.creator.name }}</span>
+        }
+        @if (theItem.creator && theItem.creationDate) {
+            <span>,&nbsp;</span>
+        }
+        @if (theItem.creationDate) {
+            <span>{{ theItem.creationDate | date }} ({{ theItem.creationDate | timeAgo }})</span>
+        }
+    </div>
+}
+
+@if (showUpdate()) {
+    <div>
+        <span class="mat-subtitle-2" i18n>Modification</span>
+        :
+        @if (theItem.updater) {
+            <span>{{ theItem.updater.fullName || theItem.updater.name }}</span>
+        }
+        @if (theItem.updater && theItem.updateDate) {
+            <span>,&nbsp;</span>
+        }
+        @if (theItem.updateDate) {
+            <span>{{ theItem.updateDate | date }} ({{ theItem.updateDate | timeAgo }})</span>
+        }
+    </div>
 }

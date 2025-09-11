@@ -1,4 +1,4 @@
-import {Directive, ElementRef, inject, Input} from '@angular/core';
+import {Directive, effect, ElementRef, inject, input} from '@angular/core';
 
 export function densities(src: string, forImageSet: boolean): string {
     const match = /^(.*\/)(\d+)$/.exec(src);
@@ -60,13 +60,17 @@ export class NaturalSrcDensityDirective {
      *
      * See https://web.dev/codelab-density-descriptors/
      */
-    @Input({required: true})
-    public set naturalSrcDensity(src: string) {
-        if (!src) {
-            return;
-        }
+    public readonly naturalSrcDensity = input.required<string>();
 
-        this.elementRef.nativeElement.src = src;
-        this.elementRef.nativeElement.srcset = densities(src, false);
+    public constructor() {
+        effect(() => {
+            const src = this.naturalSrcDensity();
+            if (!src) {
+                return;
+            }
+
+            this.elementRef.nativeElement.src = src;
+            this.elementRef.nativeElement.srcset = densities(src, false);
+        });
     }
 }

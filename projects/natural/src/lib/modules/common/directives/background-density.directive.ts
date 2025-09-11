@@ -1,4 +1,4 @@
-import {Directive, ElementRef, inject, Input} from '@angular/core';
+import {Directive, effect, ElementRef, inject, input} from '@angular/core';
 import {densities} from './src-density.directive';
 
 @Directive({
@@ -38,21 +38,26 @@ export class NaturalBackgroundDensityDirective {
      *
      * See https://developer.mozilla.org/en-US/docs/Web/CSS/image/image-set
      */
-    @Input({required: true})
-    public set naturalBackgroundDensity(src: string) {
-        if (src.startsWith('url(')) {
-            this.elementRef.nativeElement.style.backgroundImage = src;
-            return;
-        }
+    public readonly naturalBackgroundDensity = input.required<string>();
 
-        // Always include a fallback with standard syntax for browsers that don't support at all, or don't support without
-        // prefixes (eg: Chrome v88 that we still see in production)
-        const fallback = src ? `url(${src})` : '';
-        this.elementRef.nativeElement.style.backgroundImage = fallback;
+    public constructor() {
+        effect(() => {
+            const src = this.naturalBackgroundDensity();
 
-        const responsive = densities(src, true);
-        if (responsive) {
-            this.elementRef.nativeElement.style.backgroundImage = responsive;
-        }
+            if (src.startsWith('url(')) {
+                this.elementRef.nativeElement.style.backgroundImage = src;
+                return;
+            }
+
+            // Always include a fallback with standard syntax for browsers that don't support at all, or don't support without
+            // prefixes (eg: Chrome v88 that we still see in production)
+            const fallback = src ? `url(${src})` : '';
+            this.elementRef.nativeElement.style.backgroundImage = fallback;
+
+            const responsive = densities(src, true);
+            if (responsive) {
+                this.elementRef.nativeElement.style.backgroundImage = responsive;
+            }
+        });
     }
 }

@@ -1,4 +1,4 @@
-import {Directive, HostBinding, inject, Input, OnDestroy, DOCUMENT} from '@angular/core';
+import {Directive, DOCUMENT, effect, inject, input, OnDestroy} from '@angular/core';
 
 /**
  * Prefix all CSS selectors with the given selector
@@ -41,24 +41,29 @@ let componentCount = 0;
 @Directive({
     selector: '[naturalCustomCss]',
     standalone: true,
+    host: {
+        '[attr.data-natural-id]': 'id',
+    },
 })
 export class NaturalCustomCssDirective implements OnDestroy {
     private readonly document = inject(DOCUMENT);
-
     private style: HTMLStyleElement | null = null;
+    protected readonly id = 'n' + ++uniqueId;
+    public readonly naturalCustomCss = input.required<string | undefined>();
 
-    @HostBinding('attr.data-natural-id') protected readonly id = 'n' + ++uniqueId;
+    public constructor() {
+        effect(() => {
+            const value = this.naturalCustomCss();
 
-    @Input({required: true})
-    public set naturalCustomCss(value: string | undefined) {
-        if (value && !this.style) {
-            this.style = this.document.createElement('style');
-            this.document.head.appendChild(this.style);
-        }
+            if (value && !this.style) {
+                this.style = this.document.createElement('style');
+                this.document.head.appendChild(this.style);
+            }
 
-        if (this.style) {
-            this.style.innerHTML = value ? prefixCss(`[data-natural-id=${this.id}]`, value) : '';
-        }
+            if (this.style) {
+                this.style.innerHTML = value ? prefixCss(`[data-natural-id=${this.id}]`, value) : '';
+            }
+        });
     }
 
     public ngOnDestroy(): void {

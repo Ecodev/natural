@@ -14,7 +14,7 @@ class TestComponent {
     public css: string | undefined = 'p {border: 1px solid red;} h1 {background: red;}';
 }
 
-describe('NaturalLinkableTabDirective', () => {
+describe('NaturalCustomCssDirective', () => {
     let fixture: ComponentFixture<TestComponent>;
     let component: TestComponent;
     let document: Document;
