@@ -24,7 +24,6 @@ function getTabId(tab: MatTab): string {
  */
 @Directive({
     selector: 'mat-tab-group[naturalLinkableTab]',
-    standalone: true,
 })
 export class NaturalLinkableTabDirective implements AfterViewInit {
     private readonly destroyRef = inject(DestroyRef);

@@ -8,7 +8,6 @@ import {RouterTestingHarness} from '@angular/router/testing';
 import {BehaviorSubject, of, Subject} from 'rxjs';
 
 @Component({
-    standalone: true,
     template: ` <div i18n>Test simple component</div>`,
 })
 class TestSimpleComponent extends NaturalAbstractDetail<ItemService> {
@@ -20,7 +19,6 @@ class TestSimpleComponent extends NaturalAbstractDetail<ItemService> {
 }
 
 @Component({
-    standalone: true,
     template: ` <div i18n>Test list component</div>`,
 })
 class TestListComponent {}

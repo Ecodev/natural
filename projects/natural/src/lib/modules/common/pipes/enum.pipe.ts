@@ -9,7 +9,6 @@ import {Observable} from 'rxjs';
  */
 @Pipe({
     name: 'enum',
-    standalone: true,
 })
 export class NaturalEnumPipe implements PipeTransform {
     private readonly enumService = inject(NaturalEnumService);

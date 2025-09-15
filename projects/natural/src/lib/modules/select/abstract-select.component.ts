@@ -31,7 +31,7 @@ class ExternalFormControlMatcher<TValue, TInput> extends ErrorStateMatcher {
     }
 }
 
-@Directive({standalone: true})
+@Directive()
 export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlValueAccessor, DoCheck {
     public readonly placeholder = input<string>();
 

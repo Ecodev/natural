@@ -39,7 +39,6 @@ const naturalRegistered: unique symbol = Symbol('Natural icon registered');
  */
 @Directive({
     selector: 'mat-icon[naturalIcon]',
-    standalone: true,
     host: {
         '[style.font-size.px]': 'size()',
         '[style.min-height.px]': 'size()',

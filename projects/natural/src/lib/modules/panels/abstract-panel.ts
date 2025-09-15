@@ -4,7 +4,7 @@ import {NaturalPanelData} from './types';
 import {Observable} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
-@Directive({standalone: true})
+@Directive()
 export class NaturalAbstractPanel {
     protected readonly destroyRef = inject(DestroyRef);
     /**

@@ -12,7 +12,6 @@ import {provideRouter, Router, Routes} from '@angular/router';
 import {PaqItem} from './matomo.service';
 
 @Component({
-    standalone: true,
     template: ` <div i18n>Test component</div>`,
 })
 class TestSimpleComponent {}

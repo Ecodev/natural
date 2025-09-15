@@ -20,7 +20,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
  */
 @Directive({
     selector: ':not([naturalFileSelect])[naturalFileDrop]',
-    standalone: true,
 })
 export class NaturalFileDropDirective extends NaturalAbstractFile implements OnInit {
     private readonly destroyRef = inject(DestroyRef);

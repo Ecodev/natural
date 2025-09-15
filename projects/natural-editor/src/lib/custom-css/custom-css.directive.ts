@@ -40,7 +40,6 @@ let componentCount = 0;
  */
 @Directive({
     selector: '[naturalCustomCss]',
-    standalone: true,
     host: {
         '[attr.data-natural-id]': 'id',
     },

@@ -6,7 +6,6 @@ import {upperCaseFirstLetter} from '../../../classes/utility';
  */
 @Pipe({
     name: 'capitalize',
-    standalone: true,
 })
 export class NaturalCapitalizePipe implements PipeTransform {
     public transform(value: string | null): string | null {

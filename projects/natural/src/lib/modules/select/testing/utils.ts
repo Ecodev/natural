@@ -18,7 +18,7 @@ export const itemHierarchicConfig: NaturalHierarchicConfiguration[] = [
 /**
  * Base for test host
  */
-@Directive({standalone: true})
+@Directive()
 abstract class TestHostComponent {
     public selectedValue: any;
     public blurred = 0;
@@ -44,7 +44,7 @@ abstract class TestHostComponent {
     public abstract setRequired(): void;
 }
 
-@Directive({standalone: true})
+@Directive()
 export abstract class AbstractTestHostWithNgModelComponent extends TestHostComponent {
     public myValue: any;
     public disabled = false;
@@ -71,7 +71,7 @@ export abstract class AbstractTestHostWithNgModelComponent extends TestHostCompo
     }
 }
 
-@Directive({standalone: true})
+@Directive()
 export abstract class AbstractTestHostWithFormControlComponent extends TestHostComponent {
     public readonly formControl = new FormControl();
 

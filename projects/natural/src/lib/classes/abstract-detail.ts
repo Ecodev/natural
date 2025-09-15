@@ -33,7 +33,7 @@ function isNaturalDialogTriggerProvidedData(
 }
 
 // @dynamic
-@Directive({standalone: true})
+@Directive()
 export class NaturalAbstractDetail<
         TService extends NaturalAbstractModelService<
             {id: string},

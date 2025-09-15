@@ -4,7 +4,6 @@ import {NaturalPanelsService} from './panels.service';
 
 @Component({
     selector: 'natural-panels',
-    standalone: true,
     template: '',
 })
 export class NaturalPanelsComponent implements OnDestroy {

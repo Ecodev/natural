@@ -26,7 +26,6 @@ class TestRootComponent {
 
 @Component({
     selector: 'natural-test-no-panel',
-    standalone: true,
     template: `<h1 i18n>Page without panels at all</h1>`,
 })
 class TestNoPanelComponent {}
@@ -43,21 +42,18 @@ class TestWithPanelComponent {}
 
 @Component({
     selector: 'natural-test-panel-a',
-    standalone: true,
     template: `<h1 i18n>Panel A content</h1>`,
 })
 class TestPanelAComponent extends NaturalAbstractPanel {}
 
 @Component({
     selector: 'natural-test-panel-b',
-    standalone: true,
     template: `<h1 i18n>Panel B content</h1>`,
 })
 class TestPanelBComponent extends NaturalAbstractPanel {}
 
 @Component({
     selector: 'natural-test-fallback',
-    standalone: true,
     template: `<h1 i18n>404 fallback page</h1>`,
 })
 class TestFallbackComponent {}

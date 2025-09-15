@@ -7,7 +7,7 @@ import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {PossibleDiscreteOperatorKeys, possibleDiscreteOperators} from './types';
 import {startWith} from 'rxjs/operators';
 
-@Directive({standalone: true})
+@Directive()
 export abstract class AbstractAssociationSelectComponent<C> implements DropdownComponent {
     public readonly configuration: C;
     public readonly renderedValue = new BehaviorSubject<string>('');

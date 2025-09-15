@@ -18,7 +18,6 @@ export type NaturalDialogTriggerProvidedData<D> = {
 export type NaturalDialogTriggerRedirectionValues = RouterLink['routerLink'] | null | undefined | '' | -1;
 
 @Component({
-    standalone: true,
     template: '',
 })
 export class NaturalDialogTriggerComponent<T, D> implements OnDestroy {

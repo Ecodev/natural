@@ -27,7 +27,7 @@ export type NavigableItem<T> = {
  *
  * @dynamic
  */
-@Directive({standalone: true})
+@Directive()
 export class NaturalAbstractNavigableList<
         TService extends NaturalAbstractModelService<
             any,

@@ -14,7 +14,6 @@ import {Meta, Title} from '@angular/platform-browser';
 import {of} from 'rxjs';
 
 @Component({
-    standalone: true,
     template: ` <div i18n>Test simple component</div>`,
 })
 class TestSimpleComponent {}

@@ -24,7 +24,6 @@ export function ensureHttpPrefix(value: string | null): string | null {
  */
 @Directive({
     selector: '[naturalHttpPrefix]',
-    standalone: true,
 })
 export class NaturalHttpPrefixDirective {
     public readonly naturalHttpPrefix = input<AbstractControl | null>(null);

@@ -3,7 +3,6 @@ import {densities} from './src-density.directive';
 
 @Directive({
     selector: '[naturalBackgroundDensity]',
-    standalone: true,
 })
 export class NaturalBackgroundDensityDirective {
     private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);

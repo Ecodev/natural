@@ -30,7 +30,6 @@ export function densities(src: string, forImageSet: boolean): string {
 
 @Directive({
     selector: 'img[naturalSrcDensity]',
-    standalone: true,
 })
 export class NaturalSrcDensityDirective {
     private readonly elementRef = inject<ElementRef<HTMLImageElement>>(ElementRef);

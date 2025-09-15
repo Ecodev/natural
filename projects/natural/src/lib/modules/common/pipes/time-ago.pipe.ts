@@ -15,7 +15,6 @@ function isDate(value: any): value is Date {
  */
 @Pipe({
     name: 'timeAgo',
-    standalone: true,
 })
 export class NaturalTimeAgoPipe implements PipeTransform {
     public fakedNow: number | null = null;
