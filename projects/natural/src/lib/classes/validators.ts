@@ -109,14 +109,8 @@ export function collectErrors(control: AbstractControl<unknown>): ValidationErro
  * touched and are invalid.
  */
 export function validateAllFormControls(control: AbstractControl<unknown>): void {
-    control.markAsDirty({onlySelf: true});
-    control.markAsTouched({onlySelf: true});
-
-    if (control instanceof FormGroup || control instanceof FormArray) {
-        for (const [, child] of Object.entries(control.controls)) {
-            validateAllFormControls(child);
-        }
-    }
+    control.markAllAsDirty();
+    control.markAllAsTouched();
 }
 
 function isValid(status: FormControlStatus): status is 'VALID' {
