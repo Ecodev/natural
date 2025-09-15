@@ -1,4 +1,9 @@
-import {FlexibleConnectedPositionStrategy, Overlay, OverlayConfig} from '@angular/cdk/overlay';
+import {
+    createFlexibleConnectedPositionStrategy,
+    createOverlayRef,
+    FlexibleConnectedPositionStrategy,
+    OverlayConfig,
+} from '@angular/cdk/overlay';
 import {ComponentPortal, ComponentType} from '@angular/cdk/portal';
 import {ComponentRef, ElementRef, inject, Injectable, InjectionToken, Injector, StaticProvider} from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
@@ -23,7 +28,6 @@ export const NATURAL_DROPDOWN_DATA = new InjectionToken<NaturalDropdownData>('Na
     providedIn: 'root',
 })
 export class NaturalDropdownService {
-    private readonly overlay = inject(Overlay);
     private readonly injector = inject(Injector);
 
     public open(
@@ -47,7 +51,7 @@ export class NaturalDropdownService {
         const containerInjector = Injector.create({providers: injectionTokens, parent: this.injector});
 
         // Container
-        const overlayRef = this.overlay.create(this.getOverlayConfig(connectedElement));
+        const overlayRef = createOverlayRef(this.injector, this.getOverlayConfig(connectedElement));
         const containerPortal = new ComponentPortal(NaturalDropdownContainerComponent, undefined, containerInjector);
         const containerRef: ComponentRef<NaturalDropdownContainerComponent> = overlayRef.attach(containerPortal);
 
@@ -97,9 +101,7 @@ export class NaturalDropdownService {
     }
 
     private getPosition(element: ElementRef<HTMLElement>): FlexibleConnectedPositionStrategy {
-        return this.overlay
-            .position()
-            .flexibleConnectedTo(element)
+        return createFlexibleConnectedPositionStrategy(this.injector, element)
             .withFlexibleDimensions(true)
             .withViewportMargin(30)
             .withPush(false)
