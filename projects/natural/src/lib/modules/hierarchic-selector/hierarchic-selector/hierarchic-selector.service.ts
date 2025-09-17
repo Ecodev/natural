@@ -1,17 +1,16 @@
 import {inject, Injectable, Injector} from '@angular/core';
 import {intersection} from 'es-toolkit';
-import {BehaviorSubject, first, forkJoin, Observable} from 'rxjs';
-import {finalize, map} from 'rxjs/operators';
+import {first, forkJoin, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {NaturalQueryVariablesManager, QueryVariables} from '../../../classes/query-variable-manager';
-import {HierarchicFlatNode} from '../classes/flat-node';
+import {Literal, UntypedModelService} from '../../../types/types';
+import {FilterGroupCondition} from '../../search/classes/graphql-doctrine.types';
 import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
 import {
     HierarchicFilterConfiguration,
     HierarchicFiltersConfiguration,
 } from '../classes/hierarchic-filters-configuration';
-import {HierarchicModel, HierarchicModelNode} from '../classes/model-node';
-import {Literal, UntypedModelService} from '../../../types/types';
-import {FilterGroupCondition} from '../../search/classes/graphql-doctrine.types';
+import {HierarchicModel, ModelNode} from '../classes/model-node';
 
 export type OrganizedModelSelection = Record<string, any[]>;
 
@@ -26,85 +25,45 @@ export class NaturalHierarchicSelectorService {
     private readonly injector = inject(Injector);
 
     /**
-     * Stores the global result of the tree
-     * This observable contains Node.
-     * When it's updated, the TreeController and TreeFlattener process the new array to generate the flat tree.
+     * We use cache because dataSource has nested data and would require recursive search
+     * @private
      */
-    public readonly dataChange = new BehaviorSubject<HierarchicModelNode[]>([]);
+    private nodeCache = new Map<string, ModelNode>();
 
-    /**
-     * Configuration for relations and selection constraints
-     *
-     * The list should be sorted in the order of the hierarchic (list first parent rules, then child rules)
-     */
-    private configuration: NaturalHierarchicConfiguration[] = [];
-
-    /**
-     * Init component by saving the complete configuration, and then retrieving root elements.
-     * Updates **another** observable (this.dataChange) when data is retrieved.
-     */
-    public init(
-        config: NaturalHierarchicConfiguration[],
-        contextFilter: HierarchicFiltersConfiguration | null = null,
-        searchVariables: QueryVariables | null = null,
-    ): Observable<unknown> {
-        this.validateConfiguration(config);
-        this.configuration = config;
-        return this.getList(null, contextFilter, searchVariables).pipe(map(data => this.dataChange.next(data)));
-    }
-
-    /**
-     * Get list of children, considering given FlatNode id as a parent.
-     * Mark loading status individually on nodes.
-     */
-    public loadChildren(
-        flatNode: HierarchicFlatNode,
-        contextFilter: HierarchicFiltersConfiguration | null = null,
-    ): void {
-        // Don't refetch children. Improve performances
-        // Prevents interferences between HierarchicModelNode structure and angular components navigation.
-        // Prevents a bug where grand children were lost if closing root
-        if (flatNode.node.children.length) {
-            return;
-        }
-
-        flatNode.loading = true;
-        this.getList(flatNode, contextFilter)
-            .pipe(finalize(() => (flatNode.loading = false)))
-            .subscribe(items => {
-                flatNode.node.childrenChange.next(items);
-                this.dataChange.next(this.dataChange.value);
-            });
-    }
-
-    public search(searchVariables: QueryVariables, contextFilter: HierarchicFiltersConfiguration | null = null): void {
-        this.getList(null, contextFilter, searchVariables).subscribe(items => {
-            this.dataChange.next(items);
-        });
+    public isTooBig(): boolean {
+        return this.nodeCache.size === 999;
     }
 
     /**
      * Retrieve elements from the server
      * Get root elements if node is null, or child elements if node is given
      */
-    private getList(
-        node: HierarchicFlatNode | null = null,
-        contextFilters: HierarchicFiltersConfiguration | null = null,
-        searchVariables: QueryVariables | null = null,
-    ): Observable<HierarchicModelNode[]> {
-        const configurations = this.getContextualizedConfigs(node, contextFilters, searchVariables);
-        const observables = configurations.map(c => c.injectedService.getAll(c.variablesManager));
+    public getList(
+        node: ModelNode | null = null,
+        filters: HierarchicFiltersConfiguration | null = null,
+        variables: QueryVariables | null = null,
+        configurations: NaturalHierarchicConfiguration[],
+    ): Observable<ModelNode[]> {
+        const configs = this.getContextualizedConfigs(node, filters, variables, configurations);
+        const observables = configs.map(c => c.injectedService.getAll(c.variablesManager));
 
         // Fire queries, and merge results, transforming apollo items into Node Object.
         return forkJoin(observables).pipe(
             map(results => {
-                const listing: HierarchicModelNode[] = [];
+                const listing: ModelNode[] = [];
 
                 // For each result of an observable
                 for (let i = 0; i < results.length; i++) {
                     // For each item of the result, convert into Node object
                     for (const item of results[i].items) {
-                        listing.push(this.getOrCreateModelNode(item, configurations[i].configuration));
+                        const node = this.getOrCreateNode(item, configs[i].configuration);
+                        listing.push(node);
+                        this.countChildren(node, filters, configurations);
+
+                        const isSelectable = node.config.isSelectableCallback
+                            ? node.config.isSelectableCallback(node.model)
+                            : true;
+                        node.isSelectable = !!node.config.selectableAtKey && isSelectable;
                     }
                 }
 
@@ -113,30 +72,33 @@ export class NaturalHierarchicSelectorService {
         );
     }
 
-    public countItems(node: HierarchicFlatNode, contextFilters: HierarchicFiltersConfiguration | null = null): void {
-        const configurations = this.getContextualizedConfigs(node, contextFilters, null);
-        const observables = configurations.map(c => c.injectedService.count(c.variablesManager).pipe(first()));
-
+    public countChildren(
+        node: ModelNode,
+        filters: HierarchicFiltersConfiguration | null = null,
+        configurations: NaturalHierarchicConfiguration[],
+    ): void {
+        const configs = this.getContextualizedConfigs(node, filters, null, configurations);
+        const observables = configs.map(c => c.injectedService.count(c.variablesManager).pipe(first()));
         forkJoin(observables).subscribe(results => {
-            const totalItems = results.reduce((total, length) => total + length, 0);
-            node.expandable = totalItems > 0;
+            node.isExpandable = results.reduce((total, length) => total + length, 0) > 0;
         });
     }
 
     private getContextualizedConfigs(
-        node: HierarchicFlatNode | null = null,
+        node: ModelNode | null = null,
         contextFilters: HierarchicFiltersConfiguration | null = null,
         searchVariables: QueryVariables | null = null,
+        configurations: NaturalHierarchicConfiguration[],
     ): ContextualizedConfig[] {
         const configsAndServices: ContextualizedConfig[] = [];
 
         // Considering the whole configuration may cause queries with no/wrong results we have imperatively to avoid !
-        // e.g there are cross dependencies between equipments and taxonomies filters. Both have "parents" and "taxonomies" filters...
-        // When clicking on a equipment, the configuration of taxonomies with match "parents" filter, but use the id of the equipment
-        // To fix this, we should only consider configuration after the one given by the node passed as argument.
-        // That would mean : no child can affect parent.
-        // That would mean : sorting in the configuration have semantic/hierarchy implications
-        const configs = node ? this.getNextConfigs(node.node.config) : this.configuration;
+        // e.g there are cross dependencies between equipments and taxonomies filters. Both have "parents" and
+        // "taxonomies" filters... When clicking on a equipment, the configuration of taxonomies with match "parents"
+        // filter, but use the id of the equipment To fix this, we should only consider configuration after the one
+        // given by the node passed as argument. That would mean : no child can affect parent. That would mean :
+        // sorting in the configuration have semantic/hierarchy implications
+        const configs = node ? this.getNextConfigs(node.config, configurations) : configurations;
 
         const pagination = {pageIndex: 0, pageSize: 999};
 
@@ -172,8 +134,11 @@ export class NaturalHierarchicSelectorService {
      * Return models matching given FlatNodes
      * Returns a Literal of models grouped by their configuration attribute "selectableAtKey"
      */
-    public toOrganizedSelection(nodes: HierarchicModelNode[]): OrganizedModelSelection {
-        const selection = this.configuration.reduce<Literal>((group, config) => {
+    public toOrganizedSelection(
+        nodes: ModelNode[],
+        configurations: NaturalHierarchicConfiguration[],
+    ): OrganizedModelSelection {
+        const selection = configurations.reduce<Literal>((group, config) => {
             if (config.selectableAtKey) {
                 group[config.selectableAtKey] = [];
             }
@@ -192,17 +157,20 @@ export class NaturalHierarchicSelectorService {
     /**
      * Transforms an OrganizedModelSelection into a list of ModelNodes
      */
-    public fromOrganizedSelection(organizedModelSelection: OrganizedModelSelection): HierarchicModelNode[] {
+    public fromOrganizedSelection(
+        organizedModelSelection: OrganizedModelSelection,
+        configurations: NaturalHierarchicConfiguration[],
+    ): ModelNode[] {
         if (!organizedModelSelection) {
             return [];
         }
 
-        const result: HierarchicModelNode[] = [];
+        const result: ModelNode[] = [];
         for (const selectableAtKey of Object.keys(organizedModelSelection)) {
-            const config = this.getConfigurationBySelectableKey(selectableAtKey);
+            const config = this.getConfigurationBySelectableKey(selectableAtKey, configurations);
             if (config) {
                 for (const model of organizedModelSelection[selectableAtKey]) {
-                    result.push(new HierarchicModelNode(model, config));
+                    result.push(this.getOrCreateNode(model, config));
                 }
             }
         }
@@ -212,7 +180,7 @@ export class NaturalHierarchicSelectorService {
     /**
      * Checks that each configuration.selectableAtKey attribute is unique
      */
-    private validateConfiguration(configurations: NaturalHierarchicConfiguration[]): void {
+    public validateConfiguration(configurations: NaturalHierarchicConfiguration[]): void {
         const selectableAtKeyAttributes: string[] = [];
         for (const config of configurations) {
             if (config.selectableAtKey) {
@@ -222,9 +190,8 @@ export class NaturalHierarchicSelectorService {
                     selectableAtKeyAttributes.push(config.selectableAtKey);
                 }
 
-                // TODO : remove ?
-                // This behavior maybe dangerous in case we re-open hierarchical selector with the last returned config having non-unique
-                // keys
+                // This behavior maybe dangerous in case we re-open hierarchical selector with the last returned config
+                // having non-unique keys
                 if (keyIndex < -1) {
                     console.warn('Invalid hierarchic configuration : selectableAtKey attribute should be unique');
                 }
@@ -235,16 +202,19 @@ export class NaturalHierarchicSelectorService {
     /**
      * Return configurations setup in the list after the given one
      */
-    private getNextConfigs(config: NaturalHierarchicConfiguration): NaturalHierarchicConfiguration[] {
-        const configIndex = this.configuration.findIndex(c => c === config);
-        return this.configuration.slice(configIndex);
+    private getNextConfigs(
+        nodeConfig: NaturalHierarchicConfiguration,
+        configurations: NaturalHierarchicConfiguration[],
+    ): NaturalHierarchicConfiguration[] {
+        const configIndex = configurations.findIndex(c => c === nodeConfig);
+        return configurations.slice(configIndex);
     }
 
     /**
      * Builds queryVariables filter for children query
      */
     private getServiceFilter(
-        flatNode: HierarchicFlatNode | null,
+        node: ModelNode | null,
         config: NaturalHierarchicConfiguration,
         contextFilter: HierarchicFilterConfiguration['filter'] | null = null,
         allDeeps = false,
@@ -252,7 +222,7 @@ export class NaturalHierarchicSelectorService {
         const fieldCondition: FilterGroupCondition = {};
 
         // if no parent, filter empty elements
-        if (!flatNode) {
+        if (!node) {
             if (!config.parentsRelationNames) {
                 return contextFilter ? contextFilter : {};
             }
@@ -263,18 +233,15 @@ export class NaturalHierarchicSelectorService {
                 });
             }
         } else {
-            if (!flatNode.node.config.childrenRelationNames || !config.parentsRelationNames) {
+            if (!node.config.childrenRelationNames || !config.parentsRelationNames) {
                 return null;
             }
 
-            const matchingFilters = intersection(
-                flatNode.node.config.childrenRelationNames,
-                config.parentsRelationNames,
-            );
+            const matchingFilters = intersection(node.config.childrenRelationNames, config.parentsRelationNames);
             if (!matchingFilters.length) {
                 return null;
             }
-            fieldCondition[matchingFilters[0]] = {have: {values: [flatNode.node.model.id]}};
+            fieldCondition[matchingFilters[0]] = {have: {values: [node.model.id]}};
         }
 
         const filters = {groups: [{conditions: [fieldCondition]}]};
@@ -310,19 +277,37 @@ export class NaturalHierarchicSelectorService {
      */
     private getConfigurationBySelectableKey(
         key: NaturalHierarchicConfiguration['selectableAtKey'],
+        configurations: NaturalHierarchicConfiguration[],
     ): NaturalHierarchicConfiguration | null {
-        if (!this.configuration) {
+        if (!configurations) {
             return null;
         }
 
-        return this.configuration.find(conf => conf.selectableAtKey === key) || null;
+        return configurations.find(conf => conf.selectableAtKey === key) || null;
     }
 
-    private getOrCreateModelNode(
-        item: HierarchicModel,
-        configuration: NaturalHierarchicConfiguration,
-    ): HierarchicModelNode {
-        const node = this.dataChange.value.find(n => n.model.id === item.id && n.model.__typename === item.__typename);
-        return node || new HierarchicModelNode(item, configuration);
+    private getOrCreateNode(model: HierarchicModel, configurations: NaturalHierarchicConfiguration): ModelNode {
+        const key = this.getCacheKey(model);
+        let node = this.nodeCache.get(key);
+
+        if (node) {
+            return node;
+        }
+
+        node = new ModelNode(model, configurations);
+        this.nodeCache.set(key, node);
+        return node;
+    }
+
+    /**
+     * Returns an identifier key for map cache
+     * As many object types can be used, this function considers typename and ID to return something like document-123
+     */
+    private getCacheKey(model: HierarchicModel): string {
+        return model.__typename + '-' + model.id;
+    }
+
+    public getAllFetchedNodes(): ModelNode[] {
+        return Array.from(this.nodeCache.values());
     }
 }

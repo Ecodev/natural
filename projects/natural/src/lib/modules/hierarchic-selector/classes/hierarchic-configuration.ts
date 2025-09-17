@@ -52,6 +52,8 @@ export type NaturalHierarchicConfiguration<T extends UntypedModelService = Untyp
     /**
      * Callback function that returns boolean. If true the item is selectable, if false, it's not.
      * If missing, item is selectable.
+     *
+     * In fact, this means isDisabled. Also applies to unselect.
      */
     isSelectableCallback?: (item: any) => boolean;
 

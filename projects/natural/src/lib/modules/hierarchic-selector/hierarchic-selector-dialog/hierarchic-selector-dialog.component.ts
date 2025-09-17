@@ -37,11 +37,6 @@ export type HierarchicDialogConfig = {
     multiple?: boolean;
 
     /**
-     * Allow to validate selection with no items checked
-     */
-    allowUnselect?: boolean;
-
-    /**
      * Allow to select all items with dedicated button
      */
     allowSelectAll?: boolean;
@@ -79,7 +74,7 @@ export class NaturalHierarchicSelectorDialogComponent {
     public constructor() {
         const data = inject<HierarchicDialogConfig>(MAT_DIALOG_DATA);
 
-        this.config = defaults(data, {multiple: true, allowUnselect: true});
+        this.config = defaults(data, {multiple: true});
         this.searchSelectionsOutput = this.config.searchSelections;
     }
 

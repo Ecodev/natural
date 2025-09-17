@@ -1,47 +1,63 @@
 :host {
     display: block;
+}
 
-    ul,
-    li {
-        -webkit-margin-before: 0;
-        -webkit-margin-after: 0;
-        list-style-type: none;
-    }
+mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+}
 
-    mat-icon {
-        width: 18px;
-        height: 18px;
-        font-size: 18px;
-    }
+.select-all {
+    display: inline-block;
+    margin-top: -15px;
+    margin-bottom: 5px;
+}
 
-    .select-all {
-        display: inline-block;
-        margin-top: -15px;
-        margin-bottom: 5px;
-    }
+.mat-tree-node.leaf {
+    margin-left: 48px;
+}
 
-    .mat-tree-node.leaf {
-        margin-left: 48px;
-    }
-
-    .body {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-
-        mat-tree {
-            flex: 66;
-        }
-        mat-chip-listbox {
-            flex: 33;
-        }
-    }
+.body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
     mat-tree {
+        flex: 66;
         flex-shrink: 0;
     }
-
     mat-chip-listbox {
+        flex: 33;
         margin-left: 10px;
+    }
+}
+
+mat-nested-tree-node {
+    display: block;
+
+    &,
+    .wrapper {
+        min-height: 48px;
+    }
+
+    mat-nested-tree-node {
+        display: block;
+        padding-left: 40px !important;
+    }
+}
+
+.invisible {
+    display: none;
+}
+
+.unexpandable {
+    padding-left: 48px;
+}
+
+.selection {
+    &,
+    .mat-icon {
+        margin-right: 10px;
     }
 }

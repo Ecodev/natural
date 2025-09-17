@@ -190,18 +190,6 @@ pre.debug {
     font-family: Courrier, monospace;
 }
 
-[debug] {
-    border: 2px solid red;
-}
-
-[debug][children] > * {
-    border: 2px solid orange;
-}
-
-[debug][children][grandchildren] > * > * {
-    border: 2px solid green;
-}
-
 .app-component > router-outlet + * {
     flex: 1;
     flex-direction: column;

@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {
     HierarchicDialogConfig,
+    HierarchicDialogResult,
     NaturalHierarchicConfiguration,
     NaturalHierarchicSelectorDialogService,
     NaturalSearchFacets,
@@ -19,6 +20,7 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     styleUrl: './hierarchic.component.scss',
 })
 export class HierarchicComponent {
+    private itemService = inject(ItemService);
     private readonly hierarchicDialogService = inject(NaturalHierarchicSelectorDialogService);
 
     public searchFacets: NaturalSearchFacets = [
@@ -48,14 +50,9 @@ export class HierarchicComponent {
 
     public selected: OrganizedModelSelection = {
         any: [
-            {
-                id: 123,
-                name: 'Any 123',
-            },
-            {
-                id: 124,
-                name: 'Any 124',
-            },
+            this.itemService.getItem(false, 0, '1'),
+            this.itemService.getItem(false, 0, '4'),
+            this.itemService.getItem(false, 0, '16'),
         ],
     };
 
@@ -85,8 +82,9 @@ export class HierarchicComponent {
         this.hierarchicDialogService
             .open(hierarchicConfig)
             .afterClosed()
-            .subscribe(result => {
-                this.log('dialog usage', result);
+            .subscribe((result?: HierarchicDialogResult) => {
+                console.log('dialog usage', result);
+                this.selected = result?.hierarchicSelection ?? {};
             });
     }
 }

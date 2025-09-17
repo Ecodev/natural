@@ -1,10 +1,22 @@
+<ng-template #displayTemplate let-node>
+    <div class="nat-horizontal nat-gap-5">
+        @if (node.config.icon) {
+            <mat-icon [naturalIcon]="node.config.icon" />
+        }
+        <span>{{ getDisplayFn(node.config)(node.model) }}</span>
+    </div>
+</ng-template>
+
 <div [style.margin-bottom.px]="20">
     <natural-search [facets]="searchFacets()" [selections]="searchSelections()" (selectionChange)="search($event)" />
 </div>
 
 @if (allowSelectAll() && multiple()) {
-    <div class="select-all" [matTooltip]="tooBig() ? 'Trop de résultats, veuillez affiner la recherche' : null">
-        <a i18n mat-button [disabled]="tooBig()" (click)="selectAll()">Tout sélectionner</a>
+    <div
+        class="select-all"
+        [matTooltip]="hierarchicSelectorService.isTooBig() ? 'Trop de résultats, veuillez affiner la recherche' : null"
+    >
+        <a i18n mat-button [disabled]="hierarchicSelectorService.isTooBig()" (click)="selectAll()">Tout sélectionner</a>
     </div>
 }
 
@@ -13,41 +25,54 @@
         <mat-progress-spinner mode="indeterminate" style="margin: 10px" [diameter]="36" />
     }
 
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [ngClass]="{leaf: !node.expandable}">
-            @if (node.expandable) {
-                <button
-                    mat-icon-button
-                    matTreeNodeToggle
-                    [attr.aria-label]="`toggle ${node.name}`"
-                    (click)="loadChildren(node)"
-                >
-                    @if (node.loading) {
-                        <mat-progress-spinner mode="indeterminate" [diameter]="24" [strokeWidth]="5" />
-                    }
-                    @if (!node.loading) {
-                        <mat-icon [naturalIcon]="treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'" />
-                    }
-                </button>
-            }
-
-            <mat-checkbox
-                style="margin-right: 10px"
-                [checked]="flatNodesSelection.isSelected(node)"
-                [disabled]="!isNodeTogglable(node)"
-                (change)="toggleFlatNode(node)"
-            >
-                @if (node.node.config.icon) {
-                    <mat-icon style="margin-right: 10px" [naturalIcon]="node.node.config.icon" />
+    <mat-tree #tree [dataSource]="dataSource" [childrenAccessor]="childrenAccessor">
+        <mat-nested-tree-node
+            *matTreeNodeDef="let node"
+            matTreeNodePadding
+            [ngClass]="{leaf: !node.isExpandable}"
+            (expandedChange)="$event ? loadChildren(node) : null"
+        >
+            <div class="wrapper nat-horizontal nat-align" [class.unexpandable]="!node.isExpandable">
+                @if (node.isExpandable) {
+                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="`toggle ${node.model.name}`">
+                        @if (node.isLoading) {
+                            <mat-progress-spinner mode="indeterminate" [diameter]="24" [strokeWidth]="5" />
+                        }
+                        @if (!node.isLoading) {
+                            <mat-icon [naturalIcon]="tree.isExpanded(node) ? 'expand_more' : 'chevron_right'" />
+                        }
+                    </button>
                 }
-                <span>{{ node.name }}</span>
-            </mat-checkbox>
-        </mat-tree-node>
+
+                @if (multiple()) {
+                    <mat-checkbox
+                        class="selection"
+                        [checked]="selection.isSelected(node)"
+                        [disabled]="!node.isSelectable"
+                        (change)="toggleSelection(node)"
+                    >
+                        <ng-template *ngTemplateOutlet="displayTemplate; context: {$implicit: node}" />
+                    </mat-checkbox>
+                } @else {
+                    <mat-radio-button
+                        class="selection"
+                        [checked]="selection.isSelected(node)"
+                        [disabled]="!node.isSelectable"
+                        (change)="toggleSelection(node)"
+                    >
+                        <ng-template *ngTemplateOutlet="displayTemplate; context: {$implicit: node}" />
+                    </mat-radio-button>
+                }
+            </div>
+            <div class="children" [class.invisible]="!tree.isExpanded(node)">
+                <ng-container matTreeNodeOutlet />
+            </div>
+        </mat-nested-tree-node>
     </mat-tree>
 
     <mat-chip-listbox aria-orientation="vertical" class="mat-mdc-chip-set-stacked">
-        @for (node of selectedNodes; track node.model.id) {
-            <mat-chip-option [removable]="true" [selectable]="false" (removed)="unselectModelNode(node)">
+        @for (node of selection.selected; track node.model.id) {
+            <mat-chip-option [removable]="true" [selectable]="false" (removed)="unselect(node)">
                 @if (node.config.icon) {
                     <mat-icon matChipAvatar [naturalIcon]="node.config.icon" />
                 }
