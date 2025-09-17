@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, DOCUMENT} from '@angular/core';
+import {Component, DOCUMENT, effect, inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
@@ -9,7 +9,7 @@ import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/ic
 import {NaturalSidenavContainerComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav-container/sidenav-container.component';
 import {NaturalSidenavContentComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav-content/sidenav-content.component';
 import {NaturalSidenavComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav/sidenav.component';
-import {ThemeService} from '../shared/services/theme.service';
+import {allThemes, ThemeService} from '../shared/services/theme.service';
 
 @Component({
     selector: 'app-home',
@@ -29,14 +29,19 @@ import {ThemeService} from '../shared/services/theme.service';
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
     public readonly themeService = inject(ThemeService);
     private readonly document = inject(DOCUMENT);
 
-    public ngOnInit(): void {
-        this.themeService.theme.subscribe(newTheme => {
-            this.document.body.classList.remove('default');
-            this.document.body.classList.remove('defaultDark');
+    public constructor() {
+        effect(() => {
+            // Remove old theme class
+            allThemes.forEach(theme => {
+                this.document.body.classList.remove(theme);
+            });
+
+            // set new theme class
+            const newTheme = this.themeService.theme();
             this.document.body.classList.add(newTheme);
         });
     }
