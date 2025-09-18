@@ -26,9 +26,8 @@ export class NaturalHierarchicSelectorService {
 
     /**
      * We use cache because dataSource has nested data and would require recursive search
-     * @private
      */
-    private nodeCache = new Map<string, ModelNode>();
+    private readonly nodeCache = new Map<string, ModelNode>();
 
     public isTooBig(): boolean {
         return this.nodeCache.size >= 999;
