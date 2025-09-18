@@ -272,6 +272,7 @@
                     naturalFileDrop
                     i18n-matTooltip
                     matTooltip="Insérer une image"
+                    [accept]="commonImageMimeTypes"
                     [selectable]="true"
                     [broadcast]="false"
                     (fileChange)="upload($event)"

@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, input, OnDestroy, OnInit, output, viewChild, DOCUMENT} from '@angular/core';
+import {Component, DOCUMENT, ElementRef, inject, input, OnDestroy, OnInit, output, viewChild} from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {EditorView} from 'prosemirror-view';
 import {EditorState, Plugin, Transaction} from 'prosemirror-state';
@@ -16,7 +16,7 @@ import {dropCursor} from 'prosemirror-dropcursor';
 import {gapCursor} from 'prosemirror-gapcursor';
 import {buildInputRules} from '../utils/inputrules';
 import {buildKeymap} from '../utils/keymap';
-import {NaturalFileDropDirective} from '@ecodev/natural';
+import {commonImageMimeTypes, NaturalFileDropDirective} from '@ecodev/natural';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -56,6 +56,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
     private readonly document = inject(DOCUMENT);
     private readonly dialog = inject(MatDialog);
     private readonly imagePlugin = inject(ImagePlugin);
+    protected readonly commonImageMimeTypes = commonImageMimeTypes;
 
     private view: EditorView | null = null;
 

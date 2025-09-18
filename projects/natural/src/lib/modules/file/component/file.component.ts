@@ -22,6 +22,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatRippleModule} from '@angular/material/core';
 import {NaturalFileDropDirective} from '../file-drop.directive';
 import {NaturalBackgroundDensityDirective} from '../../common/directives/background-density.directive';
+import {commonImageMimeTypes} from '../utils';
 
 // @dynamic
 @Component({
@@ -60,9 +61,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
      *
      * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
      */
-    public readonly accept = input(
-        'image/avif,image/bmp,image/gif,image/heic,image/heif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/svg,image/webp',
-    );
+    public readonly accept = input(commonImageMimeTypes);
 
     /**
      * If given, it will be called when a new file is selected. The callback should typically upload the file

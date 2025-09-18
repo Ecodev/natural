@@ -8,3 +8,4 @@ export * from './file.service';
 export type {InvalidFile, FileSelection} from './abstract-file';
 export * from './component/file.component';
 export * from './types';
+export {commonImageMimeTypes} from './utils';

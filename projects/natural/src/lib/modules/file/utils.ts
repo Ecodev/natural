@@ -1,3 +1,11 @@
+/**
+ * Common image mime type that are supported by Felix out of the box.
+ *
+ * Should be kept in sync with `\Ecodev\Felix\Model\Traits\Image::getAcceptedMimeTypes`
+ */
+export const commonImageMimeTypes =
+    'image/avif,image/bmp,image/x-ms-bmp,image/gif,image/heic,image/heif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/svg,image/webp';
+
 export function acceptType(accept: string, type: string, filename: string): boolean {
     if (!accept.trim()) {
         return true;
