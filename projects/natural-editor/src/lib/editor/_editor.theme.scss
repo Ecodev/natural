@@ -28,6 +28,10 @@
             height: 50px;
         }
 
+        button.natural-file-over {
+            background: mat.m2-get-color-from-palette($primary);
+        }
+
         .menu-container {
             background-color: $drawer-container-background-color;
         }
