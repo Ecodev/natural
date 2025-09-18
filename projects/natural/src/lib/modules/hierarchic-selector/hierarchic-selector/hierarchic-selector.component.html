@@ -14,7 +14,9 @@
 @if (allowSelectAll() && multiple()) {
     <div
         class="select-all"
-        [matTooltip]="hierarchicSelectorService.isTooBig() ? 'Trop de résultats, veuillez affiner la recherche' : null"
+        i18n-matTooltip
+        matTooltip="Trop de résultats, veuillez affiner la recherche"
+        [matTooltipDisabled]="!hierarchicSelectorService.isTooBig()"
     >
         <a i18n mat-button [disabled]="hierarchicSelectorService.isTooBig()" (click)="selectAll()">Tout sélectionner</a>
     </div>

@@ -31,7 +31,7 @@ export class NaturalHierarchicSelectorService {
     private nodeCache = new Map<string, ModelNode>();
 
     public isTooBig(): boolean {
-        return this.nodeCache.size === 999;
+        return this.nodeCache.size >= 999;
     }
 
     /**
