@@ -13,7 +13,7 @@
                                 mat-menu-item
                                 [href]="button.href"
                                 [disabled]="button.disabled"
-                                [ngClass]="needMargin(button)"
+                                [class]="needMargin(button)"
                                 (click)="button.click?.(button, $event)"
                             >
                                 @if (useCheckbox(button)) {
@@ -25,7 +25,7 @@
                             <button
                                 mat-menu-item
                                 [matMenuTriggerFor]="subMenu"
-                                [ngClass]="needMargin(button)"
+                                [class]="needMargin(button)"
                                 (click)="button.click?.(button, $event)"
                             >
                                 @if (useCheckbox(button)) {
@@ -50,7 +50,7 @@
                             <button
                                 mat-menu-item
                                 [disabled]="button.disabled"
-                                [ngClass]="needMargin(button)"
+                                [class]="needMargin(button)"
                                 (click)="button.click?.(button, $event)"
                             >
                                 @if (useCheckbox(button)) {
@@ -63,7 +63,7 @@
                 }
 
                 @if (displayedColumns.length) {
-                    <button mat-menu-item [matMenuTriggerFor]="columnMenu" [ngClass]="needMargin(null)">
+                    <button mat-menu-item [matMenuTriggerFor]="columnMenu" [class]="needMargin(null)">
                         <span i18n>Colonnes</span>
                     </button>
                 }

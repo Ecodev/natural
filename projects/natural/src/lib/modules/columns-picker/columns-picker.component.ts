@@ -1,29 +1,32 @@
-import {Component, DestroyRef, inject, Input, OnChanges, SimpleChanges, output, input} from '@angular/core';
+import {Component, DestroyRef, inject, Input, input, OnChanges, output, SimpleChanges} from '@angular/core';
 import {AvailableColumn, Button} from './types';
 import {cancellableTimeout} from '../../classes/rxjs';
 import {map} from 'rxjs';
 import {ThemePalette} from '@angular/material/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {FormsModule} from '@angular/forms';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCheckbox} from '@angular/material/checkbox';
 import {NaturalIconDirective} from '../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {MatIconButton} from '@angular/material/button';
+import {AsyncPipe} from '@angular/common';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
     selector: 'natural-columns-picker',
     imports: [
-        CommonModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        NaturalIconDirective,
-        MatCheckboxModule,
-        MatTooltipModule,
+        AsyncPipe,
         FormsModule,
+        MatCheckbox,
+        MatIcon,
+        MatIconButton,
+        MatMenu,
+        MatMenuContent,
+        MatMenuItem,
+        MatMenuTrigger,
+        MatTooltip,
+        NaturalIconDirective,
     ],
     templateUrl: './columns-picker.component.html',
     styleUrl: './columns-picker.component.scss',
