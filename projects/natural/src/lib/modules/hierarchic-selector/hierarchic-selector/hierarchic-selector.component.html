@@ -37,8 +37,7 @@
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="`toggle ${node.model.name}`">
                         @if (node.isLoading) {
                             <mat-progress-spinner mode="indeterminate" [diameter]="24" [strokeWidth]="5" />
-                        }
-                        @if (!node.isLoading) {
+                        } @else {
                             <mat-icon [naturalIcon]="tree.isExpanded(node) ? 'expand_more' : 'chevron_right'" />
                         }
                     </button>
