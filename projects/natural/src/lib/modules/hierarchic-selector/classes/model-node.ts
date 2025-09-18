@@ -12,7 +12,7 @@ export class ModelNode {
 
     public isLoading = false;
     public isExpandable = false;
-    public isSelectable = Math.random() > 0.5;
+    public isSelectable = false;
 
     public constructor(
         public readonly model: HierarchicModel,

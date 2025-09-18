@@ -14,7 +14,9 @@
 @if (allowSelectAll() && multiple()) {
     <div
         class="select-all"
-        [matTooltip]="hierarchicSelectorService.isTooBig() ? 'Trop de résultats, veuillez affiner la recherche' : null"
+        i18n-matTooltip
+        matTooltip="Trop de résultats, veuillez affiner la recherche"
+        [matTooltipDisabled]="!hierarchicSelectorService.isTooBig()"
     >
         <a i18n mat-button [disabled]="hierarchicSelectorService.isTooBig()" (click)="selectAll()">Tout sélectionner</a>
     </div>
@@ -29,7 +31,7 @@
         <mat-nested-tree-node
             *matTreeNodeDef="let node"
             matTreeNodePadding
-            [ngClass]="{leaf: !node.isExpandable}"
+            [class.leaf]="!node.isExpandable"
             (expandedChange)="$event ? loadChildren(node) : null"
         >
             <div class="wrapper nat-horizontal nat-align" [class.unexpandable]="!node.isExpandable">
@@ -37,8 +39,7 @@
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="`toggle ${node.model.name}`">
                         @if (node.isLoading) {
                             <mat-progress-spinner mode="indeterminate" [diameter]="24" [strokeWidth]="5" />
-                        }
-                        @if (!node.isLoading) {
+                        } @else {
                             <mat-icon [naturalIcon]="tree.isExpanded(node) ? 'expand_more' : 'chevron_right'" />
                         }
                     </button>

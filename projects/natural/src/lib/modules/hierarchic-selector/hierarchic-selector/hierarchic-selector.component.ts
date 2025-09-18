@@ -1,5 +1,4 @@
 import {SelectionModel} from '@angular/cdk/collections';
-import {CommonModule} from '@angular/common';
 import {Component, inject, input, OnChanges, OnInit, output, SimpleChanges} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -22,12 +21,12 @@ import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuratio
 import {HierarchicFiltersConfiguration} from '../classes/hierarchic-filters-configuration';
 import {ModelNode} from '../classes/model-node';
 import {NaturalHierarchicSelectorService, OrganizedModelSelection} from './hierarchic-selector.service';
+import {NgTemplateOutlet} from '@angular/common';
 
 @Component({
     selector: 'natural-hierarchic-selector',
     imports: [
         NaturalSearchComponent,
-        CommonModule,
         MatProgressSpinnerModule,
         MatTreeModule,
         MatButtonModule,
@@ -37,6 +36,7 @@ import {NaturalHierarchicSelectorService, OrganizedModelSelection} from './hiera
         MatChipsModule,
         MatTooltipModule,
         MatRadioButton,
+        NgTemplateOutlet,
     ],
     templateUrl: './hierarchic-selector.component.html',
     styleUrl: './hierarchic-selector.component.scss',
