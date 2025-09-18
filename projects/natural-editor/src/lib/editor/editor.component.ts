@@ -64,7 +64,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
     public readonly contentChange = output<string>();
 
     /**
-     * Callback to upload an image.
+     * Callback to upload an image and return the URL to view the image.
      *
      * If given it will enable advanced schema, including image and tables.
      * It must be given on initialization and cannot be changed later on.
