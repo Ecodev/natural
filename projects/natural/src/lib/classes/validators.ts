@@ -130,7 +130,7 @@ export function ifValid(control: AbstractControl): Observable<'VALID'> {
     return observable.pipe(filter(isValid));
 }
 
-// This is is an approximation of RFC_5322 where the hostname:
+// This is an approximation of RFC_5322 where the hostname:
 //
 // - is too strict because it rejects IP address
 // - is too lax because it accepts pretty much anything else
