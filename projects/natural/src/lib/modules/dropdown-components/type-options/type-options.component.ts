@@ -1,6 +1,6 @@
 import {Component, inject, Inject} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {BehaviorSubject} from 'rxjs';
 import {Literal} from '../../../types/types';
 import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
@@ -19,7 +19,7 @@ export type TypeOptionsConfiguration = {
 };
 
 @Component({
-    imports: [FormsModule, ReactiveFormsModule, MatButtonToggleModule],
+    imports: [FormsModule, ReactiveFormsModule, MatButtonToggleGroup, MatButtonToggle],
     templateUrl: './type-options.component.html',
 })
 export class TypeOptionsComponent implements DropdownComponent {

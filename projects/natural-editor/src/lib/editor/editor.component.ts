@@ -3,7 +3,6 @@ import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {EditorView} from 'prosemirror-view';
 import {EditorState, Plugin, Transaction} from 'prosemirror-state';
 import {DOMParser, DOMSerializer, Schema} from 'prosemirror-model';
-
 import {MatDialog} from '@angular/material/dialog';
 import {goToNextCell, tableEditing} from 'prosemirror-tables';
 import {keymap} from 'prosemirror-keymap';
@@ -17,12 +16,12 @@ import {gapCursor} from 'prosemirror-gapcursor';
 import {buildInputRules} from '../utils/inputrules';
 import {buildKeymap} from '../utils/keymap';
 import {commonImageMimeTypes, NaturalFileDropDirective} from '@ecodev/natural';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatButtonModule} from '@angular/material/button';
+import {MatDivider} from '@angular/material/divider';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {Subject} from 'rxjs';
 import {outputFromObservable} from '@angular/core/rxjs-interop';
 
@@ -39,12 +38,16 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
 @Component({
     selector: 'natural-editor',
     imports: [
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatButtonToggleModule,
-        MatMenuModule,
-        MatDividerModule,
+        MatButton,
+        MatIconButton,
+        MatTooltip,
+        MatIcon,
+        MatButtonToggleGroup,
+        MatButtonToggle,
+        MatMenu,
+        MatMenuItem,
+        MatMenuTrigger,
+        MatDivider,
         NaturalFileDropDirective,
     ],
     templateUrl: './editor.component.html',

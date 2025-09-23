@@ -6,8 +6,8 @@ import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.t
 import {NaturalDropdownRef} from '../../search/dropdown-container/dropdown-ref';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
 import {DropdownComponent} from '../../search/types/dropdown-component';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 
 /**
  * Show an error message if the control has a value and an error, even if control is not dirty and not touched.
@@ -19,7 +19,7 @@ export class InvalidWithValueStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-    imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule],
+    imports: [MatFormField, MatLabel, MatError, MatInput, FormsModule, ReactiveFormsModule],
     templateUrl: './type-text.component.html',
     styleUrl: './type-text.component.scss',
 })

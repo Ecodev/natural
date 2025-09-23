@@ -1,12 +1,25 @@
-import {CommonModule} from '@angular/common';
+import {JsonPipe} from '@angular/common';
 import {Component, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatTableModule} from '@angular/material/table';
+import {MatIconButton} from '@angular/material/button';
+import {MatFormField, MatLabel, MatError} from '@angular/material/form-field';
+import {MatIcon} from '@angular/material/icon';
+import {MatInput} from '@angular/material/input';
+import {
+    MatTable,
+    MatHeaderCellDef,
+    MatHeaderRowDef,
+    MatColumnDef,
+    MatCellDef,
+    MatRowDef,
+    MatFooterCellDef,
+    MatHeaderCell,
+    MatCell,
+    MatFooterCell,
+    MatHeaderRow,
+    MatRow,
+} from '@angular/material/table';
 import {NaturalAbstractEditableList} from '@ecodev/natural';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
@@ -16,12 +29,25 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
-        CommonModule,
-        MatButtonModule,
-        MatIconModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatFooterCellDef,
+        MatHeaderCell,
+        MatCell,
+        MatFooterCell,
+        MatHeaderRow,
+        MatRow,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatInput,
+        JsonPipe,
+        MatIconButton,
+        MatIcon,
         NaturalIconDirective,
     ],
     templateUrl: './editable-list.component.html',

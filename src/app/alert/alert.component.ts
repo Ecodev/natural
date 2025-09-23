@@ -1,10 +1,10 @@
 import {Component, inject} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {NaturalAlertService} from '@ecodev/natural';
 
 @Component({
     selector: 'app-panels',
-    imports: [MatButtonModule],
+    imports: [MatButton],
     templateUrl: './alert.component.html',
 })
 export class AlertComponent {

@@ -2,10 +2,10 @@ import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ifValid, NaturalIconDirective} from '@ecodev/natural';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
+import {MatIcon} from '@angular/material/icon';
+import {MatButton} from '@angular/material/button';
 
 export type ColorDialogData = {
     /**
@@ -25,11 +25,14 @@ export type ColorDialogData = {
         MatDialogModule,
         FormsModule,
         ReactiveFormsModule,
-        MatButtonModule,
-        MatIconModule,
+        MatButton,
+        MatIcon,
         NaturalIconDirective,
-        MatFormFieldModule,
-        MatInputModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatSuffix,
+        MatInput,
     ],
     templateUrl: './color-dialog.component.html',
     styleUrl: './color-dialog.component.scss',

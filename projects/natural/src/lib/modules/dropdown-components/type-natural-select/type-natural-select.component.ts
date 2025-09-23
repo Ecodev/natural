@@ -4,9 +4,9 @@ import {ExtractTone, ExtractVall, UntypedModelService} from '../../../types/type
 import {AbstractAssociationSelectComponent} from '../abstract-association-select-component.directive';
 import {EMPTY, Observable} from 'rxjs';
 import {NaturalSelectComponent} from '../../select/select/select.component';
-import {MatOptionModule} from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatOption} from '@angular/material/core';
+import {MatSelect} from '@angular/material/select';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 export type TypeSelectNaturalConfiguration<TService extends UntypedModelService> = {
@@ -17,14 +17,7 @@ export type TypeSelectNaturalConfiguration<TService extends UntypedModelService>
 };
 
 @Component({
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatOptionModule,
-        NaturalSelectComponent,
-    ],
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, MatOption, NaturalSelectComponent],
     templateUrl: './type-natural-select.component.html',
 })
 export class TypeNaturalSelectComponent<

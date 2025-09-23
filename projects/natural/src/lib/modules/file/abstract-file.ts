@@ -1,15 +1,15 @@
 import {
     Directive,
+    DOCUMENT,
     ElementRef,
     HostListener,
     inject,
     Input,
+    input,
     OnChanges,
     OnDestroy,
     OnInit,
     SimpleChanges,
-    DOCUMENT,
-    input,
 } from '@angular/core';
 import {
     acceptType,
@@ -22,7 +22,6 @@ import {
     stopEvent,
 } from './utils';
 import {NaturalFileService} from './file.service';
-
 import {forkJoin, map, Observable, ObservableInput, of, Subject, tap} from 'rxjs';
 import {outputFromObservable} from '@angular/core/rxjs-interop';
 

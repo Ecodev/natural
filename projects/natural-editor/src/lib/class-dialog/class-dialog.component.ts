@@ -2,9 +2,9 @@ import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ifValid} from '@ecodev/natural';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButton} from '@angular/material/button';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 
 export type ClassDialogData = {
     /**
@@ -20,7 +20,7 @@ export type ClassDialogData = {
 
 @Component({
     selector: 'natural-editor-class-dialog',
-    imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+    imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatError, MatInput, MatButton],
     templateUrl: './class-dialog.component.html',
     styleUrl: './class-dialog.component.scss',
 })

@@ -1,13 +1,13 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {MatIconModule} from '@angular/material/icon';
+import {MatIcon} from '@angular/material/icon';
 import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 import {NaturalIconDirective, provideIcons} from '@ecodev/natural';
 import {provideHttpClient} from '@angular/common/http';
 
 @Component({
-    imports: [MatIconModule, NaturalIconDirective],
+    imports: [MatIcon, NaturalIconDirective],
     template: `
         <mat-icon fontIcon="search" />
         <mat-icon naturalIcon="search" />

@@ -1,9 +1,9 @@
 import {Component, DOCUMENT, effect, inject} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatAccordion, MatExpansionPanel} from '@angular/material/expansion';
+import {MatIcon} from '@angular/material/icon';
+import {MatNavList, MatListItem, MatListItemIcon} from '@angular/material/list';
+import {MatToolbar} from '@angular/material/toolbar';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {NaturalSidenavContainerComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav-container/sidenav-container.component';
@@ -14,14 +14,18 @@ import {allThemes, ThemeService} from '../shared/services/theme.service';
 @Component({
     selector: 'app-home',
     imports: [
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
+        MatToolbar,
+        MatButton,
+        MatIconButton,
+        MatIcon,
         NaturalIconDirective,
         NaturalSidenavContainerComponent,
         NaturalSidenavComponent,
-        MatExpansionModule,
-        MatListModule,
+        MatAccordion,
+        MatExpansionPanel,
+        MatNavList,
+        MatListItem,
+        MatListItemIcon,
         RouterLink,
         NaturalSidenavContentComponent,
         RouterOutlet,

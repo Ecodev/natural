@@ -4,7 +4,6 @@ import {
     TypeHierarchicSelectorComponent,
     TypeHierarchicSelectorConfiguration,
 } from '@ecodev/natural';
-
 import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
 import {ItemService} from '../../../testing/item.service';
 import {testAssociationSelect, TestFixture} from '../testing/utils';

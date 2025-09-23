@@ -1,5 +1,16 @@
 import {Component} from '@angular/core';
-import {MatTableModule} from '@angular/material/table';
+import {
+    MatTable,
+    MatHeaderCellDef,
+    MatHeaderRowDef,
+    MatColumnDef,
+    MatCellDef,
+    MatRowDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderRow,
+    MatRow,
+} from '@angular/material/table';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 
 type Item = {
@@ -9,7 +20,20 @@ type Item = {
 
 @Component({
     selector: 'app-table-list',
-    imports: [MatTableModule, MatSortHeader, MatSort],
+    imports: [
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatSortHeader,
+        MatSort,
+    ],
     templateUrl: './table-style.component.html',
     styleUrl: './table-style.component.scss',
 })

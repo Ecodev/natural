@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, input} from '@angular/core';
+import {Component, inject, Input, input, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogConfig} from '@angular/material/dialog';
 import {Literal} from '../../../types/types';
@@ -11,12 +11,12 @@ import {
 } from '../../hierarchic-selector/public-api';
 import {AbstractSelect} from '../abstract-select.component';
 import {RouterLink} from '@angular/router';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatButtonModule} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {NaturalIconDirective} from '../../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIcon} from '@angular/material/icon';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix} from '@angular/material/form-field';
 
 function defaultDisplayFn(item: Literal | null): string {
     if (!item) {
@@ -48,14 +48,20 @@ function defaultDisplayFn(item: Literal | null): string {
 @Component({
     selector: 'natural-select-hierarchic',
     imports: [
-        MatFormFieldModule,
-        MatInputModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatHint,
+        MatPrefix,
+        MatSuffix,
+        MatInput,
         FormsModule,
         ReactiveFormsModule,
-        MatIconModule,
+        MatIcon,
         NaturalIconDirective,
-        MatButtonModule,
-        MatTooltipModule,
+        MatButton,
+        MatIconButton,
+        MatTooltip,
         RouterLink,
     ],
     templateUrl: './select-hierarchic.component.html',

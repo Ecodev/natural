@@ -1,4 +1,4 @@
-import {inject, Injectable, DOCUMENT} from '@angular/core';
+import {DOCUMENT, inject, Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {FileSelection} from './abstract-file';
 import {FileModel} from './types';

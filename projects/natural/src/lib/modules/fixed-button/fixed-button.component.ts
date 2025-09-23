@@ -2,12 +2,12 @@ import {Component, input} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
 import {RouterLink} from '@angular/router';
 import {NaturalIconDirective} from '../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatFabButton} from '@angular/material/button';
 
 @Component({
     selector: 'natural-fixed-button',
-    imports: [MatButtonModule, RouterLink, MatIconModule, NaturalIconDirective],
+    imports: [MatFabButton, RouterLink, MatIcon, NaturalIconDirective],
     templateUrl: './fixed-button.component.html',
     styleUrl: './fixed-button.component.scss',
 })

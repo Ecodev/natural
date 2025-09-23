@@ -8,9 +8,9 @@ import {AbstractAssociationSelectComponent} from '../abstract-association-select
 import {EMPTY, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {NaturalHierarchicSelectorComponent} from '../../hierarchic-selector/hierarchic-selector/hierarchic-selector.component';
-import {MatOptionModule} from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatOption} from '@angular/material/core';
+import {MatSelect} from '@angular/material/select';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 export type HierarchicFilterConfiguration<T = Literal> = {
@@ -31,9 +31,10 @@ export type TypeHierarchicSelectorConfiguration = {
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatOptionModule,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        MatOption,
         NaturalHierarchicSelectorComponent,
     ],
     templateUrl: './type-hierarchic-selector.component.html',

@@ -1,27 +1,28 @@
-import {Component, inject, Input, OnChanges, output, signal, input} from '@angular/core';
+import {Component, inject, Input, input, OnChanges, output, signal} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalSearchFacets} from '../types/facet';
 import {GroupSelections, NaturalSearchSelections} from '../types/values';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map} from 'rxjs';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatDivider} from '@angular/material/divider';
 import {NaturalIconDirective} from '../../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatIconButton} from '@angular/material/button';
 import {NaturalGroupComponent} from '../group/group.component';
-import {CommonModule} from '@angular/common';
+import {AsyncPipe, NgClass} from '@angular/common';
 
 @Component({
     selector: 'natural-search',
     imports: [
-        CommonModule,
+        NgClass,
+        AsyncPipe,
         NaturalGroupComponent,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
+        MatIconButton,
+        MatTooltip,
+        MatIcon,
         NaturalIconDirective,
-        MatDividerModule,
+        MatDivider,
     ],
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss',

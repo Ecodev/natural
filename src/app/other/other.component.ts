@@ -1,18 +1,17 @@
-import {CommonModule} from '@angular/common';
+import {JsonPipe} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {Component, inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatRippleModule, ThemePalette} from '@angular/material/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatMenuModule} from '@angular/material/menu';
+import {MatButton} from '@angular/material/button';
+import {MatRipple, ThemePalette} from '@angular/material/core';
+import {MatDatepickerToggle} from '@angular/material/datepicker';
+import {MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/material/form-field';
+import {MatIcon} from '@angular/material/icon';
+import {MatInput} from '@angular/material/input';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {Params, QueryParamsHandling, RouterLink, RouterOutlet} from '@angular/router';
 import {NaturalHttpPrefixDirective} from '../../../projects/natural/src/lib/directives/http-prefix.directive';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
-
 import {NaturalTableButtonComponent} from '../../../projects/natural/src/lib/modules/table-button/table-button.component';
 
 type TableButtonConfiguration = {
@@ -30,20 +29,25 @@ type TableButtonConfiguration = {
 @Component({
     selector: 'app-other',
     imports: [
-        CommonModule,
+        JsonPipe,
         NaturalTableButtonComponent,
-        MatFormFieldModule,
-        MatInputModule,
+        MatFormField,
+        MatLabel,
+        MatPrefix,
+        MatSuffix,
+        MatInput,
         FormsModule,
         NaturalHttpPrefixDirective,
         ReactiveFormsModule,
-        MatIconModule,
+        MatIcon,
         NaturalIconDirective,
-        MatButtonModule,
-        MatMenuModule,
-        MatDatepickerModule,
+        MatButton,
+        MatMenu,
+        MatMenuItem,
+        MatMenuTrigger,
+        MatDatepickerToggle,
         RouterLink,
-        MatRippleModule,
+        MatRipple,
         RouterOutlet,
     ],
     templateUrl: './other.component.html',

@@ -1,10 +1,21 @@
-import {CommonModule} from '@angular/common';
+import {JsonPipe} from '@angular/common';
 import {Component, inject, OnInit} from '@angular/core';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {
+    MatTable,
+    MatHeaderCellDef,
+    MatHeaderRowDef,
+    MatColumnDef,
+    MatCellDef,
+    MatRowDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderRow,
+    MatRow,
+} from '@angular/material/table';
 import {AvailableColumn, Button, NaturalAbstractList, Sorting, SortingOrder} from '@ecodev/natural';
 import {NaturalColumnsPickerComponent} from '../../../projects/natural/src/lib/modules/columns-picker/columns-picker.component';
 import {NaturalSearchComponent} from '../../../projects/natural/src/lib/modules/search/search/search.component';
@@ -14,15 +25,25 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
 @Component({
     selector: 'app-list',
     imports: [
-        CommonModule,
+        JsonPipe,
         NaturalColumnsPickerComponent,
         NaturalSearchComponent,
-        MatTableModule,
-        MatSortModule,
-        MatCheckboxModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatSort,
+        MatSortHeader,
+        MatCheckbox,
         NaturalTableButtonComponent,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
+        MatProgressSpinner,
+        MatPaginator,
     ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.scss',

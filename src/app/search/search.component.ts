@@ -1,6 +1,6 @@
-import {CommonModule} from '@angular/common';
+import {JsonPipe} from '@angular/common';
 import {Component, inject, OnInit} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
     DropdownFacet,
@@ -20,7 +20,6 @@ import {
     TypeSelectConfiguration,
     TypeTextComponent,
 } from '@ecodev/natural';
-
 import {timer} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TypeBooleanComponent} from '../../../projects/natural/src/lib/modules/dropdown-components/type-boolean/type-boolean.component';
@@ -31,7 +30,7 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
 
 @Component({
     selector: 'app-search',
-    imports: [NaturalSearchComponent, MatButtonModule, CommonModule],
+    imports: [NaturalSearchComponent, MatButton, JsonPipe],
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss',
 })

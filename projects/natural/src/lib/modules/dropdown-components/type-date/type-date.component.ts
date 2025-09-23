@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators} from '@angular/forms';
-import {DateAdapter, MAT_DATE_FORMATS, MatOptionModule} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS, MatOption} from '@angular/material/core';
 import {BehaviorSubject, merge} from 'rxjs';
 import {FilterGroupConditionField, Scalar} from '../../search/classes/graphql-doctrine.types';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
@@ -8,11 +8,11 @@ import {DropdownComponent} from '../../search/types/dropdown-component';
 import {possibleComparableOperators, PossibleComparableOpertorKeys} from '../types';
 import {dateMax, dateMin, serialize} from '../utils';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
+import {MatInput} from '@angular/material/input';
+import {MatSelect} from '@angular/material/select';
+import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 
 export type TypeDateConfiguration<D = Date> = {
     min?: D | null;
@@ -23,12 +23,17 @@ export type TypeDateConfiguration<D = Date> = {
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatCheckboxModule,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatSuffix,
+        MatSelect,
+        MatOption,
+        MatInput,
+        MatDatepicker,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        MatCheckbox,
     ],
     templateUrl: './type-date.component.html',
     styleUrl: './type-date.component.scss',

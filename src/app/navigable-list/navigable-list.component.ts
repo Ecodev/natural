@@ -1,13 +1,24 @@
-import {CommonModule} from '@angular/common';
+import {JsonPipe} from '@angular/common';
 import {Component, inject, OnInit} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatIconModule} from '@angular/material/icon';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButton} from '@angular/material/button';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatIcon} from '@angular/material/icon';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {
+    MatTable,
+    MatHeaderCellDef,
+    MatHeaderRowDef,
+    MatColumnDef,
+    MatCellDef,
+    MatRowDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderRow,
+    MatRow,
+} from '@angular/material/table';
+import {MatTooltip} from '@angular/material/tooltip';
 import {RouterLink} from '@angular/router';
 import {AvailableColumn, NaturalAbstractNavigableList, Sorting, SortingOrder} from '@ecodev/natural';
 import {NaturalColumnsPickerComponent} from '../../../projects/natural/src/lib/modules/columns-picker/columns-picker.component';
@@ -19,20 +30,30 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
 @Component({
     selector: 'app-navigable-list',
     imports: [
-        CommonModule,
-        MatButtonModule,
+        JsonPipe,
+        MatButton,
         RouterLink,
-        MatIconModule,
+        MatIcon,
         NaturalIconDirective,
         NaturalSearchComponent,
         NaturalColumnsPickerComponent,
-        MatTableModule,
-        MatSortModule,
-        MatCheckboxModule,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatSort,
+        MatSortHeader,
+        MatCheckbox,
         NaturalTableButtonComponent,
-        MatTooltipModule,
-        MatProgressSpinnerModule,
-        MatPaginatorModule,
+        MatTooltip,
+        MatProgressSpinner,
+        MatPaginator,
     ],
     templateUrl: './navigable-list.component.html',
     styleUrl: './navigable-list.component.scss',

@@ -1,4 +1,4 @@
-import {inject, Injectable, InjectionToken, LOCALE_ID, DOCUMENT} from '@angular/core';
+import {DOCUMENT, inject, Injectable, InjectionToken, LOCALE_ID} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
 import {ActivatedRouteSnapshot, Data, NavigationEnd, PRIMARY_OUTLET, Router} from '@angular/router';
 import {NaturalDialogTriggerComponent} from '../../dialog-trigger/dialog-trigger.component';

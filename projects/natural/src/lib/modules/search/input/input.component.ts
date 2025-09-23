@@ -8,16 +8,16 @@ import {
     HostListener,
     inject,
     Input,
+    input,
     OnChanges,
     OnDestroy,
     OnInit,
+    output,
     StaticProvider,
     viewChild,
-    output,
-    input,
 } from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn} from '@angular/forms';
-import {ErrorStateMatcher, MatRipple, MatRippleModule} from '@angular/material/core';
+import {ErrorStateMatcher, MatRipple} from '@angular/material/core';
 import {FilterGroupConditionField} from '../classes/graphql-doctrine.types';
 import {getFacetFromSelection} from '../classes/utils';
 import {NaturalDropdownRef} from '../dropdown-container/dropdown-ref';
@@ -30,11 +30,11 @@ import {FacetSelectorComponent, FacetSelectorConfiguration} from '../facet-selec
 import {DropdownComponent} from '../types/dropdown-component';
 import {DropdownFacet, Facet, FlagFacet, NaturalSearchFacets} from '../types/facet';
 import {DropdownResult, NaturalSearchSelection} from '../types/values';
-import {MatButtonModule} from '@angular/material/button';
+import {MatIconButton} from '@angular/material/button';
 import {NaturalIconDirective} from '../../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIcon} from '@angular/material/icon';
+import {MatInput} from '@angular/material/input';
+import {MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/material/form-field';
 
 // Required to check invalid fields when initializing natural-search
 class AlwaysErrorStateMatcher implements ErrorStateMatcher {
@@ -56,14 +56,17 @@ function isComponentValid(component: DropdownComponent): ValidatorFn {
 @Component({
     selector: 'natural-input',
     imports: [
-        MatFormFieldModule,
-        MatRippleModule,
-        MatInputModule,
+        MatFormField,
+        MatLabel,
+        MatPrefix,
+        MatSuffix,
+        MatRipple,
+        MatInput,
         FormsModule,
         ReactiveFormsModule,
-        MatIconModule,
+        MatIcon,
         NaturalIconDirective,
-        MatButtonModule,
+        MatIconButton,
     ],
     templateUrl: './input.component.html',
     styleUrl: './input.component.scss',

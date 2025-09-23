@@ -1,10 +1,10 @@
-import {CommonModule} from '@angular/common';
+import {JsonPipe} from '@angular/common';
 import {Component, inject, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatButton} from '@angular/material/button';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {collectErrors, NaturalAbstractDetail, NaturalSeoResolveData} from '@ecodev/natural';
 import {NaturalLinkableTabDirective} from '../../../projects/natural/src/lib/modules/common/directives/linkable-tab.directive';
@@ -16,15 +16,17 @@ import {Item, ItemInput, ItemService} from '../../../projects/natural/src/lib/te
     selector: 'app-detail',
     imports: [
         NaturalDetailHeaderComponent,
-        MatButtonModule,
+        MatButton,
         RouterLink,
-        MatTabsModule,
+        MatTab,
+        MatTabGroup,
         NaturalLinkableTabDirective,
         FormsModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        CommonModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        JsonPipe,
         NaturalFixedButtonDetailComponent,
         RouterOutlet,
     ],

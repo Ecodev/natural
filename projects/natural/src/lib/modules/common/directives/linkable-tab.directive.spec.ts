@@ -2,7 +2,7 @@ import {Component, OnInit, viewChild} from '@angular/core';
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {provideRouter, Router, RouterOutlet} from '@angular/router';
 import {MatTabGroupHarness} from '@angular/material/tabs/testing';
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {HarnessLoader} from '@angular/cdk/testing';
 import {NaturalLinkableTabDirective} from '@ecodev/natural';
@@ -18,7 +18,7 @@ class TestRootComponent {
 
 @Component({
     selector: 'natural-test-simple',
-    imports: [MatTabsModule, NaturalLinkableTabDirective],
+    imports: [MatTab, MatTabGroup, NaturalLinkableTabDirective],
     template: `
         <mat-tab-group naturalLinkableTab>
             <mat-tab i18n label="Tab 1" i18n-label>Tab content 1</mat-tab>

@@ -1,18 +1,28 @@
-import {Component, inject, Input, OnInit, input} from '@angular/core';
+import {Component, inject, Input, input, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {IEnum, NaturalEnumService} from '../../../services/enum.service';
 import {AbstractSelect} from '../abstract-select.component';
-import {MatOptionModule} from '@angular/material/core';
-import {CommonModule} from '@angular/common';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatOption} from '@angular/material/core';
+import {AsyncPipe} from '@angular/common';
+import {MatSelect} from '@angular/material/select';
+import {MatError, MatFormField, MatHint, MatLabel} from '@angular/material/form-field';
 
 type Value = IEnum['value'] | IEnum['value'][];
 
 @Component({
     selector: 'natural-select-enum',
-    imports: [MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, CommonModule, MatOptionModule],
+    imports: [
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatHint,
+        MatSelect,
+        FormsModule,
+        ReactiveFormsModule,
+        AsyncPipe,
+        MatOption,
+    ],
     templateUrl: './select-enum.component.html',
     styleUrl: './select-enum.component.scss',
 })

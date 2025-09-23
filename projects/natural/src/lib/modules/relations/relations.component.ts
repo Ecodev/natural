@@ -4,14 +4,14 @@ import {
     DestroyRef,
     inject,
     Input,
+    input,
     OnChanges,
     OnInit,
     output,
     TemplateRef,
     viewChild,
-    input,
 } from '@angular/core';
-import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {NaturalDataSource, PaginatedData} from '../../classes/data-source';
 import {NaturalQueryVariablesManager, PaginationInput, QueryVariables} from '../../classes/query-variable-manager';
 import {HierarchicFiltersConfiguration} from '../hierarchic-selector/classes/hierarchic-filters-configuration';
@@ -22,13 +22,24 @@ import {NaturalHierarchicSelectorDialogService} from '../hierarchic-selector/hie
 import {NaturalSelectComponent} from '../select/select/select.component';
 import {NaturalAbstractModelService} from '../../services/abstract-model.service';
 import {ExtractTallOne, ExtractVall} from '../../types/types';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {NaturalIconDirective} from '../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatButtonModule} from '@angular/material/button';
-import {MatTableModule} from '@angular/material/table';
-import {CommonModule} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+} from '@angular/material/table';
+import {NgTemplateOutlet} from '@angular/common';
 import {finalize, forkJoin, tap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -46,14 +57,24 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 @Component({
     selector: 'natural-relations',
     imports: [
-        CommonModule,
-        MatTableModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
+        NgTemplateOutlet,
+        MatTable,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatColumnDef,
+        MatCellDef,
+        MatRowDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatButton,
+        MatIconButton,
+        MatTooltip,
+        MatIcon,
         NaturalIconDirective,
-        MatPaginatorModule,
-        MatProgressSpinnerModule,
+        MatPaginator,
+        MatProgressSpinner,
         NaturalSelectComponent,
     ],
     templateUrl: './relations.component.html',

@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
     selector: 'app-panels',
-    imports: [MatButtonModule, RouterLink, RouterOutlet],
+    imports: [MatButton, RouterLink, RouterOutlet],
     templateUrl: './panels.component.html',
     styleUrl: './panels.component.scss',
 })

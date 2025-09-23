@@ -1,5 +1,5 @@
 import {ConfigurableFocusTrapFactory, FocusTrap} from '@angular/cdk/a11y';
-import {BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalModule, TemplatePortal} from '@angular/cdk/portal';
+import {BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal} from '@angular/cdk/portal';
 import {
     Component,
     ComponentRef,
@@ -12,7 +12,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import {Subject} from 'rxjs';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 
 export function throwMatDialogContentAlreadyAttachedError(): void {
     throw Error('Attempting to attach dialog content after content is already attached');
@@ -33,7 +33,7 @@ const ENTER_ANIMATION = '_mat-menu-enter';
 const EXIT_ANIMATION = '_mat-menu-exit';
 
 @Component({
-    imports: [PortalModule, MatButtonModule],
+    imports: [CdkPortalOutlet, MatButton],
     templateUrl: './dropdown-container.component.html',
     styleUrl: './dropdown-container.component.scss',
     // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation

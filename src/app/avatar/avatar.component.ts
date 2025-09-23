@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {NaturalAvatarComponent} from '../../../projects/natural/src/lib/modules/avatar/component/avatar.component';
 
 @Component({
-    imports: [NaturalAvatarComponent, MatButtonModule],
+    imports: [NaturalAvatarComponent, MatButton],
     templateUrl: './avatar.component.html',
     styleUrl: './avatar.component.scss',
 })

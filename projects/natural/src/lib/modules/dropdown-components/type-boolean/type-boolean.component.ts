@@ -1,10 +1,9 @@
-import {CommonModule} from '@angular/common';
 import {Component, inject} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
 import {DropdownComponent} from '../../search/types/dropdown-component';
 import {TypeOptionsComponent, TypeOptionsConfiguration} from '../type-options/type-options.component';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 
 export type TypeBooleanConfiguration = {
     displayWhenActive: string;
@@ -12,7 +11,7 @@ export type TypeBooleanConfiguration = {
 };
 
 @Component({
-    imports: [FormsModule, ReactiveFormsModule, CommonModule, MatButtonToggleModule],
+    imports: [FormsModule, ReactiveFormsModule, MatButtonToggleGroup, MatButtonToggle],
     templateUrl: '../type-options/type-options.component.html',
 })
 export class TypeBooleanComponent extends TypeOptionsComponent implements DropdownComponent {

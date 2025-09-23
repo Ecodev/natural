@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, DestroyRef, inject, viewChild} from '@angular/core';
-import {MatListModule, MatSelectionList} from '@angular/material/list';
+import {MatListOption, MatSelectionList} from '@angular/material/list';
 import {BehaviorSubject, merge, Observable, of} from 'rxjs';
 import {FilterGroupConditionField, Scalar} from '../../search/classes/graphql-doctrine.types';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
@@ -7,9 +7,9 @@ import {DropdownComponent} from '../../search/types/dropdown-component';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {PossibleDiscreteOperatorKeys, possibleDiscreteOperators} from '../types';
-import {MatOptionModule} from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatOption} from '@angular/material/core';
+import {MatSelect} from '@angular/material/select';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export type TypeSelectItem =
@@ -33,7 +33,16 @@ export type TypeSelectConfiguration = {
 };
 
 @Component({
-    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatListModule],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        MatOption,
+        MatSelectionList,
+        MatListOption,
+    ],
     templateUrl: './type-select.component.html',
 })
 export class TypeSelectComponent implements DropdownComponent, AfterViewInit {

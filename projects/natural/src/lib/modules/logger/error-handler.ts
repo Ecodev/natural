@@ -1,5 +1,5 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ErrorHandler, inject, Injectable, InjectionToken, DOCUMENT} from '@angular/core';
+import {DOCUMENT, ErrorHandler, inject, Injectable, InjectionToken} from '@angular/core';
 import {catchError, EMPTY, first, Observable, of} from 'rxjs';
 
 export type NaturalLoggerType = {

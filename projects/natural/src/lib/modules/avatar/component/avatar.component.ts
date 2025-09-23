@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, computed, inject, input, linkedSignal} from '@angular/core';
 import {Source} from '../sources/source';
 import {AvatarService} from '../service/avatar.service';
-import {CommonModule} from '@angular/common';
+import {AsyncPipe, NgStyle} from '@angular/common';
 
 type Style = Partial<CSSStyleDeclaration>;
 
@@ -10,7 +10,7 @@ type Style = Partial<CSSStyleDeclaration>;
  */
 @Component({
     selector: 'natural-avatar',
-    imports: [CommonModule],
+    imports: [NgStyle, AsyncPipe],
     template: `
         @let source = currentSource();
         <div class="avatar-container" [style.height.px]="size()" [style.width.px]="size()">

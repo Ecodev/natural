@@ -1,7 +1,7 @@
-import {CommonModule} from '@angular/common';
+import {JsonPipe} from '@angular/common';
 import {Component} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {IEnum, NaturalEnumService} from '@ecodev/natural';
 import {Observable, of} from 'rxjs';
 import {NaturalSelectEnumComponent} from '../../../projects/natural/src/lib/modules/select/select-enum/select-enum.component';
@@ -11,14 +11,7 @@ import {DebugControlComponent} from '../debug-form.component';
 
 @Component({
     selector: 'app-select',
-    imports: [
-        MatButtonModule,
-        NaturalSelectEnumComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        DebugControlComponent,
-    ],
+    imports: [MatButton, NaturalSelectEnumComponent, FormsModule, ReactiveFormsModule, JsonPipe, DebugControlComponent],
     templateUrl: './select-enum.component.html',
     styleUrl: './select-enum.component.scss',
     providers: [

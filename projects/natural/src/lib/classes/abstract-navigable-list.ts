@@ -1,4 +1,4 @@
-import {Directive, OnInit, input} from '@angular/core';
+import {Directive, input, OnInit} from '@angular/core';
 import {NavigationExtras, RouterLink} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {NaturalSearchSelections} from '../modules/search/types/values';

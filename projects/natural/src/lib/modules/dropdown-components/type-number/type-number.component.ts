@@ -8,10 +8,10 @@ import {DropdownComponent} from '../../search/types/dropdown-component';
 import {possibleComparableOperators, PossibleComparableOpertorKeys} from '../types';
 import {InvalidWithValueStateMatcher} from '../type-text/type-text.component';
 import {decimal} from '../../../classes/validators';
-import {MatInputModule} from '@angular/material/input';
-import {MatOptionModule} from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatOption} from '@angular/material/core';
+import {MatSelect} from '@angular/material/select';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 
 export type TypeNumberConfiguration = {
     min?: number | null;
@@ -20,7 +20,7 @@ export type TypeNumberConfiguration = {
 };
 
 @Component({
-    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatInputModule],
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatError, MatSelect, MatOption, MatInput],
     templateUrl: './type-number.component.html',
     styleUrl: './type-number.component.scss',
 })

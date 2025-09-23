@@ -8,7 +8,6 @@ import {
 } from '@ecodev/natural';
 import {Component, DOCUMENT} from '@angular/core';
 import {provideRouter, Router, Routes} from '@angular/router';
-
 import {PaqItem} from './matomo.service';
 
 @Component({

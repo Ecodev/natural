@@ -1,11 +1,10 @@
 import {NavigationEnd, NavigationStart, Router} from '@angular/router';
-import {pickBy} from 'es-toolkit';
+import {cloneDeepWith, pickBy} from 'es-toolkit';
 import {Observable, switchMap, take} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import type {ReadonlyDeep} from 'type-fest';
 import {Literal} from '../types/types';
 import {PaginationInput, Sorting, SortingOrder} from './query-variable-manager';
-import {cloneDeepWith} from 'es-toolkit';
 
 /**
  * Very basic formatting to get only date, without time and ignoring entirely the timezone

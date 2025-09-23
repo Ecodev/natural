@@ -1,6 +1,7 @@
 import {
     Component,
     computed,
+    DOCUMENT,
     inject,
     input,
     Input,
@@ -8,18 +9,17 @@ import {
     OnInit,
     output,
     SimpleChanges,
-    DOCUMENT,
 } from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {Observable, of, Subject, tap} from 'rxjs';
 import {NaturalFileService} from '../file.service';
-import {CommonModule} from '@angular/common';
+import {UpperCasePipe} from '@angular/common';
 import {FileModel} from '../types';
 import {NaturalAlertService} from '../../alert/alert.service';
 import {NaturalCapitalizePipe} from '../../common/pipes/capitalize.pipe';
 import {NaturalIconDirective} from '../../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatRippleModule} from '@angular/material/core';
+import {MatIcon} from '@angular/material/icon';
+import {MatRipple} from '@angular/material/core';
 import {NaturalFileDropDirective} from '../file-drop.directive';
 import {NaturalBackgroundDensityDirective} from '../../common/directives/background-density.directive';
 import {commonImageMimeTypes} from '../utils';
@@ -29,9 +29,9 @@ import {commonImageMimeTypes} from '../utils';
     selector: 'natural-file',
     imports: [
         NaturalFileDropDirective,
-        MatRippleModule,
-        CommonModule,
-        MatIconModule,
+        MatRipple,
+        UpperCasePipe,
+        MatIcon,
         NaturalIconDirective,
         NaturalCapitalizePipe,
         NaturalBackgroundDensityDirective,

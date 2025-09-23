@@ -1,11 +1,10 @@
-import {Component, HostBinding, inject, Input, OnDestroy, OnInit, viewChild, input} from '@angular/core';
-import {MatDrawer, MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
+import {Component, HostBinding, inject, Input, input, OnDestroy, OnInit, viewChild} from '@angular/core';
+import {MatDrawer, MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {NaturalSidenavService} from '../sidenav.service';
-import {CommonModule} from '@angular/common';
 
 @Component({
     selector: 'natural-sidenav-container',
-    imports: [MatSidenavModule, CommonModule],
+    imports: [MatSidenav, MatSidenavContainer, MatSidenavContent],
     templateUrl: './sidenav-container.component.html',
     styleUrl: './sidenav-container.component.scss',
     providers: [NaturalSidenavService],

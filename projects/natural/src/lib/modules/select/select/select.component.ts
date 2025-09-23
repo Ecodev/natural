@@ -5,13 +5,13 @@ import {
     DestroyRef,
     inject,
     Input,
+    input,
     OnInit,
     TemplateRef,
     viewChild,
-    input,
 } from '@angular/core';
 import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatAutocompleteModule, MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {merge} from 'es-toolkit';
 import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, finalize, map} from 'rxjs/operators';
@@ -21,15 +21,15 @@ import {NaturalAbstractModelService} from '../../../services/abstract-model.serv
 import {ExtractTallOne, ExtractVall, Literal} from '../../../types/types';
 import {AbstractSelect} from '../abstract-select.component';
 import {RouterLink} from '@angular/router';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatButtonModule} from '@angular/material/button';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {NaturalIconDirective} from '../../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatOptionModule} from '@angular/material/core';
-import {CommonModule} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix} from '@angular/material/form-field';
+import {MatOption} from '@angular/material/core';
+import {AsyncPipe, NgTemplateOutlet} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 // Return the type of TValue for the given TService
@@ -70,19 +70,27 @@ type ValueTypeFor<TService> = string | ExtractTallOne<TService>;
 @Component({
     selector: 'natural-select',
     imports: [
-        MatAutocompleteModule,
-        CommonModule,
-        MatOptionModule,
-        MatFormFieldModule,
-        MatInputModule,
+        MatAutocomplete,
+        NgTemplateOutlet,
+        AsyncPipe,
+        MatOption,
+        MatFormField,
+        MatLabel,
+        MatError,
+        MatHint,
+        MatPrefix,
+        MatSuffix,
+        MatInput,
         FormsModule,
         ReactiveFormsModule,
-        MatIconModule,
+        MatIcon,
         NaturalIconDirective,
-        MatProgressSpinnerModule,
-        MatButtonModule,
-        MatTooltipModule,
+        MatProgressSpinner,
+        MatButton,
+        MatIconButton,
+        MatTooltip,
         RouterLink,
+        MatAutocompleteTrigger,
     ],
     templateUrl: './select.component.html',
     styleUrl: './select.component.scss',

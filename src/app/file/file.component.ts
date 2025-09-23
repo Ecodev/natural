@@ -1,8 +1,8 @@
-import {CommonModule} from '@angular/common';
+import {JsonPipe} from '@angular/common';
 import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButton} from '@angular/material/button';
+import {MatCheckbox} from '@angular/material/checkbox';
 import {FileModel, FileSelection, NaturalFileService} from '@ecodev/natural';
 import {Observable, Subscription} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -50,13 +50,13 @@ function selectionToJson(selection: FileSelection): JsonFileSelection {
 @Component({
     selector: 'app-file',
     imports: [
-        MatCheckboxModule,
+        MatCheckbox,
         FormsModule,
-        MatButtonModule,
+        MatButton,
         NaturalFileSelectDirective,
         NaturalFileDropDirective,
         NaturalFileComponent,
-        CommonModule,
+        JsonPipe,
     ],
     templateUrl: './file.component.html',
     styleUrl: './file.component.scss',

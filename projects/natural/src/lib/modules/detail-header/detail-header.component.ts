@@ -1,13 +1,13 @@
 import {Component, Input, input} from '@angular/core';
 import {Literal, NameOrFullName} from '../../types/types';
 import {NaturalIconDirective} from '../icon/icon.directive';
-import {MatIconModule} from '@angular/material/icon';
+import {MatIcon} from '@angular/material/icon';
 import {RouterLink} from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 
 @Component({
     selector: 'natural-detail-header',
-    imports: [MatButtonModule, RouterLink, MatIconModule, NaturalIconDirective],
+    imports: [MatButton, RouterLink, MatIcon, NaturalIconDirective],
     templateUrl: './detail-header.component.html',
     styleUrl: './detail-header.component.scss',
 })

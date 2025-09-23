@@ -7,7 +7,7 @@ import {NaturalSearchSelections} from '../../search/types/values';
 import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
 import {HierarchicFiltersConfiguration} from '../classes/hierarchic-filters-configuration';
 import {OrganizedModelSelection} from '../hierarchic-selector/hierarchic-selector.service';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {NaturalHierarchicSelectorComponent} from '../hierarchic-selector/hierarchic-selector.component';
 
 export type HierarchicDialogResult = {
@@ -53,7 +53,7 @@ export type HierarchicDialogConfig = {
 };
 
 @Component({
-    imports: [MatDialogModule, NaturalHierarchicSelectorComponent, MatButtonModule],
+    imports: [MatDialogModule, NaturalHierarchicSelectorComponent, MatButton],
     templateUrl: './hierarchic-selector-dialog.component.html',
     styleUrl: './hierarchic-selector-dialog.component.scss',
 })

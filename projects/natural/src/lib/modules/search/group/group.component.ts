@@ -1,4 +1,4 @@
-import {Component, Input, viewChild, output, input} from '@angular/core';
+import {Component, Input, input, output, viewChild} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalInputComponent} from '../input/input.component';
 import {NaturalSearchFacets} from '../types/facet';

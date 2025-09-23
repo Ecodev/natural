@@ -5,7 +5,7 @@ import {NaturalDropdownRef} from '../../search/dropdown-container/dropdown-ref';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
 import {DropdownComponent} from '../types/dropdown-component';
 import {Facet, NaturalSearchFacets} from '../types/facet';
-import {MatListModule} from '@angular/material/list';
+import {MatListItem, MatNavList} from '@angular/material/list';
 
 /**
  * Configuration for facet selection
@@ -15,7 +15,7 @@ export type FacetSelectorConfiguration = {
 };
 
 @Component({
-    imports: [MatListModule],
+    imports: [MatNavList, MatListItem],
     templateUrl: './facet-selector.component.html',
     styleUrl: './facet-selector.component.scss',
 })

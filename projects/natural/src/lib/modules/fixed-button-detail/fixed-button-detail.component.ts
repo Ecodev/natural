@@ -2,7 +2,7 @@ import {Component, inject, Input, output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTooltip} from '@angular/material/tooltip';
 import {NaturalFixedButtonComponent} from '../fixed-button/fixed-button.component';
 
 type Model = {
@@ -14,7 +14,7 @@ type Model = {
 
 @Component({
     selector: 'natural-fixed-button-detail',
-    imports: [NaturalFixedButtonComponent, MatTooltipModule],
+    imports: [NaturalFixedButtonComponent, MatTooltip],
     templateUrl: './fixed-button-detail.component.html',
     styleUrl: './fixed-button-detail.component.scss',
 })

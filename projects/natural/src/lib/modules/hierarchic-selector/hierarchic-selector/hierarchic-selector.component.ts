@@ -1,13 +1,21 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {Component, inject, input, OnChanges, OnInit, output, SimpleChanges} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatIconModule} from '@angular/material/icon';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatChipAvatar, MatChipListbox, MatChipOption, MatChipRemove} from '@angular/material/chips';
+import {MatIcon} from '@angular/material/icon';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MatRadioButton} from '@angular/material/radio';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatTreeModule, MatTreeNestedDataSource} from '@angular/material/tree';
+import {MatTooltip} from '@angular/material/tooltip';
+import {
+    MatNestedTreeNode,
+    MatTreeNodeDef,
+    MatTreeNodePadding,
+    MatTreeNodeToggle,
+    MatTree,
+    MatTreeNodeOutlet,
+    MatTreeNestedDataSource,
+} from '@angular/material/tree';
 import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {QueryVariables} from '../../../classes/query-variable-manager';
@@ -27,14 +35,23 @@ import {NgTemplateOutlet} from '@angular/common';
     selector: 'natural-hierarchic-selector',
     imports: [
         NaturalSearchComponent,
-        MatProgressSpinnerModule,
-        MatTreeModule,
-        MatButtonModule,
-        MatIconModule,
+        MatProgressSpinner,
+        MatNestedTreeNode,
+        MatTreeNodeDef,
+        MatTreeNodePadding,
+        MatTreeNodeToggle,
+        MatTree,
+        MatTreeNodeOutlet,
+        MatButton,
+        MatIconButton,
+        MatIcon,
         NaturalIconDirective,
-        MatCheckboxModule,
-        MatChipsModule,
-        MatTooltipModule,
+        MatCheckbox,
+        MatChipAvatar,
+        MatChipListbox,
+        MatChipOption,
+        MatChipRemove,
+        MatTooltip,
         MatRadioButton,
         NgTemplateOutlet,
     ],

@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {
     HierarchicDialogConfig,
     HierarchicDialogResult,
@@ -15,7 +15,7 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
 
 @Component({
     selector: 'app-hierarchic',
-    imports: [NaturalHierarchicSelectorComponent, MatButtonModule],
+    imports: [NaturalHierarchicSelectorComponent, MatButton],
     templateUrl: './hierarchic.component.html',
     styleUrl: './hierarchic.component.scss',
 })
