@@ -30,7 +30,10 @@
         "strictInputAccessModifiers": true,
         "strictTemplates": true,
         "extendedDiagnostics": {
-            "defaultCategory": "error"
+            "defaultCategory": "error",
+            "checks": {
+                "unusedStandaloneImports": "warning"
+            }
         }
     }
 }

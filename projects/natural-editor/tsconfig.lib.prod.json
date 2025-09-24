@@ -8,6 +8,11 @@
         }
     },
     "angularCompilerOptions": {
-        "compilationMode": "partial"
+        "compilationMode": "partial",
+        "extendedDiagnostics": {
+            "checks": {
+                "unusedStandaloneImports": "error"
+            }
+        }
     }
 }
