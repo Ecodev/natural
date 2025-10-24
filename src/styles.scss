@@ -11,9 +11,9 @@
 
 // Include components themes
 @mixin components-theme($theme) {
-    @include natural.natural($theme);
-    @include natural-editor.natural-editor($theme);
-    @include home.home($theme);
+    //@include natural.natural($theme);
+    //@include natural-editor.natural-editor($theme);
+    //@include home.home($theme);
 }
 
 $blue: (
@@ -115,46 +115,58 @@ $pink: (
     ),
 );
 
-$theme-primary: mat.m2-define-palette($blue);
-$theme-accent: mat.m2-define-palette($pink);
+//$theme-primary: mat.m2-define-palette($blue);
+//$theme-accent: mat.m2-define-palette($pink);
 $theme-warn: mat.m2-define-palette(mat.$m2-red-palette);
-$light-theme: mat.m2-define-light-theme(
-    (
-        color: (
-            primary: $theme-primary,
-            accent: $theme-accent,
-            warn: $theme-warn,
-        ),
-        typography: natural.$typography,
-    )
-);
-$dark-theme: mat.m2-define-dark-theme(
-    (
-        color: (
-            primary: $theme-primary,
-            accent: $theme-accent,
-            warn: $theme-warn,
-        ),
-    )
-);
+//$light-theme: mat.m2-define-light-theme(
+//    (
+//        color: (
+//            primary: $theme-primary,
+//            accent: $theme-accent,
+//            warn: $theme-warn,
+//        ),
+//        typography: natural.$typography,
+//    )
+//);
+//$dark-theme: mat.m2-define-dark-theme(
+//    (
+//        color: (
+//            primary: $theme-primary,
+//            accent: $theme-accent,
+//            warn: $theme-warn,
+//        ),
+//    )
+//);
 
-$baseColorLight: mat.m2-get-color-from-palette(map.get($light-theme, foreground), base);
-$baseColorDark: mat.m2-get-color-from-palette(map.get($dark-theme, foreground), base);
-$baseBgColorDark: mat.m2-get-color-from-palette(map.get($dark-theme, background), background);
+//$baseColorLight: mat.m2-get-color-from-palette(map.get($light-theme, foreground), base);
+//$baseColorDark: mat.m2-get-color-from-palette(map.get($dark-theme, foreground), base);
+//$baseBgColorDark: mat.m2-get-color-from-palette(map.get($dark-theme, background), background);
 
-@include mat.all-component-themes($light-theme);
+//@include mat.all-component-themes($light-theme);
 
 .default {
-    color: $baseColorLight;
-    @include components-theme($light-theme);
+    @include mat.theme(
+        (
+            color: mat.$violet-palette,
+            typography: Roboto,
+            density: 0,
+        )
+    );
 }
 
 .defaultDark {
-    background: $baseBgColorDark;
-    color: $baseColorDark;
-
-    @include mat.all-component-colors($dark-theme);
-    @include components-theme($dark-theme);
+    @include mat.theme(
+        (
+            color: mat.$blue-palette,
+            typography: Roboto,
+            density: 0,
+        )
+    );
+    //background: $baseBgColorDark;
+    //color: $baseColorDark;
+    //
+    //@include mat.all-component-colors($dark-theme);
+    //@include components-theme($dark-theme);
 }
 
 body {
