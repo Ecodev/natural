@@ -1,5 +1,5 @@
 <h1 class="mat-headline-4">NaturalAbstractEditableList</h1>
-<div class="nat-horizontal nat-left nat-gap">
+<div class="nat-vertical nat-gap-30 nat-left">
     <div [formGroup]="form">
         <div class="mat-headline-6">As a mat-table</div>
 
@@ -10,7 +10,7 @@
             <ng-container matColumnDef="name">
                 <th *matHeaderCellDef mat-header-cell>Name</th>
                 <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="name" />
                         @if (formArray.at(i).get('name')?.hasError('maxlength')) {
@@ -28,7 +28,7 @@
             <ng-container matColumnDef="description">
                 <th *matHeaderCellDef mat-header-cell>Description</th>
                 <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Description</mat-label>
                         <input matInput formControlName="description" />
                         @if (formArray.at(i).get('description')?.hasError('maxlength')) {
@@ -58,7 +58,7 @@
         @for (element of dataSource.data; track element) {
             <div formArrayName="rows">
                 <div class="nat-horizontal nat-gap" [formGroupName]="$index">
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="name" />
                         @if (formArray.at($index).get('name')?.hasError('maxlength')) {
@@ -72,7 +72,7 @@
                             <mat-error>Requis</mat-error>
                         }
                     </mat-form-field>
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Description</mat-label>
                         <input matInput formControlName="description" />
                         @if (formArray.at($index).get('description')?.hasError('maxlength')) {

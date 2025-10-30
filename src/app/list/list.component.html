@@ -42,7 +42,7 @@
                                 (click)="$event.stopPropagation()"
                             />
                         </td>
-                        <td *matFooterCellDef mat-footer-cell>/</td>
+                        <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
                     <ng-container matColumnDef="id">
@@ -56,22 +56,13 @@
                         <td *matCellDef="let element" mat-cell>
                             <natural-table-button icon="add" [label]="element.name" [navigate]="['.']" />
                         </td>
-                        <td *matFooterCellDef mat-footer-cell>/</td>
+                        <td *matFooterCellDef mat-footer-cell>name</td>
                     </ng-container>
 
                     <ng-container matColumnDef="description">
-                        <th
-                            *matHeaderCellDef
-                            mat-header-cell
-                            class="natural-align-right"
-                            arrowPosition="before"
-                            mat-sort-header
-                            >description</th
-                        >
-                        <td *matCellDef="let element" mat-cell class="natural-align-right">{{
-                            element.description
-                        }}</td>
-                        <td *matFooterCellDef mat-footer-cell>/</td>
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>description</th>
+                        <td *matCellDef="let element" mat-cell>{{ element.description }}</td>
+                        <td *matFooterCellDef mat-footer-cell>description</td>
                     </ng-container>
 
                     <ng-container matColumnDef="hidden">
@@ -86,7 +77,7 @@
                         <td *matCellDef="let element" mat-cell class="natural-align-right"
                             >visible but hidden in dropdown</td
                         >
-                        <td *matFooterCellDef mat-footer-cell>/</td>
+                        <td *matFooterCellDef mat-footer-cell class="natural-align-right">hidden</td>
                     </ng-container>
 
                     <ng-container matColumnDef="not-in-picker">
@@ -121,7 +112,7 @@
                 (page)="pagination($event)"
             />
         </div>
-        <div class="nat-horizontal nat-gap">
+        <div class="nat-horizontal nat-gap-5">
             <pre class="debug" style="overflow: auto">columnsForTable : {{ columnsForTable | json }}</pre>
             <pre class="debug" style="overflow: auto">selectedColumns : {{ selectedColumns | json }}</pre>
             <pre class="debug nat-expand" style="overflow: auto">

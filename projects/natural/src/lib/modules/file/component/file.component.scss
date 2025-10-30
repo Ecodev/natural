@@ -2,6 +2,8 @@
     display: flex;
     position: relative;
     flex-direction: row;
+    border-color: var(--mat-sys-secondary-container);
+    background-color: var(--mat-sys-secondary-container);
     overflow: hidden;
 
     & > a {
@@ -43,15 +45,18 @@
         text-align: center;
     }
 
+    a[naturalFileDrop] {
+        border: 1px dashed var(--mat-sys-secondary-container);
+    }
+
+    .action-overlay,
     .file-preview {
-        background-color: var(--mat-sys-primary-container);
-        color: var(--mat-sys-on-primary-container);
+        background-color: var(--mat-sys-secondary-fixed);
+        color: var(--mat-sys-on-secondary-fixed);
     }
 
     .action-overlay {
         opacity: 0;
-        background-color: var(--mat-sys-tertiary-container);
-        color: var(--mat-sys-on-tertiary-container);
 
         & > div {
             display: flex;

@@ -529,14 +529,12 @@ export class ThemeMergerComponent {
             .join('\n');
 
         const scss = `${comment}@use '@angular/material' as mat;
-/* prettier-ignore */
 
+/* prettier-ignore */
 .${this.themeName.trim()} {
-    @include mat.theme-overrides(
-        (
-${propertiesString}
-        )
-    );
+    @include mat.theme-overrides((
+    ${propertiesString}
+    ));
 }`;
 
         // Copy to clipboard
