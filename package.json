@@ -28,7 +28,7 @@
         "@angular/core": "^20.3.7",
         "@angular/forms": "^20.3.7",
         "@angular/localize": "^20.3.7",
-        "@angular/material": "20.2.10",
+        "@angular/material": "^20.2.10",
         "@angular/platform-browser": "^20.3.7",
         "@angular/router": "^20.3.7",
         "@apollo/client": "^3.13.7",
