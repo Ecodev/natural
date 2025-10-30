@@ -1,28 +1,51 @@
-import {computed, inject, Injectable, signal} from '@angular/core';
+import {DOCUMENT, inject, Injectable, signal} from '@angular/core';
 import {LOCAL_STORAGE} from '@ecodev/natural';
 
-export const allThemes = ['default', 'defaultDark'] as const;
+export const allThemes = ['natural-theme', 'alternative-theme'] as const;
+
 export type Theme = (typeof allThemes)[number];
+
+export enum ColorScheme {
+    Light = 'light',
+    Dark = 'dark',
+    Auto = 'light dark',
+}
 
 @Injectable({
     providedIn: 'root',
 })
 export class ThemeService {
+    private readonly document = inject(DOCUMENT);
+
     private readonly storage = inject(LOCAL_STORAGE);
-    private readonly isDark = signal(true);
-    public readonly theme = computed<Theme>(() => (this.isDark() ? 'defaultDark' : 'default'));
+    public readonly theme = signal<Theme>(allThemes[0]);
+    public readonly colorScheme = signal<ColorScheme>(ColorScheme.Light);
 
     public constructor() {
-        const theme = this.storage.getItem('theme') as Theme | null;
-        this.set(!!theme?.includes('Dark'));
+        const theme = this.storage.getItem('theme') as Theme;
+        this.setTheme(theme);
+
+        const storedScheme = this.storage.getItem('color-scheme') as ColorScheme | null;
+        const preferredScheme = this.getPreferredColorScheme();
+        this.setColorScheme(storedScheme ?? preferredScheme);
     }
 
-    public set(isDark: boolean): void {
-        this.isDark.set(isDark);
-        this.storage.setItem('theme', this.theme());
+    private getPreferredColorScheme(): ColorScheme {
+        const window = this.document.defaultView;
+        if (window?.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return ColorScheme.Dark;
+        }
+        return ColorScheme.Light;
     }
 
-    public toggle(): void {
-        this.set(!this.isDark());
+    public setTheme(name: Theme): void {
+        this.theme.set(name);
+        this.storage.setItem('theme', name);
+    }
+
+    public setColorScheme(scheme: ColorScheme): void {
+        this.colorScheme.set(scheme);
+        this.storage.setItem('color-scheme', this.colorScheme());
+        this.document.documentElement.style.colorScheme = scheme;
     }
 }

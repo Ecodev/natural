@@ -1,0 +1,32 @@
+natural-sidenav-container {
+    .mat-drawer {
+        border-right: none;
+    }
+
+    mat-sidenav.mode-side {
+        .mat-drawer-inner-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        natural-sidenav {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+        }
+    }
+
+    mat-sidenav-content {
+        display: flex !important;
+
+        & > div {
+            display: flex;
+            flex: 1;
+
+            natural-sidenav-content {
+                display: flex;
+                flex: 1;
+            }
+        }
+    }
+}

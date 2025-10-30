@@ -1,0 +1,107 @@
+<!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
+<input #theme1Upload type="file" accept=".json" id="theme1-upload" (change)="onFileSelected($event, 1)" />
+<input #theme2Upload type="file" accept=".json" id="theme2-upload" (change)="onFileSelected($event, 2)" />
+
+<div class="nat-horizontal">
+    <h1 class="mat-headline-4 nat-expand">Material Design 3 Theme Merger</h1>
+    @if (theme1) {
+        <mat-form-field>
+            <mat-label>Export</mat-label>
+            <input matInput type="text" placeholder="natural-theme" [(ngModel)]="themeName" />
+            <button matIconButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss()">
+                <mat-icon>upload</mat-icon>
+            </button>
+        </mat-form-field>
+    }
+</div>
+
+@if (!theme1) {
+    <div class="upload">
+        <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()">Theme 1</button>
+    </div>
+} @else {
+    <div class="tokens-display">
+        <div class="tokens-column">
+            <div class="column-header">&nbsp;</div>
+            @for (tokenName of getTokenNames(theme1); track $index) {
+                <div class="token-row token-name">{{ tokenName ? camelToKebab(tokenName) : '' }}</div>
+            }
+        </div>
+
+        <div class="tokens-column color-column color-scheme-light">
+            <div class="column-header">
+                <h2 class="mat-headline-1 nat-no-margin-top">Theme 1 - Light</h2>
+                <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()"
+                    >{{ theme1.name }}
+                </button>
+                <div class="nat-horizontal nat-gap-5">
+                    @for (variation of getVariationsForTheme(1); track variation) {
+                        <button
+                            class="variation-btn"
+                            [matButton]="isVariationSelected(theme1, variation) ? 'filled' : 'outlined'"
+                            [disabled]="!theme1.schemes[variation]"
+                            (click)="toggleVariation(theme1, variation)"
+                        >
+                            {{ getVariationLabel(variation) }}
+                        </button>
+                    }
+                </div>
+            </div>
+            @for (tokenName of getTokenNames(theme1); track $index) {
+                <div class="token-row nat-horizontal">
+                    @if (tokenName) {
+                        @for (item of getTokensForName(theme1, tokenName); track item.variation) {
+                            <div
+                                class="color-item nat-expand"
+                                [style.background-color]="item.token.hex"
+                                [matTooltip]="item.token.hex"
+                            ></div>
+                        }
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="tokens-column color-column color-scheme-light">
+            <div class="column-header">
+                <h2 class="mat-headline-1 nat-no-margin-top">{{ theme2 ? 'Theme 2' : 'Theme 1' }} - Dark</h2>
+                <div class="nat-horizontal nat-gap-5">
+                    <button [matButton]="theme2 ? 'filled' : 'outlined'" (click)="theme2Upload.click()">{{
+                        theme2?.name || 'Theme 2'
+                    }}</button>
+                    @if (theme2) {
+                        <button matIconButton [attr.aria-label]="'Remove theme 2'" (click)="clearTheme2()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    }
+                </div>
+                <div class="nat-horizontal nat-gap-5">
+                    @for (variation of getVariationsForTheme(2); track variation) {
+                        <button
+                            class="variation-btn"
+                            [matButton]="isVariationSelectedRight(variation) ? 'filled' : 'outlined'"
+                            [disabled]="!getRightTheme().schemes[variation]"
+                            (click)="toggleVariationRight(variation)"
+                        >
+                            {{ getVariationLabel(variation) }}
+                        </button>
+                    }
+                </div>
+            </div>
+
+            @for (tokenName of getTokenNames(getRightTheme()); track $index) {
+                <div class="token-row nat-horizontal">
+                    @if (tokenName) {
+                        @for (item of getTokensForNameRight(tokenName); track item.variation) {
+                            <div
+                                class="color-item nat-expand"
+                                [style.background-color]="item.token.hex"
+                                [matTooltip]="item.token.hex"
+                            ></div>
+                        }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}

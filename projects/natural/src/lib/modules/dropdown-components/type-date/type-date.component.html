@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-    <mat-form-field>
+    <mat-form-field subscriptSizing="dynamic" i18n-subscriptSizing>
         <mat-label i18n="Mathematical operator < > =">Opérateur</mat-label>
         <mat-select panelWidth="" [formControl]="operatorCtrl" [required]="true">
             @for (item of operators; track item) {
@@ -10,7 +10,7 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field subscriptSizing="dynamic" i18n-subscriptSizing>
         <mat-label i18n>Date</mat-label>
         <input
             matInput

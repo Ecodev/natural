@@ -1,4 +1,64 @@
+@use '@angular/material' as mat;
+
 :host {
     display: flex;
     flex-direction: column;
+    @include mat.sidenav-overrides(
+        (
+            //container-background-color: orange,
+            //container-text-color: red,
+            container-width: auto
+        )
+    );
+}
+
+.theme-choice {
+    border-radius: 999px;
+    background: var(--mat-sys-primary);
+    padding: 5px;
+
+    @include mat.theme-overrides(
+        (
+            on-surface-variant: var(--mat-sys-on-primary),
+        )
+    );
+}
+
+.color-scheme-wrapper {
+    border-radius: 999px;
+    background: var(--mat-sys-surface-bright);
+    padding: 5px;
+}
+
+mat-toolbar {
+    @include mat.toolbar-overrides(
+        (
+            container-background-color: var(--mat-sys-surface-container),
+        )
+    );
+}
+
+.body {
+    margin: 10px;
+    border-radius: var(--mat-sys-corner-large);
+    background-color: var(--mat-sys-surface-bright);
+    padding: 20px;
+    min-height: calc(100vh - 130px);
+    overflow: auto;
+}
+
+mat-nav-list {
+    margin-inline: 30px;
+    .active {
+        @include mat.list-overrides(
+            (
+                list-item-container-color: var(--mat-sys-primary),
+                list-item-label-text-color: var(--mat-sys-on-primary),
+                list-item-hover-label-text-color: var(--mat-sys-on-primary),
+                list-item-focus-label-text-color: var(--mat-sys-on-primary),
+                list-item-leading-icon-color: var(--mat-sys-on-primary),
+                list-item-hover-leading-icon-color: var(--mat-sys-on-primary),
+            )
+        );
+    }
 }

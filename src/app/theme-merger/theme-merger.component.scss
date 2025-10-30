@@ -1,0 +1,86 @@
+@use '@angular/material' as mat;
+
+.container {
+    border-radius: var(--mat-sys-corner-extra-large);
+    background: var(--mat-sys-surface-bright);
+}
+
+.theme-merger-container {
+    margin: 0 auto;
+    padding: 2rem;
+    max-width: 1400px;
+
+    h1 {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+}
+
+input[type='file'] {
+    display: none;
+}
+
+.generate-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+
+    .generate-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        label {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .theme-name-input {
+            padding: 0.6rem 1rem;
+            min-width: 250px;
+            font-size: 0.95rem;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}
+
+.tokens-display {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+
+    button {
+        margin-bottom: 0.5rem;
+    }
+
+    .tokens-column {
+        margin-right: 2px;
+        padding: 20px;
+        color: var(--mat-sys-on-surface);
+
+        &.color-column {
+            border-radius: var(--mat-sys-corner-large);
+            background: var(--mat-sys-surface);
+        }
+
+        .token-row {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 5px;
+            min-height: 30px;
+        }
+
+        .token-name {
+            align-items: center;
+            font: var(--mat-sys-title-medium);
+        }
+
+        .column-header {
+            margin-bottom: 1rem;
+            height: 140px;
+            min-height: 4rem;
+        }
+    }
+}

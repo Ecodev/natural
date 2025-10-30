@@ -1,0 +1,10 @@
+{
+    "permissions": {
+        "allow": [
+            "Read(//Users/sam/sites/_librairies/natural/**)",
+            "Read(//Users/sam/sites/_librairies/natural copy/**)"
+        ],
+        "deny": [],
+        "ask": []
+    }
+}

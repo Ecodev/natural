@@ -1,0 +1,103 @@
+/* These tokens are generated using https://themes.angular-material.dev/ */
+/* Preview: https://themes.angular-material.dev/?bold-font-weight=700&brand-font-family=Roboto&medium-font-weight=500&plain-font-family=Roboto&regular-font-weight=400&seed-error=%23ff0000&seed-neutral=%231d1d1d&seed-neutral-variant=%23666666&seed-primary=%232a7ae2&seed-secondary=%23812add&seed-tertiary=%23b72ae2 */
+/* Seed Colors: primary: #2a7ae2, secondary: #812add, tertiary: #b72ae2, error: #ff0000, neutral: #1d1d1d, neutral-variant: #666666 */
+/* Seed Typography: plain-font-family: Roboto, brand-font-family: Roboto, bold-font-weight: 700, medium-font-weight: 500, regular-font-weight: 400 */
+
+/* Make sure to import fonts in `<head>` of html */
+/*
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto&display=swap');
+</style>
+
+OR
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto&display=swap">
+*/
+
+@use '@angular/material' as mat;
+
+/* Light Theme */
+:root,
+:host,
+.natural-theme {
+    @include mat.theme-overrides(
+        (
+            primary: light-dark(#005db9, #aac7ff),
+            on-primary: light-dark(#ffffff, #002f64),
+            primary-container: light-dark(#d6e3ff, #00458e),
+            on-primary-container: light-dark(#001b3e, #d6e3ff),
+            inverse-primary: light-dark(#aac7ff, #005db9),
+            primary-fixed: light-dark(#d6e3ff, #d6e3ff),
+            primary-fixed-dim: light-dark(#aac7ff, #aac7ff),
+            on-primary-fixed: light-dark(#001b3e, #001b3e),
+            on-primary-fixed-variant: light-dark(#00458e, #00458e),
+            secondary: light-dark(#8028dc, #dab9ff),
+            on-secondary: light-dark(#ffffff, #460084),
+            secondary-container: light-dark(#eedbff, #6400b9),
+            on-secondary-container: light-dark(#2a0053, #eedbff),
+            secondary-fixed: light-dark(#eedbff, #eedbff),
+            secondary-fixed-dim: light-dark(#dab9ff, #dab9ff),
+            on-secondary-fixed: light-dark(#2a0053, #2a0053),
+            on-secondary-fixed-variant: light-dark(#6400b9, #6400b9),
+            tertiary: light-dark(#9d00c7, #f1afff),
+            on-tertiary: light-dark(#ffffff, #54006c),
+            tertiary-container: light-dark(#fbd7ff, #780098),
+            on-tertiary-container: light-dark(#330043, #fbd7ff),
+            tertiary-fixed: light-dark(#fbd7ff, #fbd7ff),
+            tertiary-fixed-dim: light-dark(#f1afff, #f1afff),
+            on-tertiary-fixed: light-dark(#330043, #330043),
+            on-tertiary-fixed-variant: light-dark(#780098, #780098),
+            background: light-dark(#fdf8f8, #141313),
+            on-background: light-dark(#1c1b1b, #e5e2e1),
+            surface-dim: light-dark(#ddd9d8, #141313),
+            surface-bright: light-dark(#fdf8f8, #3a3939),
+            surface-container-lowest: light-dark(#ffffff, #0e0e0e),
+            surface-container-low: light-dark(#f7f3f2, #1c1b1b),
+            surface-container: light-dark(#f1edec, #201f1f),
+            surface-container-high: light-dark(#ebe7e6, #2b2a2a),
+            surface-container-highest: light-dark(#e5e2e1, #353434),
+            surface: light-dark(#fef8f6, #141312),
+            on-surface: light-dark(#1c1b1b, #e5e2e1),
+            shadow: light-dark(#000000, #000000),
+            scrim: light-dark(#000000, #000000),
+            surface-tint: light-dark(#5f5e5e, #c8c6c5),
+            inverse-surface: light-dark(#313030, #e5e2e1),
+            inverse-on-surface: light-dark(#f4f0ef, #313030),
+            outline: light-dark(#747878, #8e9192),
+            outline-variant: light-dark(#c4c7c7, #444748),
+            neutral: light-dark(#787676, #787676),
+            neutral10: light-dark(#1c1b1b, #1c1b1b),
+            error: light-dark(#ba1a1a, #ffb4ab),
+            error-container: light-dark(#ffdad6, #93000a),
+            on-error: light-dark(#ffffff, #690005),
+            on-error-container: light-dark(#410002, #ffdad6),
+            surface-variant: light-dark(#e0e3e3, #444748),
+            on-surface-variant: light-dark(#444748, #c4c7c7),
+            neutral-variant: light-dark(#747878, #747878),
+            neutral-variant20: light-dark(#2d3132, #2d3132),
+            inverse-secondary: light-dark(#dab9ff, #8028dc),
+            inverse-tertiary: light-dark(#f1afff, #9d00c7),
+        )
+    );
+}
+
+/* Typography */
+:root,
+:host {
+    /* core typography tokens are not generating css variables, hence below */
+    --mat-sys-brand-font-family: Roboto;
+    --mat-sys-plain-font-family: Roboto;
+    --mat-sys-bold-font-weight: 700;
+    --mat-sys-medium-font-weight: 500;
+    --mat-sys-regular-font-weight: 400;
+
+    @include mat.theme-overrides(
+        (
+            brand-family: Roboto,
+            plain-family: Roboto,
+            bold-weight: 700,
+            medium-weight: 500,
+            regular-weight: 400,
+        )
+    );
+}

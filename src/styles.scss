@@ -1,172 +1,54 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 @use 'sass:map';
-@use '../projects/natural/src/lib/natural.theme';
-@use '../projects/natural-editor/theming/natural-editor.theme';
-@use 'app/home/home.theme';
+@use '../projects/natural/src/lib/natural';
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@1');
-
-@include mat.all-component-typographies();
-@include mat.elevation-classes();
-@include mat.app-background();
 
 // Include components themes
 @mixin components-theme($theme) {
     @include natural.natural($theme);
-    @include natural-editor.natural-editor($theme);
-    @include home.home($theme);
 }
 
-$blue: (
-    50: #ebf2fc,
-    100: #c4daf7,
-    200: #9ec2f1,
-    300: #77aaec,
-    400: #5092e7,
-    500: #2a7ae2,
-    600: #2364b9,
-    700: #1b4e90,
-    800: #143867,
-    900: #0c223e,
-    A100: #80d8ff,
-    A200: #40c4ff,
-    A400: #00b0ff,
-    A700: #0091ea,
-    contrast: (
-        50: rgba(black, 0.87),
-        100: rgba(black, 0.87),
-        200: rgba(black, 0.87),
-        300: rgba(black, 0.87),
-        400: rgba(black, 0.87),
-        500: white,
-        600: white,
-        700: white,
-        800: white,
-        900: white,
-        A100: rgba(black, 0.87),
-        A200: rgba(black, 0.87),
-        A400: rgba(black, 0.87),
-        A700: white,
-    ),
-);
-
-$purple: (
-    50: #f3ebfb,
-    100: #dcc4f5,
-    200: #c59eef,
-    300: #ae77e9,
-    400: #9750e3,
-    500: #812add,
-    600: #6a23b5,
-    700: #531b8d,
-    800: #3b1465,
-    900: #240c3d,
-    A100: #b388ff,
-    A200: #7c4dff,
-    A400: #651fff,
-    A700: #6200ea,
-    contrast: (
-        50: rgba(black, 0.87),
-        100: rgba(black, 0.87),
-        200: rgba(black, 0.87),
-        300: rgba(black, 0.87),
-        400: rgba(black, 0.87),
-        500: rgba(black, 0.87),
-        600: white,
-        700: white,
-        800: white,
-        900: white,
-        A100: rgba(black, 0.87),
-        A200: white,
-        A400: white,
-        A700: white,
-    ),
-);
-
-$pink: (
-    50: #f8ebfc,
-    100: #ebc4f7,
-    200: #de9ef1,
-    300: #d177ec,
-    400: #c450e7,
-    500: #b72ae2,
-    600: #9623b9,
-    700: #751b90,
-    800: #541467,
-    900: #320c3e,
-    A100: #ea80fc,
-    A200: #e040fb,
-    A400: #d500f9,
-    A700: #aa00ff,
-    contrast: (
-        50: rgba(black, 0.87),
-        100: rgba(black, 0.87),
-        200: rgba(black, 0.87),
-        300: rgba(black, 0.87),
-        400: rgba(black, 0.87),
-        500: rgba(black, 0.87),
-        600: white,
-        700: white,
-        800: white,
-        900: white,
-        A100: rgba(black, 0.87),
-        A200: white,
-        A400: white,
-        A700: white,
-    ),
-);
-
-$theme-primary: mat.m2-define-palette($blue);
-$theme-accent: mat.m2-define-palette($pink);
-$theme-warn: mat.m2-define-palette(mat.$m2-red-palette);
-$light-theme: mat.m2-define-light-theme(
-    (
-        color: (
-            primary: $theme-primary,
-            accent: $theme-accent,
-            warn: $theme-warn,
-        ),
-        typography: natural.$typography,
-    )
-);
-$dark-theme: mat.m2-define-dark-theme(
-    (
-        color: (
-            primary: $theme-primary,
-            accent: $theme-accent,
-            warn: $theme-warn,
-        ),
-    )
-);
-
-$baseColorLight: mat.m2-get-color-from-palette(map.get($light-theme, foreground), base);
-$baseColorDark: mat.m2-get-color-from-palette(map.get($dark-theme, foreground), base);
-$baseBgColorDark: mat.m2-get-color-from-palette(map.get($dark-theme, background), background);
-
-@include mat.all-component-themes($light-theme);
-
-.default {
-    color: $baseColorLight;
-    @include components-theme($light-theme);
-}
-
-.defaultDark {
-    background: $baseBgColorDark;
-    color: $baseColorDark;
-
-    @include mat.all-component-colors($dark-theme);
-    @include components-theme($dark-theme);
-}
-
-body {
-    margin: 0;
+html {
+    @include mat.theme(
+        (
+            color: (),
+            typography: Roboto,
+            density: 0,
+        )
+    );
 }
 
 html,
 body,
 app-root {
+    margin: 0;
     height: 100%;
     min-height: 100%;
     font-size: 14px;
+}
+
+body {
+    background-color: var(--mat-sys-surface-container);
+    color: var(--mat-sys-on-surface);
+    font: var(--mat-sys-body-medium);
+
+    @include mat.table-overrides(
+        (
+            row-item-outline-color: var(--mat-sys-outline-variant),
+        )
+    );
+
+    @include mat.sidenav-overrides(
+        (
+            container-background-color: var(--mat-sys-surface-container),
+            content-background-color: var(--mat-sys-surface-container),
+        )
+    );
 }
 
 app-root {
@@ -176,18 +58,17 @@ app-root {
     align-items: center;
 }
 
-/**
- * Debug
- */
-p.debug,
-pre.debug {
-    margin: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    background: rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    font-size: 16px;
-    line-height: 1.5em;
-    font-family: Courrier, monospace;
+:root,
+.color-scheme-auto {
+    color-scheme: light dark;
+}
+
+.color-scheme-light {
+    color-scheme: light;
+}
+
+.color-scheme-dark {
+    color-scheme: dark;
 }
 
 .app-component > router-outlet + * {
@@ -203,10 +84,6 @@ pre.debug {
     .mat-expansion-panel {
         background: transparent;
     }
-
-    * {
-        color: white !important;
-    }
 }
 
 .nat-gap-50 {
@@ -215,4 +92,16 @@ pre.debug {
 
 [class^='app-'] .mat-headline-4 {
     margin-bottom: 30px !important;
+}
+
+p.debug,
+pre.debug {
+    margin: 10px;
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: var(--mat-sys-corner-small);
+    background: var(--mat-sys-surface-container);
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.5em;
+    font-family: Courrier, monospace;
 }

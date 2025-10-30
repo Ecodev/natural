@@ -31,7 +31,7 @@ export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
     /**
      * Width of the minimized menu
      */
-    public readonly minimizedWidth = input(150);
+    public readonly minimizedWidth = input(125);
 
     /**
      * If true, prevents "native" material sidenav to scroll at container level and delegates the scroll responsability to the transcluded

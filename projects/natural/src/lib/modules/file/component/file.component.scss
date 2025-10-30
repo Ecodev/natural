@@ -9,6 +9,7 @@
         flex: 1;
         background-position: center;
         background-repeat: no-repeat;
+        background-color: var(--mat-sys-surface-container-lowest);
 
         &.has-action {
             cursor: pointer;
@@ -42,8 +43,15 @@
         text-align: center;
     }
 
+    .file-preview {
+        background-color: var(--mat-sys-primary-container);
+        color: var(--mat-sys-on-primary-container);
+    }
+
     .action-overlay {
         opacity: 0;
+        background-color: var(--mat-sys-tertiary-container);
+        color: var(--mat-sys-on-tertiary-container);
 
         & > div {
             display: flex;

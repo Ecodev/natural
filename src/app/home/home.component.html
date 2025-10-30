@@ -1,5 +1,5 @@
-<div class="nat-expand nat-vertical">
-    <mat-toolbar class="nat-horizontal nat-left nat-center nat-gap">
+<div [class]="`nat-expand nat-vertical`">
+    <mat-toolbar [class]="`nat-horizontal nat-left nat-center nat-gap`">
         @if (menu) {
             <button mat-icon-button (click)="menu.toggle()">
                 <mat-icon naturalIcon="menu" />
@@ -7,152 +7,173 @@
         }
 
         <a class="logo" href="/" mat-button>
-            <img height="40px" src="assets/logo.svg" />
-            <span class="mat-headline-6">&#64;ecodev/natural</span>
+            <span class="nat-horizontal nat-align">
+                <img height="40px" src="assets/logo.svg" />
+                <span class="mat-headline-6">&#64;ecodev/natural</span>
+            </span>
         </a>
 
         <div class="nat-expand"></div>
 
-        <button mat-icon-button (click)="themeService.toggle()">
-            <mat-icon naturalIcon="invert_colors" />
-        </button>
+        <div class="nat-horizontal nat-gap-10 color-scheme-wrapper">
+            <button
+                matIconButton
+                matTooltip="Switch to auto mode"
+                matTooltipPosition="below"
+                (click)="themeService.setColorScheme(ColorScheme.Auto)"
+            >
+                <mat-icon naturalIcon="routine" />
+            </button>
+            <button
+                matIconButton
+                matTooltip="Switch to light mode"
+                matTooltipPosition="below"
+                (click)="themeService.setColorScheme(ColorScheme.Light)"
+            >
+                <mat-icon naturalIcon="light_mode" />
+            </button>
+            <button
+                matIconButton
+                matTooltip="Switch to dark mode"
+                matTooltipPosition="below"
+                (click)="themeService.setColorScheme(ColorScheme.Dark)"
+            >
+                <mat-icon naturalIcon="dark_mode" />
+            </button>
+        </div>
+
+        @let oppositeTheme = themeService.theme() === 'natural-theme' ? 'alternative-theme' : 'natural-theme';
+        <div [class]="`theme-choice ${oppositeTheme}`">
+            <button matIconButton (click)="themeService.setTheme(oppositeTheme)">
+                <mat-icon naturalIcon="invert_colors" />
+            </button>
+        </div>
 
         <a href="https://github.com/ecodev/natural" mat-icon-button>
-            <img src="assets/github.svg" style="height: 24px" />
+            <mat-icon naturalIcon="github" />
         </a>
     </mat-toolbar>
 
     <div class="nat-expand nat-vertical">
         <natural-sidenav-container #menu class="nat-expand" name="menu" [noScroll]="true">
             <natural-sidenav>
-                <div style="overflow-x: auto; margin: 20px">
-                    <div id="menu">
-                        <mat-accordion displayMode="flat">
-                            <mat-expansion-panel class="mat-elevation-z0" [disabled]="true" [expanded]="true">
-                                <mat-nav-list>
-                                    <a mat-list-item routerLink="/">
-                                        <mat-icon matListItemIcon naturalIcon="home" />
-                                        <span>Home</span>
-                                    </a>
+                <mat-nav-list role="navigation">
+                    <a mat-list-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <mat-icon matListItemIcon naturalIcon="home" />
+                        <span>Home</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/search">
-                                        <mat-icon matListItemIcon naturalIcon="search" />
-                                        <span>Search</span>
-                                    </a>
+                    <a mat-list-item routerLink="/theme-merger" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="graph_1" />
+                        <span>Theme merger</span>
+                    </a>
 
-                                    <a mat-list-item [routerLink]="['/list', {dog: 'qwer'}]">
-                                        <mat-icon matListItemIcon naturalIcon="list" />
-                                        <span>List A</span>
-                                    </a>
+                    <a mat-list-item routerLink="/search" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="search" />
+                        <span>Search</span>
+                    </a>
 
-                                    <a
-                                        mat-list-item
-                                        [routerLink]="['/nested/anyValue', {cat: 'cat'}, 'list', {dog: 'dog'}]"
-                                    >
-                                        <mat-icon matListItemIcon naturalIcon="list" />
-                                        <span>List B</span>
-                                    </a>
+                    <a mat-list-item routerLinkActive="active" [routerLink]="['/list', {dog: 'qwer'}]">
+                        <mat-icon matListItemIcon naturalIcon="list" />
+                        <span>List A</span>
+                    </a>
 
-                                    <a mat-list-item [routerLink]="['/editable-list']">
-                                        <mat-icon matListItemIcon naturalIcon="list" />
-                                        <span>Editable list</span>
-                                    </a>
+                    <a
+                        mat-list-item
+                        routerLinkActive="active"
+                        [routerLink]="['/nested/anyValue', {cat: 'cat'}, 'list', {dog: 'dog'}]"
+                    >
+                        <mat-icon matListItemIcon naturalIcon="list" />
+                        <span>List B</span>
+                    </a>
 
-                                    <a mat-list-item [routerLink]="['/table-style']">
-                                        <mat-icon matListItemIcon naturalIcon="list" />
-                                        <span>Table style</span>
-                                    </a>
+                    <a mat-list-item routerLinkActive="active" [routerLink]="['/editable-list']">
+                        <mat-icon matListItemIcon naturalIcon="list" />
+                        <span>Editable list</span>
+                    </a>
 
-                                    <a mat-list-item [routerLink]="['/navigable-list']">
-                                        <mat-icon matListItemIcon naturalIcon="subdirectory_arrow_right" />
-                                        <span>Navigable list</span>
-                                    </a>
+                    <a mat-list-item routerLinkActive="active" [routerLink]="['/table-style']">
+                        <mat-icon matListItemIcon naturalIcon="list" />
+                        <span>Table style</span>
+                    </a>
 
-                                    <a mat-list-item [routerLink]="['/detail/123']">
-                                        <mat-icon matListItemIcon naturalIcon="details" />
-                                        <span>Detail</span>
-                                    </a>
+                    <a mat-list-item routerLinkActive="active" [routerLink]="['/navigable-list']">
+                        <mat-icon matListItemIcon naturalIcon="subdirectory_arrow_right" />
+                        <span>Navigable list</span>
+                    </a>
 
-                                    <a mat-list-item [routerLink]="['/detail-header']">
-                                        <mat-icon matListItemIcon naturalIcon="title" />
-                                        <span>Detail header</span>
-                                    </a>
+                    <a mat-list-item routerLinkActive="active" [routerLink]="['/detail/123']">
+                        <mat-icon matListItemIcon naturalIcon="details" />
+                        <span>Detail</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/select">
-                                        <mat-icon matListItemIcon naturalIcon="check" />
-                                        <span>Select</span>
-                                    </a>
+                    <a mat-list-item routerLinkActive="active" [routerLink]="['/detail-header']">
+                        <mat-icon matListItemIcon naturalIcon="title" />
+                        <span>Detail header</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/select-hierarchic">
-                                        <mat-icon matListItemIcon naturalIcon="check" />
-                                        <span>Select hierarchic</span>
-                                    </a>
+                    <a mat-list-item routerLink="/select" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="check" />
+                        <span>Select</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/select-enum">
-                                        <mat-icon matListItemIcon naturalIcon="check" />
-                                        <span>Select Enum</span>
-                                    </a>
+                    <a mat-list-item routerLink="/select-hierarchic" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="check" />
+                        <span>Select hierarchic</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/relation">
-                                        <mat-icon matListItemIcon naturalIcon="device_hub" />
-                                        <span>Relation</span>
-                                    </a>
+                    <a mat-list-item routerLink="/select-enum" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="check" />
+                        <span>Select Enum</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/hierarchic">
-                                        <mat-icon matListItemIcon naturalIcon="account_tree" />
-                                        <span>Hierarchic</span>
-                                    </a>
+                    <a mat-list-item routerLink="/relation" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="device_hub" />
+                        <span>Relation</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/panels">
-                                        <mat-icon matListItemIcon naturalIcon="filter_none" />
-                                        <span>Panels</span>
-                                    </a>
+                    <a mat-list-item routerLink="/hierarchic" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="account_tree" />
+                        <span>Hierarchic</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/file">
-                                        <mat-icon matListItemIcon naturalIcon="file_upload" />
-                                        <span>File</span>
-                                    </a>
+                    <a mat-list-item routerLink="/panels" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="filter_none" />
+                        <span>Panels</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/alert-service">
-                                        <mat-icon matListItemIcon naturalIcon="error" />
-                                        <span>Alert service</span>
-                                    </a>
+                    <a mat-list-item routerLink="/file" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="file_upload" />
+                        <span>File</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/avatar">
-                                        <mat-icon matListItemIcon naturalIcon="face" />
-                                        <span>Avatar</span>
-                                    </a>
+                    <a mat-list-item routerLink="/alert-service" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="error" />
+                        <span>Alert service</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/editor">
-                                        <mat-icon matListItemIcon naturalIcon="format_size" />
-                                        <span>Editor</span>
-                                    </a>
+                    <a mat-list-item routerLink="/avatar" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="face" />
+                        <span>Avatar</span>
+                    </a>
 
-                                    <a mat-list-item routerLink="/other">
-                                        <mat-icon matListItemIcon naturalIcon="build" />
-                                        <span>Other tools</span>
-                                    </a>
+                    <a mat-list-item routerLink="/editor" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="format_size" />
+                        <span>Editor</span>
+                    </a>
 
-                                    @if (!menu.isMobileView) {
-                                        <a mat-list-item (click)="menu.toggleMinimized()">
-                                            <mat-icon
-                                                matListItemIcon
-                                                [naturalIcon]="
-                                                    menu.isMinimized ? 'keyboard_arrow_right' : 'keyboard_arrow_left'
-                                                "
-                                            />
-                                        </a>
-                                    }
-                                </mat-nav-list>
-                            </mat-expansion-panel>
-                        </mat-accordion>
-                    </div>
-                </div>
+                    <a mat-list-item routerLink="/other" routerLinkActive="active">
+                        <mat-icon matListItemIcon naturalIcon="build" />
+                        <span>Other tools</span>
+                    </a>
+                </mat-nav-list>
             </natural-sidenav>
 
             <natural-sidenav-content>
-                <div class="nat-expand nat-vertical" style="padding: 20px; overflow: auto">
-                    <router-outlet />
+                <div class="body-wrapper">
+                    <div class="body">
+                        <router-outlet />
+                    </div>
                 </div>
             </natural-sidenav-content>
         </natural-sidenav-container>

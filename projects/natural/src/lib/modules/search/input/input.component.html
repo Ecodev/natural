@@ -1,5 +1,10 @@
 <!-- click condition should match to allow click action only when no other button is visible -->
-<mat-form-field matRipple (click)="!selection && !(facet && !selection) ? openDropdown() : null">
+<mat-form-field
+    matRipple
+    subscriptSizing="dynamic"
+    i18n-subscriptSizing
+    (click)="!selection && !(facet && !selection) ? openDropdown() : null"
+>
     @if (facet) {
         <mat-label>{{ facet.display }}</mat-label>
     }

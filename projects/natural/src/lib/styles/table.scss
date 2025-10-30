@@ -1,0 +1,100 @@
+@use '@angular/material' as mat;
+
+.responsive-table {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+:root {
+    @include mat.table-overrides(
+        (
+            background-color: var(--mat-sys-surface-container-low),
+        )
+    );
+
+    .mat-mdc-header-row,
+    .mat-mdc-footer-row {
+        background: var(--mat-sys-surface-container-high);
+    }
+
+    @include mat.paginator-overrides(
+        (
+            container-background-color: var(--mat-sys-surface-container-high),
+        )
+    );
+}
+
+[mat-table] {
+    width: 100%;
+    max-width: 100%;
+
+    [mat-cell] {
+        justify-content: center;
+    }
+
+    .mat-mdc-cell,
+    .mat-mdc-header-cell,
+    .mat-mdc-footer-cell {
+        &:first-child {
+            padding-right: 5px;
+        }
+
+        &:last-child {
+            padding-left: 5px;
+        }
+
+        &:not(:first-child):not(:last-child) {
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+
+        &.natural-align-right {
+            text-align: right;
+        }
+
+        &.natural-align-center {
+            text-align: center;
+
+            .mat-sort-header-container {
+                justify-content: center;
+            }
+        }
+    }
+
+    [mat-row].selected {
+        // todo : remove ? when is it used ?
+        //background: mat.m2-get-color-from-palette($background, selected-button);
+    }
+
+    .mat-mdc-footer-cell {
+        font-weight: bold;
+    }
+
+    .natural-1em-column {
+        width: 1em;
+    }
+
+    .natural-2em-column {
+        width: 2em;
+    }
+
+    .natural-3em-column {
+        width: 3em;
+    }
+
+    .natural-4em-column {
+        width: 4em;
+    }
+
+    .natural-5em-column {
+        width: 5em;
+    }
+
+    .natural-6em-column {
+        width: 6em;
+    }
+
+    .natural-7em-column {
+        width: 7em;
+    }
+}

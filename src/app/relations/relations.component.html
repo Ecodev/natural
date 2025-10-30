@@ -4,9 +4,9 @@
 </div>
 
 @if (isUpdatePage()) {
-    <div class="nat-horizontal" [formGroup]="form">
-        <div>
-            <div class="mat-headline-6">Hierarchic selector</div>
+    <div class="nat-horizontal nat-gap-10" [formGroup]="form">
+        <div class="item">
+            <h2 class="mat-headline-1">Hierarchic selector</h2>
             <natural-relations
                 placeholder="Link"
                 [hierarchicSelectorConfig]="hierarchicConfig"
@@ -15,8 +15,8 @@
                 (selectionChange)="relationsAdded('Hierarchic selector')"
             />
         </div>
-        <div>
-            <div class="mat-headline-6">Service</div>
+        <div class="item">
+            <h2 class="mat-headline-6">Service</h2>
             <natural-relations
                 placeholder="Link"
                 [main]="data.model"
@@ -24,8 +24,8 @@
                 (selectionChange)="relationsAdded('Service')"
             />
         </div>
-        <div>
-            <div class="mat-headline-6">No result service</div>
+        <div class="item">
+            <h2>No result service</h2>
             <natural-relations
                 placeholder="Link"
                 [main]="data.model"
@@ -33,8 +33,8 @@
                 (selectionChange)="relationsAdded('NoResultService')"
             />
         </div>
-        <div>
-            <div class="mat-headline-6">ErrorService</div>
+        <div class="item">
+            <h2>ErrorService</h2>
             <natural-relations
                 placeholder="Link"
                 [main]="data.model"

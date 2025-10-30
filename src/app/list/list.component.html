@@ -25,6 +25,7 @@
                 <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sorting([$event])">
                     <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
                     <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
+                    <tr *matFooterRowDef="columnsForTable" mat-footer-row></tr>
 
                     <ng-container matColumnDef="select">
                         <th *matHeaderCellDef mat-header-cell class="natural-3em-column">
@@ -41,11 +42,13 @@
                                 (click)="$event.stopPropagation()"
                             />
                         </td>
+                        <td *matFooterCellDef mat-footer-cell>/</td>
                     </ng-container>
 
                     <ng-container matColumnDef="id">
                         <th *matHeaderCellDef mat-header-cell class="natural-3em-column">id</th>
                         <td *matCellDef="let element" mat-cell>{{ element.id }}</td>
+                        <td *matFooterCellDef mat-footer-cell>/</td>
                     </ng-container>
 
                     <ng-container matColumnDef="name">
@@ -53,6 +56,7 @@
                         <td *matCellDef="let element" mat-cell>
                             <natural-table-button icon="add" [label]="element.name" [navigate]="['.']" />
                         </td>
+                        <td *matFooterCellDef mat-footer-cell>/</td>
                     </ng-container>
 
                     <ng-container matColumnDef="description">
@@ -67,6 +71,7 @@
                         <td *matCellDef="let element" mat-cell class="natural-align-right">{{
                             element.description
                         }}</td>
+                        <td *matFooterCellDef mat-footer-cell>/</td>
                     </ng-container>
 
                     <ng-container matColumnDef="hidden">
@@ -81,6 +86,7 @@
                         <td *matCellDef="let element" mat-cell class="natural-align-right"
                             >visible but hidden in dropdown</td
                         >
+                        <td *matFooterCellDef mat-footer-cell>/</td>
                     </ng-container>
 
                     <ng-container matColumnDef="not-in-picker">
@@ -95,6 +101,7 @@
                         <td *matCellDef="let element" mat-cell class="natural-align-right"
                             >should never be visible, even if solicited by url
                         </td>
+                        <td *matFooterCellDef mat-footer-cell>/</td>
                     </ng-container>
                 </table>
             </div>

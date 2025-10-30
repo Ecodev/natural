@@ -15,6 +15,10 @@ import {
     MatCell,
     MatHeaderRow,
     MatRow,
+    MatFooterCell,
+    MatFooterRow,
+    MatFooterCellDef,
+    MatFooterRowDef,
 } from '@angular/material/table';
 import {AvailableColumn, Button, NaturalAbstractList, Sorting, SortingOrder} from '@ecodev/natural';
 import {NaturalColumnsPickerComponent} from '../../../projects/natural/src/lib/modules/columns-picker/columns-picker.component';
@@ -31,12 +35,16 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
         MatTable,
         MatHeaderCellDef,
         MatHeaderRowDef,
+        MatFooterCellDef,
+        MatFooterRowDef,
         MatColumnDef,
         MatCellDef,
         MatRowDef,
         MatHeaderCell,
+        MatFooterCell,
         MatCell,
         MatHeaderRow,
+        MatFooterRow,
         MatRow,
         MatSort,
         MatSortHeader,
