@@ -17,7 +17,7 @@
 /* prettier-ignore */
 :host,
 :root,
-.natural-theme {
+[data-theme="natural"] {
     @include mat.theme-overrides(
         (
             primary: light-dark(#005AB5, #AAC7FF),

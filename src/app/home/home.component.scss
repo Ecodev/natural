@@ -5,9 +5,7 @@
     flex-direction: column;
     @include mat.sidenav-overrides(
         (
-            //container-background-color: orange,
-            //container-text-color: red,
-            container-width: auto
+            container-width: auto,
         )
     );
 }
@@ -24,12 +22,6 @@
     );
 }
 
-.color-scheme-wrapper {
-    border-radius: 999px;
-    background: var(--mat-sys-surface-bright);
-    padding: 5px;
-}
-
 mat-toolbar {
     @include mat.toolbar-overrides(
         (
@@ -38,9 +30,8 @@ mat-toolbar {
     );
 }
 
-.body {
-    margin: 10px;
-    border-radius: var(--mat-sys-corner-large);
+natural-sidenav-content {
+    border-top-left-radius: var(--mat-sys-corner-large);
     background-color: var(--mat-sys-surface-bright);
     padding: 20px;
     min-height: calc(100vh - 130px);
@@ -48,7 +39,7 @@ mat-toolbar {
 }
 
 mat-nav-list {
-    margin-inline: 30px;
+    margin: 0 20px;
     .active {
         @include mat.list-overrides(
             (

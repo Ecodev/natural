@@ -13,6 +13,7 @@ import {
     provideIcons,
     providePanels,
     provideSeo,
+    provideThemes,
 } from '@ecodev/natural';
 import {routes} from './app/app-routing';
 import {AppComponent} from './app/app.component';
@@ -76,6 +77,7 @@ bootstrapApplication(AppComponent, {
             defaultDescription: 'An amazing angular library',
             languages: ['fr', 'en', 'de', 'it', 'pt'],
         }),
+        provideThemes(['alternative', 'natural']),
     ],
 }).catch((err: unknown) => {
     console.error(err);

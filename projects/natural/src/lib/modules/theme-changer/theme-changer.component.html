@@ -1,0 +1,8 @@
+<button matButton="filled" i18n-matButton [matMenuTriggerFor]="menu"
+    ><mat-icon naturalIcon="colors" /> {{ themeService.theme() }}</button
+>
+<mat-menu #menu="matMenu">
+    @for (theme of allThemes; track $index) {
+        <button mat-menu-item (click)="themeService.setTheme(theme)">{{ theme }}</button>
+    }
+</mat-menu>

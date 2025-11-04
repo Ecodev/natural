@@ -16,8 +16,7 @@ OR
 
 @use '@angular/material' as mat;
 
-/* Light Theme */
-.alternative-theme {
+[data-theme='alternative'] {
     @include mat.theme-overrides(
         (
             primary: light-dark(#8b5000, #ffb870),
@@ -75,27 +74,6 @@ OR
             neutral-variant20: light-dark(#372f29, #372f29),
             inverse-secondary: light-dark(#c2c1ff, #4c4ad6),
             inverse-tertiary: light-dark(#58dea1, #006c47),
-        )
-    );
-}
-
-/* Typography */
-:root,
-:host {
-    /* core typography tokens are not generating css variables, hence below */
-    --mat-sys-brand-font-family: Roboto;
-    --mat-sys-plain-font-family: Roboto;
-    --mat-sys-bold-font-weight: 700;
-    --mat-sys-medium-font-weight: 500;
-    --mat-sys-regular-font-weight: 400;
-
-    @include mat.theme-overrides(
-        (
-            brand-family: Roboto,
-            plain-family: Roboto,
-            bold-weight: 700,
-            medium-weight: 500,
-            regular-weight: 400,
         )
     );
 }

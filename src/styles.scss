@@ -8,11 +8,6 @@
 @use '../projects/natural/src/lib/natural';
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@1');
 
-// Include components themes
-@mixin components-theme($theme) {
-    @include natural.natural($theme);
-}
-
 html {
     @include mat.theme(
         (
@@ -29,7 +24,6 @@ app-root {
     margin: 0;
     height: 100%;
     min-height: 100%;
-    font-size: 14px;
 }
 
 body {
@@ -56,19 +50,6 @@ app-root {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-}
-
-:root,
-.color-scheme-auto {
-    color-scheme: light dark;
-}
-
-.color-scheme-light {
-    color-scheme: light;
-}
-
-.color-scheme-dark {
-    color-scheme: dark;
 }
 
 .app-component > router-outlet + * {

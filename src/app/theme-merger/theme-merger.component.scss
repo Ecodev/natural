@@ -48,23 +48,18 @@ input[type='file'] {
 }
 
 .tokens-display {
-    display: grid;
-    grid-template-columns: auto 1fr 1fr;
-
     button {
         margin-bottom: 0.5rem;
     }
 
     .tokens-column {
-        margin-right: 2px;
         padding: 20px;
+        width: auto;
         color: var(--mat-sys-on-surface);
 
         &.color-column {
-            border-radius: var(--mat-sys-corner-large);
             background: var(--mat-sys-surface);
         }
-
         .token-row {
             display: flex;
             gap: 5px;

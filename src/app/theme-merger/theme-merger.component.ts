@@ -1,12 +1,12 @@
 import {CommonModule} from '@angular/common';
-import {Component, DOCUMENT, ElementRef, inject, viewChild} from '@angular/core';
+import {Component, DOCUMENT, ElementRef, inject, OnInit, viewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatFormField, MatSuffix} from '@angular/material/form-field';
 import {MatIcon} from '@angular/material/icon';
 import {MatInput, MatLabel} from '@angular/material/input';
 import {MatTooltip} from '@angular/material/tooltip';
-import {copyToClipboard, NaturalAlertService} from '@ecodev/natural';
+import {copyToClipboard, LOCAL_STORAGE, NaturalAlertService} from '@ecodev/natural';
 
 type ThemeToken = {
     name: string;
@@ -65,16 +65,44 @@ type ThemeData = {
     templateUrl: './theme-merger.component.html',
     styleUrl: './theme-merger.component.scss',
 })
-export class ThemeMergerComponent {
+export class ThemeMergerComponent implements OnInit {
     private readonly document = inject(DOCUMENT);
+    private readonly localStorage = inject(LOCAL_STORAGE);
     protected readonly alertService = inject(NaturalAlertService);
 
     protected readonly theme2Upload = viewChild<ElementRef<HTMLInputElement>>('theme2Upload');
 
     protected theme1: ThemeData | null = null;
     protected theme2: ThemeData | null = null;
-    protected themeName = 'natural-theme';
+    private _themeName = 'natural';
     protected theme1RightColumnSelectedVariations = new Set<SchemeVariation>(['dark']);
+    protected showPropertyNames = true;
+
+    private readonly THEME_NAME_STORAGE_KEY = 'theme-merger-theme-name';
+
+    protected get themeName(): string {
+        return this._themeName;
+    }
+
+    protected set themeName(value: string) {
+        this._themeName = value;
+        this.saveThemeNameToLocalStorage();
+    }
+
+    public ngOnInit(): void {
+        this.loadThemeNameFromLocalStorage();
+    }
+
+    private loadThemeNameFromLocalStorage(): void {
+        const savedThemeName = this.localStorage.getItem(this.THEME_NAME_STORAGE_KEY);
+        if (savedThemeName) {
+            this._themeName = savedThemeName;
+        }
+    }
+
+    private saveThemeNameToLocalStorage(): void {
+        this.localStorage.setItem(this.THEME_NAME_STORAGE_KEY, this._themeName);
+    }
 
     protected readonly lightVariations: SchemeVariation[] = ['light', 'light-medium-contrast', 'light-high-contrast'];
     protected readonly darkVariations: SchemeVariation[] = ['dark', 'dark-medium-contrast', 'dark-high-contrast'];
@@ -188,6 +216,12 @@ export class ThemeMergerComponent {
                     } else {
                         this.theme2 = themeData;
                     }
+
+                    // Auto-generate and copy SCSS after file upload
+                    // Use setTimeout to ensure the view is updated first
+                    setTimeout(() => {
+                        this.generateAndCopyScss(true);
+                    }, 0);
                 }
             } catch (error) {
                 console.error('Error parsing JSON file:', error);
@@ -235,7 +269,10 @@ export class ThemeMergerComponent {
         return labels[variation];
     }
 
-    protected camelToKebab(str: string): string {
+    protected camelToKebab(str: string | null): string {
+        if (!str) {
+            return '';
+        }
         return str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
     }
 
@@ -342,7 +379,7 @@ export class ThemeMergerComponent {
         return result;
     }
 
-    protected generateAndCopyScss(): void {
+    protected generateAndCopyScss(isDefault: boolean): void {
         if (!this.theme1) {
             this.alertService.error('Please upload at least Theme 1.');
             return;
@@ -528,10 +565,11 @@ export class ThemeMergerComponent {
             })
             .join('\n');
 
+        const defaultSelector = isDefault ? ':root, :host,' : '';
         const scss = `${comment}@use '@angular/material' as mat;
-
 /* prettier-ignore */
-.${this.themeName.trim()} {
+${defaultSelector}
+[data-theme="${this.themeName.trim()}"] {
     @include mat.theme-overrides((
     ${propertiesString}
     ));

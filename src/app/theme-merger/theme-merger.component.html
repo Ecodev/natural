@@ -2,16 +2,28 @@
 <input #theme1Upload type="file" accept=".json" id="theme1-upload" (change)="onFileSelected($event, 1)" />
 <input #theme2Upload type="file" accept=".json" id="theme2-upload" (change)="onFileSelected($event, 2)" />
 
-<div class="nat-horizontal">
-    <h1 class="mat-headline-4 nat-expand">Material Design 3 Theme Merger</h1>
+<div class="nat-horizontal nat-align">
+    <h1 class="mat-headline-4 nat-expand">MD3 Theme Merger</h1>
+
     @if (theme1) {
-        <mat-form-field>
+        <button
+            matIconButton
+            [attr.aria-label]="showPropertyNames ? 'Hide property names' : 'Show property names'"
+            [matTooltip]="showPropertyNames ? 'Hide property names' : 'Show property names'"
+            (click)="showPropertyNames = !showPropertyNames"
+        >
+            <mat-icon>{{ showPropertyNames ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-form-field subscriptSizing="dynamic" style="width: 150px">
             <mat-label>Export</mat-label>
             <input matInput type="text" placeholder="natural-theme" [(ngModel)]="themeName" />
-            <button matIconButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss()">
-                <mat-icon>upload</mat-icon>
-            </button>
         </mat-form-field>
+        <button matButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss(true)">
+            <mat-icon>content_copy</mat-icon>As default
+        </button>
+        <button matButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss(false)">
+            <mat-icon>content_copy</mat-icon>As alternative
+        </button>
     }
 </div>
 
@@ -20,15 +32,17 @@
         <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()">Theme 1</button>
     </div>
 } @else {
-    <div class="tokens-display">
-        <div class="tokens-column">
-            <div class="column-header">&nbsp;</div>
-            @for (tokenName of getTokenNames(theme1); track $index) {
-                <div class="token-row token-name">{{ tokenName ? camelToKebab(tokenName) : '' }}</div>
-            }
-        </div>
+    <div class="tokens-display nat-horizontal">
+        @if (showPropertyNames) {
+            <div class="tokens-column">
+                <div class="column-header"></div>
+                @for (tokenName of getTokenNames(theme1); track $index) {
+                    <div class="token-row token-name">{{ camelToKebab(tokenName) }}</div>
+                }
+            </div>
+        }
 
-        <div class="tokens-column color-column color-scheme-light">
+        <div class="tokens-column color-column color-scheme-light nat-expand">
             <div class="column-header">
                 <h2 class="mat-headline-1 nat-no-margin-top">Theme 1 - Light</h2>
                 <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()"
@@ -62,7 +76,7 @@
             }
         </div>
 
-        <div class="tokens-column color-column color-scheme-dark">
+        <div class="tokens-column color-column color-scheme-dark nat-expand">
             <div class="column-header">
                 <h2 class="mat-headline-1 nat-no-margin-top">{{ theme2 ? 'Theme 2' : 'Theme 1' }} - Dark</h2>
                 <div class="nat-horizontal nat-gap-5">

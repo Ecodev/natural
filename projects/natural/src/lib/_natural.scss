@@ -5,6 +5,29 @@
 @use 'modules/sidenav/sidenav.scss';
 @use 'modules/alert/alert.scss';
 
+:root,
+[data-color-scheme='auto'] {
+    color-scheme: light dark;
+}
+
+.color-scheme-light,
+[data-color-scheme='light'] {
+    color-scheme: light;
+}
+
+.color-scheme-dark,
+[data-color-scheme='dark'] {
+    color-scheme: dark;
+}
+
+[data-is-dark='false'] .nat-for-dark {
+    display: none;
+}
+
+[data-is-dark='true'] .nat-for-light {
+    display: none;
+}
+
 /**
  * Global css
  */
@@ -12,10 +35,173 @@
     white-space: nowrap;
 }
 
-.natural-elevation {
-    box-shadow:
-        inset 0 1px rgba(255, 255, 255, 0.3),
-        0 2px 1px -1px rgba(0, 0, 0, 0.2),
-        0 1px 1px 0 rgba(0, 0, 0, 0.14),
-        0 1px 3px 0 rgba(0, 0, 0, 0.12);
+body {
+    --nat-elevation: inset 0 1px rgba(255, 255, 255, 0.3), var(--mat-sys-level1);
+    --nat-gradient-primary: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--mat-sys-primary-container) 95%, white),
+        color-mix(in srgb, var(--mat-sys-primary-container) 90%, black)
+    );
+
+    --nat-gradient-secondary: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--mat-sys-secondary-container) 95%, white),
+        color-mix(in srgb, var(--mat-sys-secondary-container) 90%, black)
+    );
+
+    --nat-gradient-tertiary: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--mat-sys-tertiary-container) 95%, white),
+        color-mix(in srgb, var(--mat-sys-tertiary-container) 90%, black)
+    );
+
+    --nat-gradient-error: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--mat-sys-error) 95%, white),
+        color-mix(in srgb, var(--mat-sys-error) 90%, black)
+    );
+
+    --nat-good: rgb(0, 175, 0, 1);
+    --nat-on-good: white;
+    --nat-gradient-good: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--nat-good) 95%, white),
+        color-mix(in srgb, var(--nat-good) 90%, black)
+    );
+
+    --nat-gradient-inverse-surface: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--mat-sys-inverse-surface) 95%, white),
+        color-mix(in srgb, var(--mat-sys-inverse-surface) 90%, black)
+    );
+
+    --nat-bad: rgb(200, 11, 11);
+    --nat-on-bad: white;
+    --nat-gradient-bad: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--nat-bad) 60%, white),
+        color-mix(in srgb, var(--nat-bad) 90%, black)
+    );
+}
+
+.nat-elevation {
+    box-shadow: var(--nat-elevation);
+}
+
+.nat-frame {
+    padding: 6px;
+
+    &-rounded {
+        border-radius: var(--mat-sys-corner-small);
+    }
+
+    &-neutral1 {
+        background-color: var(--mat-sys-neutral10);
+
+        color: var(--mat-sys-on-surface);
+    }
+
+    &-neutral2 {
+        background-color: var(--mat-sys-neutral-variant20);
+        color: var(--mat-sys-on-surface);
+    }
+
+    &-primary {
+        background-color: var(--mat-sys-primary-container);
+        color: var(--mat-sys-on-primary-container);
+    }
+
+    &-secondary {
+        background-color: var(--mat-sys-secondary-container);
+        color: var(--mat-sys-on-secondary-container);
+    }
+
+    &-tertiary {
+        background-color: var(--mat-sys-tertiary-container);
+        color: var(--mat-sys-on-tertiary-container);
+    }
+
+    &-error {
+        background-color: var(--mat-sys-error);
+        color: var(--mat-sys-on-error);
+    }
+}
+
+.nat-text {
+    &-primary {
+        color: var(--mat-sys-primary);
+    }
+
+    &-accent {
+        color: var(--mat-sys-tertiary);
+    }
+
+    &-error {
+        color: var(--mat-sys-error);
+    }
+}
+
+.mdc-fab {
+    &.nat-rounded {
+        @include mat.fab-overrides(
+            (
+                container-shape: var(--mat-sys-corner-full),
+                extended-container-shape: var(--mat-sys-corner-full),
+                small-container-shape: var(--mat-sys-corner-full),
+            )
+        );
+    }
+
+    &.nat-flat {
+        @include mat.fab-overrides(
+            (
+                container-elevation-shadow: 0,
+                focus-container-elevation-shadow: 0,
+                hover-container-elevation-shadow: 0,
+                extended-container-elevation-shadow: 0,
+                extended-focus-container-elevation-shadow: 0,
+                extended-hover-container-elevation-shadow: 0,
+                small-container-elevation-shadow: 0,
+                small-focus-container-elevation-shadow: 0,
+                small-hover-container-elevation-shadow: 0,
+            )
+        );
+    }
+}
+
+.nat-gradient {
+    &-primary {
+        background: var(--nat-gradient-primary) !important;
+        color: var(--mat-sys-on-primary-container) !important;
+    }
+
+    &-secondary {
+        background: var(--nat-gradient-secondary) !important;
+        color: var(--mat-sys-on-secondary-container) !important;
+    }
+
+    &-tertiary {
+        background: var(--nat-gradient-tertiary) !important;
+        color: var(--mat-sys-on-tertiary-container) !important;
+    }
+
+    &-error {
+        background: var(--nat-gradient-error) !important;
+        color: var(--mat-sys-on-error) !important;
+    }
+
+    &-good {
+        background: var(--nat-gradient-good) !important;
+        color: var(--nat-on-good) !important;
+    }
+
+    &-bad {
+        background: var(--nat-gradient-bad) !important;
+        color: var(--nat-on-bad) !important;
+    }
+
+    &-inverse-surface {
+        background: var(--nat-gradient-inverse-surface) !important;
+        color: var(--mat-sys-inverse-on-surface) !important;
+    }
 }

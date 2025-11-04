@@ -6,7 +6,7 @@
     "sideEffects": false,
     "exports": {
         ".": {
-            "sass": "./theming/_natural.scss"
+            "sass": "./src/lib/_natural.scss"
         }
     },
     "dependencies": {
