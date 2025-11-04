@@ -7,6 +7,7 @@ import {
     HierarchicDialogConfig,
     NaturalHierarchicConfiguration,
     NaturalHierarchicSelectorDialogService,
+    type NodeConfig,
     OrganizedModelSelection,
 } from '../../hierarchic-selector/public-api';
 import {AbstractSelect} from '../abstract-select.component';
@@ -67,7 +68,7 @@ function defaultDisplayFn(item: Literal | null): string {
     templateUrl: './select-hierarchic.component.html',
     styleUrl: './select-hierarchic.component.scss',
 })
-export class NaturalSelectHierarchicComponent
+export class NaturalSelectHierarchicComponent<Nodes extends NodeConfig[]>
     extends AbstractSelect<Literal, string>
     implements OnInit, ControlValueAccessor
 {
@@ -83,7 +84,7 @@ export class NaturalSelectHierarchicComponent
      *
      * It should be an array with at least one element with `selectableAtKey` configured, otherwise the selector will never open.
      */
-    @Input() public config: NaturalHierarchicConfiguration[] | null = null;
+    @Input() public config: NaturalHierarchicConfiguration<Nodes> | null = null;
 
     /**
      * Filters formatted for hierarchic selector
@@ -147,7 +148,7 @@ export class NaturalSelectHierarchicComponent
             selected[selectAtKey] = [this.value];
         }
 
-        const hierarchicConfig: HierarchicDialogConfig = {
+        const hierarchicConfig: HierarchicDialogConfig<Nodes> = {
             hierarchicConfig: this.config,
             hierarchicSelection: selected,
             hierarchicFilters: this.filters(),
@@ -178,6 +179,6 @@ export class NaturalSelectHierarchicComponent
     }
 
     private getSelectKey(): string | undefined {
-        return this.config?.find(c => !!c.selectableAtKey)?.selectableAtKey;
+        return this.config?.nodes.find(node => !!node.selectableAtKey)?.selectableAtKey;
     }
 }
