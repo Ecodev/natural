@@ -30,6 +30,7 @@ const basicAllowedAttributes = [
     'stroke',
     'stroke-width',
     'style',
+    'subscriptSizing',
     'svgIcon',
     'tabindex',
     'target',

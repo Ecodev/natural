@@ -1,6 +1,6 @@
 <form [formGroup]="form">
     @if (configuration.operators) {
-        <mat-form-field style="max-width: 7em; margin-right: 1em" subscriptSizing="dynamic" i18n-subscriptSizing>
+        <mat-form-field style="max-width: 7em; margin-right: 1em" subscriptSizing="dynamic">
             <mat-label i18n="Mathematical operator < > =">Opérateur</mat-label>
             <mat-select panelWidth="" [formControl]="operatorCtrl" [required]="true">
                 @for (item of operators; track item) {
