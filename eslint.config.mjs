@@ -20,6 +20,7 @@ const basicAllowedAttributes = [
     'id',
     'lang',
     'list',
+    'matButton',
     'name',
     'ngClass',
     'ngProjectAs',
