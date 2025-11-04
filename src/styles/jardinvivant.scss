@@ -1,0 +1,73 @@
+/*
+ * Theme 1 (light-medium-contrast + dark-medium-contrast):
+ *   Seed: #208962
+ *   Core Colors:
+ *     Primary: #208962
+ *     Tertiary: #FF960B
+ *
+ * Theme 1 Builder Link:
+ *   http://material-foundation.github.io/material-theme-builder/?primary=208962&tertiary=FF960B
+ */
+
+@use '@angular/material' as mat;
+/* prettier-ignore */
+
+[data-theme="jardinvivant"] {
+    @include mat.theme-overrides((
+            primary: light-dark(#003F2A, #8FF0C1),
+            primary-container: light-dark(#067D57, #3FA279),
+            primary-fixed: light-dark(#067D57, #95F6C7),
+            primary-fixed-dim: light-dark(#006143, #79D9AC),
+            on-primary: light-dark(#FFFFFF, #002C1C),
+            on-primary-container: light-dark(#FFFFFF, #000000),
+            on-primary-fixed: light-dark(#FFFFFF, #00150B),
+            on-primary-fixed-variant: light-dark(#FFFFFF, #003F2A),
+            inverse-primary: light-dark(#79D9AC, #005338),
+
+            secondary: light-dark(#1A3C2D, #BFE5CF),
+            secondary-container: light-dark(#517562, #759985),
+            secondary-fixed: light-dark(#517562, #C5EBD5),
+            secondary-fixed-dim: light-dark(#395C4B, #A9CFBA),
+            on-secondary: light-dark(#FFFFFF, #072B1D),
+            on-secondary-container: light-dark(#FFFFFF, #000000),
+            on-secondary-fixed: light-dark(#FFFFFF, #00150B),
+            on-secondary-fixed-variant: light-dark(#FFFFFF, #1A3C2D),
+
+            tertiary: light-dark(#532D00, #FFD4B0),
+            tertiary-container: light-dark(#A15C00, #FF960B),
+            tertiary-fixed: light-dark(#A15C00, #FFDCBF),
+            tertiary-fixed-dim: light-dark(#7E4700, #FFB874),
+            on-tertiary: light-dark(#FFFFFF, #3B1F00),
+            on-tertiary-container: light-dark(#FFFFFF, #3A1E00),
+            on-tertiary-fixed: light-dark(#FFFFFF, #1E0D00),
+            on-tertiary-fixed-variant: light-dark(#FFFFFF, #532D00),
+
+            error: light-dark(#740100, #FFD2CB),
+            error-container: light-dark(#DC0100, #FF5540),
+            on-error: light-dark(#FFFFFF, #540000),
+            on-error-container: light-dark(#FFFFFF, #000000),
+
+            surface: light-dark(#F6FBF5, #0F1512),
+            surface-variant: light-dark(#D9E6DC, #3E4943),
+            on-surface: light-dark(#0D120F, #FFFFFF),
+            on-surface-variant: light-dark(#2E3932, #D3DFD6),
+            surface-dim: light-dark(#C3C8C3, #0F1512),
+            surface-bright: light-dark(#F6FBF5, #404642),
+            surface-container-lowest: light-dark(#FFFFFF, #040806),
+            surface-container-low: light-dark(#F0F5EF, #1A1F1C),
+            surface-container: light-dark(#E5E9E4, #242926),
+            surface-container-high: light-dark(#D9DED9, #2F3430),
+            surface-container-highest: light-dark(#CED3CE, #3A3F3B),
+            surface-tint: light-dark(#006C4A, #79D9AC),
+            inverse-surface: light-dark(#2C322E, #DFE4DE),
+            inverse-on-surface: light-dark(#EDF2EC, #262B28),
+
+            background: light-dark(#F6FBF5, #0F1512),
+            on-background: light-dark(#181D1A, #DFE4DE),
+
+            outline: light-dark(#4A554E, #A9B5AC),
+            outline-variant: light-dark(#647068, #87938B),
+            shadow: light-dark(#000000, #000000),
+            scrim: light-dark(#000000, #000000)
+    ));
+}
