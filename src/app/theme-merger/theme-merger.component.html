@@ -3,9 +3,36 @@
 <input #theme2Upload type="file" accept=".json" id="theme2-upload" (change)="onFileSelected($event, 2)" />
 
 <div class="nat-horizontal nat-align">
-    <h1 class="mat-headline-4 nat-expand">MD3 Theme Merger</h1>
+    <mat-form-field subscriptSizing="dynamic" style="width: 100px; margin-right: 5px">
+        <mat-label>Primary</mat-label>
+        <input matInput type="text" [(ngModel)]="primary" />
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic" style="width: 100px">
+        <mat-label>Tertiary</mat-label>
+        <input matInput type="text" [(ngModel)]="tertiary" />
+    </mat-form-field>
+    <button matIconButton matSuffix [attr.aria-label]="'Copy theme builder link'" (click)="copyBuilderLink()">
+        <mat-icon>link</mat-icon>
+    </button>
 
     @if (theme1) {
+        <div class="nat-expand" style="text-align: center">
+            <mat-icon>arrow_right_alt</mat-icon>
+        </div>
+
+        <mat-form-field subscriptSizing="dynamic" style="width: 150px">
+            <mat-label>Export</mat-label>
+            <input matInput type="text" placeholder="natural-theme" [(ngModel)]="themeName" />
+        </mat-form-field>
+        <button matButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss(true)">
+            <mat-icon>content_copy</mat-icon>
+            Default
+        </button>
+        <button matButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss(false)">
+            <mat-icon>content_copy</mat-icon>
+            Alternative
+        </button>
+
         <button
             matIconButton
             [attr.aria-label]="showPropertyNames ? 'Hide property names' : 'Show property names'"
@@ -14,24 +41,18 @@
         >
             <mat-icon>{{ showPropertyNames ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
-        <mat-form-field subscriptSizing="dynamic" style="width: 150px">
-            <mat-label>Export</mat-label>
-            <input matInput type="text" placeholder="natural-theme" [(ngModel)]="themeName" />
-        </mat-form-field>
-        <button matButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss(true)">
-            <mat-icon>content_copy</mat-icon>As default
-        </button>
-        <button matButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss(false)">
-            <mat-icon>content_copy</mat-icon>As alternative
-        </button>
+    } @else {
+        <div class="upload">
+            <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()">
+                <mat-icon>upload</mat-icon>
+                Pick theme
+            </button>
+        </div>
     }
 </div>
+<br />
 
-@if (!theme1) {
-    <div class="upload">
-        <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()">Theme 1</button>
-    </div>
-} @else {
+@if (theme1) {
     <div class="tokens-display nat-horizontal">
         @if (showPropertyNames) {
             <div class="tokens-column">
@@ -45,8 +66,9 @@
         <div class="tokens-column color-column color-scheme-light nat-expand">
             <div class="column-header">
                 <h2 class="mat-headline-1 nat-no-margin-top">Theme 1 - Light</h2>
-                <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()"
-                    >{{ theme1.name }}
+                <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()">
+                    <mat-icon>upload</mat-icon>
+                    {{ theme1.name }}
                 </button>
                 <div class="nat-horizontal nat-gap-5">
                     @for (variation of getVariationsForTheme(1); track variation) {
@@ -80,9 +102,10 @@
             <div class="column-header">
                 <h2 class="mat-headline-1 nat-no-margin-top">{{ theme2 ? 'Theme 2' : 'Theme 1' }} - Dark</h2>
                 <div class="nat-horizontal nat-gap-5">
-                    <button [matButton]="theme2 ? 'filled' : 'outlined'" (click)="theme2Upload.click()">{{
-                        theme2?.name || 'Theme 2'
-                    }}</button>
+                    <button [matButton]="theme2 ? 'filled' : 'outlined'" (click)="theme2Upload.click()">
+                        <mat-icon>upload</mat-icon>
+                        {{ theme2?.name || 'Theme 2' }}
+                    </button>
                     @if (theme2) {
                         <button matIconButton [attr.aria-label]="'Remove theme 2'" (click)="clearTheme2()">
                             <mat-icon>close</mat-icon>

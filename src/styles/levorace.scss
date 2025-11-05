@@ -4,10 +4,11 @@
  *   Core Colors:
  *     Primary: #4CAF50
  *     Tertiary: #FF960B
- *     Neutral: #8E9289
+ *     Neutral: #FFFFFF
+ *     Neutral Variant: #FFFFFF
  *
  * Theme 1 Builder Link:
- *   http://material-foundation.github.io/material-theme-builder/?primary=4CAF50&tertiary=FF960B&neutral=8E9289
+ *   http://material-foundation.github.io/material-theme-builder/?primary=4CAF50&tertiary=FF960B&neutral=FFFFFF&neutralVariant=FFFFFF
  */
 
 @use '@angular/material' as mat;
@@ -43,31 +44,31 @@
             on-tertiary-fixed: light-dark(#2D1600, #2D1600),
             on-tertiary-fixed-variant: light-dark(#6A3B00, #6A3B00),
 
-            error: light-dark(#BA1A1A, #FFB4AB),
-            error-container: light-dark(#FFDAD6, #93000A),
-            on-error: light-dark(#FFFFFF, #690005),
-            on-error-container: light-dark(#93000A, #FFDAD6),
+            error: light-dark(#BC0100, #FFB4A8),
+            error-container: light-dark(#EB0000, #FF5540),
+            on-error: light-dark(#FFFFFF, #690100),
+            on-error-container: light-dark(#FFFBFF, #360000),
 
-            surface: light-dark(#FCF9F7, #131313),
-            surface-variant: light-dark(#DAE6D4, #3F4A3C),
-            on-surface: light-dark(#1C1B1B, #E5E2E0),
-            on-surface-variant: light-dark(#3F4A3C, #BECAB9),
-            surface-dim: light-dark(#DCD9D8, #131313),
-            surface-bright: light-dark(#FCF9F7, #3A3938),
+            surface: light-dark(#FCF8F8, #141313),
+            surface-variant: light-dark(#E0E3E3, #444748),
+            on-surface: light-dark(#1C1B1B, #E5E2E1),
+            on-surface-variant: light-dark(#444748, #C4C7C8),
+            surface-dim: light-dark(#DDD9D9, #141313),
+            surface-bright: light-dark(#FCF8F8, #3A3939),
             surface-container-lowest: light-dark(#FFFFFF, #0E0E0E),
-            surface-container-low: light-dark(#F6F3F1, #1C1B1B),
-            surface-container: light-dark(#F0EDEB, #20201F),
-            surface-container-high: light-dark(#EBE7E6, #2A2A29),
-            surface-container-highest: light-dark(#E5E2E0, #353534),
+            surface-container-low: light-dark(#F6F3F2, #1C1B1B),
+            surface-container: light-dark(#F1EDEC, #201F1F),
+            surface-container-high: light-dark(#EBE7E7, #2A2A2A),
+            surface-container-highest: light-dark(#E5E2E1, #353434),
             surface-tint: light-dark(#006E1C, #78DC77),
-            inverse-surface: light-dark(#31302F, #E5E2E0),
-            inverse-on-surface: light-dark(#F3F0EE, #31302F),
+            inverse-surface: light-dark(#313030, #E5E2E1),
+            inverse-on-surface: light-dark(#F4F0EF, #313030),
 
             background: light-dark(#F5FBEF, #0F150E),
             on-background: light-dark(#171D16, #DEE4D9),
 
-            outline: light-dark(#6F7A6B, #899484),
-            outline-variant: light-dark(#BECAB9, #3F4A3C),
+            outline: light-dark(#747878, #8E9192),
+            outline-variant: light-dark(#C4C7C8, #444748),
             shadow: light-dark(#000000, #000000),
             scrim: light-dark(#000000, #000000)
     ));

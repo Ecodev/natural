@@ -77,6 +77,8 @@ export class ThemeMergerComponent implements OnInit {
     private _themeName = 'natural';
     protected theme1RightColumnSelectedVariations = new Set<SchemeVariation>(['dark']);
     protected showPropertyNames = true;
+    protected primary = '0086B2';
+    protected tertiary = 'FF960B';
 
     private readonly THEME_NAME_STORAGE_KEY = 'theme-merger-theme-name';
 
@@ -213,6 +215,15 @@ export class ThemeMergerComponent implements OnInit {
 
                     if (themeNumber === 1) {
                         this.theme1 = themeData;
+                        // Set primary and tertiary from theme1's coreColors
+                        if (themeData.coreColors) {
+                            if (themeData.coreColors.primary) {
+                                this.primary = themeData.coreColors.primary.replace('#', '');
+                            }
+                            if (themeData.coreColors.tertiary) {
+                                this.tertiary = themeData.coreColors.tertiary.replace('#', '');
+                            }
+                        }
                     } else {
                         this.theme2 = themeData;
                     }
@@ -605,5 +616,39 @@ ${defaultSelector}
         }
 
         return params.toString() ? `${baseUrl}?${params.toString()}` : '';
+    }
+
+    protected copyBuilderLink(): void {
+        if (!this.primary.trim() && !this.tertiary.trim()) {
+            this.alertService.error('Please enter at least a primary or tertiary color.');
+            return;
+        }
+
+        const baseUrl = 'http://material-foundation.github.io/material-theme-builder/';
+        const params = new URLSearchParams();
+
+        // Add primary color if provided
+        if (this.primary.trim()) {
+            params.append('primary', this.primary.replace('#', '').toUpperCase());
+        }
+
+        // Add tertiary color if provided
+        if (this.tertiary.trim()) {
+            params.append('tertiary', this.tertiary.replace('#', '').toUpperCase());
+        }
+
+        // Force neutral and neutralVariant to white
+        params.append('neutral', 'FFFFFF');
+        params.append('neutralVariant', 'FFFFFF');
+        params.append('colorMatch', 'true');
+
+        const url = `${baseUrl}?${params.toString()}`;
+
+        try {
+            copyToClipboard(this.document, url);
+            this.alertService.info('Theme Builder URL copied to clipboard!');
+        } catch (error) {
+            this.alertService.error('Failed to copy to clipboard. Please check browser permissions.');
+        }
     }
 }
