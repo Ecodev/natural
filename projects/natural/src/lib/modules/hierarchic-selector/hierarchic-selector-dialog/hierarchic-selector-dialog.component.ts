@@ -4,7 +4,7 @@ import {clone} from 'es-toolkit';
 import {defaults} from 'es-toolkit/compat';
 import {NaturalSearchFacets} from '../../search/types/facet';
 import {NaturalSearchSelections} from '../../search/types/values';
-import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
+import {NaturalHierarchicConfiguration, type NodeConfig} from '../classes/hierarchic-configuration';
 import {HierarchicFiltersConfiguration} from '../classes/hierarchic-filters-configuration';
 import {OrganizedModelSelection} from '../hierarchic-selector/hierarchic-selector.service';
 import {MatButton} from '@angular/material/button';
@@ -15,11 +15,11 @@ export type HierarchicDialogResult = {
     searchSelections?: NaturalSearchSelections | null;
 };
 
-export type HierarchicDialogConfig = {
+export type HierarchicDialogConfig<Nodes extends NodeConfig[]> = {
     /**
      * Configuration to setup rules of hierarchy
      */
-    hierarchicConfig: NaturalHierarchicConfiguration[];
+    hierarchicConfig: NaturalHierarchicConfiguration<Nodes>;
 
     /**
      * Selected items when HierarchicComponent initializes
@@ -57,14 +57,14 @@ export type HierarchicDialogConfig = {
     templateUrl: './hierarchic-selector-dialog.component.html',
     styleUrl: './hierarchic-selector-dialog.component.scss',
 })
-export class NaturalHierarchicSelectorDialogComponent {
+export class NaturalHierarchicSelectorDialogComponent<Nodes extends NodeConfig[]> {
     private dialogRef =
-        inject<MatDialogRef<NaturalHierarchicSelectorDialogComponent, HierarchicDialogResult>>(MatDialogRef);
+        inject<MatDialogRef<NaturalHierarchicSelectorDialogComponent<Nodes>, HierarchicDialogResult>>(MatDialogRef);
 
     /**
      * Set of hierarchic configurations to pass as attribute to HierarchicComponent
      */
-    public config: HierarchicDialogConfig;
+    public config: HierarchicDialogConfig<Nodes>;
 
     /**
      * Natural search selections after initialisation
@@ -72,7 +72,7 @@ export class NaturalHierarchicSelectorDialogComponent {
     public searchSelectionsOutput: NaturalSearchSelections | undefined | null;
 
     public constructor() {
-        const data = inject<HierarchicDialogConfig>(MAT_DIALOG_DATA);
+        const data = inject<HierarchicDialogConfig<Nodes>>(MAT_DIALOG_DATA);
 
         this.config = defaults(data, {multiple: true});
         this.searchSelectionsOutput = this.config.searchSelections;
