@@ -10,7 +10,7 @@ export type NodeConfig<T extends UntypedModelService = UntypedModelService> = {
     /**
      * Whether this node is at the root of the tree (there can be multiple roots in one tree)
      */
-    root?: true | ExtractVall<T>['filter'];
+    root?: boolean;
 
     /**
      * Additional filters applied in the query sent by getList function

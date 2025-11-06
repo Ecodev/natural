@@ -52,19 +52,18 @@ export class SelectHierarchicComponent extends AbstractSelect {
 
     public readonly itemForRootNode = nodeConfig({
         service: ItemService,
-        root: {
-            filter: {
-                conditions: [
-                    // ...
-                ],
-            },
-        },
+        root: true,
         selectableAtKey: 'any',
     });
 
     public readonly itemForChildNode = nodeConfig({
         service: ItemService,
         selectableAtKey: 'any',
+        filter: {
+            conditions: [
+                // ...
+            ],
+        },
     });
 
     public hierarchicConfig2 = hierarchicConfig(
