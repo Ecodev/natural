@@ -20,7 +20,7 @@ import {
     MatHeaderRow,
     MatRow,
 } from '@angular/material/table';
-import {NaturalAbstractEditableList} from '@ecodev/natural';
+import {NaturalAbstractEditableList, NaturalErrorMessagePipe} from '@ecodev/natural';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 
@@ -44,6 +44,7 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
         MatFormField,
         MatLabel,
         MatError,
+        NaturalErrorMessagePipe,
         MatInput,
         JsonPipe,
         MatIconButton,

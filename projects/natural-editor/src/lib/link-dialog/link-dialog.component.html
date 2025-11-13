@@ -4,9 +4,7 @@
     <mat-form-field>
         <mat-label i18n>URL</mat-label>
         <input matInput [formControl]="hrefControl" (keydown.enter)="maybeConfirm()" />
-        @if (hrefControl.hasError('required')) {
-            <mat-error i18n>Ce champ est requis</mat-error>
-        }
+        <mat-error>{{ hrefControl.errors | errorMessage }}</mat-error>
     </mat-form-field>
     <mat-form-field>
         <mat-label i18n>Titre</mat-label>

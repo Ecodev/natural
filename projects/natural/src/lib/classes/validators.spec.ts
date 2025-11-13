@@ -1,4 +1,15 @@
-import {available, decimal, deliverableEmail, ifValid, integer, unique, urlValidator} from '@ecodev/natural';
+import {
+    available,
+    decimal,
+    deliverableEmail,
+    greaterThan,
+    ifValid,
+    integer,
+    nfcCardHex,
+    time,
+    unique,
+    url,
+} from '@ecodev/natural';
 import {
     AsyncValidatorFn,
     FormControl,
@@ -168,30 +179,30 @@ describe('deliverableEmail', () => {
     });
 });
 
-describe('urlValidator', () => {
+describe('url', () => {
     it('should validates URL', () => {
-        validate(urlValidator, true, 'http://www.example.com');
-        validate(urlValidator, true, 'https://www.example.com');
-        validate(urlValidator, true, 'http://example.com');
-        validate(urlValidator, true, 'http://www.example.com/path');
-        validate(urlValidator, true, 'http://www.example.com/path#frag');
-        validate(urlValidator, true, 'http://www.example.com/path?param=1');
-        validate(urlValidator, true, 'http://www.example.com/path?param=1#fra');
-        validate(urlValidator, true, 'http://t.co');
-        validate(urlValidator, true, 'http://www.t.co');
-        validate(urlValidator, true, 'http://a-b.c.t.co');
-        validate(urlValidator, true, 'http://aa.com');
-        validate(urlValidator, true, 'http://www.example'); // this is indeed valid because `example` could be a TLD
-        validate(urlValidator, true, 'https://example.com:4200/subscribe');
-        validate(urlValidator, true, 'https://example-.com'); // this is not conform to rfc1738, but we tolerate it for simplicity sake
+        validate(url, true, 'http://www.example.com');
+        validate(url, true, 'https://www.example.com');
+        validate(url, true, 'http://example.com');
+        validate(url, true, 'http://www.example.com/path');
+        validate(url, true, 'http://www.example.com/path#frag');
+        validate(url, true, 'http://www.example.com/path?param=1');
+        validate(url, true, 'http://www.example.com/path?param=1#fra');
+        validate(url, true, 'http://t.co');
+        validate(url, true, 'http://www.t.co');
+        validate(url, true, 'http://a-b.c.t.co');
+        validate(url, true, 'http://aa.com');
+        validate(url, true, 'http://www.example'); // this is indeed valid because `example` could be a TLD
+        validate(url, true, 'https://example.com:4200/subscribe');
+        validate(url, true, 'https://example-.com'); // this is not conform to rfc1738, but we tolerate it for simplicity sake
 
-        validate(urlValidator, false, 'www.example.com');
-        validate(urlValidator, false, 'example.com');
-        validate(urlValidator, false, 'www.example');
-        validate(urlValidator, false, 'http://example');
-        validate(urlValidator, false, 'www.example#.com');
-        validate(urlValidator, false, 'www.t.co');
-        validate(urlValidator, false, 'file:///C:/folder/file.pdf');
+        validate(url, false, 'www.example.com');
+        validate(url, false, 'example.com');
+        validate(url, false, 'www.example');
+        validate(url, false, 'http://example');
+        validate(url, false, 'www.example#.com');
+        validate(url, false, 'www.t.co');
+        validate(url, false, 'file:///C:/folder/file.pdf');
     });
 });
 
@@ -291,6 +302,22 @@ describe('decimal', () => {
     });
 });
 
+describe('greaterThan', () => {
+    it('should validates greaterThan number', () => {
+        const validator = greaterThan(2);
+        validate(validator, true, null);
+        validate(validator, true, undefined);
+        validate(validator, true, 'foo');
+        validate(validator, true, '');
+        validate(validator, false, '1');
+        validate(validator, false, '2');
+        validate(validator, true, '2.0001');
+        validate(validator, false, 1);
+        validate(validator, false, 2);
+        validate(validator, true, 2.0001);
+    });
+});
+
 describe('ifValid', () => {
     let scheduler: TestScheduler;
 
@@ -356,5 +383,42 @@ describe('ifValid', () => {
             const actual = ifValid(control);
             expectObservable(actual).toBe('-|', {a: 'VALID'});
         });
+    });
+});
+
+describe('nfcCard hex CSN', () => {
+    it('should validate 32 bits hex with delimiters', () => {
+        validate(nfcCardHex, true, '13:43:A1:16');
+    });
+
+    it('should validate compact 32 bits hex', () => {
+        validate(nfcCardHex, true, '1343A116');
+    });
+
+    it('should not validate 16 bits CSN', () => {
+        validate(nfcCardHex, false, '13:43');
+    });
+
+    it('should not validate integer', () => {
+        validate(nfcCardHex, false, '323199254');
+    });
+    it('should not validate CSN with invalid characters', () => {
+        validate(nfcCardHex, false, '13Z1C8L4');
+    });
+});
+
+describe('time', () => {
+    it('should validate', () => {
+        validate(time, true, ''); // this should be invalidated via `required` validator
+        validate(time, true, '14:30');
+        validate(time, true, '14h30');
+        validate(time, true, '  14h30  ');
+        validate(time, true, '14h');
+        validate(time, true, '14:');
+        validate(time, true, '9');
+        validate(time, false, 'a');
+        validate(time, false, '114h30');
+        validate(time, false, '99h00');
+        validate(time, false, '00h99');
     });
 });

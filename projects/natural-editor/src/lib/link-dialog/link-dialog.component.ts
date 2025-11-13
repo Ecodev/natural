@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ifValid} from '@ecodev/natural';
+import {ifValid, NaturalErrorMessagePipe} from '@ecodev/natural';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
@@ -13,7 +13,17 @@ export type LinkDialogData = {
 
 @Component({
     selector: 'natural-editor-link-dialog',
-    imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatError, MatInput, MatButton],
+    imports: [
+        FormsModule,
+        MatButton,
+        MatDialogModule,
+        MatError,
+        MatFormField,
+        MatInput,
+        MatLabel,
+        NaturalErrorMessagePipe,
+        ReactiveFormsModule,
+    ],
     templateUrl: './link-dialog.component.html',
     styleUrl: './link-dialog.component.scss',
 })
