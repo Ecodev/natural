@@ -1,9 +1,11 @@
+import {isPlatformBrowser} from '@angular/common';
 import {
     DOCUMENT,
     EnvironmentProviders,
     inject,
     Injectable,
     InjectionToken,
+    PLATFORM_ID,
     provideAppInitializer,
     Provider,
     signal,
@@ -37,6 +39,7 @@ export class NaturalThemeService {
     private readonly document = inject(DOCUMENT);
     private readonly allThemes = inject(NATURAL_THEMES_CONFIG);
     private readonly storage = inject(LOCAL_STORAGE);
+    private readonly platformId = inject(PLATFORM_ID);
 
     public readonly isDark = signal<boolean>(false);
     public readonly theme = signal<string>(this.allThemes[0]);
@@ -77,6 +80,7 @@ export class NaturalThemeService {
         const dark =
             scheme === ColorScheme.Dark ||
             (scheme === ColorScheme.Auto &&
+                isPlatformBrowser(this.platformId) &&
                 !!this.document.defaultView?.matchMedia('(prefers-color-scheme: dark)').matches);
         this.isDark.set(dark); // memory
         this.document.documentElement.setAttribute('data-is-dark', dark ? 'true' : 'false'); // dom;
