@@ -1,4 +1,4 @@
-import {Component, inject, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {BehaviorSubject} from 'rxjs';
@@ -33,11 +33,9 @@ export class TypeOptionsComponent implements DropdownComponent {
         options: [],
     };
     protected readonly dropdownRef = inject(NaturalDropdownRef);
+    public constructor() {
+        const data: NaturalDropdownData<TypeOptionsConfiguration> = inject(NATURAL_DROPDOWN_DATA);
 
-    public constructor(
-        // eslint-disable-next-line @angular-eslint/prefer-inject
-        @Inject(NATURAL_DROPDOWN_DATA) public readonly data: NaturalDropdownData<TypeOptionsConfiguration>,
-    ) {
         this.configuration = {...this.defaults, ...data.configuration};
 
         if (!this.configuration.options.length) {
