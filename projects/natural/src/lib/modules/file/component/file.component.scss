@@ -2,6 +2,8 @@
     display: flex;
     position: relative;
     flex-direction: row;
+    border-color: var(--mat-sys-secondary-container);
+    background-color: var(--mat-sys-secondary-container);
     overflow: hidden;
 
     & > a {
@@ -9,6 +11,7 @@
         flex: 1;
         background-position: center;
         background-repeat: no-repeat;
+        background-color: var(--mat-sys-surface-container-lowest);
 
         &.has-action {
             cursor: pointer;
@@ -40,6 +43,16 @@
         font-size: 36px;
         line-height: 1.3em;
         text-align: center;
+    }
+
+    a[naturalFileDrop] {
+        border: 1px dashed var(--mat-sys-secondary-container);
+    }
+
+    .action-overlay,
+    .file-preview {
+        background-color: var(--mat-sys-secondary-fixed);
+        color: var(--mat-sys-on-secondary-fixed);
     }
 
     .action-overlay {

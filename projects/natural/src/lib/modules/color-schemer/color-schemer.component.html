@@ -1,0 +1,29 @@
+<div class="nat-horizontal nat-gap-10 wrapper">
+    <button
+        matIconButton
+        matTooltip="Switch to auto mode"
+        i18n-matTooltip
+        matTooltipPosition="below"
+        (click)="themeService.setColorScheme(ColorScheme.Auto)"
+    >
+        <mat-icon naturalIcon="routine" />
+    </button>
+    <button
+        matIconButton
+        matTooltip="Switch to light mode"
+        i18n-matTooltip
+        matTooltipPosition="below"
+        (click)="themeService.setColorScheme(ColorScheme.Light)"
+    >
+        <mat-icon naturalIcon="light_mode" />
+    </button>
+    <button
+        matIconButton
+        matTooltip="Switch to dark mode"
+        i18n-matTooltip
+        matTooltipPosition="below"
+        (click)="themeService.setColorScheme(ColorScheme.Dark)"
+    >
+        <mat-icon naturalIcon="dark_mode" />
+    </button>
+</div>
