@@ -12,9 +12,10 @@ import {
 } from '@angular/core';
 import {LOCAL_STORAGE} from '../modules/common/services/memory-storage';
 
-export const NATURAL_THEMES_CONFIG = new InjectionToken<string[]>('Configuration for Natural Theme');
+type AllThemes = [string, ...string[]];
+export const NATURAL_THEMES_CONFIG = new InjectionToken<AllThemes>('Configuration for Natural Theme');
 
-export function provideThemes(config: string[]): (EnvironmentProviders | Provider)[] {
+export function provideThemes(config: AllThemes): (EnvironmentProviders | Provider)[] {
     return [
         {
             provide: NATURAL_THEMES_CONFIG,
