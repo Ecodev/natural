@@ -47,10 +47,6 @@ export class NaturalThemeService {
     public readonly colorScheme = signal<ColorScheme>(ColorScheme.Light);
 
     public constructor() {
-        if (this.allThemes.length === 0) {
-            throw Error('No theme provided');
-        }
-
         const theme = this.storage.getItem('theme');
         const isValidTheme = theme && this.allThemes.includes(theme);
         this.setTheme(isValidTheme ? theme : this.allThemes[0]);
