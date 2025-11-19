@@ -126,6 +126,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
             }
 
             this.modelChange.emit(this.model);
+            this.updateImage();
         });
     }
 
