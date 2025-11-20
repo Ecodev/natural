@@ -73,6 +73,10 @@ export class NaturalThemeService {
         effect(() => {
             this.document.documentElement.setAttribute('data-is-dark', this.isDark() ? 'true' : 'false');
         });
+
+        const storedScheme = this.storage.getItem('color-scheme') as ColorScheme | null;
+        const isValidScheme = storedScheme && Object.values(ColorScheme).includes(storedScheme);
+        this.colorScheme.set(isValidScheme ? storedScheme : ColorScheme.Auto);
     }
 
     /**
