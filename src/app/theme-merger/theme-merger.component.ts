@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {Component, DOCUMENT, ElementRef, inject, OnInit, viewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatCheckbox} from '@angular/material/checkbox';
 import {MatFormField, MatSuffix} from '@angular/material/form-field';
 import {MatIcon} from '@angular/material/icon';
 import {MatInput, MatLabel} from '@angular/material/input';
@@ -57,6 +58,7 @@ type ThemeData = {
         MatInput,
         MatLabel,
         MatButton,
+        MatCheckbox,
         MatIcon,
         MatIconButton,
         MatSuffix,
@@ -78,9 +80,14 @@ export class ThemeMergerComponent implements OnInit {
     protected theme1RightColumnSelectedVariations = new Set<SchemeVariation>(['dark']);
     protected showPropertyNames = true;
     protected primary = '0086B2';
+    protected secondary = '';
     protected tertiary = 'FF960B';
+    private _lightModeEnabled = true;
+    private _darkModeEnabled = true;
 
     private readonly THEME_NAME_STORAGE_KEY = 'theme-merger-theme-name';
+    private readonly LIGHT_MODE_STORAGE_KEY = 'theme-merger-light-mode';
+    private readonly DARK_MODE_STORAGE_KEY = 'theme-merger-dark-mode';
 
     protected get themeName(): string {
         return this._themeName;
@@ -91,8 +98,28 @@ export class ThemeMergerComponent implements OnInit {
         this.saveThemeNameToLocalStorage();
     }
 
+    protected get lightModeEnabled(): boolean {
+        return this._lightModeEnabled;
+    }
+
+    protected set lightModeEnabled(value: boolean) {
+        this._lightModeEnabled = value;
+        this.saveLightModeToLocalStorage();
+    }
+
+    protected get darkModeEnabled(): boolean {
+        return this._darkModeEnabled;
+    }
+
+    protected set darkModeEnabled(value: boolean) {
+        this._darkModeEnabled = value;
+        this.saveDarkModeToLocalStorage();
+    }
+
     public ngOnInit(): void {
         this.loadThemeNameFromLocalStorage();
+        this.loadLightModeFromLocalStorage();
+        this.loadDarkModeFromLocalStorage();
     }
 
     private loadThemeNameFromLocalStorage(): void {
@@ -104,6 +131,28 @@ export class ThemeMergerComponent implements OnInit {
 
     private saveThemeNameToLocalStorage(): void {
         this.localStorage.setItem(this.THEME_NAME_STORAGE_KEY, this._themeName);
+    }
+
+    private loadLightModeFromLocalStorage(): void {
+        const savedLightMode = this.localStorage.getItem(this.LIGHT_MODE_STORAGE_KEY);
+        if (savedLightMode !== null) {
+            this._lightModeEnabled = savedLightMode === 'true';
+        }
+    }
+
+    private saveLightModeToLocalStorage(): void {
+        this.localStorage.setItem(this.LIGHT_MODE_STORAGE_KEY, String(this._lightModeEnabled));
+    }
+
+    private loadDarkModeFromLocalStorage(): void {
+        const savedDarkMode = this.localStorage.getItem(this.DARK_MODE_STORAGE_KEY);
+        if (savedDarkMode !== null) {
+            this._darkModeEnabled = savedDarkMode === 'true';
+        }
+    }
+
+    private saveDarkModeToLocalStorage(): void {
+        this.localStorage.setItem(this.DARK_MODE_STORAGE_KEY, String(this._darkModeEnabled));
     }
 
     protected readonly lightVariations: SchemeVariation[] = ['light', 'light-medium-contrast', 'light-high-contrast'];
@@ -398,8 +447,9 @@ export class ThemeMergerComponent implements OnInit {
 
         const rightTheme = this.getRightTheme();
 
-        if (!this.themeName.trim()) {
-            this.alertService.error('Please enter a theme name.');
+        // Check if at least one mode is enabled
+        if (!this.lightModeEnabled && !this.darkModeEnabled) {
+            this.alertService.error('Please enable at least one mode (Light or Dark).');
             return;
         }
 
@@ -445,12 +495,26 @@ export class ThemeMergerComponent implements OnInit {
                 return;
             }
 
-            // Only include tokens that exist in both themes
+            // Only include tokens that exist in the required themes
             const theme1Token = kebabToTheme1Token.get(kebabName);
             const theme2Token = kebabToTheme2Token.get(kebabName);
 
-            if (theme1Token && theme2Token) {
-                properties.push(`            ${kebabName}: light-dark(${theme1Token.hex}, ${theme2Token.hex})`);
+            // Generate CSS based on which modes are enabled
+            if (this.lightModeEnabled && this.darkModeEnabled) {
+                // Both modes: use light-dark()
+                if (theme1Token && theme2Token) {
+                    properties.push(`            ${kebabName}: light-dark(${theme1Token.hex}, ${theme2Token.hex})`);
+                }
+            } else if (this.lightModeEnabled) {
+                // Light mode only: use only theme1 color
+                if (theme1Token) {
+                    properties.push(`            ${kebabName}: ${theme1Token.hex}`);
+                }
+            } else if (this.darkModeEnabled) {
+                // Dark mode only: use only theme2 color
+                if (theme2Token) {
+                    properties.push(`            ${kebabName}: ${theme2Token.hex}`);
+                }
             }
         });
 
@@ -576,11 +640,20 @@ export class ThemeMergerComponent implements OnInit {
             })
             .join('\n');
 
-        const defaultSelector = isDefault ? ':root, :host,' : '';
+        // Build the selector based on whether a theme name is provided
+        let selector: string;
+        if (!this.themeName.trim()) {
+            // No theme name: use only :root, :host
+            selector = isDefault ? ':root, :host' : ':host';
+        } else {
+            // Theme name provided: include the data-theme selector
+            const defaultSelector = isDefault ? ':root, :host,' : '';
+            selector = defaultSelector + `\n[data-theme="${this.themeName.trim()}"]`;
+        }
+
         const scss = `${comment}@use '@angular/material' as mat;
 /* prettier-ignore */
-${defaultSelector}
-[data-theme="${this.themeName.trim()}"] {
+${selector} {
     @include mat.theme-overrides((
     ${propertiesString}
     ));
@@ -619,8 +692,8 @@ ${defaultSelector}
     }
 
     protected copyBuilderLink(): void {
-        if (!this.primary.trim() && !this.tertiary.trim()) {
-            this.alertService.error('Please enter at least a primary or tertiary color.');
+        if (!this.primary.trim() && !this.secondary.trim() && !this.tertiary.trim()) {
+            this.alertService.error('Please enter at least a primary, secondary, or tertiary color.');
             return;
         }
 
@@ -630,6 +703,11 @@ ${defaultSelector}
         // Add primary color if provided
         if (this.primary.trim()) {
             params.append('primary', this.primary.replace('#', '').toUpperCase());
+        }
+
+        // Add secondary color if provided
+        if (this.secondary.trim()) {
+            params.append('secondary', this.secondary.replace('#', '').toUpperCase());
         }
 
         // Add tertiary color if provided

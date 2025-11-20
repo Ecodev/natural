@@ -7,6 +7,10 @@
         <mat-label>Primary</mat-label>
         <input matInput type="text" [(ngModel)]="primary" />
     </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic" style="width: 100px; margin-right: 5px">
+        <mat-label>Secondary</mat-label>
+        <input matInput type="text" [(ngModel)]="secondary" />
+    </mat-form-field>
     <mat-form-field subscriptSizing="dynamic" style="width: 100px">
         <mat-label>Tertiary</mat-label>
         <input matInput type="text" [(ngModel)]="tertiary" />
@@ -21,8 +25,8 @@
         </div>
 
         <mat-form-field subscriptSizing="dynamic" style="width: 150px">
-            <mat-label>Export</mat-label>
-            <input matInput type="text" placeholder="natural-theme" [(ngModel)]="themeName" />
+            <mat-label>Theme name</mat-label>
+            <input matInput type="text" [(ngModel)]="themeName" />
         </mat-form-field>
         <button matButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss(true)">
             <mat-icon>content_copy</mat-icon>
@@ -65,7 +69,10 @@
 
         <div class="tokens-column color-column color-scheme-light nat-expand">
             <div class="column-header">
-                <h2 class="mat-headline-1 nat-no-margin-top">Theme 1 - Light</h2>
+                <div class="nat-horizontal nat-align nat-gap-10">
+                    <h2 class="mat-headline-1 nat-no-margin">Theme 1 - Light</h2>
+                    <mat-checkbox [(ngModel)]="lightModeEnabled" />
+                </div>
                 <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()">
                     <mat-icon>upload</mat-icon>
                     {{ theme1.name }}
@@ -100,7 +107,10 @@
 
         <div class="tokens-column color-column color-scheme-dark nat-expand">
             <div class="column-header">
-                <h2 class="mat-headline-1 nat-no-margin-top">{{ theme2 ? 'Theme 2' : 'Theme 1' }} - Dark</h2>
+                <div class="nat-horizontal nat-align nat-gap-10">
+                    <h2 class="mat-headline-1 nat-no-margin">{{ theme2 ? 'Theme 2' : 'Theme 1' }} - Dark</h2>
+                    <mat-checkbox [(ngModel)]="darkModeEnabled" />
+                </div>
                 <div class="nat-horizontal nat-gap-5">
                     <button [matButton]="theme2 ? 'filled' : 'outlined'" (click)="theme2Upload.click()">
                         <mat-icon>upload</mat-icon>
