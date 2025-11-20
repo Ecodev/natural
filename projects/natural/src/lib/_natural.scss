@@ -5,17 +5,14 @@
 @use 'modules/sidenav/sidenav.scss';
 @use 'modules/alert/alert.scss';
 
-:root,
 [data-color-scheme='auto'] {
     color-scheme: light dark;
 }
 
-.color-scheme-light,
 [data-color-scheme='light'] {
     color-scheme: light;
 }
 
-.color-scheme-dark,
 [data-color-scheme='dark'] {
     color-scheme: dark;
 }
@@ -129,15 +126,15 @@ body {
 
 .nat-text {
     &-primary {
-        color: var(--mat-sys-primary);
+        color: var(--mat-sys-primary-container);
     }
 
     &-accent {
-        color: var(--mat-sys-tertiary);
+        color: var(--mat-sys-tertiary-container);
     }
 
     &-error {
-        color: var(--mat-sys-error);
+        color: var(--mat-sys-error-container);
     }
 }
 

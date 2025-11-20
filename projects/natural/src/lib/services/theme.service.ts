@@ -37,24 +37,14 @@ export enum ColorScheme {
     providedIn: 'root',
 })
 export class NaturalThemeService {
-    private readonly document = inject(DOCUMENT);
     private readonly allThemes = inject(NATURAL_THEMES_CONFIG);
     private readonly storage = inject(LOCAL_STORAGE);
     private readonly platformId = inject(PLATFORM_ID);
+    protected readonly document = inject(DOCUMENT);
 
     public readonly isDark = signal<boolean>(false);
     public readonly theme = signal<string>(this.allThemes[0]);
     public readonly colorScheme = signal<ColorScheme>(ColorScheme.Light);
-
-    public constructor() {
-        const theme = this.storage.getItem('theme');
-        const isValidTheme = theme && this.allThemes.includes(theme);
-        this.setTheme(isValidTheme ? theme : this.allThemes[0]);
-
-        const storedScheme = this.storage.getItem('color-scheme') as ColorScheme | null;
-        const isValidScheme = storedScheme && Object.values(ColorScheme).includes(storedScheme);
-        this.setColorScheme(isValidScheme ? storedScheme : ColorScheme.Auto);
-    }
 
     /**
      * Set theme in memory, local storage and dom
@@ -68,18 +58,22 @@ export class NaturalThemeService {
     /**
      * Set color scheme in memory, local storage and dom and keep in sync isDark property
      */
-    public setColorScheme(scheme: ColorScheme): void {
+    public setColorScheme(scheme: ColorScheme, persistInStorage = true): void {
         this.colorScheme.set(scheme); // memory
-        this.storage.setItem('color-scheme', this.colorScheme()); // storage
         this.document.documentElement.setAttribute('data-color-scheme', scheme); // dom
 
-        // If manual dark, or auto dark
+        // If manual dark, or auto + dark system
         const dark =
             scheme === ColorScheme.Dark ||
             (scheme === ColorScheme.Auto &&
                 isPlatformBrowser(this.platformId) &&
                 !!this.document.defaultView?.matchMedia('(prefers-color-scheme: dark)').matches);
+
         this.isDark.set(dark); // memory
         this.document.documentElement.setAttribute('data-is-dark', dark ? 'true' : 'false'); // dom;
+
+        if (persistInStorage) {
+            this.storage.setItem('color-scheme', this.colorScheme()); // storage
+        }
     }
 }
