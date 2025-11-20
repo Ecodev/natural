@@ -1,6 +1,8 @@
 import {isPlatformBrowser} from '@angular/common';
 import {
+    computed,
     DOCUMENT,
+    effect,
     EnvironmentProviders,
     inject,
     Injectable,
@@ -10,6 +12,9 @@ import {
     Provider,
     signal,
 } from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {fromEvent, map, of} from 'rxjs';
+import {startWith} from 'rxjs/operators';
 import {LOCAL_STORAGE} from '../modules/common/services/memory-storage';
 
 type AllThemes = [string, ...string[]];
@@ -42,9 +47,33 @@ export class NaturalThemeService {
     private readonly platformId = inject(PLATFORM_ID);
     protected readonly document = inject(DOCUMENT);
 
-    public readonly isDark = signal<boolean>(false);
+    private readonly isDarkSystem = toSignal(
+        isPlatformBrowser(this.platformId)
+            ? fromEvent<MediaQueryListEvent>(
+                  this.document.defaultView!.matchMedia('(prefers-color-scheme: dark)'),
+                  'change',
+              ).pipe(
+                  startWith(this.document.defaultView!.matchMedia('(prefers-color-scheme: dark)')),
+                  map(e => e.matches),
+              )
+            : of(false),
+        {initialValue: false},
+    );
+
+    public readonly isDark = computed(() => {
+        return (
+            this.colorScheme() === ColorScheme.Dark || (this.colorScheme() === ColorScheme.Auto && this.isDarkSystem())
+        );
+    });
+
     public readonly theme = signal<string>(this.allThemes[0]);
-    public readonly colorScheme = signal<ColorScheme>(ColorScheme.Light);
+    public readonly colorScheme = signal<ColorScheme>(ColorScheme.Auto);
+
+    public constructor() {
+        effect(() => {
+            this.document.documentElement.setAttribute('data-is-dark', this.isDark() ? 'true' : 'false');
+        });
+    }
 
     /**
      * Set theme in memory, local storage and dom
@@ -56,21 +85,11 @@ export class NaturalThemeService {
     }
 
     /**
-     * Set color scheme in memory, local storage and dom and keep in sync isDark property
+     * Set dark/light/auto
      */
     public setColorScheme(scheme: ColorScheme, persistInStorage = true): void {
         this.colorScheme.set(scheme); // memory
         this.document.documentElement.setAttribute('data-color-scheme', scheme); // dom
-
-        // If manual dark, or auto + dark system
-        const dark =
-            scheme === ColorScheme.Dark ||
-            (scheme === ColorScheme.Auto &&
-                isPlatformBrowser(this.platformId) &&
-                !!this.document.defaultView?.matchMedia('(prefers-color-scheme: dark)').matches);
-
-        this.isDark.set(dark); // memory
-        this.document.documentElement.setAttribute('data-is-dark', dark ? 'true' : 'false'); // dom;
 
         if (persistInStorage) {
             this.storage.setItem('color-scheme', this.colorScheme()); // storage

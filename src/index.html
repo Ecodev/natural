@@ -13,5 +13,16 @@
         <app-root>
             <img src="assets/logo.svg" style="height: 20vmax; max-height: 150px" />
         </app-root>
+
+        <script>
+            const scheme = localStorage.getItem('color-scheme');
+            if (scheme) {
+                window.document.documentElement.setAttribute('data-color-scheme', scheme);
+            }
+
+            const dark =
+                scheme === 'dark' || (scheme === 'auto' && !!window.matchMedia('(prefers-color-scheme: dark)').matches);
+            window.document.documentElement.setAttribute('data-is-dark', dark ? 'true' : 'false');
+        </script>
     </body>
 </html>
