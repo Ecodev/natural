@@ -1,7 +1,0 @@
-@use 'input/input.theme';
-@use 'dropdown-container/dropdown-container.theme';
-
-@mixin natural-search($theme) {
-    @include input.natural-input($theme);
-    @include dropdown-container.natural-dropdown-container($theme);
-}
