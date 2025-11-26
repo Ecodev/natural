@@ -8,46 +8,15 @@ import {MatIcon} from '@angular/material/icon';
 import {MatInput, MatLabel} from '@angular/material/input';
 import {MatTooltip} from '@angular/material/tooltip';
 import {copyToClipboard, LOCAL_STORAGE, NaturalAlertService} from '@ecodev/natural';
-
-type ThemeToken = {
-    name: string;
-    hex: string;
-};
-
-type SchemeVariation =
-    | 'light'
-    | 'light-medium-contrast'
-    | 'light-high-contrast'
-    | 'dark'
-    | 'dark-medium-contrast'
-    | 'dark-high-contrast';
-
-type MaterialTheme = {
-    seed?: string;
-    coreColors?: {
-        primary?: string;
-        secondary?: string;
-        tertiary?: string;
-        neutral?: string;
-        neutralVariant?: string;
-    };
-    schemes?: Record<string, Record<string, string>>;
-};
-
-type ThemeData = {
-    name: string;
-    seed?: string;
-    coreColors?: {
-        primary?: string;
-        secondary?: string;
-        tertiary?: string;
-        neutral?: string;
-        neutralVariant?: string;
-    };
-    schemes: Record<string, Record<string, string>>;
-    selectedVariations: Set<SchemeVariation>;
-    tokensByVariation: Map<SchemeVariation, ThemeToken[]>;
-};
+import {
+    camelToKebab,
+    generateScss,
+    type MaterialTheme,
+    type SchemeVariation,
+    type ThemeData,
+    type ThemeToken,
+    tokenOrderReference,
+} from './theme-merger.utils';
 
 @Component({
     selector: 'app-theme-merger',
@@ -70,14 +39,14 @@ type ThemeData = {
 export class ThemeMergerComponent implements OnInit {
     private readonly document = inject(DOCUMENT);
     private readonly localStorage = inject(LOCAL_STORAGE);
-    protected readonly alertService = inject(NaturalAlertService);
-
-    protected readonly theme2Upload = viewChild<ElementRef<HTMLInputElement>>('theme2Upload');
+    private readonly alertService = inject(NaturalAlertService);
+    private readonly theme2Upload = viewChild<ElementRef<HTMLInputElement>>('theme2Upload');
+    protected readonly camelToKebab = camelToKebab;
 
     protected theme1: ThemeData | null = null;
     protected theme2: ThemeData | null = null;
     private _themeName = 'natural';
-    protected theme1RightColumnSelectedVariations = new Set<SchemeVariation>(['dark']);
+    private theme1RightColumnSelectedVariations = new Set<SchemeVariation>(['dark']);
     protected showPropertyNames = true;
     protected primary = '0086B2';
     protected secondary = '';
@@ -155,67 +124,9 @@ export class ThemeMergerComponent implements OnInit {
         this.localStorage.setItem(this.DARK_MODE_STORAGE_KEY, String(this._darkModeEnabled));
     }
 
-    protected readonly lightVariations: SchemeVariation[] = ['light', 'light-medium-contrast', 'light-high-contrast'];
-    protected readonly darkVariations: SchemeVariation[] = ['dark', 'dark-medium-contrast', 'dark-high-contrast'];
-    protected readonly allVariations: SchemeVariation[] = [...this.lightVariations, ...this.darkVariations];
-
-    private readonly tokenOrderReference: readonly (string | null)[] = [
-        'primary',
-        'primary-container',
-        'primary-fixed',
-        'primary-fixed-dim',
-        'on-primary',
-        'on-primary-container',
-        'on-primary-fixed',
-        'on-primary-fixed-variant',
-        'inverse-primary',
-        null,
-        'secondary',
-        'secondary-container',
-        'secondary-fixed',
-        'secondary-fixed-dim',
-        'on-secondary',
-        'on-secondary-container',
-        'on-secondary-fixed',
-        'on-secondary-fixed-variant',
-        null,
-        'tertiary',
-        'tertiary-container',
-        'tertiary-fixed',
-        'tertiary-fixed-dim',
-        'on-tertiary',
-        'on-tertiary-container',
-        'on-tertiary-fixed',
-        'on-tertiary-fixed-variant',
-        null,
-        'error',
-        'error-container',
-        'on-error',
-        'on-error-container',
-        null,
-        'surface',
-        'surface-variant',
-        'on-surface',
-        'on-surface-variant',
-        'surface-dim',
-        'surface-bright',
-        'surface-container-lowest',
-        'surface-container-low',
-        'surface-container',
-        'surface-container-high',
-        'surface-container-highest',
-        'surface-tint',
-        'inverse-surface',
-        'inverse-on-surface',
-        null,
-        'background',
-        'on-background',
-        null,
-        'outline',
-        'outline-variant',
-        'shadow',
-        'scrim',
-    ] as const;
+    private readonly lightVariations: SchemeVariation[] = ['light', 'light-medium-contrast', 'light-high-contrast'];
+    private readonly darkVariations: SchemeVariation[] = ['dark', 'dark-medium-contrast', 'dark-high-contrast'];
+    private readonly allVariations: SchemeVariation[] = [...this.lightVariations, ...this.darkVariations];
 
     protected clearTheme2(): void {
         this.theme2 = null;
@@ -329,13 +240,6 @@ export class ThemeMergerComponent implements OnInit {
         return labels[variation];
     }
 
-    protected camelToKebab(str: string | null): string {
-        if (!str) {
-            return '';
-        }
-        return str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
-    }
-
     protected getTokenNames(theme: ThemeData): (string | null)[] {
         // Get token names from the first available variation
         const firstVariation = Array.from(theme.tokensByVariation.keys())[0];
@@ -357,7 +261,7 @@ export class ThemeMergerComponent implements OnInit {
 
         // Return tokens in the order specified by tokenOrderReference
         // Include null values for spacing
-        return this.tokenOrderReference
+        return tokenOrderReference
             .map(tokenName => {
                 if (tokenName === null) {
                     return null;
@@ -365,7 +269,7 @@ export class ThemeMergerComponent implements OnInit {
                 // Check if this token exists in the theme (comparing kebab-case)
                 return kebabToOriginal.has(tokenName) ? kebabToOriginal.get(tokenName)! : null;
             })
-            .filter(tokenName => tokenName !== null || this.tokenOrderReference.includes(tokenName));
+            .filter(tokenName => tokenName !== null || tokenOrderReference.includes(tokenName));
     }
 
     protected getTokensForName(theme: ThemeData, tokenName: string): {variation: SchemeVariation; token: ThemeToken}[] {
@@ -393,7 +297,7 @@ export class ThemeMergerComponent implements OnInit {
         return this.theme2 ?? this.theme1!;
     }
 
-    protected getRightThemeSelectedVariations(): Set<SchemeVariation> {
+    private getRightThemeSelectedVariations(): Set<SchemeVariation> {
         return this.theme2 ? this.theme2.selectedVariations : this.theme1RightColumnSelectedVariations;
     }
 
@@ -480,184 +384,18 @@ export class ThemeMergerComponent implements OnInit {
             return;
         }
 
-        // Create a map of kebab-case names to tokens
-        const kebabToTheme1Token = new Map<string, ThemeToken>();
-        const kebabToTheme2Token = new Map<string, ThemeToken>();
-        theme1Tokens.forEach(t => kebabToTheme1Token.set(this.camelToKebab(t.name), t));
-        theme2Tokens.forEach(t => kebabToTheme2Token.set(this.camelToKebab(t.name), t));
-
-        // Build the SCSS properties using tokenOrderReference for ordering
-        const properties: string[] = [];
-        this.tokenOrderReference.forEach(kebabName => {
-            // null values represent spacing
-            if (kebabName === null) {
-                properties.push('');
-                return;
-            }
-
-            // Only include tokens that exist in the required themes
-            const theme1Token = kebabToTheme1Token.get(kebabName);
-            const theme2Token = kebabToTheme2Token.get(kebabName);
-
-            // Generate CSS based on which modes are enabled
-            if (this.lightModeEnabled && this.darkModeEnabled) {
-                // Both modes: use light-dark()
-                if (theme1Token && theme2Token) {
-                    properties.push(`            ${kebabName}: light-dark(${theme1Token.hex}, ${theme2Token.hex})`);
-                }
-            } else if (this.lightModeEnabled) {
-                // Light mode only: use only theme1 color
-                if (theme1Token) {
-                    properties.push(`            ${kebabName}: ${theme1Token.hex}`);
-                }
-            } else if (this.darkModeEnabled) {
-                // Dark mode only: use only theme2 color
-                if (theme2Token) {
-                    properties.push(`            ${kebabName}: ${theme2Token.hex}`);
-                }
-            }
-        });
-
-        // Build comment with seed and coreColors
-        const commentLines: string[] = [];
-
-        // If using only one theme with different variations
-        if (!this.theme2) {
-            if (this.theme1.seed || this.theme1.coreColors) {
-                commentLines.push(`Theme 1 (${theme1Variation} + ${theme2Variation}):`);
-                if (this.theme1.seed) {
-                    commentLines.push(`  Seed: ${this.theme1.seed}`);
-                }
-                if (this.theme1.coreColors) {
-                    commentLines.push(`  Core Colors:`);
-                    if (this.theme1.coreColors.primary) {
-                        commentLines.push(`    Primary: ${this.theme1.coreColors.primary}`);
-                    }
-                    if (this.theme1.coreColors.secondary) {
-                        commentLines.push(`    Secondary: ${this.theme1.coreColors.secondary}`);
-                    }
-                    if (this.theme1.coreColors.tertiary) {
-                        commentLines.push(`    Tertiary: ${this.theme1.coreColors.tertiary}`);
-                    }
-                    if (this.theme1.coreColors.neutral) {
-                        commentLines.push(`    Neutral: ${this.theme1.coreColors.neutral}`);
-                    }
-                    if (this.theme1.coreColors.neutralVariant) {
-                        commentLines.push(`    Neutral Variant: ${this.theme1.coreColors.neutralVariant}`);
-                    }
-                }
-            }
-        } else {
-            // Using two different themes
-            // Add theme 1 info
-            if (this.theme1.seed || this.theme1.coreColors) {
-                commentLines.push(`Theme 1 (${theme1Variation}):`);
-                if (this.theme1.seed) {
-                    commentLines.push(`  Seed: ${this.theme1.seed}`);
-                }
-                if (this.theme1.coreColors) {
-                    commentLines.push(`  Core Colors:`);
-                    if (this.theme1.coreColors.primary) {
-                        commentLines.push(`    Primary: ${this.theme1.coreColors.primary}`);
-                    }
-                    if (this.theme1.coreColors.secondary) {
-                        commentLines.push(`    Secondary: ${this.theme1.coreColors.secondary}`);
-                    }
-                    if (this.theme1.coreColors.tertiary) {
-                        commentLines.push(`    Tertiary: ${this.theme1.coreColors.tertiary}`);
-                    }
-                    if (this.theme1.coreColors.neutral) {
-                        commentLines.push(`    Neutral: ${this.theme1.coreColors.neutral}`);
-                    }
-                    if (this.theme1.coreColors.neutralVariant) {
-                        commentLines.push(`    Neutral Variant: ${this.theme1.coreColors.neutralVariant}`);
-                    }
-                }
-            }
-
-            // Add theme 2 info
-            if (this.theme2.seed || this.theme2.coreColors) {
-                if (commentLines.length > 0) {
-                    commentLines.push('');
-                }
-                commentLines.push(`Theme 2 (${theme2Variation}):`);
-                if (this.theme2.seed) {
-                    commentLines.push(`  Seed: ${this.theme2.seed}`);
-                }
-                if (this.theme2.coreColors) {
-                    commentLines.push(`  Core Colors:`);
-                    if (this.theme2.coreColors.primary) {
-                        commentLines.push(`    Primary: ${this.theme2.coreColors.primary}`);
-                    }
-                    if (this.theme2.coreColors.secondary) {
-                        commentLines.push(`    Secondary: ${this.theme2.coreColors.secondary}`);
-                    }
-                    if (this.theme2.coreColors.tertiary) {
-                        commentLines.push(`    Tertiary: ${this.theme2.coreColors.tertiary}`);
-                    }
-                    if (this.theme2.coreColors.neutral) {
-                        commentLines.push(`    Neutral: ${this.theme2.coreColors.neutral}`);
-                    }
-                    if (this.theme2.coreColors.neutralVariant) {
-                        commentLines.push(`    Neutral Variant: ${this.theme2.coreColors.neutralVariant}`);
-                    }
-                }
-            }
-        }
-
-        // Generate Material Theme Builder links
-        if (this.theme1.coreColors) {
-            const url1 = this.generateThemeBuilderUrl(this.theme1.coreColors);
-            if (url1) {
-                commentLines.push('');
-                commentLines.push(`Theme 1 Builder Link:`);
-                commentLines.push(`  ${url1}`);
-            }
-        }
-        if (this.theme2?.coreColors) {
-            const url2 = this.generateThemeBuilderUrl(this.theme2.coreColors);
-            if (url2) {
-                commentLines.push('');
-                commentLines.push(`Theme 2 Builder Link:`);
-                commentLines.push(`  ${url2}`);
-            }
-        }
-
-        const comment =
-            commentLines.length > 0 ? `/*\n${commentLines.map(line => ' * ' + line).join('\n')}\n */\n\n` : '';
-
-        // Generate SCSS - handle commas properly (don't add comma to empty lines)
-        const propertiesString = properties
-            .map((prop, index) => {
-                if (prop === '') {
-                    // Empty line for spacing
-                    return '';
-                }
-                // Add comma to all properties except the last non-empty one
-                const remainingProps = properties.slice(index + 1);
-                const hasMoreProps = remainingProps.some(p => p !== '');
-                return hasMoreProps ? `${prop},` : prop;
-            })
-            .join('\n');
-
-        // Build the selector based on whether a theme name is provided
-        let selector: string;
-        if (!this.themeName.trim()) {
-            // No theme name: use only :root, :host
-            selector = isDefault ? ':root, :host' : ':host';
-        } else {
-            // Theme name provided: include the data-theme selector
-            const defaultSelector = isDefault ? ':root, :host,' : '';
-            selector = defaultSelector + `\n[data-theme="${this.themeName.trim()}"]`;
-        }
-
-        const scss = `${comment}@use '@angular/material' as mat;
-/* prettier-ignore */
-${selector} {
-    @include mat.theme-overrides((
-    ${propertiesString}
-    ));
-}`;
+        const scss = generateScss(
+            this.themeName.trim(),
+            this.theme1,
+            this.theme2,
+            theme1Tokens,
+            theme2Tokens,
+            theme1Variation,
+            theme2Variation,
+            isDefault,
+            this.lightModeEnabled,
+            this.darkModeEnabled,
+        );
 
         // Copy to clipboard
         try {
@@ -668,36 +406,13 @@ ${selector} {
         }
     }
 
-    private generateThemeBuilderUrl(coreColors: NonNullable<ThemeData['coreColors']>): string {
-        const baseUrl = 'http://material-foundation.github.io/material-theme-builder/';
-        const params = new URLSearchParams();
-
-        if (coreColors.primary) {
-            params.append('primary', coreColors.primary.replace('#', ''));
-        }
-        if (coreColors.secondary) {
-            params.append('secondary', coreColors.secondary.replace('#', ''));
-        }
-        if (coreColors.tertiary) {
-            params.append('tertiary', coreColors.tertiary.replace('#', ''));
-        }
-        if (coreColors.neutral) {
-            params.append('neutral', coreColors.neutral.replace('#', ''));
-        }
-        if (coreColors.neutralVariant) {
-            params.append('neutralVariant', coreColors.neutralVariant.replace('#', ''));
-        }
-
-        return params.toString() ? `${baseUrl}?${params.toString()}` : '';
-    }
-
     protected copyBuilderLink(): void {
         if (!this.primary.trim() && !this.secondary.trim() && !this.tertiary.trim()) {
             this.alertService.error('Please enter at least a primary, secondary, or tertiary color.');
             return;
         }
 
-        const baseUrl = 'http://material-foundation.github.io/material-theme-builder/';
+        const baseUrl = 'https://material-foundation.github.io/material-theme-builder/';
         const params = new URLSearchParams();
 
         // Add primary color if provided
