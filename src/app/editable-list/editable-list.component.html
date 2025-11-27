@@ -1,7 +1,7 @@
-<h1 class="mat-headline-4">NaturalAbstractEditableList</h1>
+<h1 class="mat-font-headline-lg">NaturalAbstractEditableList</h1>
 <div class="nat-vertical nat-gap-30 nat-left">
     <div [formGroup]="form">
-        <div class="mat-headline-6">As a mat-table</div>
+        <div class="mat-font-headline-sm">As a mat-table</div>
 
         <table mat-table formArrayName="rows" [dataSource]="dataSource">
             <tr *matHeaderRowDef="columns" mat-header-row></tr>
@@ -42,7 +42,7 @@
     </div>
 
     <div [formGroup]="form">
-        <div class="mat-headline-6">As a `for` loop</div>
+        <div class="mat-font-headline-sm">As a `for` loop</div>
         @for (element of dataSource.data; track element) {
             <div formArrayName="rows">
                 <div class="nat-horizontal nat-gap" [formGroupName]="$index">

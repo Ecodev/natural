@@ -1,9 +1,9 @@
-<h1 class="mat-headline-4">NaturalAbstractList</h1>
+<h1 class="mat-font-headline-lg">NaturalAbstractList</h1>
 
 @if (dataSource) {
     <div class="nat-expand nat-vertical">
         <div class="nat-horizontal">
-            <div class="mat-headline-6 nat-no-margin nat-expand">{{ routeData?.title }}</div>
+            <div class="mat-font-headline-sm nat-no-margin nat-expand">{{ routeData?.title }}</div>
             <natural-columns-picker
                 [availableColumns]="availableColumns"
                 [selections]="selectedColumns"
