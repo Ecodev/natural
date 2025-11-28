@@ -207,6 +207,16 @@ body {
     font-weight: bold;
 }
 
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
 // Todo Remove on angular v21
 // add body{ @include mat.system-classes();}
 
