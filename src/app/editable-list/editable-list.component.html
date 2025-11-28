@@ -1,7 +1,7 @@
-<h1 class="mat-headline-4">NaturalAbstractEditableList</h1>
-<div class="nat-horizontal nat-left nat-gap">
+<h1 class="mat-font-headline-lg">NaturalAbstractEditableList</h1>
+<div class="nat-vertical nat-gap-30 nat-left">
     <div [formGroup]="form">
-        <div class="mat-headline-6">As a mat-table</div>
+        <div class="mat-font-headline-sm">As a mat-table</div>
 
         <table mat-table formArrayName="rows" [dataSource]="dataSource">
             <tr *matHeaderRowDef="columns" mat-header-row></tr>
@@ -10,7 +10,7 @@
             <ng-container matColumnDef="name">
                 <th *matHeaderCellDef mat-header-cell>Name</th>
                 <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="name" />
                         <mat-error>{{ formArray.at(i).get('name')?.errors | errorMessage }}</mat-error>
@@ -21,7 +21,7 @@
             <ng-container matColumnDef="description">
                 <th *matHeaderCellDef mat-header-cell>Description</th>
                 <td *matCellDef="let element; let i = index" mat-cell [formGroupName]="i">
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Description</mat-label>
                         <input matInput formControlName="description" />
                         <mat-error>{{ formArray.at(i).get('description')?.errors | errorMessage }}</mat-error>
@@ -42,16 +42,16 @@
     </div>
 
     <div [formGroup]="form">
-        <div class="mat-headline-6">As a `for` loop</div>
+        <div class="mat-font-headline-sm">As a `for` loop</div>
         @for (element of dataSource.data; track element) {
             <div formArrayName="rows">
                 <div class="nat-horizontal nat-gap" [formGroupName]="$index">
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="name" />
                         <mat-error>{{ formArray.at($index).get('name')?.errors | errorMessage }}</mat-error>
                     </mat-form-field>
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Description</mat-label>
                         <input matInput formControlName="description" />
                         <mat-error>{{ formArray.at($index).get('description')?.errors | errorMessage }}</mat-error>

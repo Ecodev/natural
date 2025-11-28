@@ -1,7 +1,7 @@
-<h1 class="mat-headline-4">CSS style for MatTable</h1>
+<h1 class="mat-font-headline-lg">CSS style for MatTable</h1>
 
 @for (klass of classes1; track klass) {
-    <h2 class="mat-headline-5">{{ klass }}</h2>
+    <h2 class="mat-font-headline-sm">{{ klass }}</h2>
     @if (klass === 'natural-align-right') {
         <p class="mat-body"
             >When used with <code>mat-sort-header</code>, it should be combined with
@@ -45,7 +45,7 @@
 }
 
 @for (klass of classes2; track klass) {
-    <h2 class="mat-headline-5">{{ klass }}</h2>
+    <h2 class="mat-font-headline-sm">{{ klass }}</h2>
 
     <table mat-table matSort [dataSource]="dataSource">
         <tr *matHeaderRowDef="columns" mat-header-row></tr>

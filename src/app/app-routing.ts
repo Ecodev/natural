@@ -30,6 +30,8 @@ import {SelectEnumComponent} from './select-enum/select-enum.component';
 import {SelectHierarchicComponent} from './select-hierarchic/select-hierarchic.component';
 import {SelectComponent} from './select/select.component';
 import {TableStyleComponent} from './table-style/table-style.component';
+import {ThemeMergerComponent} from './theme-merger/theme-merger.component';
+import {TypographyComponent} from './typography/typography.component';
 
 export const routes: Routes = [
     {
@@ -162,6 +164,20 @@ export const routes: Routes = [
                 component: EditorComponent,
                 data: {
                     seo: {title: 'Editor'} satisfies NaturalSeo,
+                },
+            },
+            {
+                path: 'theme-merger',
+                component: ThemeMergerComponent,
+                data: {
+                    seo: {title: 'Theme merger'} satisfies NaturalSeo,
+                },
+            },
+            {
+                path: 'typography',
+                component: TypographyComponent,
+                data: {
+                    seo: {title: 'Typography'} satisfies NaturalSeo,
                 },
             },
             {
