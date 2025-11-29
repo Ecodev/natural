@@ -1,43 +1,21 @@
 import {Type} from '@angular/core';
-import {QueryVariables} from '../../../classes/query-variable-manager';
-import {UntypedModelService} from '../../../types/types';
+import {type ExtractTallOne, type ExtractVall, UntypedModelService} from '../../../types/types';
 
-export type NaturalHierarchicConfiguration<T extends UntypedModelService = UntypedModelService> = {
+export type NodeConfig<T extends UntypedModelService = UntypedModelService> = {
     /**
      * An AbstractModelService to be used to fetch items
      */
     service: Type<T>;
 
     /**
-     * A list of FilterConditionField name to filter items
-     *
-     * Those will be used directly to build filter to fetch items, so they must be
-     * valid API FilterConditionField names for the given service.
-     *
-     * Eg: given the QuestionService, possible names would be:
-     *
-     * - "chapter" to filter by the question's chapter
-     * - "parent" to filter by the question's parent question
+     * Whether this node is at the root of the tree (there can be multiple roots in one tree)
      */
-    parentsRelationNames?: string[];
-
-    /**
-     * A list of FilterConditionField name to declare hierarchy
-     *
-     * Those must be the `parentsRelationNames` name, that correspond to this service,
-     * of all children services.
-     *
-     * Eg: given the QuestionService, possible names would be:
-     *
-     * - "questions" coming from ChapterService
-     * - "questions" coming from QuestionService
-     */
-    childrenRelationNames?: string[];
+    root?: boolean;
 
     /**
      * Additional filters applied in the query sent by getList function
      */
-    filter?: QueryVariables['filter'];
+    filter?: ExtractVall<T>['filter'];
 
     /**
      * Key of the returned literal container models by config / service
@@ -55,12 +33,60 @@ export type NaturalHierarchicConfiguration<T extends UntypedModelService = Untyp
      *
      * In fact, this means isDisabled. Also applies to unselect.
      */
-    isSelectableCallback?: (item: any) => boolean;
+    isSelectableCallback?: (item: ExtractTallOne<T>) => boolean;
 
     /**
      * Functions that receives a model and returns a string for display value
      *
      * If missing, fallback on global `NaturalHierarchicSelectorComponent.displayWith`
      */
-    displayWith?: (item: any) => string;
+    displayWith?: (item: ExtractTallOne<T>) => string;
 };
+
+type RelationConfig<Nodes extends NodeConfig[]> = {
+    /**
+     * The parent node, eg: ChapterService
+     */
+    parent: Nodes[number];
+
+    /**
+     * The child node, eg: QuestionService
+     */
+    child: Nodes[number];
+
+    /**
+     * One of the keys of the `FilterGroupCondition` for the child service, to filter children by their parent(s)
+     *
+     * Those will be used directly to build filter to fetch children, so they must be
+     * valid API `FilterGroupCondition` keys for the given child service.
+     *
+     * Eg: given the `QuestionService`, possible names would be:
+     *
+     * - "chapter" to filter the questions by their chapter
+     * - "parent" to filter the questions by their parent question
+     */
+    field: string;
+};
+
+export type NaturalHierarchicConfiguration<Nodes extends NodeConfig[]> = {
+    /**
+     * All possible nodes in the tree
+     */
+    nodes: Nodes;
+
+    /**
+     * All possible relations between nodes
+     */
+    relations: RelationConfig<Nodes>[];
+};
+
+export function nodeConfig<T extends UntypedModelService>(node: NodeConfig<T>): NodeConfig<T> {
+    return node;
+}
+
+export function hierarchicConfig<Nodes extends NodeConfig[]>(
+    nodes: Nodes,
+    relations: RelationConfig<Nodes>[],
+): NaturalHierarchicConfiguration<Nodes> {
+    return {nodes: nodes, relations: relations};
+}

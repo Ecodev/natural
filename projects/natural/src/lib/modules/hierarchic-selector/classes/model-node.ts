@@ -1,5 +1,5 @@
 import {BehaviorSubject, Observable} from 'rxjs';
-import {NaturalHierarchicConfiguration} from './hierarchic-configuration';
+import {NaturalHierarchicConfiguration, type NodeConfig} from './hierarchic-configuration';
 import {NameOrFullName} from '../../../types/types';
 
 export type HierarchicModel = {__typename: string} & NameOrFullName;
@@ -16,7 +16,7 @@ export class ModelNode {
 
     public constructor(
         public readonly model: HierarchicModel,
-        public readonly config: NaturalHierarchicConfiguration,
+        public readonly config: NaturalHierarchicConfiguration<NodeConfig[]>,
     ) {}
 
     public get children(): Observable<ModelNode[]> {
