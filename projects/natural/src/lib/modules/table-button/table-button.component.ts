@@ -36,9 +36,7 @@ export class NaturalTableButtonComponent {
     public readonly fragment = input<string | undefined>();
     public readonly preserveFragment = input(false);
     public readonly disabled = input(false);
-    public readonly raised = input(false);
-    protected readonly appearance = computed<MatButtonAppearance>(() => (this.raised() ? 'elevated' : 'text'));
-    protected readonly iconClass = computed(() => (this.raised() ? 'mat-elevation-z4' : ''));
+    public readonly appearance = input<MatButtonAppearance>('text');
     public readonly color = input<ThemePalette>();
 
     protected readonly buttonClick$ = new Subject<MouseEvent>();

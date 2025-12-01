@@ -2,16 +2,16 @@
 
 <div class="nat-vertical nat-gap-30">
     <div class="nat-horizontal nat-wrap nat-gap-10">
-        <button mat-raised-button (click)="validateAllFormControls()">Validate all controls</button>
-        <button mat-raised-button (click)="toggleDisabledAllFormControls()">Disable all controls</button>
-        <button mat-raised-button (click)="setValue()">Set value</button>
-        <button mat-raised-button (click)="clearValue()">Clear value</button>
+        <button matButton="filled" (click)="validateAllFormControls()">Validate all controls</button>
+        <button matButton="filled" (click)="toggleDisabledAllFormControls()">Disable all controls</button>
+        <button matButton="filled" (click)="setValue()">Set value</button>
+        <button matButton="filled" (click)="clearValue()">Clear value</button>
     </div>
 
     <h2 class="mat-h2 nat-gap-10 nat-horizontal nat-left nat-center">
         <div>ngModel</div>
-        <button mat-raised-button (click)="required = true">required</button>
-        <button mat-raised-button (click)="required = false">optional</button>
+        <button matButton="filled" (click)="required = true">required</button>
+        <button matButton="filled" (click)="required = false">optional</button>
     </h2>
     <div class="nat-horizontal nat-gap-10">
         <div>

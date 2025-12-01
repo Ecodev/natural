@@ -94,7 +94,6 @@ body {
 
     &-neutral1 {
         background-color: var(--mat-sys-neutral10);
-
         color: var(--mat-sys-on-surface);
     }
 
@@ -135,34 +134,6 @@ body {
 
     &-error {
         color: var(--mat-sys-error-container);
-    }
-}
-
-.mdc-fab {
-    &.nat-rounded {
-        @include mat.fab-overrides(
-            (
-                container-shape: var(--mat-sys-corner-full),
-                extended-container-shape: var(--mat-sys-corner-full),
-                small-container-shape: var(--mat-sys-corner-full),
-            )
-        );
-    }
-
-    &.nat-flat {
-        @include mat.fab-overrides(
-            (
-                container-elevation-shadow: 0,
-                focus-container-elevation-shadow: 0,
-                hover-container-elevation-shadow: 0,
-                extended-container-elevation-shadow: 0,
-                extended-focus-container-elevation-shadow: 0,
-                extended-hover-container-elevation-shadow: 0,
-                small-container-elevation-shadow: 0,
-                small-focus-container-elevation-shadow: 0,
-                small-hover-container-elevation-shadow: 0,
-            )
-        );
     }
 }
 
@@ -215,6 +186,109 @@ h4,
 h5,
 h6 {
     margin: 0;
+}
+
+// Nice todo angular 21 : replace tonal by m3-utils.color-with-opacity(map.get($system, on-surface), 12%),
+[matButton] {
+    &[color='error'] {
+        @include mat.button-overrides(
+            (
+                text-label-text-color: var(--mat-sys-error-container),
+                filled-container-color: var(--mat-sys-error-container),
+                filled-label-text-color: var(--mat-sys-on-error-container),
+                tonal-container-color: color-mix(in srgb, var(--mat-sys-error-container) 12%, transparent),
+                tonal-label-text-color: var(--mat-sys-on-surface),
+                protected-container-color: color-mix(in srgb, var(--mat-sys-error-container) 60%, black),
+                protected-label-text-color: white,
+                outlined-outline-color: var(--mat-sys-error-container),
+                outlined-label-text-color: var(--mat-sys-error-container),
+            )
+        );
+    }
+
+    &[color='tertiary'] {
+        @include mat.button-overrides(
+            (
+                text-label-text-color: var(--mat-sys-tertiary-container),
+                filled-container-color: var(--mat-sys-tertiary-container),
+                filled-label-text-color: var(--mat-sys-on-tertiary-container),
+                tonal-container-color: color-mix(in srgb, var(--mat-sys-tertiary-container) 12%, transparent),
+                tonal-label-text-color: var(--mat-sys-on-surface),
+                protected-container-color: color-mix(in srgb, var(--mat-sys-tertiary-container) 60%, black),
+                protected-label-text-color: white,
+                outlined-outline-color: var(--mat-sys-tertiary-container),
+                outlined-label-text-color: var(--mat-sys-tertiary-container),
+            )
+        );
+    }
+}
+
+[matMiniFab],
+[matFab] {
+    &[color='error'] {
+        @include mat.fab-overrides(
+            (
+                container-color: var(--mat-sys-error-container),
+                foreground-color: var(--mat-sys-on-error-container),
+                small-container-color: var(--mat-sys-error-container),
+                small-foreground-color: var(--mat-sys-on-error-container),
+            )
+        );
+    }
+
+    &[color='tertiary'] {
+        @include mat.fab-overrides(
+            (
+                container-color: var(--mat-sys-tertiary-container),
+                foreground-color: var(--mat-sys-on-tertiary-container),
+                small-container-color: var(--mat-sys-tertiary-container),
+                small-foreground-color: var(--mat-sys-on-tertiary-container),
+            )
+        );
+    }
+
+    &.nat-rounded {
+        @include mat.fab-overrides(
+            (
+                container-shape: var(--mat-sys-corner-full),
+                extended-container-shape: var(--mat-sys-corner-full),
+                small-container-shape: var(--mat-sys-corner-full),
+            )
+        );
+    }
+
+    &.nat-flat {
+        @include mat.fab-overrides(
+            (
+                container-elevation-shadow: 0,
+                focus-container-elevation-shadow: 0,
+                hover-container-elevation-shadow: 0,
+                extended-container-elevation-shadow: 0,
+                extended-focus-container-elevation-shadow: 0,
+                extended-hover-container-elevation-shadow: 0,
+                small-container-elevation-shadow: 0,
+                small-focus-container-elevation-shadow: 0,
+                small-hover-container-elevation-shadow: 0,
+            )
+        );
+    }
+}
+
+[matIconButton] {
+    &[color='error'] {
+        @include mat.icon-button-overrides(
+            (
+                icon-color: var(--mat-sys-error-container),
+            )
+        );
+    }
+    &[color='tertiary'] {
+        @include mat.icon-button-overrides(
+            (
+                icon-color: var(--mat-sys-tertiary-container),
+            )
+        );
+    }
 }
 
 // Todo Remove on angular v21

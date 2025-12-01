@@ -10,6 +10,7 @@ import {
 import {resolveHardcodedItem, resolveItem} from '../../projects/natural/src/lib/testing/item.resolver';
 import {AlertComponent} from './alert/alert.component';
 import {AvatarComponent} from './avatar/avatar.component';
+import {ButtonsComponent} from './buttons/buttons.component';
 import {DetailHeaderComponent} from './detail-header/detail-header.component';
 import {DetailComponent} from './detail/detail.component';
 import {EditableListComponent} from './editable-list/editable-list.component';
@@ -178,6 +179,13 @@ export const routes: Routes = [
                 component: TypographyComponent,
                 data: {
                     seo: {title: 'Typography'} satisfies NaturalSeo,
+                },
+            },
+            {
+                path: 'buttons',
+                component: ButtonsComponent,
+                data: {
+                    seo: {title: 'Buttons'} satisfies NaturalSeo,
                 },
             },
             {

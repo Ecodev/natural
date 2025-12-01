@@ -1,13 +1,13 @@
 <div class="nat-vertical" style="gap: 80px">
     <div>
         <h1 class="mat-font-headline-lg">NaturalDetailHeaderComponent</h1>
-        <button mat-raised-button (click)="model = {}">With new model</button>
-        <button mat-raised-button (click)="model = {id: 123}">With existing model without name</button>
-        <button mat-raised-button (click)="model = {id: 123, name: 'Some model name'}"
+        <button matButton="filled" (click)="model = {}">With new model</button>
+        <button matButton="filled" (click)="model = {id: 123}">With existing model without name</button>
+        <button matButton="filled" (click)="model = {id: 123, name: 'Some model name'}"
             >With existing model with name
         </button>
         <button
-            mat-raised-button
+            matButton="filled"
             (click)="
                 model = {
                     id: 123,
