@@ -1,11 +1,16 @@
 import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MatOption} from '@angular/material/core';
-import {BehaviorSubject, merge} from 'rxjs';
+import {BehaviorSubject, merge, startWith} from 'rxjs';
 import {FilterGroupConditionField, Scalar} from '../../search/classes/graphql-doctrine.types';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
 import {DropdownComponent} from '../../search/types/dropdown-component';
-import {possibleComparableOperators, PossibleComparableOpertorKeys} from '../types';
+import {
+    type PossibleComparableOperator,
+    PossibleComparableOperatorKeys,
+    possibleComparableOperators,
+    possibleNullComparableOperators,
+} from '../types';
 import {dateMax, dateMin, serialize} from '../utils';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatCheckbox} from '@angular/material/checkbox';
@@ -17,6 +22,10 @@ import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/for
 export type TypeDateConfiguration<D = Date> = {
     min?: D | null;
     max?: D | null;
+    /**
+     * If true, two extra choices, "avec" and "sans", will be shown to filter by the (in-)existence of a value
+     */
+    nullable?: boolean;
 };
 
 @Component({
@@ -44,10 +53,11 @@ export class TypeDateComponent<D = any> implements DropdownComponent {
 
     public readonly renderedValue = new BehaviorSubject<string>('');
     public readonly configuration: Required<TypeDateConfiguration<D>>;
-    public readonly operatorCtrl = new FormControl<PossibleComparableOpertorKeys>('equal', {nonNullable: true});
+    public readonly operatorCtrl = new FormControl<PossibleComparableOperatorKeys>('equal', {nonNullable: true});
     public readonly valueCtrl = new FormControl<D | null>(null);
     public readonly todayCtrl = new FormControl(false);
-    public readonly operators = possibleComparableOperators;
+    public requireValueCtrl = false;
+    public readonly operators: readonly PossibleComparableOperator[];
 
     public readonly form = new FormGroup({
         operator: this.operatorCtrl,
@@ -58,12 +68,15 @@ export class TypeDateComponent<D = any> implements DropdownComponent {
     private readonly defaults: Required<TypeDateConfiguration<D>> = {
         min: null,
         max: null,
+        nullable: false,
     };
 
     public constructor() {
         const data = inject<NaturalDropdownData<TypeDateConfiguration<D>>>(NATURAL_DROPDOWN_DATA);
 
         this.configuration = {...this.defaults, ...data.configuration};
+
+        this.operators = this.configuration.nullable ? possibleNullComparableOperators : possibleComparableOperators;
 
         this.todayCtrl.valueChanges.pipe(takeUntilDestroyed()).subscribe(isToday => {
             if (isToday) {
@@ -78,17 +91,22 @@ export class TypeDateComponent<D = any> implements DropdownComponent {
             .pipe(takeUntilDestroyed())
             .subscribe(() => this.renderedValue.next(this.getRenderedValue()));
 
-        this.initValidators();
+        // Immediately initValidators and everytime the operator change later
+        this.operatorCtrl.valueChanges.pipe(startWith(null)).subscribe(() => this.initValidators());
+
         this.reloadCondition(data.condition);
     }
 
     public getCondition(): FilterGroupConditionField {
-        if (!this.valueCtrl.value) {
+        let operator = this.operatorCtrl.value;
+        if (operator === 'any') {
+            return {null: {not: true}};
+        } else if (operator === 'none') {
+            return {null: {not: false}};
+        } else if (!this.valueCtrl.value) {
             return {};
         }
 
-        const condition: FilterGroupConditionField = {};
-        let operator = this.operatorCtrl.value;
         let date: string;
         let dayAfter: string;
 
@@ -101,8 +119,10 @@ export class TypeDateComponent<D = any> implements DropdownComponent {
         }
 
         if (operator === 'equal') {
-            condition.greaterOrEqual = {value: date};
-            condition.less = {value: dayAfter};
+            return {
+                greaterOrEqual: {value: date},
+                less: {value: dayAfter},
+            };
         } else {
             // Transparently adapt exclusive/inclusive ranges
             if (date !== 'today') {
@@ -115,10 +135,8 @@ export class TypeDateComponent<D = any> implements DropdownComponent {
                 }
             }
 
-            condition[operator] = {value: date};
+            return {[operator]: {value: date}};
         }
-
-        return condition;
     }
 
     public isValid(): boolean {
@@ -142,12 +160,18 @@ export class TypeDateComponent<D = any> implements DropdownComponent {
             return;
         }
 
-        for (const operator of this.operators) {
-            const reloadedOperator = condition[operator.key];
-            if (reloadedOperator) {
-                this.operatorCtrl.setValue(operator.key);
-                this.setTodayOrDate(reloadedOperator.value);
-            }
+        const operatorKey = this.conditionToOperatorKey(condition);
+        this.operatorCtrl.setValue(operatorKey);
+        this.setTodayOrDate(condition[operatorKey]?.value);
+    }
+
+    private conditionToOperatorKey(condition: FilterGroupConditionField): PossibleComparableOperatorKeys {
+        if (condition.null?.not) {
+            return 'any';
+        } else if (condition.null && !condition.null.not) {
+            return 'none';
+        } else {
+            return this.operators.find(operator => condition[operator.key])?.key ?? 'equal';
         }
     }
 
@@ -162,7 +186,9 @@ export class TypeDateComponent<D = any> implements DropdownComponent {
     }
 
     private initValidators(): void {
-        const validators: ValidatorFn[] = [Validators.required];
+        const blacklist: PossibleComparableOperatorKeys[] = ['any', 'none'];
+        this.requireValueCtrl = !blacklist.includes(this.operatorCtrl.value);
+        const validators: ValidatorFn[] = this.requireValueCtrl ? [Validators.required] : [];
         if (this.configuration.min) {
             validators.push(dateMin(this.dateAdapter, this.configuration.min));
         }
@@ -172,6 +198,7 @@ export class TypeDateComponent<D = any> implements DropdownComponent {
         }
 
         this.valueCtrl.setValidators(validators);
+        this.valueCtrl.updateValueAndValidity();
     }
 
     private getDayAfter(date: D): D {
@@ -188,7 +215,9 @@ export class TypeDateComponent<D = any> implements DropdownComponent {
             value = this.dateAdapter.format(this.valueCtrl.value, this.dateFormats.display.dateInput);
         }
 
-        if (operator && value) {
+        if (operator && ['any', 'none'].includes(operator.key)) {
+            return operator.label;
+        } else if (operator && value) {
             return operator.label + ' ' + value;
         } else {
             return '';

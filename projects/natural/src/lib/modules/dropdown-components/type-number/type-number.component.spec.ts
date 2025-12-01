@@ -21,6 +21,14 @@ describe('TypeNumberComponent', () => {
         equal: {value: 123},
     };
 
+    const conditionAny: FilterGroupConditionField = {
+        null: {not: true},
+    };
+
+    const conditionNone: FilterGroupConditionField = {
+        null: {not: false},
+    };
+
     const conditionGreaterOrEqual: FilterGroupConditionField = {
         greaterOrEqual: {value: 456},
     };
@@ -30,6 +38,10 @@ describe('TypeNumberComponent', () => {
     const configWithRules: TypeNumberConfiguration = {
         min: 10,
         max: 20,
+    };
+
+    const configNullable: TypeNumberConfiguration = {
+        nullable: true,
     };
 
     const decimalCondition: FilterGroupConditionField = {
@@ -95,6 +107,18 @@ describe('TypeNumberComponent', () => {
         expect(component.getCondition()).toEqual(notEmpty);
     });
 
+    it('should get `any` condition with nullable config', () => {
+        createComponent(conditionAny, configNullable);
+        expect(component.getCondition()).toEqual(conditionAny);
+        expect(component.getCondition()).not.toBe(conditionAny);
+    });
+
+    it('should get `none` condition with nullable config', () => {
+        createComponent(conditionNone, configNullable);
+        expect(component.getCondition()).toEqual(conditionNone);
+        expect(component.getCondition()).not.toBe(conditionNone);
+    });
+
     it('should render `null` as empty string', () => {
         createComponent(null, null);
         expect(component.renderedValue.value).toBe('');
@@ -113,6 +137,16 @@ describe('TypeNumberComponent', () => {
     it('should render `greaterOrEqual` value as string', () => {
         createComponent(conditionGreaterOrEqual, configWithRules);
         expect(component.renderedValue.value).toBe('≥ 456');
+    });
+
+    it('should render `any` value as string', () => {
+        createComponent(conditionAny, configNullable);
+        expect(component.renderedValue.value).toBe('avec');
+    });
+
+    it('should render `none` value as string', () => {
+        createComponent(conditionNone, configNullable);
+        expect(component.renderedValue.value).toBe('sans');
     });
 
     it('should not validate without value', () => {
@@ -153,6 +187,16 @@ describe('TypeNumberComponent', () => {
     it('should not validate according to step rule', () => {
         createComponent(decimalCondition, {step: 0.01});
         expect(component.isValid()).toBe(false);
+    });
+
+    it('should validate `any`', () => {
+        createComponent(conditionAny, configNullable);
+        expect(component.isValid()).toBe(true);
+    });
+
+    it('should validate `none`', () => {
+        createComponent(conditionNone, configNullable);
+        expect(component.isValid()).toBe(true);
     });
 
     it('should close', () => {

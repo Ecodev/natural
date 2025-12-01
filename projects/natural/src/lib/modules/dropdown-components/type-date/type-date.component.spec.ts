@@ -76,11 +76,23 @@ describe('TypeDateComponent', () => {
         less: {value: '2019-09-09'}, // the date will be transparently fixed into "tomorrow"
     };
 
+    const conditionAny: FilterGroupConditionField = {
+        null: {not: true},
+    };
+
+    const conditionNone: FilterGroupConditionField = {
+        null: {not: false},
+    };
+
     const config: TypeDateConfiguration = {};
 
     const configWithRules: TypeDateConfiguration = {
         min: new Date('2001-01-01'),
         max: new Date('2010-01-01'),
+    };
+
+    const configNullable: TypeDateConfiguration = {
+        nullable: true,
     };
 
     beforeEach(async () => {
@@ -183,6 +195,18 @@ describe('TypeDateComponent', () => {
         expect(component.getCondition()).toEqual(conditionEqual);
     });
 
+    it('should get `any` condition with nullable config', () => {
+        createComponent(conditionAny, configNullable);
+        expect(component.getCondition()).toEqual(conditionAny);
+        expect(component.getCondition()).not.toBe(conditionAny);
+    });
+
+    it('should get `none` condition with nullable config', () => {
+        createComponent(conditionNone, configNullable);
+        expect(component.getCondition()).toEqual(conditionNone);
+        expect(component.getCondition()).not.toBe(conditionNone);
+    });
+
     it('should render `null` as empty string', () => {
         createComponent(null, null);
         expect(component.todayCtrl.value).toBeFalse();
@@ -232,6 +256,20 @@ describe('TypeDateComponent', () => {
         expect(component.renderedValue.value).toBe('= 05/01/2018');
     });
 
+    it('should render `any` value as string', () => {
+        createComponent(conditionAny, configNullable);
+        expect(component.todayCtrl.value).toBeFalse();
+        expect(component.valueCtrl.enabled).toBeTrue();
+        expect(component.renderedValue.value).toBe('avec');
+    });
+
+    it('should render `none` value as string', () => {
+        createComponent(conditionNone, configNullable);
+        expect(component.todayCtrl.value).toBeFalse();
+        expect(component.valueCtrl.enabled).toBeTrue();
+        expect(component.renderedValue.value).toBe('sans');
+    });
+
     it('should not validate without value', () => {
         createComponent(null, null);
         expect(component.todayCtrl.value).toBeFalse();
@@ -251,6 +289,20 @@ describe('TypeDateComponent', () => {
         expect(component.todayCtrl.value).toBeFalse();
         expect(component.valueCtrl.enabled).toBeTrue();
         expect(component.isValid()).toBe(false);
+    });
+
+    it('should validate `any`', () => {
+        createComponent(conditionAny, configNullable);
+        expect(component.todayCtrl.value).toBeFalse();
+        expect(component.valueCtrl.enabled).toBeTrue();
+        expect(component.isValid()).toBe(true);
+    });
+
+    it('should validate `none`', () => {
+        createComponent(conditionNone, configNullable);
+        expect(component.todayCtrl.value).toBeFalse();
+        expect(component.valueCtrl.enabled).toBeTrue();
+        expect(component.isValid()).toBe(true);
     });
 
     describe('supports special "today" value', () => {

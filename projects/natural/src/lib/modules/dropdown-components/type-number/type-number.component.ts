@@ -5,18 +5,28 @@ import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.t
 import {NaturalDropdownRef} from '../../search/dropdown-container/dropdown-ref';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
 import {DropdownComponent} from '../../search/types/dropdown-component';
-import {possibleComparableOperators, PossibleComparableOpertorKeys} from '../types';
+import {
+    type PossibleComparableOperator,
+    type PossibleComparableOperatorKeys,
+    possibleComparableOperators,
+    possibleNullComparableOperators,
+} from '../types';
 import {InvalidWithValueStateMatcher} from '../type-text/type-text.component';
 import {decimal} from '../../../classes/validators';
 import {MatInput} from '@angular/material/input';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {startWith} from 'rxjs/operators';
 
 export type TypeNumberConfiguration = {
     min?: number | null;
     max?: number | null;
     step?: number | null;
+    /**
+     * If true, two extra choices, "avec" and "sans", will be shown to filter by the (in-)existence of a value
+     */
+    nullable?: boolean;
 };
 
 @Component({
@@ -29,19 +39,20 @@ export class TypeNumberComponent implements DropdownComponent {
 
     public readonly renderedValue = new BehaviorSubject<string>('');
     public readonly configuration: Required<TypeNumberConfiguration>;
-    public readonly operatorCtrl = new FormControl<PossibleComparableOpertorKeys>('equal', {nonNullable: true});
-    public readonly valueCtrl = new FormControl();
+    public readonly operatorCtrl = new FormControl<PossibleComparableOperatorKeys>('equal', {nonNullable: true});
+    public readonly valueCtrl = new FormControl(null as number | null);
     public readonly matcher = new InvalidWithValueStateMatcher();
     public readonly form = new FormGroup({
         operator: this.operatorCtrl,
         value: this.valueCtrl,
     });
-    public readonly operators = possibleComparableOperators;
-
+    public requireValueCtrl = false;
+    public readonly operators: readonly PossibleComparableOperator[];
     private readonly defaults: Required<TypeNumberConfiguration> = {
         min: null,
         max: null,
         step: null,
+        nullable: false,
     };
 
     public constructor() {
@@ -49,22 +60,32 @@ export class TypeNumberComponent implements DropdownComponent {
 
         this.configuration = {...this.defaults, ...data.configuration};
 
+        this.operators = this.configuration.nullable ? possibleNullComparableOperators : possibleComparableOperators;
+
         merge(this.operatorCtrl.valueChanges, this.valueCtrl.valueChanges).subscribe(() => {
             const rendered = this.getRenderedValue();
             this.renderedValue.next(rendered);
         });
 
-        this.initValidators();
+        // Immediately initValidators and everytime the operator change later
+        this.operatorCtrl.valueChanges.pipe(startWith(null)).subscribe(() => this.initValidators());
+
         this.reloadCondition(data.condition);
     }
 
     public getCondition(): FilterGroupConditionField {
-        const condition: FilterGroupConditionField = {};
-        condition[this.operatorCtrl.value] = {
-            value: this.valueCtrl.value,
-        };
+        const key = this.operatorCtrl.value;
+        const value = this.valueCtrl.value;
 
-        return condition;
+        switch (key) {
+            case 'any':
+                return {null: {not: true}};
+            case 'none':
+                return {null: {not: false}};
+            default: {
+                return {[key]: {value: value}};
+            }
+        }
     }
 
     public isValid(): boolean {
@@ -84,7 +105,9 @@ export class TypeNumberComponent implements DropdownComponent {
     }
 
     private initValidators(): void {
-        const validators: ValidatorFn[] = [Validators.required];
+        const blacklist: PossibleComparableOperatorKeys[] = ['any', 'none'];
+        this.requireValueCtrl = !blacklist.includes(this.operatorCtrl.value);
+        const validators: ValidatorFn[] = this.requireValueCtrl ? [Validators.required] : [];
         if (typeof this.configuration.min === 'number') {
             validators.push(Validators.min(this.configuration.min));
         }
@@ -100,6 +123,7 @@ export class TypeNumberComponent implements DropdownComponent {
         }
 
         this.valueCtrl.setValidators(validators);
+        this.valueCtrl.updateValueAndValidity();
     }
 
     private reloadCondition(condition: FilterGroupConditionField | null): void {
@@ -107,21 +131,29 @@ export class TypeNumberComponent implements DropdownComponent {
             return;
         }
 
-        for (const operator of this.operators) {
-            const reloadedCondition = condition[operator.key];
-            if (reloadedCondition) {
-                this.operatorCtrl.setValue(operator.key);
-                this.valueCtrl.setValue(reloadedCondition.value);
-            }
-        }
+        const operatorKey = this.conditionToOperatorKey(condition);
+        this.operatorCtrl.setValue(operatorKey);
+        this.valueCtrl.setValue(condition[operatorKey]?.value);
     }
 
     private getRenderedValue(): string {
         const operator = this.operators.find(v => v.key === this.operatorCtrl.value);
-        if (this.valueCtrl.value === null || !operator) {
-            return '';
-        } else {
+        if (operator && ['any', 'none'].includes(operator.key)) {
+            return operator.label;
+        } else if (operator && this.valueCtrl.value !== null) {
             return operator.label + ' ' + this.valueCtrl.value;
+        } else {
+            return '';
+        }
+    }
+
+    private conditionToOperatorKey(condition: FilterGroupConditionField): PossibleComparableOperatorKeys {
+        if (condition.null?.not) {
+            return 'any';
+        } else if (condition.null && !condition.null.not) {
+            return 'none';
+        } else {
+            return this.operators.find(operator => condition[operator.key])?.key ?? 'equal';
         }
     }
 }

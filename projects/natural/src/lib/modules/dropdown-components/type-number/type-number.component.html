@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-    <mat-form-field style="max-width: 4em; margin-right: 1em">
+    <mat-form-field style="margin-right: 1em" [style.max-width]="configuration.nullable ? '6em' : '4em'">
         <mat-label i18n="Mathematical operator < > =">Opérateur</mat-label>
         <mat-select panelWidth="" [formControl]="operatorCtrl" [required]="true">
             @for (item of operators; track item) {
@@ -10,24 +10,26 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
-        <mat-label i18n>Valeur</mat-label>
-        <input
-            matInput
-            type="number"
-            [errorStateMatcher]="matcher"
-            [formControl]="valueCtrl"
-            [attr.max]="configuration.max"
-            [attr.min]="configuration.min"
-            [required]="true"
-            [step]="configuration.step"
-            (keydown.enter)="close()"
-        />
-        @if (valueCtrl.hasError('min')) {
-            <mat-error>< {{ configuration.min }}</mat-error>
-        }
-        @if (valueCtrl.hasError('max')) {
-            <mat-error>> {{ configuration.max }}</mat-error>
-        }
-    </mat-form-field>
+    @if (requireValueCtrl) {
+        <mat-form-field>
+            <mat-label i18n>Valeur</mat-label>
+            <input
+                matInput
+                type="number"
+                [errorStateMatcher]="matcher"
+                [formControl]="valueCtrl"
+                [attr.max]="configuration.max"
+                [attr.min]="configuration.min"
+                [required]="true"
+                [step]="configuration.step"
+                (keydown.enter)="close()"
+            />
+            @if (valueCtrl.hasError('min')) {
+                <mat-error>< {{ configuration.min }}</mat-error>
+            }
+            @if (valueCtrl.hasError('max')) {
+                <mat-error>> {{ configuration.max }}</mat-error>
+            }
+        </mat-form-field>
+    }
 </form>
