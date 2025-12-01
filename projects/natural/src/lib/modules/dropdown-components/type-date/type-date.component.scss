@@ -4,6 +4,10 @@ form {
     grid-gap: 0 1em;
 }
 
+form.nullable {
+    grid: auto auto / 6em auto;
+}
+
 form > mat-checkbox {
     grid-column-start: 2;
 
