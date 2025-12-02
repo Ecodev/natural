@@ -29,13 +29,13 @@
     }
 
     @if (selection) {
-        <button mat-icon-button matIconSuffix (click)="clear()">
+        <button matIconButton matIconSuffix (click)="clear()">
             <mat-icon naturalIcon="close" />
         </button>
     }
 
     @if (facet && !selection) {
-        <button mat-icon-button matIconSuffix (click)="clear()">
+        <button matIconButton matIconSuffix (click)="clear()">
             <mat-icon naturalIcon="undo" />
         </button>
     }

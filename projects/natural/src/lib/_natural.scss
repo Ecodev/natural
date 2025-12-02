@@ -190,6 +190,7 @@ h6 {
 
 // Nice todo angular 21 : replace tonal by m3-utils.color-with-opacity(map.get($system, on-surface), 12%),
 [matButton] {
+    &.mat-error,
     &[color='error'] {
         @include mat.button-overrides(
             (
@@ -206,6 +207,7 @@ h6 {
         );
     }
 
+    &.mat-tertiary,
     &[color='tertiary'] {
         @include mat.button-overrides(
             (
@@ -223,8 +225,21 @@ h6 {
     }
 }
 
-[matMiniFab],
-[matFab] {
+.mdc-fab,
+.mdc-mini-fab {
+    &.mat-primary,
+    &[color='primary'] {
+        @include mat.fab-overrides(
+            (
+                container-color: var(--mat-sys-primary-container),
+                foreground-color: var(--mat-sys-on-primary-container),
+                small-container-color: var(--mat-sys-primary-container),
+                small-foreground-color: var(--mat-sys-on-primary-container),
+            )
+        );
+    }
+
+    &.mat-error,
     &[color='error'] {
         @include mat.fab-overrides(
             (
@@ -274,7 +289,17 @@ h6 {
     }
 }
 
-[matIconButton] {
+.mdc-icon-button {
+    &.mat-primary,
+    &[color='primary'] {
+        @include mat.icon-button-overrides(
+            (
+                icon-color: var(--mat-sys-primary-container),
+            )
+        );
+    }
+
+    &.mat-error,
     &[color='error'] {
         @include mat.icon-button-overrides(
             (
@@ -282,6 +307,8 @@ h6 {
             )
         );
     }
+
+    .mat-tertiary,
     &[color='tertiary'] {
         @include mat.icon-button-overrides(
             (

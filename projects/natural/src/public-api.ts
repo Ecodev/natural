@@ -42,6 +42,7 @@ export type {
     Literal,
     NameOrFullName,
     ResolvedData,
+    NatPalette,
 } from './lib/types/types';
 
 export * from './lib/modules/alert/public-api';

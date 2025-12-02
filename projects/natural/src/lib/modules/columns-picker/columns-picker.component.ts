@@ -1,8 +1,8 @@
 import {Component, DestroyRef, inject, Input, input, OnChanges, output, SimpleChanges} from '@angular/core';
+import {NatPalette} from '../../types/types';
 import {AvailableColumn, Button} from './types';
 import {cancellableTimeout} from '../../classes/rxjs';
 import {map} from 'rxjs';
-import {ThemePalette} from '@angular/material/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {FormsModule} from '@angular/forms';
 import {MatCheckbox} from '@angular/material/checkbox';
@@ -118,7 +118,7 @@ export class NaturalColumnsPickerComponent implements OnChanges {
         return value ?? true;
     }
 
-    public color(button: Button): ThemePalette | null {
+    public color(button: Button): NatPalette | null {
         return button.checked ? 'primary' : null;
     }
 

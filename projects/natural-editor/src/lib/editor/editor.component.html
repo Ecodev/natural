@@ -3,7 +3,7 @@
     <div class="menu-container">
         <div class="menu">
             @if (save$.observed) {
-                <button mat-icon-button i18n-matTooltip matTooltip="Enregistrer" (click)="save$.next()">
+                <button matIconButton i18n-matTooltip matTooltip="Enregistrer" (click)="save$.next()">
                     <mat-icon fontIcon="save" />
                 </button>
             }
@@ -268,7 +268,7 @@
             </mat-menu>
             @if (imageUploader()) {
                 <button
-                    mat-icon-button
+                    matIconButton
                     naturalFileDrop
                     i18n-matTooltip
                     matTooltip="Insérer une image"
@@ -330,7 +330,7 @@
             }
             @if (menu.undo) {
                 <button
-                    mat-icon-button
+                    matIconButton
                     i18n-matTooltip
                     matTooltip="Annuler"
                     [disabled]="menu.undo.disabled"
@@ -341,7 +341,7 @@
             }
             @if (menu.redo) {
                 <button
-                    mat-icon-button
+                    matIconButton
                     i18n-matTooltip
                     matTooltip="Refaire"
                     [disabled]="menu.redo.disabled"
@@ -352,7 +352,7 @@
             }
             @if (menu.wrapBulletList && menu.wrapBulletList.show) {
                 <button
-                    mat-icon-button
+                    matIconButton
                     i18n-matTooltip
                     matTooltip="Liste à puce"
                     [disabled]="menu.wrapBulletList.disabled"
@@ -363,7 +363,7 @@
             }
             @if (menu.wrapOrderedList && menu.wrapOrderedList.show) {
                 <button
-                    mat-icon-button
+                    matIconButton
                     i18n-matTooltip
                     matTooltip="Liste à numéro"
                     [disabled]="menu.wrapOrderedList.disabled"
@@ -374,7 +374,7 @@
             }
             @if (menu.wrapBlockQuote && menu.wrapBlockQuote.show) {
                 <button
-                    mat-icon-button
+                    matIconButton
                     i18n-matTooltip
                     matTooltip="Citation"
                     [disabled]="menu.wrapBlockQuote.disabled"
@@ -385,7 +385,7 @@
             }
             @if (menu.joinUp && menu.joinUp.show) {
                 <button
-                    mat-icon-button
+                    matIconButton
                     i18n-matTooltip
                     matTooltip="Fusionner avec l'élément du haut"
                     [disabled]="menu.joinUp.disabled"
@@ -396,7 +396,7 @@
             }
             @if (menu.lift && menu.lift.show) {
                 <button
-                    mat-icon-button
+                    matIconButton
                     i18n-matTooltip
                     matTooltip="Désindenter"
                     [disabled]="menu.lift.disabled"
@@ -407,7 +407,7 @@
             }
             @if (menu.selectParentNode && menu.selectParentNode.show) {
                 <button
-                    mat-icon-button
+                    matIconButton
                     i18n-matTooltip
                     matTooltip="Sélectionner l'élément parent"
                     [disabled]="menu.selectParentNode.disabled"
