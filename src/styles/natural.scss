@@ -3,13 +3,12 @@
  *   Seed: #2A7AE2
  *   Core Colors:
  *     Primary: #2A7AE2
- *     Secondary: #812ADD
  *     Tertiary: #B72AE2
  *     Neutral: #FFFFFF
  *     Neutral Variant: #FFFFFF
  *
  * Theme 1 Builder Link:
- *   http://material-foundation.github.io/material-theme-builder/?primary=2A7AE2&secondary=812ADD&tertiary=B72AE2&neutral=FFFFFF&neutralVariant=FFFFFF
+ *   http://material-foundation.github.io/material-theme-builder/?primary=2A7AE2&tertiary=B72AE2&neutral=FFFFFF&neutralVariant=FFFFFF
  */
 
 @use '@angular/material' as mat;
@@ -29,14 +28,14 @@
         on-primary-fixed-variant: #00458E,
         inverse-primary: #AAC7FF,
 
-        secondary: #6600BC,
-        secondary-container: #812ADD,
-        secondary-fixed: #EEDBFF,
-        secondary-fixed-dim: #DAB9FF,
+        secondary: #485F87,
+        secondary-container: #B8CFFE,
+        secondary-fixed: #D6E3FF,
+        secondary-fixed-dim: #B0C7F5,
         on-secondary: #FFFFFF,
-        on-secondary-container: #E8D2FF,
-        on-secondary-fixed: #2A0053,
-        on-secondary-fixed-variant: #6400B9,
+        on-secondary-container: #415880,
+        on-secondary-fixed: #001B3E,
+        on-secondary-fixed-variant: #30476E,
 
         tertiary: #9700C0,
         tertiary-container: #B72AE2,
@@ -93,14 +92,14 @@
             on-primary-fixed-variant: light-dark(#00458E, #00458E),
             inverse-primary: light-dark(#AAC7FF, #005DB9),
 
-            secondary: light-dark(#6600BC, #DAB9FF),
-            secondary-container: light-dark(#812ADD, #812ADD),
-            secondary-fixed: light-dark(#EEDBFF, #EEDBFF),
-            secondary-fixed-dim: light-dark(#DAB9FF, #DAB9FF),
-            on-secondary: light-dark(#FFFFFF, #460084),
-            on-secondary-container: light-dark(#E8D2FF, #E8D2FF),
-            on-secondary-fixed: light-dark(#2A0053, #2A0053),
-            on-secondary-fixed-variant: light-dark(#6400B9, #6400B9),
+            secondary: light-dark(#485F87, #B0C7F5),
+            secondary-container: light-dark(#B8CFFE, #30476E),
+            secondary-fixed: light-dark(#D6E3FF, #D6E3FF),
+            secondary-fixed-dim: light-dark(#B0C7F5, #B0C7F5),
+            on-secondary: light-dark(#FFFFFF, #173056),
+            on-secondary-container: light-dark(#415880, #9FB6E3),
+            on-secondary-fixed: light-dark(#001B3E, #001B3E),
+            on-secondary-fixed-variant: light-dark(#30476E, #30476E),
 
             tertiary: light-dark(#9700C0, #F1AFFF),
             tertiary-container: light-dark(#B72AE2, #B72AE2),

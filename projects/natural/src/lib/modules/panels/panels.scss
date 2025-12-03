@@ -1,14 +1,14 @@
 @use '@angular/material' as mat;
 
 .cdk-overlay-container {
-    @include mat.dialog-overrides(
-        (
-            container-shape: 0,
-            container-max-width: 100vw,
-        )
-    );
-
     .panel {
+        @include mat.dialog-overrides(
+            (
+                container-shape: 0,
+                container-max-width: 100vw,
+            )
+        );
+
         margin: 10px;
         box-shadow: var(--mat-sys-level2);
         max-width: calc(100vw - 84px);

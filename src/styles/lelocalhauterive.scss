@@ -8,14 +8,80 @@
  *     Neutral Variant: #FFFFFF
  *
  * Theme 1 Builder Link:
- *   http://material-foundation.github.io/material-theme-builder/?primary=4CAF50&tertiary=FF960B&neutral=FFFFFF&neutralVariant=FFFFFF
+ *   http://material-foundation.github.io/material-theme-builder/?primary=4CAF50&tertiary=FF960B&neutral=FFFFFF&neutralVariant=FFFFFF&colorMatch=true
  */
 
 @use '@angular/material' as mat;
+
+// Only light color for old browsers that don't support light-dark()
 /* prettier-ignore */
 
 [data-theme="lelocalhauterive"] {
     @include mat.theme-overrides((
+        primary: #006E1C,
+        primary-container: #4CAF50,
+        primary-fixed: #94F990,
+        primary-fixed-dim: #78DC77,
+        on-primary: #FFFFFF,
+        on-primary-container: #003C0B,
+        on-primary-fixed: #002204,
+        on-primary-fixed-variant: #005313,
+        inverse-primary: #78DC77,
+
+        secondary: #42673F,
+        secondary-container: #C3EEBB,
+        secondary-fixed: #C3EEBB,
+        secondary-fixed-dim: #A8D1A1,
+        on-secondary: #FFFFFF,
+        on-secondary-container: #486D45,
+        on-secondary-fixed: #002204,
+        on-secondary-fixed-variant: #2B4F2A,
+
+        tertiary: #8C5000,
+        tertiary-container: #FF960B,
+        tertiary-fixed: #FFDCBF,
+        tertiary-fixed-dim: #FFB874,
+        on-tertiary: #FFFFFF,
+        on-tertiary-container: #653800,
+        on-tertiary-fixed: #2D1600,
+        on-tertiary-fixed-variant: #6A3B00,
+
+        error: #BC0100,
+        error-container: #EB0000,
+        on-error: #FFFFFF,
+        on-error-container: #FFFBFF,
+
+        surface: #FCF8F8,
+        surface-variant: #E0E3E3,
+        on-surface: #1C1B1B,
+        on-surface-variant: #444748,
+        surface-dim: #DDD9D9,
+        surface-bright: #FCF8F8,
+        surface-container-lowest: #FFFFFF,
+        surface-container-low: #F6F3F2,
+        surface-container: #F1EDEC,
+        surface-container-high: #EBE7E7,
+        surface-container-highest: #E5E2E1,
+        surface-tint: #006E1C,
+        inverse-surface: #313030,
+        inverse-on-surface: #F4F0EF,
+
+        background: #F5FBEF,
+        on-background: #171D16,
+
+        outline: #747878,
+        outline-variant: #C4C7C8,
+        shadow: #000000,
+        scrim: #000000
+    ));
+}
+
+// Both colors for new browsers that support light-dark()
+@supports (color: light-dark(white, black)) {
+    /* prettier-ignore */
+
+    [data-theme="lelocalhauterive"] {
+        @include mat.theme-overrides((
             primary: light-dark(#006E1C, #78DC77),
             primary-container: light-dark(#4CAF50, #4CAF50),
             primary-fixed: light-dark(#94F990, #94F990),
@@ -71,5 +137,6 @@
             outline-variant: light-dark(#C4C7C8, #444748),
             shadow: light-dark(#000000, #000000),
             scrim: light-dark(#000000, #000000)
-    ));
+        ));
+    }
 }

@@ -1,5 +1,13 @@
+@use '@angular/material' as mat;
+
 :host {
     display: block;
+
+    @include mat.tree-overrides(
+        (
+            container-background-color: transparent,
+        )
+    );
 }
 
 mat-icon {

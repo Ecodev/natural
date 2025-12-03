@@ -25,99 +25,108 @@
 <natural-sidenav-container #menu class="nat-expand" name="menu" [noScroll]="true">
     <natural-sidenav>
         <mat-nav-list role="navigation">
-            <a mat-list-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a
+                mat-list-item
+                routerLink="/"
+                routerLinkActive="nat-gradient-secondary nat-elevation"
+                [routerLinkActiveOptions]="{exact: true}"
+            >
                 <mat-icon matListItemIcon naturalIcon="home" />
                 Home
             </a>
-            <a mat-list-item routerLink="/theme-merger" routerLinkActive="active">
+            <a mat-list-item routerLink="/theme-merger" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="graph_1" />
                 Theme merger
             </a>
-            <a mat-list-item routerLink="/search" routerLinkActive="active">
+            <a mat-list-item routerLink="/search" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="search" />
                 Search
             </a>
-            <a mat-list-item routerLinkActive="active" [routerLink]="['/list', {dog: 'qwer'}]">
+            <a
+                mat-list-item
+                routerLinkActive="nat-gradient-secondary nat-elevation"
+                [routerLink]="['/list', {dog: 'qwer'}]"
+            >
                 <mat-icon matListItemIcon naturalIcon="list" />
                 List A
             </a>
             <a
                 mat-list-item
-                routerLinkActive="active"
+                routerLinkActive="nat-gradient-secondary nat-elevation"
                 [routerLink]="['/nested/anyValue', {cat: 'cat'}, 'list', {dog: 'dog'}]"
             >
                 <mat-icon matListItemIcon naturalIcon="list" />
                 List B
             </a>
-            <a mat-list-item routerLinkActive="active" [routerLink]="['/editable-list']">
+            <a mat-list-item routerLinkActive="nat-gradient-secondary nat-elevation" [routerLink]="['/editable-list']">
                 <mat-icon matListItemIcon naturalIcon="list" />
                 Editable list
             </a>
-            <a mat-list-item routerLinkActive="active" [routerLink]="['/table-style']">
+            <a mat-list-item routerLinkActive="nat-gradient-secondary nat-elevation" [routerLink]="['/table-style']">
                 <mat-icon matListItemIcon naturalIcon="list" />
                 Table style
             </a>
-            <a mat-list-item routerLinkActive="active" [routerLink]="['/navigable-list']">
+            <a mat-list-item routerLinkActive="nat-gradient-secondary nat-elevation" [routerLink]="['/navigable-list']">
                 <mat-icon matListItemIcon naturalIcon="subdirectory_arrow_right" />
                 Navigable list
             </a>
-            <a mat-list-item routerLinkActive="active" [routerLink]="['/detail/123']">
+            <a mat-list-item routerLinkActive="nat-gradient-secondary nat-elevation" [routerLink]="['/detail/123']">
                 <mat-icon matListItemIcon naturalIcon="details" />
                 Detail
             </a>
-            <a mat-list-item routerLinkActive="active" [routerLink]="['/detail-header']">
+            <a mat-list-item routerLinkActive="nat-gradient-secondary nat-elevation" [routerLink]="['/detail-header']">
                 <mat-icon matListItemIcon naturalIcon="title" />
                 Detail header
             </a>
-            <a mat-list-item routerLink="/select" routerLinkActive="active">
+            <a mat-list-item routerLink="/select" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="check" />
                 Select
             </a>
-            <a mat-list-item routerLink="/select-hierarchic" routerLinkActive="active">
+            <a mat-list-item routerLink="/select-hierarchic" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="check" />
                 Select hierarchic
             </a>
-            <a mat-list-item routerLink="/select-enum" routerLinkActive="active">
+            <a mat-list-item routerLink="/select-enum" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="check" />
                 Select Enum
             </a>
-            <a mat-list-item routerLink="/relation" routerLinkActive="active">
+            <a mat-list-item routerLink="/relation" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="device_hub" />
                 Relation
             </a>
-            <a mat-list-item routerLink="/hierarchic" routerLinkActive="active">
+            <a mat-list-item routerLink="/hierarchic" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="account_tree" />
                 Hierarchic
             </a>
-            <a mat-list-item routerLink="/panels" routerLinkActive="active">
+            <a mat-list-item routerLink="/panels" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="filter_none" />
                 Panels
             </a>
-            <a mat-list-item routerLink="/file" routerLinkActive="active">
+            <a mat-list-item routerLink="/file" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="file_upload" />
                 File
             </a>
-            <a mat-list-item routerLink="/alert-service" routerLinkActive="active">
+            <a mat-list-item routerLink="/alert-service" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="error" />
                 Alert service
             </a>
-            <a mat-list-item routerLink="/avatar" routerLinkActive="active">
+            <a mat-list-item routerLink="/avatar" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="face" />
                 Avatar
             </a>
-            <a mat-list-item routerLink="/editor" routerLinkActive="active">
+            <a mat-list-item routerLink="/editor" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="edit" />
                 Editor
             </a>
-            <a mat-list-item routerLink="/typography" routerLinkActive="active">
+            <a mat-list-item routerLink="/typography" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="format_size" />
                 Typography
             </a>
-            <a mat-list-item routerLink="/buttons" routerLinkActive="active">
+            <a mat-list-item routerLink="/buttons" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="left_click" />
                 Buttons
             </a>
-            <a mat-list-item routerLink="/other" routerLinkActive="active">
+            <a mat-list-item routerLink="/other" routerLinkActive="nat-gradient-secondary nat-elevation">
                 <mat-icon matListItemIcon naturalIcon="build" />
                 Other tools
             </a>

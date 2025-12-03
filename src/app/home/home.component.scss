@@ -39,17 +39,5 @@ natural-sidenav-content {
 }
 
 mat-nav-list {
-    margin: 0 20px;
-    .active {
-        @include mat.list-overrides(
-            (
-                list-item-container-color: var(--mat-sys-primary),
-                list-item-label-text-color: var(--mat-sys-on-primary),
-                list-item-hover-label-text-color: var(--mat-sys-on-primary),
-                list-item-focus-label-text-color: var(--mat-sys-on-primary),
-                list-item-leading-icon-color: var(--mat-sys-on-primary),
-                list-item-hover-leading-icon-color: var(--mat-sys-on-primary),
-            )
-        );
-    }
+    margin: 0 10px;
 }

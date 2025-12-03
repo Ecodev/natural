@@ -33,6 +33,21 @@
 }
 
 body {
+    // Fix a bug where hover on errored form fields show on-error color (white) label on grey background
+    @include mat.form-field-overrides(
+        (
+            filled-error-hover-label-text-color: var(--mat-sys-error),
+            filled-error-hover-active-indicator-color: var(--mat-sys-error),
+        )
+    );
+
+    @include mat.dialog-overrides(
+        (
+            container-color: var(--mat-sys-surface-bright),
+            container-elevation-shadow: var(--mat-sys-level5),
+        )
+    );
+
     --nat-elevation: inset 0 1px rgba(255, 255, 255, 0.3), var(--mat-sys-level1);
     --nat-gradient-primary: linear-gradient(
         175deg,
@@ -189,7 +204,13 @@ h6 {
 }
 
 // Nice todo angular 21 : replace tonal by m3-utils.color-with-opacity(map.get($system, on-surface), 12%),
-[matButton] {
+.mdc-button {
+    @include mat.button-overrides(
+        (
+            protected-container-color: color-mix(in srgb, transparent 92%, black),
+        )
+    );
+
     &.mat-error,
     &[color='error'] {
         @include mat.button-overrides(
@@ -199,8 +220,7 @@ h6 {
                 filled-label-text-color: var(--mat-sys-on-error-container),
                 tonal-container-color: color-mix(in srgb, var(--mat-sys-error-container) 12%, transparent),
                 tonal-label-text-color: var(--mat-sys-on-surface),
-                protected-container-color: color-mix(in srgb, var(--mat-sys-error-container) 60%, black),
-                protected-label-text-color: white,
+                protected-label-text-color: var(--mat-sys-error-container),
                 outlined-outline-color: var(--mat-sys-error-container),
                 outlined-label-text-color: var(--mat-sys-error-container),
             )
@@ -216,13 +236,24 @@ h6 {
                 filled-label-text-color: var(--mat-sys-on-tertiary-container),
                 tonal-container-color: color-mix(in srgb, var(--mat-sys-tertiary-container) 12%, transparent),
                 tonal-label-text-color: var(--mat-sys-on-surface),
-                protected-container-color: color-mix(in srgb, var(--mat-sys-tertiary-container) 60%, black),
-                protected-label-text-color: white,
+                protected-label-text-color: var(--mat-sys-tertiary-container),
                 outlined-outline-color: var(--mat-sys-tertiary-container),
                 outlined-label-text-color: var(--mat-sys-tertiary-container),
             )
         );
     }
+}
+
+// In fab speed dials, mini fabs are tertiary as well as default fab buttons
+eco-fab-speed-dial .mdc-fab {
+    @include mat.fab-overrides(
+        (
+            container-color: var(--mat-sys-tertiary-container),
+            foreground-color: var(--mat-sys-on-tertiary-container),
+            small-container-color: var(--mat-sys-tertiary-container),
+            small-foreground-color: var(--mat-sys-on-tertiary-container),
+        )
+    );
 }
 
 .mdc-fab,

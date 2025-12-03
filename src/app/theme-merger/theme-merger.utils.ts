@@ -360,6 +360,8 @@ function generateThemeBuilderUrl(coreColors: NonNullable<ThemeData['coreColors']
         params.append('neutralVariant', coreColors.neutralVariant.replace('#', ''));
     }
 
+    params.append('colorMatch', 'true');
+
     return params.toString() ? `${baseUrl}?${params.toString()}` : '';
 }
 
