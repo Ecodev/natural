@@ -13,7 +13,7 @@
     }
 
     @if (requireValueCtrl) {
-        <mat-selection-list [formControl]="valueCtrl">
+        <mat-selection-list [formControl]="valueCtrl" [multiple]="configuration.multiple">
             @for (item of items; track item) {
                 <mat-list-option togglePosition="before" [value]="getId(item)">
                     {{ getDisplay(item) }}

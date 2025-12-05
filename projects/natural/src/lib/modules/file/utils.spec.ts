@@ -1,4 +1,4 @@
-import {acceptType} from './utils';
+import {acceptType, commonImageMimeTypes} from './utils';
 
 describe('acceptType', () => {
     it('accept anything', () => {
@@ -32,5 +32,10 @@ describe('acceptType', () => {
         expect(acceptType(accept, '', 'foo.gif.xyx')).toBe(false);
         expect(acceptType(accept, 'video/mp4', 'foo.mp4')).toBe(false);
         expect(acceptType(accept, '', 'foo.mp4')).toBe(false);
+    });
+
+    it('if browser gives no type, fallback to approximative extension guesswork', () => {
+        expect(acceptType(commonImageMimeTypes, '', 'foo.HEIC')).toBe(true);
+        expect(acceptType(commonImageMimeTypes, '', 'foo.pdf')).toBe(false);
     });
 });

@@ -31,4 +31,9 @@ export {
     type TypeOption,
     TypeOptionsComponent,
 } from './type-options/type-options.component';
-export {possibleComparableOperators, type PossibleComparableOpertorKeys} from './types';
+export {
+    possibleComparableOperators,
+    possibleNullComparableOperators,
+    type PossibleComparableOperator,
+    type PossibleComparableOperatorKeys,
+} from './types';

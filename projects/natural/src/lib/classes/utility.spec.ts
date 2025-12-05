@@ -252,6 +252,7 @@ describe('formatIsoDateTime', () => {
         const localDatePattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/;
 
         expect(formatIsoDateTime(new Date('2021-09-23T17:57:16+09:00'))).toMatch(localDatePattern);
+        expect(formatIsoDateTime(new Date('1846-06-13T00:00:00+08:00'))).toMatch(localDatePattern);
         expect(formatIsoDateTime(new Date())).toMatch(localDatePattern);
     });
 });

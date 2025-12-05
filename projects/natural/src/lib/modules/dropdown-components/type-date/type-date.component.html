@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" [class.nullable]="configuration.nullable">
     <mat-form-field subscriptSizing="dynamic">
         <mat-label i18n="Mathematical operator < > =">Opérateur</mat-label>
         <mat-select panelWidth="" [formControl]="operatorCtrl" [required]="true">
@@ -10,28 +10,29 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-form-field subscriptSizing="dynamic">
-        <mat-label i18n>Date</mat-label>
-        <input
-            matInput
-            [formControl]="valueCtrl"
-            [matDatepicker]="value"
-            [max]="configuration.max"
-            [min]="configuration.min"
-            [required]="true"
-        />
-        <mat-datepicker-toggle matIconSuffix [for]="value" />
-        <mat-datepicker #value />
-        @if (valueCtrl.hasError('min')) {
-            <mat-error>< {{ configuration.min }}</mat-error>
-        }
-        @if (valueCtrl.hasError('max')) {
-            <mat-error>> {{ configuration.max }}</mat-error>
-        }
-        @if (valueCtrl.hasError('required')) {
-            <mat-error>*</mat-error>
-        }
-    </mat-form-field>
+    @if (requireValueCtrl) {
+        <mat-form-field subscriptSizing="dynamic">
+            <mat-label i18n>Date</mat-label>
+            <input
+                matInput
+                [formControl]="valueCtrl"
+                [matDatepicker]="value"
+                [max]="configuration.max"
+                [min]="configuration.min"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="value" />
+            <mat-datepicker #value />
+            @if (valueCtrl.hasError('min')) {
+                <mat-error>< {{ configuration.min }}</mat-error>
+            }
+            @if (valueCtrl.hasError('max')) {
+                <mat-error>> {{ configuration.max }}</mat-error>
+            }
+            @if (valueCtrl.hasError('required')) {
+                <mat-error>*</mat-error>
+            }
+        </mat-form-field>
 
-    <mat-checkbox i18n [formControl]="todayCtrl">Aujourd'hui</mat-checkbox>
+        <mat-checkbox i18n [formControl]="todayCtrl">Aujourd'hui</mat-checkbox>
+    }
 </form>

@@ -7,15 +7,26 @@ export const commonImageMimeTypes =
     'image/avif,image/bmp,image/x-ms-bmp,image/gif,image/heic,image/heif,image/jpeg,image/pjpeg,image/png,image/svg+xml,image/svg,image/webp';
 
 export function acceptType(accept: string, type: string, filename: string): boolean {
-    if (!accept.trim()) {
+    const mimeAndExtensions = accept
+        .trim()
+        .toLowerCase()
+        .split(',')
+        .map(s => s.trim())
+        .filter(s => s);
+
+    if (!mimeAndExtensions.length) {
         return true;
     }
 
     type = type.toLowerCase();
     filename = filename.toLowerCase();
 
-    return accept.split(',').some(mimeOrExtension => {
-        mimeOrExtension = mimeOrExtension.trim().toLowerCase();
+    const mimeAsExtensions = mimeAndExtensions
+        .map(s => /^[^/]+\/(.*)$/.exec(s)?.[1])
+        .filter(s => s)
+        .map(s => '.' + s);
+
+    return [...mimeAndExtensions, ...mimeAsExtensions].some(mimeOrExtension => {
         if (mimeOrExtension.startsWith('.')) {
             return filename.endsWith(mimeOrExtension);
         } else {

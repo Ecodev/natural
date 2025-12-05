@@ -11,13 +11,15 @@ import {
     toGraphQLDoctrineFilter,
     toUrl,
     TypeDateComponent,
+    type TypeDateConfiguration,
     TypeDateRangeComponent,
     TypeHierarchicSelectorComponent,
     TypeHierarchicSelectorConfiguration,
     TypeNaturalSelectComponent,
     TypeNumberComponent,
+    type TypeNumberConfiguration,
     TypeSelectComponent,
-    TypeSelectConfiguration,
+    type TypeSelectConfiguration,
     TypeTextComponent,
 } from '@ecodev/natural';
 import {timer} from 'rxjs';
@@ -83,6 +85,13 @@ export class SearchComponent implements OnInit {
             component: TypeDateComponent,
         },
         {
+            display: 'Nullable Date',
+            field: 'date',
+            name: 'nullableDate',
+            component: TypeDateComponent,
+            configuration: {nullable: true},
+        } satisfies DropdownFacet<TypeDateConfiguration>,
+        {
             display: 'Date range',
             field: 'date',
             name: 'dateRange',
@@ -98,6 +107,15 @@ export class SearchComponent implements OnInit {
             field: 'number',
             component: TypeNumberComponent,
         },
+        {
+            display: 'Nullable number',
+            field: 'number',
+            name: 'nullableNumber',
+            component: TypeNumberComponent,
+            configuration: {
+                nullable: true,
+            },
+        } satisfies DropdownFacet<TypeNumberConfiguration>,
         {
             display: 'Same field number',
             field: 'sameField',

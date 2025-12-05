@@ -9,12 +9,12 @@ import {MatRadioButton} from '@angular/material/radio';
 import {MatTooltip} from '@angular/material/tooltip';
 import {
     MatNestedTreeNode,
+    MatTree,
+    MatTreeNestedDataSource,
     MatTreeNodeDef,
+    MatTreeNodeOutlet,
     MatTreeNodePadding,
     MatTreeNodeToggle,
-    MatTree,
-    MatTreeNodeOutlet,
-    MatTreeNestedDataSource,
 } from '@angular/material/tree';
 import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
@@ -225,14 +225,14 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
      * Get list of children, considering given FlatNode id as a parent.
      * Mark loading status individually on nodes.
      */
-    public loadChildren(node: ModelNode, contextFilter: HierarchicFiltersConfiguration | null = null): void {
+    public loadChildren(node: ModelNode): void {
         if (node.hasChildren) {
             return;
         }
 
         node.isLoading = true;
         this.hierarchicSelectorService
-            .getList(node, contextFilter, null, this.config())
+            .getList(node, this.filters(), null, this.config())
             .pipe(finalize(() => (node.isLoading = false)))
             .subscribe(items => node.childrenChange.next(items));
     }

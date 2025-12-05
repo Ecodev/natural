@@ -1,12 +1,29 @@
 import {FilterGroupConditionField} from '../search/classes/graphql-doctrine.types';
 
-export type PossibleComparableOpertorKeys = keyof Pick<
-    FilterGroupConditionField,
-    'less' | 'lessOrEqual' | 'equal' | 'greaterOrEqual' | 'greater'
->;
+type PossibleNullableOperatorKeys = 'any' | 'none';
+
+type PossibleNullableOperator = {
+    key: PossibleNullableOperatorKeys;
+    label: string;
+};
+
+const possibleNullableOperators: readonly PossibleNullableOperator[] = [
+    {
+        key: 'any',
+        label: $localize`avec`,
+    },
+    {
+        key: 'none',
+        label: $localize`sans`,
+    },
+] as const;
+
+export type PossibleComparableOperatorKeys =
+    | keyof Pick<FilterGroupConditionField, 'less' | 'lessOrEqual' | 'equal' | 'greaterOrEqual' | 'greater'>
+    | PossibleNullableOperatorKeys;
 
 export type PossibleComparableOperator = {
-    key: PossibleComparableOpertorKeys;
+    key: PossibleComparableOperatorKeys;
     label: string;
 };
 
@@ -33,7 +50,12 @@ export const possibleComparableOperators: readonly PossibleComparableOperator[] 
     },
 ] as const;
 
-export type PossibleDiscreteOperatorKeys = 'is' | 'isnot' | 'any' | 'none';
+export const possibleNullComparableOperators: readonly PossibleComparableOperator[] = [
+    ...possibleComparableOperators,
+    ...possibleNullableOperators,
+] as const;
+
+export type PossibleDiscreteOperatorKeys = 'is' | 'isnot' | PossibleNullableOperatorKeys;
 
 export type PossibleDiscreteOperator = {
     key: PossibleDiscreteOperatorKeys;
@@ -49,12 +71,5 @@ export const possibleDiscreteOperators: readonly PossibleDiscreteOperator[] = [
         key: 'isnot',
         label: $localize`n'est pas`,
     },
-    {
-        key: 'any',
-        label: $localize`avec`,
-    },
-    {
-        key: 'none',
-        label: $localize`sans`,
-    },
+    ...possibleNullableOperators,
 ] as const;
