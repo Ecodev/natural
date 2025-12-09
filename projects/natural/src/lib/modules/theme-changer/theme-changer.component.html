@@ -3,6 +3,9 @@
 >
 <mat-menu #menu="matMenu">
     @for (theme of allThemes; track $index) {
-        <button mat-menu-item (click)="themeService.setTheme(theme)">{{ theme }}</button>
+        <button mat-menu-item (click)="themeService.setTheme(theme)">
+            <mat-icon [fontIcon]="themeService.theme() === theme ? 'check' : ''" />
+            {{ theme }}</button
+        >
     }
 </mat-menu>
