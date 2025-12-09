@@ -223,6 +223,15 @@
         animation: gradient 3s none infinite;
 
         background-size: 500% 100% !important;
+
+        background: linear-gradient(
+            90deg,
+            var(--mat-sys-primary),
+            var(--mat-sys-primary),
+            var(--mat-sys-tertiary),
+            var(--mat-sys-primary),
+            var(--mat-sys-primary)
+        );
         width: 50px;
         height: 50px;
     }
@@ -239,15 +248,4 @@
 
 button.natural-file-over {
     background: var(--mat-sys-primary);
-}
-
-placeholder {
-    background: linear-gradient(
-        90deg,
-        var(--mat-sys-primary),
-        var(--mat-sys-primary),
-        var(--mat-sys-terciary),
-        var(--mat-sys-primary),
-        var(--mat-sys-primary)
-    );
 }
