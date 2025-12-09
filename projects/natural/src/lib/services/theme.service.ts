@@ -93,9 +93,15 @@ export class NaturalThemeService {
     /**
      * Set theme in memory, local storage and dom
      */
-    public setTheme(name: string): void {
-        this._theme.set(name);
-        this.document.documentElement.setAttribute('data-theme', name);
+    public setTheme(theme: string): void {
+        if (!this.allThemes.includes(theme)) {
+            throw new Error(
+                `Expecting one of the configured themes: ${this.allThemes.map(t => `'${t}'`).join(', ')}. But got invalid: '${theme}'`,
+            );
+        }
+
+        this._theme.set(theme);
+        this.document.documentElement.setAttribute('data-theme', theme);
     }
 
     /**
