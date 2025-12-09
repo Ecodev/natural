@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatButton, MatFabButton, MatIconButton, MatMiniFabButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {NaturalIconDirective} from '@ecodev/natural';
@@ -8,5 +8,6 @@ import {NaturalIconDirective} from '@ecodev/natural';
     imports: [NaturalIconDirective, MatButton, MatMiniFabButton, MatFabButton, MatIconButton, MatIcon],
     templateUrl: './buttons.component.html',
     styleUrl: './buttons.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonsComponent {}

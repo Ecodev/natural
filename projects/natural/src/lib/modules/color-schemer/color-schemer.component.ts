@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
@@ -11,6 +11,7 @@ import {NaturalIconDirective} from '../icon/icon.directive';
     imports: [MatIconButton, MatTooltip, NaturalIconDirective, FormsModule, MatIcon],
     templateUrl: './color-schemer.component.html',
     styleUrl: './color-schemer.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NaturalColorSchemerComponent {
     public readonly themeService = inject(NaturalThemeService);

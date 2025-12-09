@@ -1,4 +1,3 @@
-import {CommonModule} from '@angular/common';
 import {Component, DOCUMENT, ElementRef, inject, OnInit, viewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButton, MatIconButton} from '@angular/material/button';
@@ -21,7 +20,6 @@ import {
 @Component({
     selector: 'app-theme-merger',
     imports: [
-        CommonModule,
         FormsModule,
         MatFormField,
         MatInput,

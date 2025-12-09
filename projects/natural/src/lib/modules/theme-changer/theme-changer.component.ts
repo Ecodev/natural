@@ -1,6 +1,4 @@
-import {CommonModule} from '@angular/common';
-import {Component, inject} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
@@ -9,18 +7,10 @@ import {NaturalIconDirective} from '../icon/icon.directive';
 
 @Component({
     selector: 'natural-theme-changer',
-    imports: [
-        CommonModule,
-        FormsModule,
-        MatButton,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        MatIcon,
-        NaturalIconDirective,
-    ],
+    imports: [MatButton, MatMenuTrigger, MatMenu, MatMenuItem, MatIcon, NaturalIconDirective],
     templateUrl: './theme-changer.component.html',
     styleUrl: './theme-changer.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NaturalThemeChangerComponent {
     protected readonly themeService = inject(NaturalThemeService);
