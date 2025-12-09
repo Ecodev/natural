@@ -67,9 +67,17 @@ export class NaturalThemeService {
     });
 
     private readonly _theme = signal<string>(this.allThemes[0]);
+
+    /**
+     * Currently selected theme. Use `setTheme()` to select a different theme.
+     */
     public readonly theme = this._theme.asReadonly();
 
     private readonly _colorScheme = signal<ColorScheme>(ColorScheme.Auto);
+
+    /**
+     * Currently selected color scheme. Use `setColorScheme()` to select a different scheme.
+     */
     public readonly colorScheme = this._colorScheme.asReadonly();
 
     public constructor() {

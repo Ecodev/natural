@@ -14,6 +14,6 @@ import {NaturalIconDirective} from '../icon/icon.directive';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NaturalColorSchemerComponent {
-    public readonly themeService = inject(NaturalThemeService);
+    protected readonly themeService = inject(NaturalThemeService);
     protected readonly ColorScheme = ColorScheme;
 }
