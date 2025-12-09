@@ -84,7 +84,6 @@ export class NaturalThemeService {
      */
     public setTheme(name: string): void {
         this.theme.set(name);
-        this.storage.setItem('theme', name);
         this.document.documentElement.setAttribute('data-theme', name);
     }
 
