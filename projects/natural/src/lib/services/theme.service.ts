@@ -60,14 +60,17 @@ export class NaturalThemeService {
         {initialValue: false},
     );
 
-    public readonly isDark = computed(() => {
+    private readonly isDark = computed(() => {
         return (
             this.colorScheme() === ColorScheme.Dark || (this.colorScheme() === ColorScheme.Auto && this.isDarkSystem())
         );
     });
 
-    public readonly theme = signal<string>(this.allThemes[0]);
-    public readonly colorScheme = signal<ColorScheme>(ColorScheme.Auto);
+    private readonly _theme = signal<string>(this.allThemes[0]);
+    public readonly theme = this._theme.asReadonly();
+
+    private readonly _colorScheme = signal<ColorScheme>(ColorScheme.Auto);
+    public readonly colorScheme = this._colorScheme.asReadonly();
 
     public constructor() {
         effect(() => {
@@ -76,14 +79,14 @@ export class NaturalThemeService {
 
         const storedScheme = this.storage.getItem('color-scheme') as ColorScheme | null;
         const isValidScheme = storedScheme && Object.values(ColorScheme).includes(storedScheme);
-        this.colorScheme.set(isValidScheme ? storedScheme : ColorScheme.Auto);
+        this._colorScheme.set(isValidScheme ? storedScheme : ColorScheme.Auto);
     }
 
     /**
      * Set theme in memory, local storage and dom
      */
     public setTheme(name: string): void {
-        this.theme.set(name);
+        this._theme.set(name);
         this.document.documentElement.setAttribute('data-theme', name);
     }
 
@@ -91,7 +94,7 @@ export class NaturalThemeService {
      * Set dark/light/auto
      */
     public setColorScheme(scheme: ColorScheme, persistInStorage = true): void {
-        this.colorScheme.set(scheme); // memory
+        this._colorScheme.set(scheme); // memory
         this.document.documentElement.setAttribute('data-color-scheme', scheme); // dom
 
         if (persistInStorage) {
