@@ -4,7 +4,6 @@
 [![Total Downloads](https://img.shields.io/npm/dt/@ecodev/natural.svg)](https://www.npmjs.com/package/@ecodev/natural)
 [![Latest Stable Version](https://img.shields.io/npm/v/@ecodev/natural.svg)](https://www.npmjs.com/package/@ecodev/natural)
 [![License](https://img.shields.io/npm/l/@ecodev/natural.svg)](https://www.npmjs.com/package/@ecodev/natural)
-[![Join the chat at https://gitter.im/Ecodev/natural](https://badges.gitter.im/Ecodev/natural.svg)](https://gitter.im/Ecodev/natural)
 
 This project is a collection of Angular Material components and various utilities classes for Angular projects.
 
