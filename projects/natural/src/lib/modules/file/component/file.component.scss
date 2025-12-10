@@ -45,14 +45,14 @@
         text-align: center;
     }
 
-    a[naturalFileDrop] {
-        border: 1px dashed var(--mat-sys-secondary-container);
+    .action-overlay {
+        background-color: color-mix(in srgb, var(--mat-sys-primary-fixed) 85%, transparent);
+        color: var(--mat-sys-on-primary-fixed);
     }
 
-    .action-overlay,
     .file-preview {
-        background-color: var(--mat-sys-secondary-fixed);
-        color: var(--mat-sys-on-secondary-fixed);
+        background-color: color-mix(in srgb, var(--mat-sys-tertiary-fixed) 85%, transparent);
+        color: var(--mat-sys-on-tertiary-fixed);
     }
 
     .action-overlay {
