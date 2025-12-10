@@ -1,5 +1,5 @@
 import {Component, DestroyRef, inject, Input, input, OnChanges, output, SimpleChanges} from '@angular/core';
-import {NatPalette} from '../../types/types';
+import {NaturalPalette} from '../../types/types';
 import {AvailableColumn, Button} from './types';
 import {cancellableTimeout} from '../../classes/rxjs';
 import {map} from 'rxjs';
@@ -118,7 +118,7 @@ export class NaturalColumnsPickerComponent implements OnChanges {
         return value ?? true;
     }
 
-    public color(button: Button): NatPalette | null {
+    public color(button: Button): NaturalPalette | null {
         return button.checked ? 'primary' : null;
     }
 

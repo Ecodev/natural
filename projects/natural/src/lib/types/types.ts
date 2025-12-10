@@ -163,4 +163,4 @@ export type ResolvedData<T extends ResolveData> = {
     readonly [KeyType in keyof Pick<T, keyof T>]: ObservedValueOf<ReturnType<Pick<T, keyof T>[KeyType]>>;
 };
 
-export type NatPalette = 'primary' | 'tertiary' | 'error' | undefined;
+export type NaturalPalette = 'primary' | 'tertiary' | 'error' | undefined;

@@ -10,7 +10,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {Params, QueryParamsHandling, RouterLink, RouterOutlet} from '@angular/router';
-import {NatPalette} from '@ecodev/natural';
+import {NaturalPalette} from '@ecodev/natural';
 import {NaturalHttpPrefixDirective} from '../../../projects/natural/src/lib/directives/http-prefix.directive';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {NaturalTableButtonComponent} from '../../../projects/natural/src/lib/modules/table-button/table-button.component';
@@ -24,7 +24,7 @@ type TableButtonConfiguration = {
     queryParamsHandling: QueryParamsHandling;
     fragment?: string | undefined;
     preserveFragment: boolean;
-    color: NatPalette;
+    color: NaturalPalette;
 };
 
 @Component({
