@@ -91,24 +91,10 @@ jobs:
             # Publish to npm
             - uses: actions/setup-node@v4
               with:
+                  node-version: '24'
                   registry-url: 'https://registry.npmjs.org'
-            - run: npm publish --provenance --access public dist/natural/
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-            - run: npm publish --provenance --access public dist/natural-editor/
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-            # Publish to GitHub Packages
-            - uses: actions/setup-node@v4
-              with:
-                  registry-url: 'https://npm.pkg.github.com'
-            - run: npm publish --provenance --access public dist/natural/
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            - run: npm publish --provenance --access public dist/natural-editor/
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - run: npm publish --access public dist/natural/
+            - run: npm publish --access public dist/natural-editor/
 
             # Create release
             - name: Get release info
