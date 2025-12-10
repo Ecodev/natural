@@ -97,6 +97,8 @@ jobs:
               with:
                   node-version: '24'
                   registry-url: 'https://registry.npmjs.org'
+
+            - run: npm install -g npm@latest && npm --version
             - run: npm publish dist/natural/
             - run: npm publish dist/natural-editor/
 
