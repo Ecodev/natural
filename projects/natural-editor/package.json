@@ -2,7 +2,10 @@
     "name": "@ecodev/natural-editor",
     "version": "0.0.1",
     "license": "MIT",
-    "repository": "github:Ecodev/natural",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Ecodev/natural.git"
+    },
     "sideEffects": false,
     "exports": {
         ".": {
