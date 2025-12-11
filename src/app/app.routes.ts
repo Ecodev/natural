@@ -23,7 +23,7 @@ import {ListComponent} from './list/list.component';
 import {ModalPlaceholderComponent} from './modal-placeholder/modal-placeholder.component';
 import {NavigableListComponent} from './navigable-list/navigable-list.component';
 import {OtherComponent} from './other/other.component';
-import {panelsRoutes} from './panels-routing';
+import {panelsRoutes} from './panels.routes';
 import {PanelsComponent} from './panels/panels.component';
 import {RelationsComponent} from './relations/relations.component';
 import {SearchComponent} from './search/search.component';
