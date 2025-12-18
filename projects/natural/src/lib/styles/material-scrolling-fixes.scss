@@ -40,10 +40,4 @@ html:not(.disable-material-fixes) {
     .mdc-switch {
         height: var(--mat-slide-toggle-touch-target-size);
     }
-
-    // mat-slider have a hardcoded target touch, and focus indicator, of 48px, via `.mdc-slider__thumb`. So we
-    // override the horizontal margins to increase it slightly to allow to display the focus indicator in its entirety.
-    .mat-mdc-slider {
-        margin: 0 21px;
-    }
 }
