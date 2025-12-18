@@ -1,9 +1,10 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@use 'styles/table';
-@use 'modules/panels/panels.scss';
-@use 'modules/sidenav/sidenav.scss';
-@use 'modules/alert/alert.scss';
+@use './styles/table.scss';
+@use './styles/material-scrolling-fixes.scss';
+@use './modules/panels/panels.scss';
+@use './modules/sidenav/sidenav.scss';
+@use './modules/alert/alert.scss';
 
 [data-color-scheme='auto'] {
     color-scheme: light dark;

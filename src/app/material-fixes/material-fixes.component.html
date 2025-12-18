@@ -1,0 +1,232 @@
+<div class="controls showContainer showTouchTarget showRipple showElement">
+    <label
+        ><input type="checkbox" [(ngModel)]="showContainer" />
+        <div class="sample container"></div>
+        Container</label
+    >
+    <label
+        ><input type="checkbox" [(ngModel)]="showElement" />
+        <div class="sample element"></div>
+        Element</label
+    >
+    <label
+        ><input type="checkbox" [(ngModel)]="showTouchTarget" />
+        <div class="sample mat-mdc-button-touch-target"></div>
+        Touch target
+    </label>
+    <label
+        ><input type="checkbox" [(ngModel)]="showRipple" />
+        <div class="sample mat-mdc-button-ripple"></div>
+        Ripple
+    </label>
+    <label><input type="checkbox" [(ngModel)]="applyFixes" />Apply fixes</label>
+</div>
+
+<h1 class="nat-margin-vertical">Material scrolling fixes</h1>
+
+<p class="nat-margin-vertical"
+    >Make sure your browser show scrolling bars, or else try to scroll on each container, vertically and
+    horizontally.</p
+>
+
+<h2>Problem</h2>
+
+<div class="container">
+    <button matIconButton>
+        <mat-icon fontIcon="add" />
+    </button>
+
+    <button matIconButton>
+        <mat-icon fontIcon="close" />
+    </button>
+</div>
+
+<div class="container">
+    <button matButton="text">Button</button>
+</div>
+
+<div class="container">
+    <button matButton="elevated">Button</button>
+</div>
+
+<div class="container">
+    <button matButton="outlined">Button</button>
+</div>
+
+<div class="container">
+    <button matButton="filled">Button</button>
+</div>
+
+<div class="container">
+    <button matButton="tonal">Button</button>
+</div>
+
+<div class="container">
+    <button matButton [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+    </mat-menu>
+</div>
+
+<div class="container">
+    <mat-radio-group>
+        <mat-radio-button>Option 1</mat-radio-button>
+        <mat-radio-button>Option 2</mat-radio-button>
+    </mat-radio-group>
+</div>
+
+<div class="container">
+    <mat-slide-toggle>Slide me!</mat-slide-toggle>
+</div>
+
+<div class="container">
+    <mat-slider>
+        <input matSliderThumb />
+    </mat-slider>
+</div>
+
+<h2>Tolerable problem</h2>
+
+<p>Because always used inside a table, scrolling issue not possible.</p>
+<div class="container" matSort>
+    <div mat-sort-header="name">My column</div>
+</div>
+
+<p
+    >Because should only be used as Floating button, outside of DOM flow, scrolling or overlapping issue should not be
+    possible.</p
+>
+
+<div class="container">
+    <button matMiniFab>
+        <mat-icon fontIcon="menu" />
+    </button>
+    <button matMiniFab>
+        <mat-icon fontIcon="menu" />
+    </button>
+</div>
+
+<h2>No problem</h2>
+
+<div class="container">
+    <mat-icon fontIcon="add" />
+    <mat-icon fontIcon="close" />
+</div>
+
+<div class="container">
+    <button matFab>
+        <mat-icon fontIcon="favorite" />
+    </button>
+    <button matFab>
+        <mat-icon fontIcon="favorite" />
+    </button>
+</div>
+
+<div class="container">
+    <mat-button-toggle-group>
+        <mat-button-toggle>Bold</mat-button-toggle>
+        <mat-button-toggle>Italic</mat-button-toggle>
+        <mat-button-toggle>Underline</mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+
+<div class="container">
+    <mat-checkbox>Check me!</mat-checkbox>
+</div>
+
+<div class="container">
+    <mat-chip-set>
+        <mat-chip>One fish</mat-chip>
+        <mat-chip>Two fish</mat-chip>
+    </mat-chip-set>
+</div>
+
+<div class="container" style="width: 10em">
+    <mat-divider />
+</div>
+
+<div class="container">
+    <mat-form-field>
+        <mat-label>Input</mat-label>
+        <input matInput />
+    </mat-form-field>
+</div>
+
+<div class="container">
+    <mat-form-field>
+        <mat-label>Select</mat-label>
+        <mat-select>
+            <mat-option value="one">First option</mat-option>
+            <mat-option value="two">Second option</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div class="container">
+    <mat-form-field>
+        <mat-label>Textarea</mat-label>
+        <textarea matInput></textarea>
+    </mat-form-field>
+</div>
+
+<div class="container">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title> This is the expansion title</mat-panel-title>
+            <mat-panel-description> This is a summary of the content</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>This is the primary content of the panel.</p>
+    </mat-expansion-panel>
+</div>
+
+<div class="container">
+    <mat-form-field>
+        <input matInput [matAutocomplete]="auto" />
+        <mat-autocomplete #auto="matAutocomplete">
+            @for (option of options; track option) {
+                <mat-option>{{ option }}</mat-option>
+            }
+        </mat-autocomplete>
+    </mat-form-field>
+</div>
+
+<div class="container">
+    <mat-list>
+        <mat-list-item>Item 1</mat-list-item>
+        <mat-list-item>Item 2</mat-list-item>
+    </mat-list>
+</div>
+
+<div class="container">
+    <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" />
+</div>
+
+<div class="container" style="width: 10em">
+    <mat-progress-bar mode="indeterminate" />
+</div>
+
+<div class="container">
+    <mat-spinner diameter="32" />
+</div>
+
+<div class="container">
+    <mat-tab-group>
+        <mat-tab label="First"> Content 1</mat-tab>
+        <mat-tab label="Second"> Content 2</mat-tab>
+        <mat-tab label="Third"> Content 3</mat-tab>
+    </mat-tab-group>
+</div>
+
+<div class="container" style="width: 30em">
+    <mat-toolbar>
+        <button matIconButton>
+            <mat-icon fontIcon="menu" />
+        </button>
+        <span>My App</span>
+        <span style="flex: 1 1 auto"></span>
+        <button matIconButton>
+            <mat-icon fontIcon="share" />
+        </button>
+    </mat-toolbar>
+</div>

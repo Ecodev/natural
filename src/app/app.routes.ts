@@ -33,6 +33,7 @@ import {SelectComponent} from './select/select.component';
 import {TableStyleComponent} from './table-style/table-style.component';
 import {ThemeMergerComponent} from './theme-merger/theme-merger.component';
 import {TypographyComponent} from './typography/typography.component';
+import {MaterialFixesComponent} from './material-fixes/material-fixes.component';
 
 export const routes: Routes = [
     {
@@ -186,6 +187,13 @@ export const routes: Routes = [
                 component: ButtonsComponent,
                 data: {
                     seo: {title: 'Buttons'} satisfies NaturalSeo,
+                },
+            },
+            {
+                path: 'material-fixes',
+                component: MaterialFixesComponent,
+                data: {
+                    seo: {title: 'Material fixes'} satisfies NaturalSeo,
                 },
             },
             {
