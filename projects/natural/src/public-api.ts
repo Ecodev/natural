@@ -67,6 +67,7 @@ export * from './lib/modules/avatar/public-api';
 export * from './lib/modules/matomo/public-api';
 export * from './lib/modules/logger/public-api';
 export * from './lib/modules/color-schemer/public-api';
+export * from './lib/modules/compact-color-schemer/public-api';
 export * from './lib/modules/theme-changer/public-api';
 
 export * from './lib/directives/http-prefix.directive';

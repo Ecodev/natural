@@ -4,7 +4,11 @@ import {MatIcon} from '@angular/material/icon';
 import {MatListItem, MatListItemIcon, MatNavList} from '@angular/material/list';
 import {MatToolbar} from '@angular/material/toolbar';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {NaturalColorSchemerComponent, NaturalThemeChangerComponent} from '@ecodev/natural';
+import {
+    NaturalColorSchemerComponent,
+    NaturalCompactColorSchemerComponent,
+    NaturalThemeChangerComponent,
+} from '@ecodev/natural';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {NaturalSidenavContainerComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav-container/sidenav-container.component';
 import {NaturalSidenavContentComponent} from '../../../projects/natural/src/lib/modules/sidenav/sidenav-content/sidenav-content.component';
@@ -27,6 +31,7 @@ import {NaturalSidenavComponent} from '../../../projects/natural/src/lib/modules
         NaturalSidenavContentComponent,
         RouterOutlet,
         RouterLinkActive,
+        NaturalCompactColorSchemerComponent,
         NaturalColorSchemerComponent,
         NaturalThemeChangerComponent,
     ],

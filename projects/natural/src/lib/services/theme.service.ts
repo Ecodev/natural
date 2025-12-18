@@ -38,6 +38,12 @@ export enum ColorScheme {
     Auto = 'auto',
 }
 
+export const colorSchemeOptions = [
+    {value: ColorScheme.Auto, label: $localize`Thème de l'appareil`, icon: 'routine'},
+    {value: ColorScheme.Light, label: $localize`Thème clair`, icon: 'light_mode'},
+    {value: ColorScheme.Dark, label: $localize`Thème sombre`, icon: 'dark_mode'},
+] as const;
+
 @Injectable({
     providedIn: 'root',
 })

@@ -1,29 +1,13 @@
 <div class="nat-horizontal wrapper">
-    <button
-        matIconButton
-        matTooltip="Thème de l'appareil"
-        i18n-matTooltip
-        matTooltipPosition="below"
-        (click)="themeService.setColorScheme(ColorScheme.Auto)"
-    >
-        <mat-icon naturalIcon="routine" />
-    </button>
-    <button
-        matIconButton
-        matTooltip="Thème clair"
-        i18n-matTooltip
-        matTooltipPosition="below"
-        (click)="themeService.setColorScheme(ColorScheme.Light)"
-    >
-        <mat-icon naturalIcon="light_mode" />
-    </button>
-    <button
-        matIconButton
-        matTooltip="Thème sombre"
-        i18n-matTooltip
-        matTooltipPosition="below"
-        (click)="themeService.setColorScheme(ColorScheme.Dark)"
-    >
-        <mat-icon naturalIcon="dark_mode" />
-    </button>
+    @for (option of colorSchemeOptions; track $index) {
+        <button
+            matIconButton
+            matTooltipPosition="below"
+            i18n-matTooltip
+            [matTooltip]="option.label"
+            (click)="themeService.setColorScheme(option.value)"
+        >
+            <mat-icon [fontIcon]="option.icon" />
+        </button>
+    }
 </div>
