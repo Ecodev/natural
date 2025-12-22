@@ -7,9 +7,9 @@ import {
     inject,
     Injectable,
     InjectionToken,
+    makeEnvironmentProviders,
     PLATFORM_ID,
     provideAppInitializer,
-    Provider,
     signal,
 } from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
@@ -20,8 +20,14 @@ import {LOCAL_STORAGE} from '../modules/common/services/memory-storage';
 type AllThemes = [string, ...string[]];
 export const NATURAL_THEMES_CONFIG = new InjectionToken<AllThemes>('Configuration for Natural Theme');
 
-export function provideThemes(config: AllThemes): (EnvironmentProviders | Provider)[] {
-    return [
+/**
+ * If you are using themes, or color scheme, then you must provide themes at the application level.
+ *
+ * If there is a only one theme, you still need to provide a name for it (eg: "my-app"), even if
+ * it is not used in the SCSS.
+ */
+export function provideThemes(config: AllThemes): EnvironmentProviders {
+    return makeEnvironmentProviders([
         {
             provide: NATURAL_THEMES_CONFIG,
             useValue: config,
@@ -29,7 +35,7 @@ export function provideThemes(config: AllThemes): (EnvironmentProviders | Provid
         provideAppInitializer(() => {
             inject(NaturalThemeService);
         }),
-    ];
+    ]);
 }
 
 export enum ColorScheme {
@@ -44,6 +50,11 @@ export const colorSchemeOptions = [
     {value: ColorScheme.Dark, label: $localize`Thème sombre`, icon: 'dark_mode'},
 ] as const;
 
+/**
+ * The source of truth is the DOM. And thus the index.html (or equivalent) must use vanilla JavaScript
+ * to restore `data-color-scheme` and `data-theme` attributes on the `<html>` element (eg: from
+ * local storage, or from DB).
+ */
 @Injectable({
     providedIn: 'root',
 })
@@ -52,6 +63,7 @@ export class NaturalThemeService {
     private readonly storage = inject(LOCAL_STORAGE);
     private readonly platformId = inject(PLATFORM_ID);
     protected readonly document = inject(DOCUMENT);
+    private readonly htmlElement = this.document.documentElement;
 
     private readonly isDarkSystem = toSignal(
         isPlatformBrowser(this.platformId)
@@ -88,7 +100,7 @@ export class NaturalThemeService {
 
     public constructor() {
         effect(() => {
-            this.document.documentElement.setAttribute('data-is-dark', this.isDark() ? 'true' : 'false');
+            this.htmlElement.setAttribute('data-is-dark', this.isDark() ? 'true' : 'false');
         });
 
         const storedScheme = this.storage.getItem('color-scheme') as ColorScheme | null;
@@ -97,7 +109,7 @@ export class NaturalThemeService {
     }
 
     /**
-     * Set theme in memory, local storage and dom
+     * Set theme in memory and dom
      */
     public setTheme(theme: string): void {
         if (!this.allThemes.includes(theme)) {
@@ -107,7 +119,7 @@ export class NaturalThemeService {
         }
 
         this._theme.set(theme);
-        this.document.documentElement.setAttribute('data-theme', theme);
+        this.htmlElement.setAttribute('data-theme', theme);
     }
 
     /**
@@ -115,7 +127,7 @@ export class NaturalThemeService {
      */
     public setColorScheme(scheme: ColorScheme, persistInStorage = true): void {
         this._colorScheme.set(scheme); // memory
-        this.document.documentElement.setAttribute('data-color-scheme', scheme); // dom
+        this.htmlElement.setAttribute('data-color-scheme', scheme); // dom
 
         if (persistInStorage) {
             this.storage.setItem('color-scheme', this.colorScheme()); // storage
