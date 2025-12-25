@@ -5,7 +5,7 @@ import {map} from 'rxjs/operators';
 import {NaturalQueryVariablesManager, QueryVariables} from '../../../classes/query-variable-manager';
 import {Literal, UntypedModelService} from '../../../types/types';
 import {FilterGroupCondition} from '../../search/classes/graphql-doctrine.types';
-import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
+import {NaturalHierarchicConfiguration, type NodeConfig} from '../classes/hierarchic-configuration';
 import {
     HierarchicFilterConfiguration,
     HierarchicFiltersConfiguration,
@@ -179,22 +179,22 @@ export class NaturalHierarchicSelectorService {
     /**
      * Checks that each configuration.selectableAtKey attribute is unique
      */
-    public validateConfiguration(configurations: NaturalHierarchicConfiguration[]): void {
-        const selectableAtKeyAttributes: string[] = [];
-        for (const config of configurations) {
-            if (config.selectableAtKey) {
-                const keyIndex = selectableAtKeyAttributes.indexOf(config.selectableAtKey);
-
-                if (keyIndex === -1 && config.selectableAtKey) {
-                    selectableAtKeyAttributes.push(config.selectableAtKey);
-                }
-
-                // This behavior maybe dangerous in case we re-open hierarchical selector with the last returned config
-                // having non-unique keys
-                if (keyIndex < -1) {
-                    console.warn('Invalid hierarchic configuration : selectableAtKey attribute should be unique');
-                }
+    public validateConfiguration(configurations: NaturalHierarchicConfiguration<NodeConfig[]>): void {
+        const selectableAtKeyAttributes = new Set<string>();
+        configurations.nodes.forEach(node => {
+            if (node.selectableAtKey) {
+                selectableAtKeyAttributes.add(node.selectableAtKey);
             }
+        });
+
+        if (selectableAtKeyAttributes.size !== 1) {
+            console.error(
+                'Invalid hierarchic configuration: `selectableAtKey` attribute must exists on a least one node, and it must be unique across all nodes',
+            );
+        }
+
+        if (!configurations.nodes.find(node => node.root)) {
+            console.error('Invalid hierarchic configuration: `root` attribute must exists on a least one node');
         }
     }
 
