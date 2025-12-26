@@ -89,8 +89,9 @@ export class NaturalSidenavService {
         this.naturalSidenavStackService.unregister(component);
     }
 
-    public init(name: string, component: NaturalSidenavContainerComponent, autoClose = false): void {
-        if (!name || name === '') {
+    public init(component: NaturalSidenavContainerComponent): void {
+        const name = component.name();
+        if (!name) {
             throw new Error('No sidenav name provided, use <natural-sidenav-container name="menu">');
         }
 
@@ -131,7 +132,7 @@ export class NaturalSidenavService {
                 }
             });
 
-        if (autoClose) {
+        if (component.mobileAutoClose()) {
             this.router.events
                 .pipe(
                     takeUntilDestroyed(this.destroyRef),
