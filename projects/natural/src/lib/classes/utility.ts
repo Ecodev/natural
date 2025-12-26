@@ -36,7 +36,7 @@ export function formatIsoDateTime(date: Date): string {
     const timezoneOffsetInMinutes = Math.round(date.getTimezoneOffset());
     const timezoneOffsetInHours = -Math.trunc(timezoneOffsetInMinutes / 60); // UTC minus local time
     const sign = timezoneOffsetInHours >= 0 ? '+' : '-';
-    const remainderMinutes = -(timezoneOffsetInMinutes % 60);
+    const remainderMinutes = -timezoneOffsetInMinutes % 60;
 
     // It's a bit unfortunate that we need to construct a new Date instance,
     // but we don't want the original Date instance to be modified
@@ -50,6 +50,7 @@ export function formatIsoDateTime(date: Date): string {
         date.getMilliseconds(),
     );
     correctedDate.setHours(date.getHours() + timezoneOffsetInHours);
+    correctedDate.setMinutes(date.getMinutes() + remainderMinutes);
 
     const iso = correctedDate
         .toISOString()
@@ -57,7 +58,7 @@ export function formatIsoDateTime(date: Date): string {
         .replace('Z', '');
 
     const hours = Math.abs(timezoneOffsetInHours).toString().padStart(2, '0');
-    const minutes = remainderMinutes.toString().padStart(2, '0');
+    const minutes = Math.abs(remainderMinutes).toString().padStart(2, '0');
 
     return iso + sign + hours + ':' + minutes;
 }

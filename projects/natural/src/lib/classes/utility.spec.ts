@@ -247,13 +247,35 @@ describe('formatIsoDate', () => {
 });
 
 describe('formatIsoDateTime', () => {
-    it('should format date without time', () => {
-        // Use pattern because tests may be executed in different time zones
-        const localDatePattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/;
+    const seoul = -540;
+    const zurich = -60;
+    const kathmandu = -345;
+    const london = 0;
+    const losAngeles = 480;
+    const marquesas = 570;
+    const veryPast = -507.866666; // Firefox returns float timezone offset if the date is in the very past
 
-        expect(formatIsoDateTime(new Date('2021-09-23T17:57:16+09:00'))).toMatch(localDatePattern);
-        expect(formatIsoDateTime(new Date('1846-06-13T00:00:00+08:00'))).toMatch(localDatePattern);
-        expect(formatIsoDateTime(new Date())).toMatch(localDatePattern);
+    const localDatePattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/;
+
+    const cases: [string, number, string][] = [
+        ['2021-09-23T17:57:16+09:00', seoul, '2021-09-23T17:57:16+09:00'],
+        ['2021-09-23T17:57:16+09:00', zurich, '2021-09-23T09:57:16+01:00'],
+        ['2021-09-23T17:57:16+09:00', kathmandu, '2021-09-23T14:42:16+05:45'],
+        ['2021-09-23T17:57:16+09:00', london, '2021-09-23T08:57:16+00:00'],
+        ['2021-09-23T17:57:16+09:00', losAngeles, '2021-09-23T00:57:16-08:00'],
+        ['2021-09-23T17:57:16+09:00', marquesas, '2021-09-22T23:27:16-09:30'],
+        ['1846-06-13T00:00:00+08:00', veryPast, '1846-06-13T00:28:00+08:28'],
+    ];
+
+    cases.forEach(([input, timezoneOffsetInMinutes, expected]) => {
+        it(`${input}, ${timezoneOffsetInMinutes}, ${expected}`, () => {
+            const date = new Date(input);
+            date.getTimezoneOffset = () => timezoneOffsetInMinutes;
+
+            const result = formatIsoDateTime(date);
+            expect(result).toBe(expected);
+            expect(result).toMatch(localDatePattern);
+        });
     });
 });
 
