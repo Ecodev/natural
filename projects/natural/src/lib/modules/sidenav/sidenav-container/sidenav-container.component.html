@@ -2,7 +2,7 @@
     <mat-sidenav
         [mode]="sidenavService.activeMode"
         [class.menuMinimized]="sidenavService.isMinimized"
-        [class.modeSide]="sidenavService.activeMode === 'side'"
+        [class.mode-side]="sidenavService.activeMode === 'side'"
         [opened]="sidenavService.isOpened"
         [style.min-width.px]="sidenavService.isMinimized && minimizedWidth() ? minimizedWidth() : null"
         [style.width.px]="sidenavService.isMinimized && minimizedWidth() ? minimizedWidth() : null"
@@ -12,8 +12,6 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <div>
-            <ng-content select="natural-sidenav-content" />
-        </div>
+        <ng-content select="natural-sidenav-content" />
     </mat-sidenav-content>
 </mat-sidenav-container>

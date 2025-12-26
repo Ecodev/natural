@@ -1,20 +1,20 @@
-<h1 class="mat-headline-4">natural-search</h1>
+<h1 class="mat-font-headline-lg">natural-search</h1>
 
 <div class="nat-vertical nat-gap">
     <natural-search
-        dropdownTitle="Very long dropdown title asdf"
+        dropdownTitle="Very long dropdown title wow wow wow"
         [facets]="facets"
         [multipleGroups]="true"
         [selections]="selections"
         (selectionChange)="updateFilter($event); selectionsDone = $event"
     >
-        <button color="primary" mat-raised-button>extern.</button>
+        <button color="primary" matButton="filled">extern.</button>
     </natural-search>
 
     <div class="nat-horizontal nat-gap">
-        <button color="primary" mat-raised-button (click)="facets = facets1">Config 1</button>
-        <button color="primary" mat-raised-button (click)="facets = facets2">Config 2</button>
-        <button color="primary" mat-raised-button (click)="facets = []">No config</button>
+        <button color="primary" matButton="filled" (click)="facets = facets1">Config 1</button>
+        <button color="primary" matButton="filled" (click)="facets = facets2">Config 2</button>
+        <button color="primary" matButton="filled" (click)="facets = []">No config</button>
     </div>
 
     <div class="nat-horizontal nat-gap">

@@ -1,0 +1,13 @@
+<div class="nat-horizontal wrapper">
+    @for (option of colorSchemeOptions; track $index) {
+        <button
+            matIconButton
+            matTooltipPosition="below"
+            i18n-matTooltip
+            [matTooltip]="option.label"
+            (click)="themeService.setColorScheme(option.value)"
+        >
+            <mat-icon [fontIcon]="option.icon" />
+        </button>
+    }
+</div>

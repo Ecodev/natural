@@ -36,7 +36,7 @@
         >
             <div class="wrapper nat-horizontal nat-align" [class.unexpandable]="!node.isExpandable">
                 @if (node.isExpandable) {
-                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="`toggle ${node.model.name}`">
+                    <button matIconButton matTreeNodeToggle [attr.aria-label]="`toggle ${node.model.name}`">
                         @if (node.isLoading) {
                             <mat-progress-spinner mode="indeterminate" [diameter]="24" [strokeWidth]="5" />
                         } @else {

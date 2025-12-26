@@ -10,6 +10,7 @@ import {
 import {resolveHardcodedItem, resolveItem} from '../../projects/natural/src/lib/testing/item.resolver';
 import {AlertComponent} from './alert/alert.component';
 import {AvatarComponent} from './avatar/avatar.component';
+import {ButtonsComponent} from './buttons/buttons.component';
 import {DetailHeaderComponent} from './detail-header/detail-header.component';
 import {DetailComponent} from './detail/detail.component';
 import {EditableListComponent} from './editable-list/editable-list.component';
@@ -22,7 +23,7 @@ import {ListComponent} from './list/list.component';
 import {ModalPlaceholderComponent} from './modal-placeholder/modal-placeholder.component';
 import {NavigableListComponent} from './navigable-list/navigable-list.component';
 import {OtherComponent} from './other/other.component';
-import {panelsRoutes} from './panels-routing';
+import {panelsRoutes} from './panels.routes';
 import {PanelsComponent} from './panels/panels.component';
 import {RelationsComponent} from './relations/relations.component';
 import {SearchComponent} from './search/search.component';
@@ -30,6 +31,9 @@ import {SelectEnumComponent} from './select-enum/select-enum.component';
 import {SelectHierarchicComponent} from './select-hierarchic/select-hierarchic.component';
 import {SelectComponent} from './select/select.component';
 import {TableStyleComponent} from './table-style/table-style.component';
+import {ThemeMergerComponent} from './theme-merger/theme-merger.component';
+import {TypographyComponent} from './typography/typography.component';
+import {MaterialFixesComponent} from './material-fixes/material-fixes.component';
 
 export const routes: Routes = [
     {
@@ -162,6 +166,34 @@ export const routes: Routes = [
                 component: EditorComponent,
                 data: {
                     seo: {title: 'Editor'} satisfies NaturalSeo,
+                },
+            },
+            {
+                path: 'theme-merger',
+                component: ThemeMergerComponent,
+                data: {
+                    seo: {title: 'Theme merger'} satisfies NaturalSeo,
+                },
+            },
+            {
+                path: 'typography',
+                component: TypographyComponent,
+                data: {
+                    seo: {title: 'Typography'} satisfies NaturalSeo,
+                },
+            },
+            {
+                path: 'buttons',
+                component: ButtonsComponent,
+                data: {
+                    seo: {title: 'Buttons'} satisfies NaturalSeo,
+                },
+            },
+            {
+                path: 'material-fixes',
+                component: MaterialFixesComponent,
+                data: {
+                    seo: {title: 'Material fixes'} satisfies NaturalSeo,
                 },
             },
             {

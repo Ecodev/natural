@@ -3,7 +3,7 @@
         class="detail-speed-dial"
         icon="save"
         [disabled]="form.disabled"
-        [color]="form.valid ? 'accent' : 'warn'"
+        [color]="form.valid ? 'tertiary' : 'error'"
         (click)="clickCreate()"
     />
 }
@@ -11,7 +11,6 @@
 @if (!isCreation && (!model.permissions || model.permissions.delete)) {
     <natural-fixed-button
         class="detail-speed-dial"
-        color="warn"
         icon="delete_forever"
         i18n-matTooltip
         matTooltip="Supprimer définitivement"

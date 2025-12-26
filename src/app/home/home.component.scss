@@ -1,4 +1,43 @@
+@use '@angular/material' as mat;
+
 :host {
     display: flex;
     flex-direction: column;
+    @include mat.sidenav-overrides(
+        (
+            container-width: auto,
+        )
+    );
+}
+
+.theme-choice {
+    border-radius: 999px;
+    background: var(--mat-sys-primary);
+    padding: 5px;
+
+    @include mat.theme-overrides(
+        (
+            on-surface-variant: var(--mat-sys-on-primary),
+        )
+    );
+}
+
+mat-toolbar {
+    @include mat.toolbar-overrides(
+        (
+            container-background-color: var(--mat-sys-surface-container),
+        )
+    );
+}
+
+natural-sidenav-content {
+    border-top-left-radius: var(--mat-sys-corner-large);
+    background-color: var(--mat-sys-surface-bright);
+    padding: 20px;
+    min-height: calc(100vh - 130px);
+    overflow: auto;
+}
+
+mat-nav-list {
+    margin: 0 10px;
 }

@@ -1,17 +1,17 @@
-<h1 class="mat-headline-4">natural-select</h1>
+<h1 class="mat-font-headline-lg">natural-select</h1>
 
 <div class="nat-vertical nat-gap-30">
     <div class="nat-horizontal nat-wrap nat-gap-10">
-        <button mat-raised-button (click)="validateAllFormControls()">Validate controls with formControl</button>
-        <button mat-raised-button (click)="toggleDisabledAllFormControls()">Disable controls with formControl</button>
-        <button mat-raised-button (click)="setValue()">Set value</button>
-        <button mat-raised-button (click)="clearValue()">Clear value</button>
+        <button matButton="filled" (click)="validateAllFormControls()">Validate controls with formControl</button>
+        <button matButton="filled" (click)="toggleDisabledAllFormControls()">Disable controls with formControl</button>
+        <button matButton="filled" (click)="setValue()">Set value</button>
+        <button matButton="filled" (click)="clearValue()">Clear value</button>
     </div>
 
     <h2 class="mat-h2 nat-gap-10 nat-horizontal nat-left nat-center">
         <div>ngModel</div>
-        <button mat-raised-button (click)="required = true">required</button>
-        <button mat-raised-button (click)="required = false">optional</button>
+        <button matButton="filled" (click)="required = true">required</button>
+        <button matButton="filled" (click)="required = false">optional</button>
     </h2>
     <div class="nat-horizontal nat-gap-10">
         <div>
@@ -50,8 +50,8 @@
                 [service]="service"
                 [formControl]="formControl"
             />
-            <button mat-raised-button (click)="updateValidatorRequired(formControl)">required</button>
-            <button mat-raised-button (click)="updateValidatorOptional(formControl)">optional</button>
+            <button matButton="filled" (click)="updateValidatorRequired(formControl)">required</button>
+            <button matButton="filled" (click)="updateValidatorOptional(formControl)">optional</button>
             <app-debug-control [control]="formControl" />
         </div>
 
@@ -81,10 +81,10 @@
             <div class="form-group" [formGroup]="formGroup">
                 <natural-select formControlName="amazingField" placeholder="FormGroup (update)" [service]="service" />
             </div>
-            <button mat-raised-button (click)="updateValidatorRequired(formGroup.get('amazingField')!)"
+            <button matButton="filled" (click)="updateValidatorRequired(formGroup.get('amazingField')!)"
                 >required
             </button>
-            <button mat-raised-button (click)="updateValidatorOptional(formGroup.get('amazingField')!)"
+            <button matButton="filled" (click)="updateValidatorOptional(formGroup.get('amazingField')!)"
                 >optional
             </button>
             <app-debug-control [control]="formGroup" />

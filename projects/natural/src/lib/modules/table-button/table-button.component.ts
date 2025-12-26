@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation} from '@angular/core';
 import {Params, QueryParamsHandling, RouterLink, UrlTree} from '@angular/router';
-import {ThemePalette} from '@angular/material/core';
+
 import {MatButton, type MatButtonAppearance, MatIconButton} from '@angular/material/button';
+import {NaturalPalette} from '../../types/types';
 import {NaturalIconDirective} from '../icon/icon.directive';
 import {MatIcon} from '@angular/material/icon';
 import {Subject} from 'rxjs';
@@ -36,10 +37,8 @@ export class NaturalTableButtonComponent {
     public readonly fragment = input<string | undefined>();
     public readonly preserveFragment = input(false);
     public readonly disabled = input(false);
-    public readonly raised = input(false);
-    protected readonly appearance = computed<MatButtonAppearance>(() => (this.raised() ? 'elevated' : 'text'));
-    protected readonly iconClass = computed(() => (this.raised() ? 'mat-elevation-z4' : ''));
-    public readonly color = input<ThemePalette>();
+    public readonly appearance = input<MatButtonAppearance>('text');
+    public readonly color = input<NaturalPalette>();
 
     protected readonly buttonClick$ = new Subject<MouseEvent>();
     public readonly buttonClick = outputFromObservable(this.buttonClick$);

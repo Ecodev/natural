@@ -1,5 +1,9 @@
 <!-- click condition should match to allow click action only when no other button is visible -->
-<mat-form-field matRipple (click)="!selection && !(facet && !selection) ? openDropdown() : null">
+<mat-form-field
+    matRipple
+    subscriptSizing="dynamic"
+    (click)="!selection && !(facet && !selection) ? openDropdown() : null"
+>
     @if (facet) {
         <mat-label>{{ facet.display }}</mat-label>
     }
@@ -25,13 +29,13 @@
     }
 
     @if (selection) {
-        <button mat-icon-button matIconSuffix (click)="clear()">
+        <button matIconButton matIconSuffix (click)="clear()">
             <mat-icon naturalIcon="close" />
         </button>
     }
 
     @if (facet && !selection) {
-        <button mat-icon-button matIconSuffix (click)="clear()">
+        <button matIconButton matIconSuffix (click)="clear()">
             <mat-icon naturalIcon="undo" />
         </button>
     }

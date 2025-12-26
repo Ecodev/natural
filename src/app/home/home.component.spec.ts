@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {naturalProviders} from '@ecodev/natural';
+import {naturalProviders, provideThemes} from '@ecodev/natural';
 import {HomeComponent} from './home.component';
 import {provideRouter} from '@angular/router';
 
@@ -9,7 +9,7 @@ describe('Demo HomeComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            providers: [provideRouter([]), naturalProviders],
+            providers: [provideRouter([]), naturalProviders, provideThemes(['natural'])],
         }).compileComponents();
         fixture = TestBed.createComponent(HomeComponent);
         component = fixture.componentInstance;

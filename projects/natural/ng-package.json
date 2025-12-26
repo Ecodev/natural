@@ -4,6 +4,6 @@
     "lib": {
         "entryFile": "src/public-api.ts"
     },
-    "assets": ["./**/*.theme.scss", "./**/*.external.scss", "./**/styles/*.scss"],
+    "assets": ["./**/*.scss"],
     "allowedNonPeerDependencies": [".*"]
 }

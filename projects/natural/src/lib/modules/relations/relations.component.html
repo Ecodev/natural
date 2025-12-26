@@ -23,8 +23,8 @@
             <td *matCellDef="let element" mat-cell>
                 @if (!disabled) {
                     <button
-                        color="warn"
-                        mat-icon-button
+                        color="error"
+                        matIconButton
                         i18n-matTooltip
                         matTooltip="Dissocier"
                         [disabled]="removing.has(element)"
