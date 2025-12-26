@@ -260,15 +260,15 @@ describe('formatIsoDateTime', () => {
     const cases: [string, number, string][] = [
         ['2021-09-23T17:57:16+09:00', seoul, '2021-09-23T17:57:16+09:00'],
         ['2021-09-23T17:57:16+09:00', zurich, '2021-09-23T09:57:16+01:00'],
-        ['2021-09-23T17:57:16+09:00', kathmandu, '2021-09-23T13:57:16+05:45'],
+        ['2021-09-23T17:57:16+09:00', kathmandu, '2021-09-23T14:42:16+05:45'],
         ['2021-09-23T17:57:16+09:00', london, '2021-09-23T08:57:16+00:00'],
         ['2021-09-23T17:57:16+09:00', losAngeles, '2021-09-23T00:57:16-08:00'],
-        ['2021-09-23T17:57:16+09:00', marquesas, '2021-09-22T23:57:16-09:30'],
-        ['1846-06-13T00:00:00+08:00', veryPast, '1846-06-13T00:00:00+08:28'],
+        ['2021-09-23T17:57:16+09:00', marquesas, '2021-09-22T23:27:16-09:30'],
+        ['1846-06-13T00:00:00+08:00', veryPast, '1846-06-13T00:28:00+08:28'],
     ];
 
     cases.forEach(([input, timezoneOffsetInMinutes, expected]) => {
-        it(input, () => {
+        it(`${input}, ${timezoneOffsetInMinutes}, ${expected}`, () => {
             const date = new Date(input);
             date.getTimezoneOffset = () => timezoneOffsetInMinutes;
 
