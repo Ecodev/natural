@@ -9,10 +9,10 @@
 
         <ng-container matColumnDef="name">
             <th *matHeaderCellDef i18n mat-header-cell>Titre</th>
-            <td *matCellDef="let item" mat-cell>
+            <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                 @let customTemplate = itemTemplate();
                 <ng-template
-                    [ngTemplateOutletContext]="{item: item}"
+                    [ngTemplateOutletContext]="{item: element}"
                     [ngTemplateOutlet]="customTemplate ? customTemplate : defaultNameCell"
                 />
             </td>
@@ -20,7 +20,7 @@
 
         <ng-container matColumnDef="unlink">
             <th *matHeaderCellDef mat-header-cell></th>
-            <td *matCellDef="let element" mat-cell>
+            <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                 @if (!disabled) {
                     <button
                         color="error"

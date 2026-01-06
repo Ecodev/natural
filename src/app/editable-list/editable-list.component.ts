@@ -3,24 +3,23 @@ import {Component, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconButton} from '@angular/material/button';
-import {MatFormField, MatLabel, MatError} from '@angular/material/form-field';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
 import {
-    MatTable,
-    MatHeaderCellDef,
-    MatHeaderRowDef,
+    MatCell,
     MatColumnDef,
-    MatCellDef,
-    MatRowDef,
+    MatFooterCell,
     MatFooterCellDef,
     MatHeaderCell,
-    MatCell,
-    MatFooterCell,
+    MatHeaderCellDef,
     MatHeaderRow,
+    MatHeaderRowDef,
     MatRow,
+    MatRowDef,
+    MatTable,
 } from '@angular/material/table';
-import {NaturalAbstractEditableList, NaturalErrorMessagePipe} from '@ecodev/natural';
+import {NaturalAbstractEditableList, NaturalErrorMessagePipe, TypedMatCellDef} from '@ecodev/natural';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 
@@ -33,7 +32,7 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatFooterCellDef,
         MatHeaderCell,

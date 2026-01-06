@@ -35,10 +35,10 @@
                                 (change)="$event ? masterToggle() : null"
                             />
                         </th>
-                        <td *matCellDef="let row" mat-cell>
+                        <td *matCellDef="let element" mat-cell>
                             <mat-checkbox
-                                [checked]="selection.isSelected(row)"
-                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(element)"
+                                (change)="$event ? selection.toggle(element) : null"
                                 (click)="$event.stopPropagation()"
                             />
                         </td>

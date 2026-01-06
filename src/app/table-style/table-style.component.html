@@ -15,14 +15,14 @@
 
         <ng-container matColumnDef="name">
             <th *matHeaderCellDef mat-header-cell>Name</th>
-            <td *matCellDef="let element" mat-cell>
+            <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                 {{ element.name }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="value">
             <th *matHeaderCellDef mat-header-cell [class]="klass"><span>A</span><span>B</span><span>C</span></th>
-            <td *matCellDef="let element" mat-cell [class]="klass">
+            <td *matCellDef="let element; dataSource: dataSource" mat-cell [class]="klass">
                 {{ element.value }}
             </td>
         </ng-container>
@@ -37,7 +37,7 @@
             >
                 <span>A</span><span>B</span><span>C</span></th
             >
-            <td *matCellDef="let element" mat-cell [class]="klass">
+            <td *matCellDef="let element; dataSource: dataSource" mat-cell [class]="klass">
                 {{ element.value }}
             </td>
         </ng-container>
@@ -53,19 +53,19 @@
 
         <ng-container matColumnDef="name">
             <th *matHeaderCellDef mat-header-cell>Name</th>
-            <td *matCellDef="let element" mat-cell>
+            <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                 {{ element.name }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="value">
             <th *matHeaderCellDef mat-header-cell [class]="klass">V</th>
-            <td *matCellDef="let element" mat-cell> 1 </td>
+            <td *matCellDef="let element; dataSource: dataSource" mat-cell> 1 </td>
         </ng-container>
 
         <ng-container matColumnDef="sortable_value">
             <th *matHeaderCellDef mat-header-cell mat-sort-header [class]="klass">V</th>
-            <td *matCellDef="let element" mat-cell> 1 </td>
+            <td *matCellDef="let element; dataSource: dataSource" mat-cell> 1 </td>
         </ng-container>
     </table>
 }

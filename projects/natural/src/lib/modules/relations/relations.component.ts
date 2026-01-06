@@ -29,7 +29,6 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatHeaderCell,
     MatHeaderCellDef,
@@ -42,6 +41,7 @@ import {
 import {NgTemplateOutlet} from '@angular/common';
 import {finalize, forkJoin, tap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {TypedMatCellDef} from '../../directives/typed-mat-cell-def.directive';
 
 /**
  * Custom template usage :
@@ -62,7 +62,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatHeaderCell,
         MatCell,

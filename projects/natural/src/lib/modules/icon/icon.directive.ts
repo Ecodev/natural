@@ -52,7 +52,9 @@ export class NaturalIconDirective {
     private readonly config = inject(NATURAL_ICONS_CONFIG, {optional: true});
     private readonly matIconComponent = inject(MatIcon, {host: true, self: true});
 
-    public readonly naturalIcon = input.required<string>();
+    public readonly naturalIcon = input.required({
+        transform: (value: string | null | undefined): string => value ?? '',
+    });
     public readonly size = input<number | undefined | null>(undefined);
 
     protected readonly icon = computed<NaturalIconType>(() => {

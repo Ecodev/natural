@@ -30,7 +30,10 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
 export class NaturalTableButtonComponent {
     public readonly queryParams = input<Params>({});
     public readonly queryParamsHandling = input<QueryParamsHandling>('');
-    public readonly label = input<string | null | undefined>();
+    public readonly label = input('', {
+        transform: (value: string | number | null | undefined): string =>
+            typeof value === 'number' ? value.toString() : (value ?? ''),
+    });
     public readonly icon = input<string | null | undefined>();
     public readonly href = input<string | null | undefined>();
     public readonly navigate = input<RouterLink['routerLink']>(null);

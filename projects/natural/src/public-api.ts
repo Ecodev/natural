@@ -71,5 +71,6 @@ export * from './lib/modules/compact-color-schemer/public-api';
 export * from './lib/modules/theme-changer/public-api';
 
 export * from './lib/directives/http-prefix.directive';
+export {TypedMatCellDef} from './lib/directives/typed-mat-cell-def.directive';
 export {naturalProviders} from './lib/classes/providers';
 export {graphqlQuerySigner} from './lib/classes/signing';
