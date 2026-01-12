@@ -34,7 +34,7 @@
             </button>
         }
         @if (internalCtrl.value && navigateTo) {
-            <button
+            <a
                 matIconButton
                 i18n-matTooltip
                 matTooltip="Naviguer vers"
@@ -42,7 +42,7 @@
                 (click)="$event.stopPropagation()"
             >
                 <mat-icon naturalIcon="open_in_browser" />
-            </button>
+            </a>
         }
     </div>
 

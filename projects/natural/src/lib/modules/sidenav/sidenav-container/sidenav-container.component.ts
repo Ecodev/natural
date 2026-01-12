@@ -53,7 +53,7 @@ export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.sidenavService.init(this.name(), this, this.mobileAutoClose());
+        this.sidenavService.init(this);
     }
 
     public ngOnDestroy(): void {

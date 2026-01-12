@@ -39,7 +39,7 @@ export class NaturalSidenavStackService {
     public unregister(sidenav: NaturalSidenavContainerComponent): void {
         const index = this.sidenavs.indexOf(sidenav);
         if (index === -1) {
-            throw Error('Trying to remove a SidenavContainer that was never registered');
+            return;
         }
 
         this.sidenavs.splice(index, 1);
