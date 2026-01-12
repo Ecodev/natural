@@ -1,8 +1,23 @@
+@use '@angular/material' as mat;
+
+:host {
+    --background-color: var(--mat-sys-surface-container);
+    display: block;
+    border-radius: var(--mat-sys-corner-large);
+    background-color: var(--background-color);
+    padding: 10px;
+}
+
 .menu {
     display: flex;
     flex-wrap: wrap;
-    border-bottom: 1px solid;
-    padding: 10px 18px;
+    background-color: color-mix(in srgb, var(--background-color) 90%, transparent);
+    padding-block: 10px;
+
+    @supports (backdrop-filter: blur()) {
+        backdrop-filter: blur(10px);
+        background-color: color-mix(in srgb, var(--background-color) 70%, transparent);
+    }
 }
 
 .menu-container {
@@ -24,6 +39,9 @@
         line-height: 1.2;
 
         word-wrap: break-word;
+
+        border-radius: 10px;
+        background-color: var(--mat-sys-surface-bright);
         -webkit-font-variant-ligatures: none;
         font-variant-ligatures: none;
         white-space: pre-wrap;
@@ -212,6 +230,15 @@
         animation: gradient 3s none infinite;
 
         background-size: 500% 100% !important;
+
+        background: linear-gradient(
+            90deg,
+            var(--mat-sys-primary),
+            var(--mat-sys-primary),
+            var(--mat-sys-tertiary),
+            var(--mat-sys-primary),
+            var(--mat-sys-primary)
+        );
         width: 50px;
         height: 50px;
     }
@@ -224,4 +251,8 @@
     100% {
         background-position: 0 0;
     }
+}
+
+button.natural-file-over {
+    background: var(--mat-sys-primary);
 }

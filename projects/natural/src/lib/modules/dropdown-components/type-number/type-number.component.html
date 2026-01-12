@@ -1,5 +1,9 @@
 <form [formGroup]="form">
-    <mat-form-field style="margin-right: 1em" [style.max-width]="configuration.nullable ? '6em' : '4em'">
+    <mat-form-field
+        style="margin-right: 1em"
+        subscriptSizing="dynamic"
+        [style.max-width]="configuration.nullable ? '6em' : '4em'"
+    >
         <mat-label i18n="Mathematical operator < > =">Opérateur</mat-label>
         <mat-select panelWidth="" [formControl]="operatorCtrl" [required]="true">
             @for (item of operators; track item) {
@@ -11,7 +15,7 @@
     </mat-form-field>
 
     @if (requireValueCtrl) {
-        <mat-form-field>
+        <mat-form-field subscriptSizing="dynamic">
             <mat-label i18n>Valeur</mat-label>
             <input
                 matInput

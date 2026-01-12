@@ -1,0 +1,16 @@
+<button
+    matIconButton
+    matTooltipPosition="below"
+    i18n-matTooltip
+    [matTooltip]="current()?.label"
+    [matMenuTriggerFor]="menu"
+    ><mat-icon [fontIcon]="current()?.icon ?? ''"
+/></button>
+<mat-menu #menu="matMenu">
+    @for (option of colorSchemeOptions; track $index) {
+        <button mat-menu-item (click)="themeService.setColorScheme(option.value)">
+            <mat-icon [fontIcon]="themeService.colorScheme() === option.value ? 'check' : ''" />
+            {{ option.label }}</button
+        >
+    }
+</mat-menu>

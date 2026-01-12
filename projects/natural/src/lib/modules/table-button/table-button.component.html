@@ -1,5 +1,5 @@
 <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
-<!-- Because directives can't be applied conditionally (routerLink, mat-button and mat-icon-button), we have to use different elements -->
+<!-- Because directives can't be applied conditionally (routerLink, mat-button and matIconButton), we have to use different elements -->
 @let theIcon = icon();
 
 <!-- Edge case of a button without any kind of link at all -->
@@ -35,8 +35,7 @@
                 </a>
             } @else {
                 <a
-                    mat-icon-button
-                    [class]="iconClass()"
+                    matIconButton
                     [color]="color()"
                     [disabled]="disabled()"
                     [queryParams]="queryParams()"
@@ -68,14 +67,7 @@
                     <span>{{ label() }}</span>
                 </a>
             } @else {
-                <a
-                    mat-icon-button
-                    target="_blank"
-                    [class]="iconClass()"
-                    [attr.href]="href()"
-                    [color]="color()"
-                    [disabled]="disabled()"
-                >
+                <a matIconButton target="_blank" [attr.href]="href()" [color]="color()" [disabled]="disabled()">
                     @if (theIcon) {
                         <mat-icon [naturalIcon]="theIcon" />
                     }

@@ -1,0 +1,154 @@
+<!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
+<input #theme1Upload type="file" accept=".json" id="theme1-upload" (change)="onFileSelected($event, 1)" />
+<input #theme2Upload type="file" accept=".json" id="theme2-upload" (change)="onFileSelected($event, 2)" />
+
+<div class="nat-horizontal nat-align">
+    <mat-form-field subscriptSizing="dynamic" style="width: 100px; margin-right: 5px">
+        <mat-label>Primary</mat-label>
+        <input matInput type="text" [(ngModel)]="primary" />
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic" style="width: 100px; margin-right: 5px">
+        <mat-label>Secondary</mat-label>
+        <input matInput type="text" [(ngModel)]="secondary" />
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic" style="width: 100px">
+        <mat-label>Tertiary</mat-label>
+        <input matInput type="text" [(ngModel)]="tertiary" />
+    </mat-form-field>
+    <button matIconButton matSuffix [attr.aria-label]="'Copy theme builder link'" (click)="copyBuilderLink()">
+        <mat-icon>link</mat-icon>
+    </button>
+
+    @if (theme1) {
+        <div class="nat-expand" style="text-align: center">
+            <mat-icon>arrow_right_alt</mat-icon>
+        </div>
+
+        <mat-form-field subscriptSizing="dynamic" style="width: 150px">
+            <mat-label>Theme name</mat-label>
+            <input matInput type="text" [(ngModel)]="themeName" />
+        </mat-form-field>
+        <button matButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss(true)">
+            <mat-icon>content_copy</mat-icon>
+            Default
+        </button>
+        <button matButton matSuffix [attr.aria-label]="'Copy combined theme'" (click)="generateAndCopyScss(false)">
+            <mat-icon>content_copy</mat-icon>
+            Alternative
+        </button>
+
+        <button
+            matIconButton
+            [attr.aria-label]="showPropertyNames ? 'Hide property names' : 'Show property names'"
+            [matTooltip]="showPropertyNames ? 'Hide property names' : 'Show property names'"
+            (click)="showPropertyNames = !showPropertyNames"
+        >
+            <mat-icon>{{ showPropertyNames ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+    } @else {
+        <div class="upload">
+            <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()">
+                <mat-icon>upload</mat-icon>
+                Pick theme
+            </button>
+        </div>
+    }
+</div>
+<br />
+
+@if (theme1) {
+    <div class="tokens-display nat-horizontal">
+        @if (showPropertyNames) {
+            <div class="tokens-column">
+                <div class="column-header"></div>
+                @for (tokenName of getTokenNames(theme1); track $index) {
+                    <div class="token-row token-name">{{ camelToKebab(tokenName) }}</div>
+                }
+            </div>
+        }
+
+        <div class="tokens-column color-column color-scheme-light nat-expand">
+            <div class="column-header">
+                <div class="nat-horizontal nat-align nat-gap-10">
+                    <h2 class="mat-headline-1 nat-no-margin">Theme 1 - Light</h2>
+                    <mat-checkbox [(ngModel)]="lightModeEnabled" />
+                </div>
+                <button [matButton]="theme1 ? 'filled' : 'outlined'" (click)="theme1Upload.click()">
+                    <mat-icon>upload</mat-icon>
+                    {{ theme1.name }}
+                </button>
+                <div class="nat-horizontal nat-gap-5">
+                    @for (variation of getVariationsForTheme(1); track variation) {
+                        <button
+                            class="variation-btn"
+                            [matButton]="isVariationSelected(theme1, variation) ? 'filled' : 'outlined'"
+                            [disabled]="!theme1.schemes[variation]"
+                            (click)="toggleVariation(theme1, variation)"
+                        >
+                            {{ getVariationLabel(variation) }}
+                        </button>
+                    }
+                </div>
+            </div>
+            @for (tokenName of getTokenNames(theme1); track $index) {
+                <div class="token-row nat-horizontal">
+                    @if (tokenName) {
+                        @for (item of getTokensForName(theme1, tokenName); track item.variation) {
+                            <div
+                                class="color-item nat-expand"
+                                [style.background-color]="item.token.hex"
+                                [matTooltip]="item.token.hex"
+                            ></div>
+                        }
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="tokens-column color-column color-scheme-dark nat-expand">
+            <div class="column-header">
+                <div class="nat-horizontal nat-align nat-gap-10">
+                    <h2 class="mat-headline-1 nat-no-margin">{{ theme2 ? 'Theme 2' : 'Theme 1' }} - Dark</h2>
+                    <mat-checkbox [(ngModel)]="darkModeEnabled" />
+                </div>
+                <div class="nat-horizontal nat-gap-5">
+                    <button [matButton]="theme2 ? 'filled' : 'outlined'" (click)="theme2Upload.click()">
+                        <mat-icon>upload</mat-icon>
+                        {{ theme2?.name || 'Theme 2' }}
+                    </button>
+                    @if (theme2) {
+                        <button matIconButton [attr.aria-label]="'Remove theme 2'" (click)="clearTheme2()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    }
+                </div>
+                <div class="nat-horizontal nat-gap-5">
+                    @for (variation of getVariationsForTheme(2); track variation) {
+                        <button
+                            class="variation-btn"
+                            [matButton]="isVariationSelectedRight(variation) ? 'filled' : 'outlined'"
+                            [disabled]="!getRightTheme().schemes[variation]"
+                            (click)="toggleVariationRight(variation)"
+                        >
+                            {{ getVariationLabel(variation) }}
+                        </button>
+                    }
+                </div>
+            </div>
+
+            @for (tokenName of getTokenNames(getRightTheme()); track $index) {
+                <div class="token-row nat-horizontal">
+                    @if (tokenName) {
+                        @for (item of getTokensForNameRight(tokenName); track item.variation) {
+                            <div
+                                class="color-item nat-expand"
+                                [style.background-color]="item.token.hex"
+                                [matTooltip]="item.token.hex"
+                            ></div>
+                        }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}

@@ -34,7 +34,7 @@ import {Item, ItemInput, ItemService} from '../../../projects/natural/src/lib/te
     styleUrl: './detail.component.scss',
 })
 export class DetailComponent extends NaturalAbstractDetail<ItemService, NaturalSeoResolveData> implements OnInit {
-    public readonly collectErrors = collectErrors;
+    protected readonly collectErrors = collectErrors;
 
     public constructor() {
         const service = inject(ItemService);

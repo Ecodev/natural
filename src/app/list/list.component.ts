@@ -5,18 +5,21 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
-    MatTable,
-    MatHeaderCellDef,
-    MatHeaderRowDef,
-    MatColumnDef,
-    MatCellDef,
-    MatRowDef,
-    MatHeaderCell,
     MatCell,
+    MatColumnDef,
+    MatFooterCell,
+    MatFooterCellDef,
+    MatFooterRow,
+    MatFooterRowDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
     MatHeaderRow,
+    MatHeaderRowDef,
     MatRow,
+    MatRowDef,
+    MatTable,
 } from '@angular/material/table';
-import {AvailableColumn, Button, NaturalAbstractList, Sorting, SortingOrder} from '@ecodev/natural';
+import {AvailableColumn, Button, NaturalAbstractList, Sorting, SortingOrder, TypedMatCellDef} from '@ecodev/natural';
 import {NaturalColumnsPickerComponent} from '../../../projects/natural/src/lib/modules/columns-picker/columns-picker.component';
 import {NaturalSearchComponent} from '../../../projects/natural/src/lib/modules/search/search/search.component';
 import {NaturalTableButtonComponent} from '../../../projects/natural/src/lib/modules/table-button/table-button.component';
@@ -31,12 +34,16 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
         MatTable,
         MatHeaderCellDef,
         MatHeaderRowDef,
+        MatFooterCellDef,
+        MatFooterRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatHeaderCell,
+        MatFooterCell,
         MatCell,
         MatHeaderRow,
+        MatFooterRow,
         MatRow,
         MatSort,
         MatSortHeader,

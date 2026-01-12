@@ -1,0 +1,465 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use './styles/table.scss';
+@use './styles/material-scrolling-fixes.scss';
+@use './modules/panels/panels.scss';
+@use './modules/sidenav/sidenav.scss';
+@use './modules/alert/alert.scss';
+
+[data-color-scheme='auto'] {
+    color-scheme: light dark;
+}
+
+[data-color-scheme='light'] {
+    color-scheme: light;
+}
+
+[data-color-scheme='dark'] {
+    color-scheme: dark;
+}
+
+[data-is-dark='false'] .nat-for-dark {
+    display: none;
+}
+
+[data-is-dark='true'] .nat-for-light {
+    display: none;
+}
+
+/**
+ * Global css
+ */
+.mat-mdc-table .mdc-button__label {
+    white-space: nowrap;
+}
+
+body {
+    // Fix a bug where hover on errored form fields show on-error color (white) label on grey background
+    @include mat.form-field-overrides(
+        (
+            filled-error-hover-label-text-color: var(--mat-sys-error),
+            filled-error-hover-active-indicator-color: var(--mat-sys-error),
+        )
+    );
+
+    @include mat.dialog-overrides(
+        (
+            container-color: var(--mat-sys-surface-bright),
+            container-elevation-shadow: var(--mat-sys-level5),
+        )
+    );
+
+    --nat-elevation: inset 0 1px rgba(255, 255, 255, 0.3), var(--mat-sys-level1);
+    --nat-gradient-primary: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--mat-sys-primary-container) 95%, white),
+        color-mix(in srgb, var(--mat-sys-primary-container) 90%, black)
+    );
+
+    --nat-gradient-secondary: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--mat-sys-secondary-container) 95%, white),
+        color-mix(in srgb, var(--mat-sys-secondary-container) 90%, black)
+    );
+
+    --nat-gradient-tertiary: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--mat-sys-tertiary-container) 95%, white),
+        color-mix(in srgb, var(--mat-sys-tertiary-container) 90%, black)
+    );
+
+    --nat-gradient-error: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--mat-sys-error) 95%, white),
+        color-mix(in srgb, var(--mat-sys-error) 90%, black)
+    );
+
+    --nat-good: rgb(0, 175, 0, 1);
+    --nat-on-good: white;
+    --nat-gradient-good: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--nat-good) 95%, white),
+        color-mix(in srgb, var(--nat-good) 90%, black)
+    );
+
+    --nat-gradient-inverse-surface: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--mat-sys-inverse-surface) 95%, white),
+        color-mix(in srgb, var(--mat-sys-inverse-surface) 90%, black)
+    );
+
+    --nat-bad: rgb(200, 11, 11);
+    --nat-on-bad: white;
+    --nat-gradient-bad: linear-gradient(
+        175deg,
+        color-mix(in srgb, var(--nat-bad) 60%, white),
+        color-mix(in srgb, var(--nat-bad) 90%, black)
+    );
+}
+
+.nat-elevation {
+    box-shadow: var(--nat-elevation);
+}
+
+.nat-frame {
+    padding: 6px;
+
+    &-rounded {
+        border-radius: var(--mat-sys-corner-small);
+    }
+
+    &-neutral1 {
+        background-color: var(--mat-sys-neutral10);
+        color: var(--mat-sys-on-surface);
+    }
+
+    &-neutral2 {
+        background-color: var(--mat-sys-neutral-variant20);
+        color: var(--mat-sys-on-surface);
+    }
+
+    &-primary {
+        background-color: var(--mat-sys-primary-container);
+        color: var(--mat-sys-on-primary-container);
+    }
+
+    &-secondary {
+        background-color: var(--mat-sys-secondary-container);
+        color: var(--mat-sys-on-secondary-container);
+    }
+
+    &-tertiary {
+        background-color: var(--mat-sys-tertiary-container);
+        color: var(--mat-sys-on-tertiary-container);
+    }
+
+    &-error {
+        background-color: var(--mat-sys-error);
+        color: var(--mat-sys-on-error);
+    }
+}
+
+.nat-text {
+    &-primary {
+        color: var(--mat-sys-primary-container);
+    }
+
+    &-accent {
+        color: var(--mat-sys-tertiary-container);
+    }
+
+    &-error {
+        color: var(--mat-sys-error-container);
+    }
+}
+
+.nat-gradient {
+    &-primary {
+        background: var(--nat-gradient-primary) !important;
+        color: var(--mat-sys-on-primary-container) !important;
+    }
+
+    &-secondary {
+        background: var(--nat-gradient-secondary) !important;
+        color: var(--mat-sys-on-secondary-container) !important;
+    }
+
+    &-tertiary {
+        background: var(--nat-gradient-tertiary) !important;
+        color: var(--mat-sys-on-tertiary-container) !important;
+    }
+
+    &-error {
+        background: var(--nat-gradient-error) !important;
+        color: var(--mat-sys-on-error) !important;
+    }
+
+    &-good {
+        background: var(--nat-gradient-good) !important;
+        color: var(--nat-on-good) !important;
+    }
+
+    &-bad {
+        background: var(--nat-gradient-bad) !important;
+        color: var(--nat-on-bad) !important;
+    }
+
+    &-inverse-surface {
+        background: var(--nat-gradient-inverse-surface) !important;
+        color: var(--mat-sys-inverse-on-surface) !important;
+    }
+}
+
+.nat-bold {
+    font-weight: bold;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+// Nice todo angular 21 : replace tonal by m3-utils.color-with-opacity(map.get($system, on-surface), 12%),
+.mdc-button {
+    @include mat.button-overrides(
+        (
+            protected-container-color: color-mix(in srgb, transparent 92%, black),
+        )
+    );
+
+    &.mat-error,
+    &[color='error'] {
+        @include mat.button-overrides(
+            (
+                text-label-text-color: var(--mat-sys-error-container),
+                filled-container-color: var(--mat-sys-error-container),
+                filled-label-text-color: var(--mat-sys-on-error-container),
+                tonal-container-color: color-mix(in srgb, var(--mat-sys-error-container) 12%, transparent),
+                tonal-label-text-color: var(--mat-sys-on-surface),
+                protected-label-text-color: var(--mat-sys-error-container),
+                outlined-outline-color: var(--mat-sys-error-container),
+                outlined-label-text-color: var(--mat-sys-error-container),
+            )
+        );
+    }
+
+    &.mat-tertiary,
+    &[color='tertiary'] {
+        @include mat.button-overrides(
+            (
+                text-label-text-color: var(--mat-sys-tertiary-container),
+                filled-container-color: var(--mat-sys-tertiary-container),
+                filled-label-text-color: var(--mat-sys-on-tertiary-container),
+                tonal-container-color: color-mix(in srgb, var(--mat-sys-tertiary-container) 12%, transparent),
+                tonal-label-text-color: var(--mat-sys-on-surface),
+                protected-label-text-color: var(--mat-sys-tertiary-container),
+                outlined-outline-color: var(--mat-sys-tertiary-container),
+                outlined-label-text-color: var(--mat-sys-tertiary-container),
+            )
+        );
+    }
+}
+
+// In fab speed dials, mini fabs are tertiary as well as default fab buttons
+eco-fab-speed-dial .mdc-fab {
+    @include mat.fab-overrides(
+        (
+            container-color: var(--mat-sys-tertiary-container),
+            foreground-color: var(--mat-sys-on-tertiary-container),
+            small-container-color: var(--mat-sys-tertiary-container),
+            small-foreground-color: var(--mat-sys-on-tertiary-container),
+        )
+    );
+}
+
+.mdc-fab,
+.mdc-mini-fab {
+    &.mat-primary,
+    &[color='primary'] {
+        @include mat.fab-overrides(
+            (
+                container-color: var(--mat-sys-primary-container),
+                foreground-color: var(--mat-sys-on-primary-container),
+                small-container-color: var(--mat-sys-primary-container),
+                small-foreground-color: var(--mat-sys-on-primary-container),
+            )
+        );
+    }
+
+    &.mat-error,
+    &[color='error'] {
+        @include mat.fab-overrides(
+            (
+                container-color: var(--mat-sys-error-container),
+                foreground-color: var(--mat-sys-on-error-container),
+                small-container-color: var(--mat-sys-error-container),
+                small-foreground-color: var(--mat-sys-on-error-container),
+            )
+        );
+    }
+
+    &[color='tertiary'] {
+        @include mat.fab-overrides(
+            (
+                container-color: var(--mat-sys-tertiary-container),
+                foreground-color: var(--mat-sys-on-tertiary-container),
+                small-container-color: var(--mat-sys-tertiary-container),
+                small-foreground-color: var(--mat-sys-on-tertiary-container),
+            )
+        );
+    }
+
+    &.nat-rounded {
+        @include mat.fab-overrides(
+            (
+                container-shape: var(--mat-sys-corner-full),
+                extended-container-shape: var(--mat-sys-corner-full),
+                small-container-shape: var(--mat-sys-corner-full),
+            )
+        );
+    }
+
+    &.nat-flat {
+        @include mat.fab-overrides(
+            (
+                container-elevation-shadow: 0,
+                focus-container-elevation-shadow: 0,
+                hover-container-elevation-shadow: 0,
+                extended-container-elevation-shadow: 0,
+                extended-focus-container-elevation-shadow: 0,
+                extended-hover-container-elevation-shadow: 0,
+                small-container-elevation-shadow: 0,
+                small-focus-container-elevation-shadow: 0,
+                small-hover-container-elevation-shadow: 0,
+            )
+        );
+    }
+}
+
+.mdc-icon-button {
+    &.mat-primary,
+    &[color='primary'] {
+        @include mat.icon-button-overrides(
+            (
+                icon-color: var(--mat-sys-primary-container),
+            )
+        );
+    }
+
+    &.mat-error,
+    &[color='error'] {
+        @include mat.icon-button-overrides(
+            (
+                icon-color: var(--mat-sys-error-container),
+            )
+        );
+    }
+
+    .mat-tertiary,
+    &[color='tertiary'] {
+        @include mat.icon-button-overrides(
+            (
+                icon-color: var(--mat-sys-tertiary-container),
+            )
+        );
+    }
+}
+
+// Todo Remove on angular v21
+// add body{ @include mat.system-classes();}
+
+// ***********************************************************************************************
+// Font - Apply typography styles
+// See https://m3.material.io/styles/typography/applying-type for guidance.
+// ***********************************************************************************************
+
+// Sets the font to the body small typeface. Use for small body text, such as captions. In Angular
+// Material, this is used for the subscript text in a form field and the text in a paginator.
+.mat-font-body-sm {
+    font: var(--mat-sys-body-small);
+    letter-spacing: var(--mat-sys-body-small-tracking);
+}
+
+// Sets the font to the body medium typeface. Use for medium body text, this is the default
+// body font. In Angular Material, this is used for the text in a table row and the supporting
+// text in a dialog.
+.mat-font-body-md {
+    font: var(--mat-sys-body-medium);
+    letter-spacing: var(--mat-sys-body-medium-tracking);
+}
+
+// Sets the font to the body large typeface. Use for large body text, such as an introductory
+// paragraph. In Angular Material, this is used for the text in a list item and the text in a
+// select trigger.
+.mat-font-body-lg {
+    font: var(--mat-sys-body-large);
+    letter-spacing: var(--mat-sys-body-large-tracking);
+}
+
+// Sets the font to the display small typeface. Use for small display text, such as a date.
+.mat-font-display-sm {
+    font: var(--mat-sys-display-small);
+    letter-spacing: var(--mat-sys-display-small-tracking);
+}
+
+// Sets the font to the display medium typeface. Use for medium display text, such as a hero
+// title.
+.mat-font-display-md {
+    font: var(--mat-sys-display-medium);
+    letter-spacing: var(--mat-sys-display-medium-tracking);
+}
+
+// Sets the font to the display large typeface. Use for large display text, such as a hero title.
+.mat-font-display-lg {
+    font: var(--mat-sys-display-large);
+    letter-spacing: var(--mat-sys-display-large-tracking);
+}
+
+// Sets the font to the headline small typeface. Use for small headlines, such as a page title. In
+// Angular Material, this is used for the headline in a dialog.
+.mat-font-headline-sm {
+    font: var(--mat-sys-headline-small);
+    letter-spacing: var(--mat-sys-headline-small-tracking);
+}
+
+// Sets the font to the headline medium typeface. Use for medium headlines, such as a section
+// title.
+.mat-font-headline-md {
+    font: var(--mat-sys-headline-medium);
+    letter-spacing: var(--mat-sys-headline-medium-tracking);
+}
+
+// Sets the font to the headline large typeface. Use for large headlines, such as a page title on
+// a large screen.
+.mat-font-headline-lg {
+    font: var(--mat-sys-headline-large);
+    letter-spacing: var(--mat-sys-headline-large-tracking);
+}
+
+// Sets the font to the label small typeface. Use for small labels, such as text in a badge.
+.mat-font-label-sm {
+    font: var(--mat-sys-label-small);
+    letter-spacing: var(--mat-sys-label-small-tracking);
+}
+
+// Sets the font to the label medium typeface. Use for medium labels. In Angular Material, this
+// is used for the slider label.
+.mat-font-label-md {
+    font: var(--mat-sys-label-medium);
+    letter-spacing: var(--mat-sys-label-medium-tracking);
+}
+
+// Sets the font to the label large typeface. Use for large labels. In Angular Material, this is
+// used for buttons, chips, and menu labels.
+.mat-font-label-lg {
+    font: var(--mat-sys-label-large);
+    letter-spacing: var(--mat-sys-label-large-tracking);
+}
+
+// Sets the font to the title small typeface. Use for small titles, such as a card title. In
+// Angular Material, this is used for the header of a table and the label of an option group.
+.mat-font-title-sm {
+    font: var(--mat-sys-title-small);
+    letter-spacing: var(--mat-sys-title-small-tracking);
+}
+
+// Sets the font to the title medium typeface. Use for medium titles, such as a dialog title
+// or the primary text in a list item. In Angular Material, this is used for the subtitle
+// of a card and the header of an expansion panel.
+.mat-font-title-md {
+    font: var(--mat-sys-title-medium);
+    letter-spacing: var(--mat-sys-title-medium-tracking);
+}
+
+// Sets the font to the title large typeface. Use for large titles, such as a page title on a
+// small screen. In Angular Material, this is used for the title of a card and the title of a
+// toolbar.
+.mat-font-title-lg {
+    font: var(--mat-sys-title-large);
+    letter-spacing: var(--mat-sys-title-large-tracking);
+}

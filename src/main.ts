@@ -13,8 +13,9 @@ import {
     provideIcons,
     providePanels,
     provideSeo,
+    provideThemes,
 } from '@ecodev/natural';
-import {routes} from './app/app-routing';
+import {routes} from './app/app.routes';
 import {AppComponent} from './app/app.component';
 import {DemoLoggerExtra} from './app/demo.error-handler';
 import {AnyLinkMutationService} from './app/shared/services/any-link-mutation.service';
@@ -76,6 +77,19 @@ bootstrapApplication(AppComponent, {
             defaultDescription: 'An amazing angular library',
             languages: ['fr', 'en', 'de', 'it', 'pt'],
         }),
+        provideThemes([
+            'natural',
+            'epicerio',
+            'chez-emmy',
+            'epicentre',
+            'epicoop',
+            'jardinvivant',
+            'lacanopee',
+            'lavracrie',
+            'lelocalhauterive',
+            'levorace',
+            'rucher',
+        ]),
     ],
 }).catch((err: unknown) => {
     console.error(err);

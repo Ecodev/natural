@@ -1,4 +1,4 @@
-<h1 class="mat-headline-4">NaturalAbstractNavigableList</h1>
+<h1 class="mat-font-headline-lg">NaturalAbstractNavigableList</h1>
 
 @if (dataSource) {
     <div class="nat-expand nat-vertical">
@@ -39,10 +39,10 @@
                                 (change)="$event ? masterToggle() : null"
                             />
                         </th>
-                        <td *matCellDef="let row" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             <mat-checkbox
-                                [checked]="selection.isSelected(row.item)"
-                                (change)="$event ? selection.toggle(row.item) : null"
+                                [checked]="selection.isSelected(element.item)"
+                                (change)="$event ? selection.toggle(element.item) : null"
                                 (click)="$event.stopPropagation()"
                             />
                         </td>
@@ -50,7 +50,7 @@
 
                     <ng-container matColumnDef="navigation">
                         <th *matHeaderCellDef mat-header-cell class="natural-3em-column"></th>
-                        <td *matCellDef="let element" mat-cell>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             @if (element.hasNavigation) {
                                 <natural-table-button
                                     icon="chevron_right"
@@ -63,12 +63,12 @@
 
                     <ng-container matColumnDef="id">
                         <th *matHeaderCellDef mat-header-cell class="natural-3em-column">id</th>
-                        <td *matCellDef="let element" mat-cell>{{ element.item.id }}</td>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>{{ element.item.id }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="name">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>name</th>
-                        <td *matCellDef="let element" mat-cell>{{ element.item.name }}</td>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>{{ element.item.name }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="description">
@@ -80,7 +80,7 @@
                             mat-sort-header
                             >description</th
                         >
-                        <td *matCellDef="let element" mat-cell class="natural-align-right">{{
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-right">{{
                             element.item.description
                         }}</td>
                     </ng-container>

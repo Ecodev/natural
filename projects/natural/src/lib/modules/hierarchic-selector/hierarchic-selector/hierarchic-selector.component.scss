@@ -1,5 +1,13 @@
+@use '@angular/material' as mat;
+
 :host {
     display: block;
+
+    @include mat.tree-overrides(
+        (
+            container-background-color: transparent,
+        )
+    );
 }
 
 mat-icon {
@@ -43,7 +51,7 @@ mat-nested-tree-node {
 
     mat-nested-tree-node {
         display: block;
-        padding-left: 40px !important;
+        padding-left: 48px !important;
     }
 }
 

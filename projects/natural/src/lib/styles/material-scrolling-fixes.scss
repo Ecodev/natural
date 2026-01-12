@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+
+html:not(.disable-material-fixes) {
+    // Make icon buttons bigger, same as before MD3, so their visual size match their touch target. And we avoid scrolling.
+    @include mat.icon-button-overrides(
+        (
+            state-layer-size: 48px,
+        )
+    );
+
+    // Reduce touch target size for buttons. Otherwise their touch targets would create scrolling.
+    // And it should still be fine to touch because they are naturally bigger because of their labels.
+    @include mat.button-overrides(
+        (
+            text-touch-target-size: 40px,
+            protected-touch-target-size: 40px,
+            outlined-touch-target-size: 40px,
+            filled-touch-target-size: 40px,
+            tonal-touch-target-size: 40px,
+        )
+    );
+
+    // Reduce touch target size for radio buttons. Otherwise their touch targets would create scrolling.
+    // And it should still be fine to touch because they are naturally bigger because of their labels.
+    @include mat.radio-overrides(
+        (
+            touch-target-size: 40px,
+        )
+    );
+
+    // mat-slide-toggle is slightly higher than before MD3, so we can see their ripple entirely. And the
+    // touch target is the same as before MD3. But the touch target should be fine because the label
+    // naturally increase the touch surface (and we never had issue in the past).
+    @include mat.slide-toggle-overrides(
+        (
+            touch-target-size: 40px,
+        )
+    );
+
+    .mdc-switch {
+        height: var(--mat-slide-toggle-touch-target-size);
+    }
+}

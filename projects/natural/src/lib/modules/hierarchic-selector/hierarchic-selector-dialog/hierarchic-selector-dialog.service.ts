@@ -17,6 +17,7 @@ export class NaturalHierarchicSelectorDialogService {
     ): MatDialogRef<NaturalHierarchicSelectorDialogComponent, HierarchicDialogResult> {
         const defaultDialogConfig = {
             width: '700px',
+            maxWidth: '700px',
             data: hierarchicConfig,
         };
 

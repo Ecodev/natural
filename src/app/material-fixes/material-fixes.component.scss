@@ -1,0 +1,44 @@
+.controls {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: var(--mat-sys-background);
+
+    label {
+        display: inline-block;
+        margin: 0.5em;
+    }
+}
+
+.container {
+    background: lightcyan;
+}
+
+.container:not(.sample) {
+    display: inline-block;
+    margin: 1em;
+    overflow: scroll;
+}
+
+.sample {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+::ng-deep .showContainer .container {
+    border: 1px red solid !important;
+}
+
+::ng-deep .showTouchTarget .mat-mdc-button-touch-target {
+    border: 1px green solid !important;
+}
+
+::ng-deep .showRipple .mat-mdc-button-ripple {
+    border: 1px blueviolet solid !important;
+}
+
+::ng-deep .showElement .container > *,
+.sample.element {
+    border: 1px orange solid !important;
+}

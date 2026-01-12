@@ -25,7 +25,7 @@
     <div matIconSuffix>
         @if (internalCtrl.value && internalCtrl.enabled && !clearLabel()) {
             <button
-                mat-icon-button
+                matIconButton
                 i18n-matTooltip
                 matTooltip="Désélectionner"
                 (click)="clear(); $event.stopPropagation()"
@@ -35,7 +35,7 @@
         }
         @if (internalCtrl.value && navigateTo) {
             <a
-                mat-icon-button
+                matIconButton
                 i18n-matTooltip
                 matTooltip="Naviguer vers"
                 [routerLink]="navigateTo"
@@ -60,7 +60,7 @@
             <button color="primary" mat-flat-button (click)="openDialog()">{{ selectLabel }}</button>
         }
         @if (showClearButton()) {
-            <button color="warn" mat-button (click)="clear()">{{ clearLabel() }}</button>
+            <button color="error" mat-button (click)="clear()">{{ clearLabel() }}</button>
         }
     </div>
 }

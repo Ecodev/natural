@@ -162,3 +162,5 @@ export type UntypedModelService = NaturalAbstractModelService<any, any, any, any
 export type ResolvedData<T extends ResolveData> = {
     readonly [KeyType in keyof Pick<T, keyof T>]: ObservedValueOf<ReturnType<Pick<T, keyof T>[KeyType]>>;
 };
+
+export type NaturalPalette = 'primary' | 'tertiary' | 'error' | undefined;

@@ -16,6 +16,8 @@ import {provideHttpClient} from '@angular/common/http';
         <mat-icon naturalIcon="search" [size]="150" />
         <mat-icon naturalIcon="" />
         <mat-icon naturalIcon="customFontNameWhichIsEmpty" />
+        <mat-icon [naturalIcon]="null" />
+        <mat-icon [naturalIcon]="undefined" />
     `,
 })
 class TestComponent {}
@@ -68,5 +70,7 @@ describe('NaturalIconComponent', () => {
         assertIcon(elements[4], 'font', 'search', '150px');
         assertIcon(elements[5], 'font', null, '');
         assertIcon(elements[6], 'font', null, '');
+        assertIcon(elements[7], 'font', null, '');
+        assertIcon(elements[8], 'font', null, '');
     });
 });

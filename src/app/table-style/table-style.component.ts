@@ -1,17 +1,17 @@
 import {Component} from '@angular/core';
 import {
-    MatTable,
-    MatHeaderCellDef,
-    MatHeaderRowDef,
-    MatColumnDef,
-    MatCellDef,
-    MatRowDef,
-    MatHeaderCell,
     MatCell,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
     MatHeaderRow,
+    MatHeaderRowDef,
     MatRow,
+    MatRowDef,
+    MatTable,
 } from '@angular/material/table';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {TypedMatCellDef} from '@ecodev/natural';
 
 type Item = {
     name: string;
@@ -25,7 +25,7 @@ type Item = {
         MatHeaderCellDef,
         MatHeaderRowDef,
         MatColumnDef,
-        MatCellDef,
+        TypedMatCellDef,
         MatRowDef,
         MatHeaderCell,
         MatCell,

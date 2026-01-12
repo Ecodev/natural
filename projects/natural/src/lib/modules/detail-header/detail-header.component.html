@@ -19,10 +19,10 @@
         </div>
     }
     @if (!model.id) {
-        <div class="mat-headline-5 nat-no-margin newLabel">{{ newLabel() }}</div>
+        <div class="mat-font-headline-sm nat-no-margin newLabel">{{ newLabel() }}</div>
     }
     @if (model.id) {
-        <div class="mat-headline-5 nat-no-margin label">{{ model.name || model.fullName || label }}</div>
+        <div class="mat-font-headline-sm nat-no-margin label">{{ model.name || model.fullName || label }}</div>
     }
     <div>
         <ng-content />

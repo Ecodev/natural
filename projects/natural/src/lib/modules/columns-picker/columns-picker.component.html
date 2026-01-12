@@ -1,7 +1,7 @@
 <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 <div>
     @if ((isMobile | async) && someVisibleButtons()) {
-        <button mat-icon-button [matMenuTriggerFor]="mobileMenu">
+        <button matIconButton [matMenuTriggerFor]="mobileMenu">
             <mat-icon naturalIcon="more_vert" />
         </button>
         <mat-menu #mobileMenu="matMenu">
@@ -74,7 +74,7 @@
             @if (defaultTrue(button.show)) {
                 @if (button.href) {
                     <a
-                        mat-icon-button
+                        matIconButton
                         [href]="button.href"
                         [disabled]="button.disabled"
                         [color]="color(button)"
@@ -85,7 +85,7 @@
                     </a>
                 } @else if (button.buttons) {
                     <button
-                        mat-icon-button
+                        matIconButton
                         [matMenuTriggerFor]="menu"
                         [disabled]="button.disabled"
                         [color]="color(button)"
@@ -109,7 +109,7 @@
                     </mat-menu>
                 } @else {
                     <button
-                        mat-icon-button
+                        matIconButton
                         [disabled]="button.disabled"
                         [color]="color(button)"
                         [matTooltip]="button.label"
@@ -123,7 +123,7 @@
 
         @if (displayedColumns.length) {
             <button
-                mat-icon-button
+                matIconButton
                 i18n-matTooltip
                 matTooltip="Sélectionner les colonnes"
                 [matMenuTriggerFor]="columnMenu"

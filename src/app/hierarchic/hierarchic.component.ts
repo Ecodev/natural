@@ -84,7 +84,9 @@ export class HierarchicComponent {
             .afterClosed()
             .subscribe((result?: HierarchicDialogResult) => {
                 console.log('dialog usage', result);
-                this.selected = result?.hierarchicSelection ?? {};
+                if (result !== undefined) {
+                    this.selected = result.hierarchicSelection ?? {};
+                }
             });
     }
 }

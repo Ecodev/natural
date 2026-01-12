@@ -22,6 +22,7 @@ export {NaturalDebounceService} from './lib/services/debounce.service';
 export * from './lib/services/enum.service';
 export * from './lib/services/link-mutation.service';
 export {NaturalPersistenceService, NATURAL_PERSISTENCE_VALIDATOR} from './lib/services/persistence.service';
+export {provideThemes, ColorScheme, NaturalThemeService} from './lib/services/theme.service';
 export type {PersistenceValidator} from './lib/services/persistence.service';
 export * from './lib/services/swiss-parsing-date-adapter.service';
 
@@ -41,6 +42,7 @@ export type {
     Literal,
     NameOrFullName,
     ResolvedData,
+    NaturalPalette,
 } from './lib/types/types';
 
 export * from './lib/modules/alert/public-api';
@@ -64,7 +66,11 @@ export * from './lib/modules/dialog-trigger/public-api';
 export * from './lib/modules/avatar/public-api';
 export * from './lib/modules/matomo/public-api';
 export * from './lib/modules/logger/public-api';
+export * from './lib/modules/color-schemer/public-api';
+export * from './lib/modules/compact-color-schemer/public-api';
+export * from './lib/modules/theme-changer/public-api';
 
 export * from './lib/directives/http-prefix.directive';
+export {TypedMatCellDef} from './lib/directives/typed-mat-cell-def.directive';
 export {naturalProviders} from './lib/classes/providers';
 export {graphqlQuerySigner} from './lib/classes/signing';
