@@ -25,7 +25,7 @@ import {toGraphQLDoctrineFilter} from '../../search/classes/graphql-doctrine';
 import {NaturalSearchComponent} from '../../search/search/search.component';
 import {NaturalSearchFacets} from '../../search/types/facet';
 import {NaturalSearchSelections} from '../../search/types/values';
-import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
+import {NaturalHierarchicConfiguration, type NodeConfig} from '../classes/hierarchic-configuration';
 import {HierarchicFiltersConfiguration} from '../classes/hierarchic-filters-configuration';
 import {ModelNode} from '../classes/model-node';
 import {NaturalHierarchicSelectorService, OrganizedModelSelection} from './hierarchic-selector.service';
@@ -59,7 +59,7 @@ import {NgTemplateOutlet} from '@angular/common';
     styleUrl: './hierarchic-selector.component.scss',
     providers: [NaturalHierarchicSelectorService],
 })
-export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
+export class NaturalHierarchicSelectorComponent<Nodes extends NodeConfig[]> implements OnInit, OnChanges {
     protected readonly hierarchicSelectorService = inject(NaturalHierarchicSelectorService);
 
     /**
@@ -70,7 +70,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     /**
      * Config for items and relations arrangement
      */
-    public readonly config = input.required<NaturalHierarchicConfiguration[]>();
+    public readonly config = input.required<NaturalHierarchicConfiguration<Nodes>>();
 
     /**
      * If multiple or single item selection
