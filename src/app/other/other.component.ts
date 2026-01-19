@@ -10,7 +10,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {Params, QueryParamsHandling, RouterLink, RouterOutlet} from '@angular/router';
-import {NaturalPalette} from '@ecodev/natural';
+import {NaturalPalette, NaturalStampComponent} from '@ecodev/natural';
 import {NaturalHttpPrefixDirective} from '../../../projects/natural/src/lib/directives/http-prefix.directive';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {NaturalTableButtonComponent} from '../../../projects/natural/src/lib/modules/table-button/table-button.component';
@@ -26,6 +26,12 @@ type TableButtonConfiguration = {
     preserveFragment: boolean;
     color: NaturalPalette;
 };
+
+const lastWeek = new Date();
+lastWeek.setDate(lastWeek.getDate() - 7);
+
+const fewHoursAgo = new Date();
+fewHoursAgo.setHours(fewHoursAgo.getHours() - 3);
 
 @Component({
     selector: 'app-other',
@@ -50,11 +56,42 @@ type TableButtonConfiguration = {
         RouterLink,
         MatRipple,
         RouterOutlet,
+        NaturalStampComponent,
     ],
     templateUrl: './other.component.html',
     styleUrl: './other.component.scss',
 })
 export class OtherComponent implements OnInit {
+    protected readonly item1 = {
+        creator: null,
+        updater: null,
+        creationDate: null,
+        updateDate: null,
+    };
+
+    protected readonly item2 = {
+        creator: null,
+        updater: {
+            id: '123',
+            fullName: 'my full name',
+        },
+        creationDate: lastWeek.toISOString(),
+        updateDate: null,
+    };
+
+    protected readonly item3 = {
+        creator: {
+            id: '123',
+            name: 'my name',
+        },
+        updater: {
+            id: '123',
+            fullName: 'my full name',
+        },
+        creationDate: lastWeek.toISOString(),
+        updateDate: fewHoursAgo.toISOString(),
+    };
+
     private httpClient = inject(HttpClient);
 
     /**

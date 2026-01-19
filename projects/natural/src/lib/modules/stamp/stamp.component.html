@@ -1,7 +1,7 @@
 @let theItem = item();
 @if (theItem.creationDate || theItem.creator) {
     <div>
-        <span class="mat-subtitle-2" i18n>Création</span>
+        <span class="mat-font-title-sm" i18n>Création</span>
         :
         @if (theItem.creator) {
             <span>{{ theItem.creator.fullName || theItem.creator.name }}</span>
@@ -17,7 +17,7 @@
 
 @if (showUpdate()) {
     <div>
-        <span class="mat-subtitle-2" i18n>Modification</span>
+        <span class="mat-font-title-sm" i18n>Modification</span>
         :
         @if (theItem.updater) {
             <span>{{ theItem.updater.fullName || theItem.updater.name }}</span>
