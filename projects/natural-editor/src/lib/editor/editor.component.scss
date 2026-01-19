@@ -11,13 +11,8 @@
 .menu {
     display: flex;
     flex-wrap: wrap;
-    background-color: color-mix(in srgb, var(--background-color) 90%, transparent);
+    background-color: var(--background-color);
     padding-block: 10px;
-
-    @supports (backdrop-filter: blur()) {
-        backdrop-filter: blur(10px);
-        background-color: color-mix(in srgb, var(--background-color) 70%, transparent);
-    }
 }
 
 .menu-container {
