@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
+@use './styles/color.scss';
 @use './styles/table.scss';
 @use './styles/material-scrolling-fixes.scss';
 @use './modules/panels/panels.scss';
@@ -204,47 +205,6 @@ h6 {
     margin: 0;
 }
 
-// Nice todo angular 21 : replace tonal by m3-utils.color-with-opacity(map.get($system, on-surface), 12%),
-.mdc-button {
-    @include mat.button-overrides(
-        (
-            protected-container-color: color-mix(in srgb, transparent 92%, black),
-        )
-    );
-
-    &.mat-error,
-    &[color='error'] {
-        @include mat.button-overrides(
-            (
-                text-label-text-color: var(--mat-sys-error-container),
-                filled-container-color: var(--mat-sys-error-container),
-                filled-label-text-color: var(--mat-sys-on-error-container),
-                tonal-container-color: color-mix(in srgb, var(--mat-sys-error-container) 12%, transparent),
-                tonal-label-text-color: var(--mat-sys-on-surface),
-                protected-label-text-color: var(--mat-sys-error-container),
-                outlined-outline-color: var(--mat-sys-error-container),
-                outlined-label-text-color: var(--mat-sys-error-container),
-            )
-        );
-    }
-
-    &.mat-tertiary,
-    &[color='tertiary'] {
-        @include mat.button-overrides(
-            (
-                text-label-text-color: var(--mat-sys-tertiary-container),
-                filled-container-color: var(--mat-sys-tertiary-container),
-                filled-label-text-color: var(--mat-sys-on-tertiary-container),
-                tonal-container-color: color-mix(in srgb, var(--mat-sys-tertiary-container) 12%, transparent),
-                tonal-label-text-color: var(--mat-sys-on-surface),
-                protected-label-text-color: var(--mat-sys-tertiary-container),
-                outlined-outline-color: var(--mat-sys-tertiary-container),
-                outlined-label-text-color: var(--mat-sys-tertiary-container),
-            )
-        );
-    }
-}
-
 // In fab speed dials, mini fabs are tertiary as well as default fab buttons
 eco-fab-speed-dial .mdc-fab {
     @include mat.fab-overrides(
@@ -259,41 +219,6 @@ eco-fab-speed-dial .mdc-fab {
 
 .mdc-fab,
 .mdc-mini-fab {
-    &.mat-primary,
-    &[color='primary'] {
-        @include mat.fab-overrides(
-            (
-                container-color: var(--mat-sys-primary-container),
-                foreground-color: var(--mat-sys-on-primary-container),
-                small-container-color: var(--mat-sys-primary-container),
-                small-foreground-color: var(--mat-sys-on-primary-container),
-            )
-        );
-    }
-
-    &.mat-error,
-    &[color='error'] {
-        @include mat.fab-overrides(
-            (
-                container-color: var(--mat-sys-error-container),
-                foreground-color: var(--mat-sys-on-error-container),
-                small-container-color: var(--mat-sys-error-container),
-                small-foreground-color: var(--mat-sys-on-error-container),
-            )
-        );
-    }
-
-    &[color='tertiary'] {
-        @include mat.fab-overrides(
-            (
-                container-color: var(--mat-sys-tertiary-container),
-                foreground-color: var(--mat-sys-on-tertiary-container),
-                small-container-color: var(--mat-sys-tertiary-container),
-                small-foreground-color: var(--mat-sys-on-tertiary-container),
-            )
-        );
-    }
-
     &.nat-rounded {
         @include mat.fab-overrides(
             (
@@ -316,61 +241,6 @@ eco-fab-speed-dial .mdc-fab {
                 small-container-elevation-shadow: 0,
                 small-focus-container-elevation-shadow: 0,
                 small-hover-container-elevation-shadow: 0,
-            )
-        );
-    }
-}
-
-.mdc-icon-button {
-    &.mat-primary,
-    &[color='primary'] {
-        @include mat.icon-button-overrides(
-            (
-                icon-color: var(--mat-sys-primary-container),
-            )
-        );
-    }
-
-    &.mat-error,
-    &[color='error'] {
-        @include mat.icon-button-overrides(
-            (
-                icon-color: var(--mat-sys-error-container),
-            )
-        );
-    }
-
-    .mat-tertiary,
-    &[color='tertiary'] {
-        @include mat.icon-button-overrides(
-            (
-                icon-color: var(--mat-sys-tertiary-container),
-            )
-        );
-    }
-}
-
-.mat-icon {
-    &.mat-primary {
-        @include mat.icon-overrides(
-            (
-                color: var(--mat-sys-primary-container),
-            )
-        );
-    }
-
-    &.mat-error {
-        @include mat.icon-overrides(
-            (
-                color: var(--mat-sys-error-container),
-            )
-        );
-    }
-
-    .mat-tertiary {
-        @include mat.icon-overrides(
-            (
-                color: var(--mat-sys-tertiary-container),
             )
         );
     }
