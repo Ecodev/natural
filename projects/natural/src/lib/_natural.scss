@@ -350,6 +350,32 @@ eco-fab-speed-dial .mdc-fab {
     }
 }
 
+.mat-icon {
+    &.mat-primary {
+        @include mat.icon-overrides(
+            (
+                color: var(--mat-sys-primary-container),
+            )
+        );
+    }
+
+    &.mat-error {
+        @include mat.icon-overrides(
+            (
+                color: var(--mat-sys-error-container),
+            )
+        );
+    }
+
+    .mat-tertiary {
+        @include mat.icon-overrides(
+            (
+                color: var(--mat-sys-tertiary-container),
+            )
+        );
+    }
+}
+
 // Todo Remove on angular v21
 // add body{ @include mat.system-classes();}
 
