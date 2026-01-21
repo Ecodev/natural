@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
 :host {
-    --background-color: var(--mat-sys-surface-container);
+    --background-color: var(--mat-sys-surface-container-high);
     display: block;
     border-radius: var(--mat-sys-corner-large);
     background-color: var(--background-color);
