@@ -1,6 +1,11 @@
 :host {
     display: block;
     width: fit-content;
+
+    @supports not (color: light-dark(white, black)) {
+        display:none;
+    }
+
 }
 
 .wrapper {

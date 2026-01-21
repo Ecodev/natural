@@ -4,7 +4,7 @@
 .mdc-button {
     @include mat.button-overrides(
         (
-            protected-container-color: color-mix(in srgb, transparent 92%, black),
+            protected-container-color: rgba(0, 0, 0, 0.08),
         )
     );
 
@@ -15,13 +15,22 @@
                 text-label-text-color: var(--mat-sys-error-container),
                 filled-container-color: var(--mat-sys-error-container),
                 filled-label-text-color: var(--mat-sys-on-error-container),
-                tonal-container-color: color-mix(in srgb, var(--mat-sys-error-container) 12%, transparent),
-                tonal-label-text-color: var(--mat-sys-on-surface),
+                tonal-container-color: var(--mat-sys-error-container),
+                tonal-label-text-color: var(--mat-sys-on-error-container),
                 protected-label-text-color: var(--mat-sys-error-container),
                 outlined-outline-color: var(--mat-sys-error-container),
                 outlined-label-text-color: var(--mat-sys-error-container),
             )
         );
+
+        @supports (color: color-mix(in srgb, red, blue)) {
+            @include mat.button-overrides(
+                (
+                    tonal-container-color: color-mix(in srgb, var(--mat-sys-error-container) 12%, transparent),
+                    tonal-label-text-color: var(--mat-sys-on-surface),
+                )
+            );
+        }
     }
 
     &.mat-tertiary,
@@ -31,13 +40,22 @@
                 text-label-text-color: var(--mat-sys-tertiary-container),
                 filled-container-color: var(--mat-sys-tertiary-container),
                 filled-label-text-color: var(--mat-sys-on-tertiary-container),
-                tonal-container-color: color-mix(in srgb, var(--mat-sys-tertiary-container) 12%, transparent),
-                tonal-label-text-color: var(--mat-sys-on-surface),
+                tonal-container-color: var(--mat-sys-tertiary-container),
+                tonal-label-text-color: var(--mat-sys-on-tertiary-container),
                 protected-label-text-color: var(--mat-sys-tertiary-container),
                 outlined-outline-color: var(--mat-sys-tertiary-container),
                 outlined-label-text-color: var(--mat-sys-tertiary-container),
             )
         );
+
+        @supports (color: color-mix(in srgb, red, blue)) {
+            @include mat.button-overrides(
+                (
+                    tonal-container-color: color-mix(in srgb, var(--mat-sys-tertiary-container) 12%, transparent),
+                    tonal-label-text-color: var(--mat-sys-on-surface),
+                )
+            );
+        }
     }
 }
 

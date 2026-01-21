@@ -9,6 +9,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
     selector: 'natural-compact-color-schemer',
     imports: [MatIconButton, MatTooltip, MatIcon, MatMenu, MatMenuItem, MatMenuTrigger],
     templateUrl: './compact-color-schemer.component.html',
+    styleUrl: './compact-color-schemer.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NaturalCompactColorSchemerComponent {

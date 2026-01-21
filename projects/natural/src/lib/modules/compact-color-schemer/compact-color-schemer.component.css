@@ -1,0 +1,5 @@
+@supports not (color: light-dark(white, black)) {
+    :host {
+        display: none;
+    }
+}

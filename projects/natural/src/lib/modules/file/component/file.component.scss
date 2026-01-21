@@ -46,12 +46,19 @@
     }
 
     .action-overlay {
-        background-color: color-mix(in srgb, var(--mat-sys-primary-fixed) 85%, transparent);
+        background-color: var(--mat-sys-primary-fixed);
+        @supports (color: color-mix(in srgb, red, blue)) {
+            background-color: color-mix(in srgb, var(--mat-sys-primary-fixed) 85%, transparent);
+        }
+
         color: var(--mat-sys-on-primary-fixed);
     }
 
     .file-preview {
-        background-color: color-mix(in srgb, var(--mat-sys-tertiary-fixed) 85%, transparent);
+        background-color: var(--mat-sys-tertiary-fixed);
+        @supports (color: color-mix(in srgb, red, blue)) {
+            background-color: color-mix(in srgb, var(--mat-sys-tertiary-fixed) 85%, transparent);
+        }
         color: var(--mat-sys-on-tertiary-fixed);
     }
 

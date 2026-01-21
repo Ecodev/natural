@@ -52,51 +52,61 @@ body {
     );
 
     --nat-elevation: inset 0 1px rgba(255, 255, 255, 0.3), var(--mat-sys-level1);
-    --nat-gradient-primary: linear-gradient(
-        175deg,
-        color-mix(in srgb, var(--mat-sys-primary-container) 95%, white),
-        color-mix(in srgb, var(--mat-sys-primary-container) 90%, black)
-    );
-
-    --nat-gradient-secondary: linear-gradient(
-        175deg,
-        color-mix(in srgb, var(--mat-sys-secondary-container) 95%, white),
-        color-mix(in srgb, var(--mat-sys-secondary-container) 90%, black)
-    );
-
-    --nat-gradient-tertiary: linear-gradient(
-        175deg,
-        color-mix(in srgb, var(--mat-sys-tertiary-container) 95%, white),
-        color-mix(in srgb, var(--mat-sys-tertiary-container) 90%, black)
-    );
-
-    --nat-gradient-error: linear-gradient(
-        175deg,
-        color-mix(in srgb, var(--mat-sys-error) 95%, white),
-        color-mix(in srgb, var(--mat-sys-error) 90%, black)
-    );
-
+    --nat-gradient-primary: var(--mat-sys-primary-container);
+    --nat-gradient-secondary: var(--mat-sys-secondary-container);
+    --nat-gradient-tertiary: var(--mat-sys-tertiary-container);
+    --nat-gradient-error: var(--mat-sys-error);
     --nat-good: rgb(0, 175, 0, 1);
     --nat-on-good: white;
-    --nat-gradient-good: linear-gradient(
-        175deg,
-        color-mix(in srgb, var(--nat-good) 95%, white),
-        color-mix(in srgb, var(--nat-good) 90%, black)
-    );
-
-    --nat-gradient-inverse-surface: linear-gradient(
-        175deg,
-        color-mix(in srgb, var(--mat-sys-inverse-surface) 95%, white),
-        color-mix(in srgb, var(--mat-sys-inverse-surface) 90%, black)
-    );
-
+    --nat-gradient-good: var(--nat-good);
+    --nat-gradient-inverse-surface: var(--mat-sys-inverse-surface);
     --nat-bad: rgb(200, 11, 11);
     --nat-on-bad: white;
-    --nat-gradient-bad: linear-gradient(
-        175deg,
-        color-mix(in srgb, var(--nat-bad) 60%, white),
-        color-mix(in srgb, var(--nat-bad) 90%, black)
-    );
+    --nat-gradient-bad: var(--nat-bad);
+
+    @supports (color: color-mix(in srgb, red, blue)) {
+        --nat-gradient-primary: linear-gradient(
+            175deg,
+            color-mix(in srgb, var(--mat-sys-primary-container) 95%, white),
+            color-mix(in srgb, var(--mat-sys-primary-container) 90%, black)
+        );
+
+        --nat-gradient-secondary: linear-gradient(
+            175deg,
+            color-mix(in srgb, var(--mat-sys-secondary-container) 95%, white),
+            color-mix(in srgb, var(--mat-sys-secondary-container) 90%, black)
+        );
+
+        --nat-gradient-tertiary: linear-gradient(
+            175deg,
+            color-mix(in srgb, var(--mat-sys-tertiary-container) 95%, white),
+            color-mix(in srgb, var(--mat-sys-tertiary-container) 90%, black)
+        );
+
+        --nat-gradient-error: linear-gradient(
+            175deg,
+            color-mix(in srgb, var(--mat-sys-error) 95%, white),
+            color-mix(in srgb, var(--mat-sys-error) 90%, black)
+        );
+
+        --nat-gradient-good: linear-gradient(
+            175deg,
+            color-mix(in srgb, var(--nat-good) 95%, white),
+            color-mix(in srgb, var(--nat-good) 90%, black)
+        );
+
+        --nat-gradient-inverse-surface: linear-gradient(
+            175deg,
+            color-mix(in srgb, var(--mat-sys-inverse-surface) 95%, white),
+            color-mix(in srgb, var(--mat-sys-inverse-surface) 90%, black)
+        );
+
+        --nat-gradient-bad: linear-gradient(
+            175deg,
+            color-mix(in srgb, var(--nat-bad) 60%, white),
+            color-mix(in srgb, var(--nat-bad) 90%, black)
+        );
+    }
 }
 
 .nat-elevation {

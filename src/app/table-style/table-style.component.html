@@ -11,7 +11,7 @@
 
     <table mat-table matSort [dataSource]="dataSource">
         <tr *matHeaderRowDef="columns" mat-header-row></tr>
-        <tr *matRowDef="let row; columns: columns" mat-row></tr>
+        <tr *matRowDef="let row; columns: columns" mat-row class="selected"></tr>
 
         <ng-container matColumnDef="name">
             <th *matHeaderCellDef mat-header-cell>Name</th>

@@ -69,7 +69,10 @@
     }
 
     [mat-row].selected {
-        background: color-mix(in srgb, var(--mat-sys-surface-container-highest) 95%, black);
+        background: rgba(0, 0, 0, 0.05);
+        @supports (background: light-dark(black, white)) {
+            background: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
+        }
     }
 
     .mat-mdc-footer-cell {
