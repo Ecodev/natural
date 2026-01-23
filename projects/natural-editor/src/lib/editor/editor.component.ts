@@ -66,6 +66,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
     private readonly editor = viewChild.required('editor', {read: ElementRef});
 
     public readonly contentChange = output<string>();
+    public readonly editorBlur = output<string>();
 
     /**
      * Callback to upload an image and return the URL to view the image.
@@ -196,6 +197,11 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
             }),
             new Plugin({
                 view: () => this,
+            }),
+            new Plugin({
+                props: {
+                    handleDOMEvents: {blur: () => this.editorBlur.emit(this.content)},
+                },
             }),
         ];
 
