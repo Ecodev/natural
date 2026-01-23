@@ -59,6 +59,7 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
     private readonly document = inject(DOCUMENT);
     private readonly dialog = inject(MatDialog);
     private readonly imagePlugin = inject(ImagePlugin);
+    public readonly elementRef = inject(ElementRef);
     protected readonly commonImageMimeTypes = commonImageMimeTypes;
 
     private view: EditorView | null = null;
@@ -150,6 +151,14 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
             },
         });
         this.update();
+    }
+
+    public focus(): void {
+        if (this.view) {
+            this.view.focus();
+        } else {
+            requestAnimationFrame(() => this.focus());
+        }
     }
 
     public writeValue(val: string | undefined): void {
