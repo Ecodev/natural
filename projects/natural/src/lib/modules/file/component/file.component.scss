@@ -47,19 +47,18 @@
 
     .action-overlay {
         background-color: var(--mat-sys-primary-fixed);
+        color: var(--mat-sys-on-primary-fixed);
         @supports (color: color-mix(in srgb, red, blue)) {
             background-color: color-mix(in srgb, var(--mat-sys-primary-fixed) 85%, transparent);
         }
-
-        color: var(--mat-sys-on-primary-fixed);
     }
 
     .file-preview {
         background-color: var(--mat-sys-tertiary-fixed);
+        color: var(--mat-sys-on-tertiary-fixed);
         @supports (color: color-mix(in srgb, red, blue)) {
             background-color: color-mix(in srgb, var(--mat-sys-tertiary-fixed) 85%, transparent);
         }
-        color: var(--mat-sys-on-tertiary-fixed);
     }
 
     .action-overlay {
