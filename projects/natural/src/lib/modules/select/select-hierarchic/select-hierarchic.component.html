@@ -57,7 +57,7 @@
 @if (showSelectButton() || showClearButton()) {
     <div class="external-buttons">
         @if (showSelectButton()) {
-            <button color="primary" mat-flat-button (click)="openDialog()">{{ selectLabel }}</button>
+            <button color="primary" matButton="filled" (click)="openDialog()">{{ selectLabel }}</button>
         }
         @if (showClearButton()) {
             <button color="error" matButton (click)="clear()">{{ clearLabel() }}</button>
