@@ -1,9 +1,10 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 @use './styles/color.scss';
+@use './styles/margins.scss';
+@use './styles/material-scrolling-fixes.scss';
 @use './styles/table.scss';
 @use './styles/typography.scss';
-@use './styles/material-scrolling-fixes.scss';
 @use './modules/panels/panels.scss';
 @use './modules/sidenav/sidenav.scss';
 @use './modules/alert/alert.scss';
@@ -204,16 +205,6 @@ body {
 
 .nat-bold {
     font-weight: 500;
-}
-
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    margin: 0;
 }
 
 // In fab speed dials, mini fabs are tertiary as well as default fab buttons

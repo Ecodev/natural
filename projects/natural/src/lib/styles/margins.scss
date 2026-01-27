@@ -1,0 +1,28 @@
+// No margin by default
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+// Restore reasonable typography margins
+.nat-margin-standard p,
+p.nat-margin-standard,
+.nat-margin-standard h1,
+h1.nat-margin-standard,
+.nat-margin-standard h2,
+h2.nat-margin-standard,
+.nat-margin-standard h3,
+h3.nat-margin-standard,
+.nat-margin-standard h4,
+h4.nat-margin-standard,
+.nat-margin-standard h5,
+h5.nat-margin-standard,
+.nat-margin-standard h6,
+h6.nat-margin-standard {
+    margin-bottom: 0.75em;
+}
