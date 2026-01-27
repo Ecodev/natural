@@ -64,7 +64,7 @@
                     </mat-button-toggle>
                 }
             </mat-button-toggle-group>
-            <button mat-button [matMenuTriggerFor]="blockMenu">
+            <button matButton [matMenuTriggerFor]="blockMenu">
                 <span i18n>Type</span>
                 <mat-icon fontIcon="arrow_drop_down" />
             </button>
@@ -132,7 +132,7 @@
                 }
             </mat-menu>
             @if (menu.addColumnBefore) {
-                <button mat-button [matMenuTriggerFor]="tableMenu">
+                <button matButton [matMenuTriggerFor]="tableMenu">
                     <span i18n>Tableau</span>
                     <mat-icon fontIcon="arrow_drop_down" />
                 </button>

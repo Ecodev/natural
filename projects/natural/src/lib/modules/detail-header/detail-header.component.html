@@ -1,12 +1,12 @@
 <div class="breadcrumb">
     @if (rootLabel || label) {
-        <a color="primary" mat-button [routerLink]="isPanel() ? [] : getRootLink()" [fragment]="listFragment()">{{
+        <a color="primary" matButton [routerLink]="isPanel() ? [] : getRootLink()" [fragment]="listFragment()">{{
             rootLabel || label
         }}</a>
     }
     @for (parent of breadcrumbs(); track parent.id) {
         /
-        <a color="primary" mat-button [routerLink]="isPanel() ? [] : getLink(parent.id)">
+        <a color="primary" matButton [routerLink]="isPanel() ? [] : getLink(parent.id)">
             {{ parent?.fullName || parent?.name }}</a
         >
     }
