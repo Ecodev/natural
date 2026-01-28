@@ -1,10 +1,16 @@
-import {DestroyRef, Directive, HostBinding, HostListener, inject} from '@angular/core';
+import {DestroyRef, Directive, inject} from '@angular/core';
 import {NaturalPanelsService} from './panels.service';
 import {NaturalPanelData} from './types';
 import {Observable} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
-@Directive()
+@Directive({
+    host: {
+        '[class.isFrontPanel]': 'isFrontPanel',
+        '[class.isPanel]': 'isPanel',
+        '(click)': 'clickPanel()',
+    },
+})
 export class NaturalAbstractPanel {
     protected readonly destroyRef = inject(DestroyRef);
     /**
@@ -16,12 +22,12 @@ export class NaturalAbstractPanel {
     /**
      * Bind isFrontPanel style class on root component
      */
-    @HostBinding('class.isFrontPanel') public isFrontPanel = false;
+    public isFrontPanel = false;
 
     /**
      * Bind isPanel style class on root component
      */
-    @HostBinding('class.isPanel') public isPanel = false;
+    public isPanel = false;
 
     /**
      * Merging of data provided by the very root component (that is in a route context) and inherited data through panels
@@ -33,7 +39,6 @@ export class NaturalAbstractPanel {
     /**
      * Bind click on panels, to allow the selection of those who are behind
      */
-    @HostListener('click')
     public clickPanel(): void {
         if (!this.isFrontPanel && this.panelService) {
             this.panelService.goToPanelByComponent(this);

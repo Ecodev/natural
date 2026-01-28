@@ -1,4 +1,4 @@
-import {DestroyRef, Directive, HostBinding, HostListener, inject, OnInit, output} from '@angular/core';
+import {DestroyRef, Directive, inject, OnInit, output} from '@angular/core';
 import {NaturalAbstractFile} from './abstract-file';
 import {eventToFiles, stopEvent} from './utils';
 import {asyncScheduler, Subject} from 'rxjs';
@@ -20,10 +20,16 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
  */
 @Directive({
     selector: ':not([naturalFileSelect])[naturalFileDrop]',
+    host: {
+        '[class.natural-file-over]': 'fileOverClass',
+        '(drop)': 'onDrop($event)',
+        '(dragover)': 'onDragOver($event)',
+        '(dragleave)': 'onDragLeave($event)',
+    },
 })
 export class NaturalFileDropDirective extends NaturalAbstractFile implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
-    @HostBinding('class.natural-file-over') public fileOverClass = false;
+    public fileOverClass = false;
 
     /**
      * Emits whenever files are being dragged over
@@ -53,8 +59,7 @@ export class NaturalFileDropDirective extends NaturalAbstractFile implements OnI
             });
     }
 
-    @HostListener('drop', ['$event'])
-    public onDrop(event: DragEvent): void {
+    protected onDrop(event: DragEvent): void {
         if (this.fileSelectionDisabled()) {
             return;
         }
@@ -70,8 +75,7 @@ export class NaturalFileDropDirective extends NaturalAbstractFile implements OnI
         this.handleFiles(files);
     }
 
-    @HostListener('dragover', ['$event'])
-    public onDragOver(event: DragEvent): void {
+    protected onDragOver(event: DragEvent): void {
         if (!this.hasObservers()) {
             return;
         }
@@ -95,8 +99,7 @@ export class NaturalFileDropDirective extends NaturalAbstractFile implements OnI
         this.rawFileOver.next(false);
     }
 
-    @HostListener('dragleave', ['$event'])
-    public onDragLeave(event: DragEvent): void {
+    protected onDragLeave(event: DragEvent): void {
         if (this.fileSelectionDisabled()) {
             return;
         }

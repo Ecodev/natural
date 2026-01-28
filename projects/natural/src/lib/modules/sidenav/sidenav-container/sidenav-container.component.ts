@@ -1,4 +1,4 @@
-import {Component, HostBinding, inject, Input, input, OnDestroy, OnInit, viewChild} from '@angular/core';
+import {Component, inject, input, OnDestroy, OnInit, viewChild} from '@angular/core';
 import {MatDrawer, MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {NaturalSidenavService} from '../sidenav.service';
 
@@ -8,6 +8,9 @@ import {NaturalSidenavService} from '../sidenav.service';
     templateUrl: './sidenav-container.component.html',
     styleUrl: './sidenav-container.component.scss',
     providers: [NaturalSidenavService],
+    host: {
+        '[attr.no-scroll]': 'noScroll()',
+    },
 })
 export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
     public readonly sidenavService = inject(NaturalSidenavService);
@@ -37,7 +40,7 @@ export class NaturalSidenavContainerComponent implements OnInit, OnDestroy {
      * If true, prevents "native" material sidenav to scroll at container level and delegates the scroll responsability to the transcluded
      * content
      */
-    @HostBinding('attr.no-scroll') @Input() public noScroll = false;
+    public readonly noScroll = input(false);
 
     /**
      * Inner "native" material sidenav

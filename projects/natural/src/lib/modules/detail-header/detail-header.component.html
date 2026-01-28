@@ -20,8 +20,7 @@
     }
     @if (!model.id) {
         <h1 class="mat-font-headline-sm newLabel">{{ newLabel() }}</h1>
-    }
-    @if (model.id) {
+    } @else {
         <h1 class="mat-font-headline-sm label">{{ model.name || model.fullName || label }}</h1>
     }
     <div>

@@ -6,8 +6,7 @@
 >
     @if (facet) {
         <mat-label>{{ facet.display }}</mat-label>
-    }
-    @if (!facet) {
+    } @else {
         <mat-label>{{ placeholder }}</mat-label>
     }
 

@@ -2,7 +2,6 @@ import {
     Directive,
     DOCUMENT,
     ElementRef,
-    HostListener,
     inject,
     Input,
     input,
@@ -51,7 +50,11 @@ export type FileSelection = {
  *
  * @dynamic
  */
-@Directive()
+@Directive({
+    host: {
+        '(change)': 'onChange($event)',
+    },
+})
 export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChanges {
     private fileElement?: HTMLInputElement;
 
@@ -253,7 +256,6 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
         this.fileElement.value = '';
     }
 
-    @HostListener('change', ['$event'])
     public onChange(event: Event): void {
         const fileList = this.getFileElement().files;
         const files: File[] = fileList ? fileListToArray(fileList) : eventToFiles(event);

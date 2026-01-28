@@ -14,7 +14,7 @@ function getCellAttrs(dom: Node | string, extraAttrs: CellAttributes): null | At
     const result: MutableAttrs = {
         colspan,
         rowspan: Number(dom.getAttribute('rowspan') || 1),
-        colwidth: widths && widths.length == colspan ? widths : null,
+        colwidth: widths?.length == colspan ? widths : null,
     };
 
     for (const prop in extraAttrs) {

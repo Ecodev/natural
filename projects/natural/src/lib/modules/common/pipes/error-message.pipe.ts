@@ -98,7 +98,7 @@ export class NaturalErrorMessagePipe implements PipeTransform {
             return errors.time;
         } else if (errors.nfcCardHex) {
             return errors.nfcCardHex;
-        } else if (errors.pattern && errors.pattern.requiredPattern === urlPattern) {
+        } else if (errors.pattern?.requiredPattern === urlPattern) {
             return $localize`URL invalide`;
         }
 

@@ -5,7 +5,6 @@ import {
     createEnvironmentInjector,
     ElementRef,
     EnvironmentInjector,
-    HostListener,
     inject,
     Input,
     input,
@@ -70,6 +69,9 @@ function isComponentValid(component: DropdownComponent): ValidatorFn {
     ],
     templateUrl: './input.component.html',
     styleUrl: './input.component.scss',
+    host: {
+        '(focus)': 'focus()',
+    },
 })
 export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
     private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -169,8 +171,7 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
      * When focusing manually on the <input>, a dropdown is opened
      * But when the focus is given from angular in a parent context (like a dialog) the dropdown would open and we don't want it.
      */
-    @HostListener('focus')
-    public focus(): void {
+    protected focus(): void {
         this.neutralizeDropdownOpening = true;
         this.input().nativeElement.focus();
         this.neutralizeDropdownOpening = false;
@@ -191,11 +192,7 @@ export class NaturalInputComponent implements OnInit, OnChanges, OnDestroy {
                 });
             } else if (this.isFlag()) {
                 this.formCtrl.setValue('');
-            } else if (
-                this.selection &&
-                this.selection.field === this.searchFieldName() &&
-                this.selection.condition.like
-            ) {
+            } else if (this.selection?.field === this.searchFieldName() && this.selection.condition.like) {
                 // global search mode
                 this.formCtrl.setValue('' + this.selection.condition.like.value);
             } else {
