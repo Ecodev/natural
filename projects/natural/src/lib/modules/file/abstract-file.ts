@@ -130,7 +130,7 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
         this.getFileElement().multiple = this.multiple();
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public ngOnChanges(changes: SimpleChanges<this>): void {
         if (changes.accept) {
             this.getFileElement().setAttribute('accept', changes.accept.currentValue || '*');
         }

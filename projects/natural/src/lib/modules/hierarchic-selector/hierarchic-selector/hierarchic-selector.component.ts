@@ -133,7 +133,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     /**
      * Angular OnChange implementation
      */
-    public ngOnChanges(changes: SimpleChanges): void {
+    public ngOnChanges(changes: SimpleChanges<this>): void {
         if (changes.selected && !changes.selected.firstChange) {
             this.updateInnerSelection(this.selected());
         }

@@ -96,7 +96,7 @@ export class NaturalFileComponent implements OnInit, OnChanges {
     public imagePreview = '';
     public filePreview: string | null = null;
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public ngOnChanges(changes: SimpleChanges<this>): void {
         if (changes.model && changes.model.previousValue !== changes.model.currentValue) {
             this.updateImage();
         }

@@ -102,7 +102,7 @@ export class NaturalColumnsPickerComponent implements OnChanges {
         this.selectionChange.emit(selectedColumns);
     }
 
-    public ngOnChanges(changes: SimpleChanges): void {
+    public ngOnChanges(changes: SimpleChanges<this>): void {
         // Unfortunately need a timeout to avoid an ExpressionChangedAfterItHasBeenCheckedError on /state/4989/process
         cancellableTimeout(this.destroyRef).subscribe(() => {
             if (changes.availableColumns) {
