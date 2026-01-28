@@ -1,6 +1,5 @@
 @use '@angular/material' as mat;
 
-// TODO angular 21 : replace tonal by m3-utils.color-with-opacity(map.get($system, on-surface), 12%),
 .mdc-button {
     @include mat.button-overrides(
         (
