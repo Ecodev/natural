@@ -22,7 +22,6 @@ const basicAllowedAttributes = [
     'list',
     'matButton',
     'name',
-    'ngClass',
     'ngProjectAs',
     'role',
     'routerLink',
