@@ -25,7 +25,7 @@ export function ensureHttpPrefix(value: string | null): string | null {
 @Directive({
     selector: '[naturalHttpPrefix]',
     host: {
-        '(ngModelChange)': 'httpize($event)',
+        '(ngModelChange)': 'httpize($any($event))',
     },
 })
 export class NaturalHttpPrefixDirective {

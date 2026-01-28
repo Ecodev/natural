@@ -70,14 +70,13 @@ describe('Demo ListComponent', () => {
         }).compileComponents();
     });
 
-    // eslint-disable-next-line @typescript-eslint/require-await
     beforeEach(async () => {
         fixture = TestBed.createComponent(ListComponent);
         component = fixture.componentInstance;
 
         router = TestBed.inject(Router);
         persistenceService = TestBed.inject(NaturalPersistenceService);
-        router.navigateByUrl('/my/home;cat=123/list-a;dog=456');
+        await router.navigateByUrl('/my/home;cat=123/list-a;dog=456');
     });
 
     it('should be created', () => {

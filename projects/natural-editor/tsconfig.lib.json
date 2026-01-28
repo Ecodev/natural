@@ -5,8 +5,7 @@
         "outDir": "../../out-tsc/lib",
         "declaration": true,
         "declarationMap": true,
-        "inlineSources": true,
-        "lib": ["dom", "ES2022"]
+        "inlineSources": true
     },
     "exclude": ["**/*.spec.ts"]
 }
