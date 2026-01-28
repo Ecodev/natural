@@ -10,20 +10,11 @@ import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatIconButton} from '@angular/material/button';
 import {NaturalGroupComponent} from '../group/group.component';
-import {AsyncPipe, NgClass} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
     selector: 'natural-search',
-    imports: [
-        NgClass,
-        AsyncPipe,
-        NaturalGroupComponent,
-        MatIconButton,
-        MatTooltip,
-        MatIcon,
-        NaturalIconDirective,
-        MatDivider,
-    ],
+    imports: [AsyncPipe, NaturalGroupComponent, MatIconButton, MatTooltip, MatIcon, NaturalIconDirective, MatDivider],
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss',
 })
