@@ -17,40 +17,6 @@ html {
     );
 }
 
-html,
-body,
-app-root {
-    margin: 0;
-    height: 100%;
-    min-height: 100%;
-}
-
-body {
-    background-color: var(--mat-sys-surface-container);
-    color: var(--mat-sys-on-surface);
-    font: var(--mat-sys-body-medium);
-
-    @include mat.table-overrides(
-        (
-            row-item-outline-color: var(--mat-sys-outline-variant),
-        )
-    );
-
-    @include mat.sidenav-overrides(
-        (
-            container-background-color: var(--mat-sys-surface-container),
-            content-background-color: var(--mat-sys-surface-container),
-        )
-    );
-}
-
-app-root {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
 .app-component > router-outlet + * {
     flex: 1;
     flex-direction: column;

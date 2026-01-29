@@ -5,6 +5,11 @@
 @use './styles/material-scrolling-fixes.scss';
 @use './styles/table.scss';
 @use './styles/typography.scss';
+<<<<<<< HEAD
+=======
+@use './styles/material-scrolling-fixes.scss';
+@use './styles/material-overrides.scss';
+>>>>>>> be7d6fd6 (Add --nat-dark-fixed and centralize common bootstrap css and links #11936)
 @use './modules/panels/panels.scss';
 @use './modules/sidenav/sidenav.scss';
 @use './modules/alert/alert.scss';
@@ -36,21 +41,25 @@
     white-space: nowrap;
 }
 
-body {
-    // Fix a bug where hover on errored form fields show on-error color (white) label on grey background
-    @include mat.form-field-overrides(
-        (
-            filled-error-hover-label-text-color: var(--mat-sys-error),
-            filled-error-hover-active-indicator-color: var(--mat-sys-error),
-        )
-    );
+html,
+body,
+app-root {
+    margin: 0;
+    height: 100%;
+    min-height: 100%;
+}
 
-    @include mat.dialog-overrides(
-        (
-            container-color: var(--mat-sys-surface-bright),
-            container-elevation-shadow: var(--mat-sys-level5),
-        )
-    );
+app-root {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: var(--mat-sys-surface-container);
+    color: var(--mat-sys-on-surface);
+    font: var(--mat-sys-body-medium);
 
     --nat-elevation: inset 0 1px rgba(255, 255, 255, 0.3), var(--mat-sys-level1);
     --nat-gradient-primary: var(--mat-sys-primary-container);
@@ -61,11 +70,16 @@ body {
     --nat-on-good: white;
     --nat-gradient-good: var(--nat-good);
     --nat-gradient-inverse-surface: var(--mat-sys-inverse-surface);
+    --nat-dark-fixed: #343434;
+    --nat-on-dark-fixed: #f8f8f8;
     --nat-bad: rgb(200, 11, 11);
     --nat-on-bad: white;
     --nat-gradient-bad: var(--nat-bad);
+    --nat-link-color: var(--mat-sys-on-surface);
 
     @supports (color: color-mix(in srgb, red, blue)) {
+        --nat-link-color: color-mix(in srgb, var(--mat-sys-primary-container) 80%, var(--mat-sys-on-surface));
+
         --nat-gradient-primary: linear-gradient(
             175deg,
             color-mix(in srgb, var(--mat-sys-primary-container) 95%, white),
@@ -107,6 +121,12 @@ body {
             color-mix(in srgb, var(--nat-bad) 60%, white),
             color-mix(in srgb, var(--nat-bad) 90%, black)
         );
+
+        --nat-gradient-dark-fixed: linear-gradient(
+            175deg,
+            color-mix(in srgb, var(--nat-dark-fixed) 90%, white),
+            color-mix(in srgb, var(--nat-dark-fixed) 90%, black)
+        );
     }
 }
 
@@ -122,33 +142,38 @@ body {
     }
 
     &-neutral1 {
-        background-color: var(--mat-sys-neutral10);
-        color: var(--mat-sys-on-surface);
+        background-color: var(--mat-sys-neutral10) !important;
+        color: var(--mat-sys-on-surface) !important;
     }
 
     &-neutral2 {
-        background-color: var(--mat-sys-neutral-variant20);
-        color: var(--mat-sys-on-surface);
+        background-color: var(--mat-sys-neutral-variant20) !important;
+        color: var(--mat-sys-on-surface) !important;
     }
 
     &-primary {
-        background-color: var(--mat-sys-primary-container);
-        color: var(--mat-sys-on-primary-container);
+        background-color: var(--mat-sys-primary-container) !important;
+        color: var(--mat-sys-on-primary-container) !important;
     }
 
     &-secondary {
-        background-color: var(--mat-sys-secondary-container);
-        color: var(--mat-sys-on-secondary-container);
+        background-color: var(--mat-sys-secondary-container) !important;
+        color: var(--mat-sys-on-secondary-container) !important;
     }
 
     &-tertiary {
-        background-color: var(--mat-sys-tertiary-container);
-        color: var(--mat-sys-on-tertiary-container);
+        background-color: var(--mat-sys-tertiary-container) !important;
+        color: var(--mat-sys-on-tertiary-container) !important;
     }
 
     &-error {
-        background-color: var(--mat-sys-error);
-        color: var(--mat-sys-on-error);
+        background-color: var(--mat-sys-error) !important;
+        color: var(--mat-sys-on-error) !important;
+    }
+
+    &-dark-fixed {
+        background-color: var(--nat-dark-fixed) !important;
+        color: var(--nat-on-dark-fixed) !important;
     }
 }
 
@@ -201,6 +226,24 @@ body {
         background: var(--nat-gradient-inverse-surface) !important;
         color: var(--mat-sys-inverse-on-surface) !important;
     }
+
+    &-dark-fixed {
+        background: var(--nat-gradient-dark-fixed) !important;
+        color: var(--nat-on-dark-fixed) !important;
+    }
+}
+
+// Most of our sidenav menus (mainly in admin) use simple nat-gradient-* that applies a contrasted text color
+// that is overridden on child element
+// This instruction activate text color inheritance to simplify html and css for active routes.
+.mat-mdc-list-item {
+    &[routerlinkactive*='nat-frame-'],
+    &[routerlinkactive*='nat-gradient-'] {
+        .mdc-list-item__start,
+        .mdc-list-item__primary-text {
+            color: inherit !important;
+        }
+    }
 }
 
 .nat-bold {
@@ -245,5 +288,23 @@ eco-fab-speed-dial .mdc-fab {
                 small-hover-container-elevation-shadow: 0,
             )
         );
+    }
+}
+
+app-support a,
+.rich-text a,
+a.app-link {
+    cursor: pointer;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-color: var(--mat-sys-primary-container);
+    color: var(--nat-link-color);
+    text-decoration: none;
+
+    &:hover {
+        @supports (color: color-mix(in srgb, red, blue)) {
+            border-color: color-mix(in srgb, var(--mat-sys-primary-container) 85%, black);
+            color: color-mix(in srgb, var(--mat-sys-primary-container) 85%, black);
+        }
     }
 }
