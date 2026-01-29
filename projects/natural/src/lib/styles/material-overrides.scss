@@ -1,0 +1,114 @@
+@use '@angular/material' as mat;
+
+body {
+    --nat-components-primary: var(--mat-sys-primary-container);
+
+    @include mat.dialog-overrides(
+        (
+            container-color: var(--mat-sys-surface-bright),
+            container-elevation-shadow: var(--mat-sys-level5),
+        )
+    );
+
+    @include mat.button-overrides(
+        (
+            outlined-label-text-color: var(--nat-link-color),
+            text-label-text-color: var(--nat-link-color),
+            filled-container-color: var(--nat-components-primary),
+            filled-label-text-color: var(--mat-sys-on-primary-container),
+        )
+    );
+
+    @include mat.slide-toggle-overrides(
+        (
+            selected-track-color: var(--nat-components-primary),
+            selected-pressed-track-color: var(--nat-components-primary),
+            selected-hover-track-color: var(--nat-components-primary),
+            selected-focus-track-color: var(--nat-components-primary),
+            selected-handle-color: var(--mat-sys-surface-container-lowest),
+            selected-focus-handle-color: var(--mat-sys-surface-container-lowest),
+            selected-icon-color: var(--nat-components-primary),
+            selected-hover-handle-color: var(--mat-sys-surface-container-lowest),
+            selected-pressed-handle-color: var(--mat-sys-surface-container-lowest),
+        )
+    );
+
+    @include mat.checkbox-overrides(
+        (
+            selected-icon-color: var(--nat-components-primary),
+            selected-focus-icon-color: var(--nat-components-primary),
+            selected-hover-icon-color: var(--nat-components-primary),
+            selected-pressed-icon-color: var(--nat-components-primary),
+        )
+    );
+
+    @include mat.radio-overrides(
+        (
+            selected-icon-color: var(--nat-components-primary),
+            selected-hover-icon-color: var(--nat-components-primary),
+            selected-focus-icon-color: var(--nat-components-primary),
+            selected-pressed-icon-color: var(--nat-components-primary),
+        )
+    );
+
+    @include mat.table-overrides(
+        (
+            row-item-outline-color: var(--mat-sys-outline-variant),
+        )
+    );
+
+    @include mat.tabs-overrides(
+        (
+            active-indicator-color: var(--nat-components-primary),
+            active-focus-indicator-color: var(--nat-components-primary),
+            active-hover-indicator-color: var(--nat-components-primary),
+        )
+    );
+
+    @include mat.form-field-overrides(
+        (
+            filled-focus-active-indicator-color: var(--nat-components-primary),
+            filled-focus-label-text-color: var(--mat-sys-on-surface),
+            // Fix a bug where hover on errored form fields show on-error color (white) label on grey background
+            filled-error-hover-label-text-color: var(--mat-sys-error),
+            filled-error-hover-active-indicator-color: var(--mat-sys-error),
+        )
+    );
+
+    @include mat.select-overrides(
+        (
+            focused-arrow-color: var(--mat-sys-on-surface),
+        )
+    );
+
+    @include mat.progress-spinner-overrides(
+        (
+            active-indicator-color: var(--nat-components-primary),
+        )
+    );
+
+    @include mat.slider-overrides(
+        (
+            handle-color: var(--nat-components-primary),
+            focus-handle-color: var(--nat-components-primary),
+            active-track-color: var(--nat-components-primary),
+            inactive-track-color: var(--mat-sys-on-surface),
+            label-container-color: var(--mat-sys-on-surface),
+            label-label-text-color: var(--mat-sys-surface-container-lowest),
+        )
+    );
+
+    @include mat.sidenav-overrides(
+        (
+            container-background-color: var(--mat-sys-surface-container),
+            content-background-color: var(--mat-sys-surface-container),
+        )
+    );
+
+    @include mat.fab-overrides(
+        (
+            container-color: var(--mat-sys-tertiary-container),
+            foreground-color: var(--mat-sys-on-tertiary-container),
+        )
+    );
+}
