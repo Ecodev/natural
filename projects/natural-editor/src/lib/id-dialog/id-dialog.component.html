@@ -11,6 +11,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button matButton mat-dialog-close i18n>Annuler</button>
-    <button matButton="outlined" [disabled]="!form.valid" (click)="maybeConfirm()"><span i18n>Valider</span></button>
+    <button matButton="outlined" mat-dialog-close i18n>Annuler</button>
+    <button matButton="filled" [disabled]="!form.valid" (click)="maybeConfirm()"><span i18n>Valider</span></button>
 </mat-dialog-actions>

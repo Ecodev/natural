@@ -5,7 +5,7 @@
         <div class="nat-vertical">
             <div class="nat-horizontal nat-wrap">
                 @for (item of breadcrumbs; track item.id) {
-                    <a class="nat-no-padding" matButton [routerLink]="getChildLink(item)">
+                    <a class="nat-no-padding-left" matButton [routerLink]="getChildLink(item)">
                         <mat-icon naturalIcon="chevron_right" />
                         <span>{{ item.name }}</span>
                     </a>

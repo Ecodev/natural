@@ -60,7 +60,7 @@
             <button color="primary" matButton="filled" (click)="openDialog()">{{ selectLabel }}</button>
         }
         @if (showClearButton()) {
-            <button color="error" matButton (click)="clear()">{{ clearLabel() }}</button>
+            <button color="error" matButton="outlined" (click)="clear()">{{ clearLabel() }}</button>
         }
     </div>
 }
