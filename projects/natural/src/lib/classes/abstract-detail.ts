@@ -35,20 +35,20 @@ function isNaturalDialogTriggerProvidedData(
 // @dynamic
 @Directive()
 export class NaturalAbstractDetail<
-        TService extends NaturalAbstractModelService<
-            {id: string},
-            any,
-            PaginatedData<Literal>,
-            QueryVariables,
-            any,
-            any,
-            any,
-            any,
-            unknown,
-            any
-        >,
-        ExtraResolve extends Literal = Record<never, never>,
-    >
+    TService extends NaturalAbstractModelService<
+        {id: string},
+        any,
+        PaginatedData<Literal>,
+        QueryVariables,
+        any,
+        any,
+        any,
+        any,
+        unknown,
+        any
+    >,
+    ExtraResolve extends Literal = Record<never, never>,
+>
     extends NaturalAbstractPanel
     implements OnInit
 {

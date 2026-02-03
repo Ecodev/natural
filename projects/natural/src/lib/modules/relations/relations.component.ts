@@ -81,19 +81,19 @@ import {TypedMatCellDef} from '../../directives/typed-mat-cell-def.directive';
     styleUrl: './relations.component.scss',
 })
 export class NaturalRelationsComponent<
-        TService extends NaturalAbstractModelService<
-            unknown,
-            any,
-            PaginatedData<LinkableObject>,
-            QueryVariables,
-            unknown,
-            any,
-            unknown,
-            any,
-            unknown,
-            any
-        >,
-    >
+    TService extends NaturalAbstractModelService<
+        unknown,
+        any,
+        PaginatedData<LinkableObject>,
+        QueryVariables,
+        unknown,
+        any,
+        unknown,
+        any,
+        unknown,
+        any
+    >,
+>
     implements OnInit, OnChanges
 {
     private readonly destroyRef = inject(DestroyRef);

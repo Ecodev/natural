@@ -54,23 +54,23 @@ function unwrapNavigable(item: MaybeNavigable): Literal {
 // @dynamic
 @Directive()
 export class NaturalAbstractList<
-        TService extends NaturalAbstractModelService<
-            any,
-            any,
-            PaginatedData<Literal>,
-            QueryVariables,
-            any,
-            any,
-            any,
-            any,
-            any,
-            any
-        >,
-        // In most case this should not be specified by inheriting classes.
-        // It should only be specified to override default if the service items are
-        // mapped to a different structure like in NaturalAbstractNavigableList
-        Tall extends PaginatedData<MaybeNavigable> = ExtractTall<TService>,
-    >
+    TService extends NaturalAbstractModelService<
+        any,
+        any,
+        PaginatedData<Literal>,
+        QueryVariables,
+        any,
+        any,
+        any,
+        any,
+        any,
+        any
+    >,
+    // In most case this should not be specified by inheriting classes.
+    // It should only be specified to override default if the service items are
+    // mapped to a different structure like in NaturalAbstractNavigableList
+    Tall extends PaginatedData<MaybeNavigable> = ExtractTall<TService>,
+>
     extends NaturalAbstractPanel
     implements OnInit
 {

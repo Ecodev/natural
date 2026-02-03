@@ -29,19 +29,19 @@ export type NavigableItem<T> = {
  */
 @Directive()
 export class NaturalAbstractNavigableList<
-        TService extends NaturalAbstractModelService<
-            any,
-            any,
-            PaginatedData<{id: string}>,
-            QueryVariables,
-            any,
-            any,
-            any,
-            any,
-            any,
-            any
-        >,
-    >
+    TService extends NaturalAbstractModelService<
+        any,
+        any,
+        PaginatedData<{id: string}>,
+        QueryVariables,
+        any,
+        any,
+        any,
+        any,
+        any,
+        any
+    >,
+>
     extends NaturalAbstractList<TService, PaginatedData<NavigableItem<ExtractTall<TService>['items'][0]>>>
     implements OnInit
 {
