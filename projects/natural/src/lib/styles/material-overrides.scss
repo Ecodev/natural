@@ -54,6 +54,13 @@ body {
     @include mat.table-overrides(
         (
             row-item-outline-color: var(--mat-sys-outline-variant),
+            background-color: var(--mat-sys-surface-container-low),
+        )
+    );
+
+    @include mat.paginator-overrides(
+        (
+            container-background-color: var(--mat-sys-surface-container-lowest),
         )
     );
 

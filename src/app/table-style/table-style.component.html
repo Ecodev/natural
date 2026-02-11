@@ -50,22 +50,26 @@
     <table mat-table matSort [dataSource]="dataSource">
         <tr *matHeaderRowDef="columns" mat-header-row></tr>
         <tr *matRowDef="let row; columns: columns" mat-row></tr>
+        <tr *matFooterRowDef="columns" mat-footer-row></tr>
 
         <ng-container matColumnDef="name">
             <th *matHeaderCellDef mat-header-cell>Name</th>
             <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                 {{ element.name }}
             </td>
+            <td *matFooterCellDef mat-footer-cell>F</td>
         </ng-container>
 
         <ng-container matColumnDef="value">
             <th *matHeaderCellDef mat-header-cell [class]="klass">V</th>
             <td *matCellDef="let element; dataSource: dataSource" mat-cell> 1 </td>
+            <td *matFooterCellDef mat-footer-cell>F</td>
         </ng-container>
 
         <ng-container matColumnDef="sortable_value">
             <th *matHeaderCellDef mat-header-cell mat-sort-header [class]="klass">V</th>
             <td *matCellDef="let element; dataSource: dataSource" mat-cell> 1 </td>
+            <td *matFooterCellDef mat-footer-cell>F</td>
         </ng-container>
     </table>
 }

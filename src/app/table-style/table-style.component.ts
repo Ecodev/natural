@@ -1,7 +1,12 @@
 import {Component} from '@angular/core';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
     MatCell,
     MatColumnDef,
+    MatFooterCell,
+    MatFooterCellDef,
+    MatFooterRow,
+    MatFooterRowDef,
     MatHeaderCell,
     MatHeaderCellDef,
     MatHeaderRow,
@@ -10,7 +15,6 @@ import {
     MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {TypedMatCellDef} from '@ecodev/natural';
 
 type Item = {
@@ -33,6 +37,10 @@ type Item = {
         MatRow,
         MatSortHeader,
         MatSort,
+        MatFooterCell,
+        MatFooterCellDef,
+        MatFooterRow,
+        MatFooterRowDef,
     ],
     templateUrl: './table-style.component.html',
     styleUrl: './table-style.component.scss',
