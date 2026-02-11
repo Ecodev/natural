@@ -112,11 +112,4 @@ body {
             container-shape: 0,
         )
     );
-
-    @include mat.fab-overrides(
-        (
-            container-color: var(--mat-sys-tertiary-container),
-            foreground-color: var(--mat-sys-on-tertiary-container),
-        )
-    );
 }
