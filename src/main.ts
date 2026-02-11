@@ -80,7 +80,7 @@ bootstrapApplication(AppComponent, {
         provideThemes([
             'natural',
             'epicerio',
-            'chez-emmy',
+            'chezemmy',
             'epicentre',
             'epicoop',
             'jardinvivant',

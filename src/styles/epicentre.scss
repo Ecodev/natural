@@ -1,14 +1,14 @@
 /*
  * Theme 1 (light + dark):
- *   Seed: #0086B2
+ *   Seed: #38789D
  *   Core Colors:
- *     Primary: #0086B2
+ *     Primary: #38789D
  *     Tertiary: #FF960B
  *     Neutral: #FFFFFF
  *     Neutral Variant: #FFFFFF
  *
  * Theme 1 Builder Link:
- *   http://material-foundation.github.io/material-theme-builder/?primary=0086B2&tertiary=FF960B&neutral=FFFFFF&neutralVariant=FFFFFF&colorMatch=true
+ *   http://material-foundation.github.io/material-theme-builder/?primary=38789D&tertiary=FF960B&neutral=FFFFFF&neutralVariant=FFFFFF&colorMatch=true
  */
 
 @use '@angular/material' as mat;
@@ -62,12 +62,12 @@
         surface-container: #F1EDEC,
         surface-container-high: #EBE7E7,
         surface-container-highest: #E5E2E1,
-        surface-tint: #006688,
+        surface-tint: #1F6488,
         inverse-surface: #313030,
         inverse-on-surface: #F4F0EF,
 
-        background: #F6FAFE,
-        on-background: #181C1F,
+        background: #F8F9FD,
+        on-background: #191C1E,
 
         outline: #747878,
         outline-variant: #C4C7C8,
@@ -126,12 +126,12 @@
             surface-container: light-dark(#F1EDEC, #201F1F),
             surface-container-high: light-dark(#EBE7E7, #2A2A2A),
             surface-container-highest: light-dark(#E5E2E1, #353434),
-            surface-tint: light-dark(#006688, #76D1FF),
+            surface-tint: light-dark(#1F6488, #91CEF7),
             inverse-surface: light-dark(#313030, #E5E2E1),
             inverse-on-surface: light-dark(#F4F0EF, #313030),
 
-            background: light-dark(#F6FAFE, #101417),
-            on-background: light-dark(#181C1F, #DFE3E7),
+            background: light-dark(#F8F9FD, #111416),
+            on-background: light-dark(#191C1E, #E1E2E6),
 
             outline: light-dark(#747878, #8E9192),
             outline-variant: light-dark(#C4C7C8, #444748),

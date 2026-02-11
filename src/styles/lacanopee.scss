@@ -1,14 +1,14 @@
 /*
  * Theme 1 (light + dark):
- *   Seed: #6B886A
+ *   Seed: #689768
  *   Core Colors:
- *     Primary: #6B886A
+ *     Primary: #689768
  *     Tertiary: #FF960B
  *     Neutral: #FFFFFF
  *     Neutral Variant: #FFFFFF
  *
  * Theme 1 Builder Link:
- *   http://material-foundation.github.io/material-theme-builder/?primary=6B886A&tertiary=FF960B&neutral=FFFFFF&neutralVariant=FFFFFF&colorMatch=true
+ *   http://material-foundation.github.io/material-theme-builder/?primary=689768&tertiary=FF960B&neutral=FFFFFF&neutralVariant=FFFFFF&colorMatch=true
  */
 
 @use '@angular/material' as mat;
@@ -18,24 +18,24 @@
 
 [data-theme="lacanopee"] {
     @include mat.theme-overrides((
-        primary: #476347,
-        primary-container: #5F7C5E,
-        primary-fixed: #CBEBC8,
-        primary-fixed-dim: #B0CFAD,
+        primary: #39663C,
+        primary-container: #517F52,
+        primary-fixed: #BCF0BA,
+        primary-fixed-dim: #A1D39F,
         on-primary: #FFFFFF,
         on-primary-container: #F7FFF2,
-        on-primary-fixed: #06210B,
-        on-primary-fixed-variant: #324D33,
-        inverse-primary: #B0CFAD,
+        on-primary-fixed: #002106,
+        on-primary-fixed-variant: #245028,
+        inverse-primary: #A1D39F,
 
-        secondary: #566154,
-        secondary-container: #D7E3D2,
-        secondary-fixed: #DAE6D5,
-        secondary-fixed-dim: #BECABA,
+        secondary: #51634F,
+        secondary-container: #D1E6CC,
+        secondary-fixed: #D3E8CF,
+        secondary-fixed-dim: #B8CCB3,
         on-secondary: #FFFFFF,
-        on-secondary-container: #5A6658,
-        on-secondary-fixed: #141E14,
-        on-secondary-fixed-variant: #3F4A3D,
+        on-secondary-container: #556753,
+        on-secondary-fixed: #0F1F0F,
+        on-secondary-fixed-variant: #394B38,
 
         tertiary: #8C5000,
         tertiary-container: #FF960B,
@@ -62,12 +62,12 @@
         surface-container: #F1EDEC,
         surface-container-high: #EBE7E7,
         surface-container-highest: #E5E2E1,
-        surface-tint: #496549,
+        surface-tint: #3B683E,
         inverse-surface: #313030,
         inverse-on-surface: #F4F0EF,
 
-        background: #FAF9F5,
-        on-background: #1A1C1A,
+        background: #F9FAF4,
+        on-background: #1A1C19,
 
         outline: #747878,
         outline-variant: #C4C7C8,
@@ -82,24 +82,24 @@
 
     [data-theme="lacanopee"] {
         @include mat.theme-overrides((
-            primary: light-dark(#476347, #B0CFAD),
-            primary-container: light-dark(#5F7C5E, #7B9879),
-            primary-fixed: light-dark(#CBEBC8, #CBEBC8),
-            primary-fixed-dim: light-dark(#B0CFAD, #B0CFAD),
-            on-primary: light-dark(#FFFFFF, #1C361E),
-            on-primary-container: light-dark(#F7FFF2, #031D08),
-            on-primary-fixed: light-dark(#06210B, #06210B),
-            on-primary-fixed-variant: light-dark(#324D33, #324D33),
-            inverse-primary: light-dark(#B0CFAD, #496549),
+            primary: light-dark(#39663C, #A1D39F),
+            primary-container: light-dark(#517F52, #6D9C6D),
+            primary-fixed: light-dark(#BCF0BA, #BCF0BA),
+            primary-fixed-dim: light-dark(#A1D39F, #A1D39F),
+            on-primary: light-dark(#FFFFFF, #0A3914),
+            on-primary-container: light-dark(#F7FFF2, #002C0A),
+            on-primary-fixed: light-dark(#002106, #002106),
+            on-primary-fixed-variant: light-dark(#245028, #245028),
+            inverse-primary: light-dark(#A1D39F, #3B683E),
 
-            secondary: light-dark(#566154, #BECABA),
-            secondary-container: light-dark(#D7E3D2, #3F4A3D),
-            secondary-fixed: light-dark(#DAE6D5, #DAE6D5),
-            secondary-fixed-dim: light-dark(#BECABA, #BECABA),
-            on-secondary: light-dark(#FFFFFF, #283328),
-            on-secondary-container: light-dark(#5A6658, #ACB9A9),
-            on-secondary-fixed: light-dark(#141E14, #141E14),
-            on-secondary-fixed-variant: light-dark(#3F4A3D, #3F4A3D),
+            secondary: light-dark(#51634F, #B8CCB3),
+            secondary-container: light-dark(#D1E6CC, #394B38),
+            secondary-fixed: light-dark(#D3E8CF, #D3E8CF),
+            secondary-fixed-dim: light-dark(#B8CCB3, #B8CCB3),
+            on-secondary: light-dark(#FFFFFF, #233523),
+            on-secondary-container: light-dark(#556753, #A6BBA2),
+            on-secondary-fixed: light-dark(#0F1F0F, #0F1F0F),
+            on-secondary-fixed-variant: light-dark(#394B38, #394B38),
 
             tertiary: light-dark(#8C5000, #FFBE81),
             tertiary-container: light-dark(#FF960B, #FF960B),
@@ -126,12 +126,12 @@
             surface-container: light-dark(#F1EDEC, #201F1F),
             surface-container-high: light-dark(#EBE7E7, #2A2A2A),
             surface-container-highest: light-dark(#E5E2E1, #353434),
-            surface-tint: light-dark(#496549, #B0CFAD),
+            surface-tint: light-dark(#3B683E, #A1D39F),
             inverse-surface: light-dark(#313030, #E5E2E1),
             inverse-on-surface: light-dark(#F4F0EF, #313030),
 
-            background: light-dark(#FAF9F5, #121412),
-            on-background: light-dark(#1A1C1A, #E3E3DE),
+            background: light-dark(#F9FAF4, #111411),
+            on-background: light-dark(#1A1C19, #E2E3DD),
 
             outline: light-dark(#747878, #8E9192),
             outline-variant: light-dark(#C4C7C8, #444748),
