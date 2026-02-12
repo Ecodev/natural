@@ -64,7 +64,7 @@ function expectError(request: HttpRequest<unknown>, expected: string, done: Done
     });
 }
 
-fdescribe('graphqlQuerySigner', () => {
+describe('graphqlQuerySigner', () => {
     beforeEach(() => {
         jasmine.clock().mockDate(new Date('2026-02-11T18:05:10.000Z'));
     });
