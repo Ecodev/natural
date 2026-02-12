@@ -158,8 +158,6 @@ function tsFiles(files, extraRules = {}) {
             ],
             'no-restricted-globals': [
                 'error',
-                'atob',
-                'bota',
                 'document',
                 'event',
                 'history',
