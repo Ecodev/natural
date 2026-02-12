@@ -1,6 +1,6 @@
 import {HttpInterceptorFn, HttpRequest} from '@angular/common/http';
 import {hmacSha256} from './crypto';
-import {from, switchMap, throwError} from 'rxjs';
+import {map, of, switchMap, throwError} from 'rxjs';
 
 function getOperations(req: HttpRequest<unknown>): string {
     if (req.body instanceof FormData) {
@@ -40,13 +40,25 @@ export function graphqlQuerySigner(key: string): HttpInterceptorFn {
             return next(req);
         }
 
-        const operations = getOperations(req);
-        const timestamp = Math.round(Date.now() / 1000);
-        const payload = timestamp + operations;
+        return of(req).pipe(
+            map(req => {
+                const timestamp = Math.round(Date.now() / 1000);
+                const operations = getOperations(req);
 
-        return from(hmacSha256(key, payload)).pipe(
-            switchMap(hash => {
-                const header = `v1.${timestamp}.${hash}`;
+                return {
+                    operations: operations,
+                    timestamp: timestamp,
+                    payload: timestamp + operations,
+                };
+            }),
+            switchMap(async data => {
+                return {
+                    ...data,
+                    hash: await hmacSha256(key, data.payload),
+                };
+            }),
+            switchMap(data => {
+                const header = `v1.${data.timestamp}.${data.hash}`;
                 const signedRequest = req.clone({
                     headers: req.headers.set('X-Signature', header),
                 });
