@@ -25,14 +25,14 @@ function createHandlerSpy(): jasmine.Spy<HttpHandlerFn> {
     return handler;
 }
 
-function expectSigned(request: HttpRequest<unknown>, done: DoneFn): void {
+function expectSigned(request: HttpRequest<unknown>, expected: string, done: DoneFn): void {
     const signer = graphqlQuerySigner(key);
     const handler = createHandlerSpy();
 
     signer(request, handler).subscribe(() => {
         expect(handler).toHaveBeenCalledTimes(1);
         const sentRequest = handler.calls.first().args[0];
-        expect(sentRequest.headers.get('X-Signature')).toMatch(/^v1\.\d{10}\.[0-9a-f]{64}$/);
+        expect(sentRequest.headers.get('X-Signature')).toBe(expected);
         done();
     });
 }
@@ -48,17 +48,37 @@ function expectNotSigned(request: HttpRequest<unknown>, done: DoneFn): void {
     });
 }
 
+function expectError(request: HttpRequest<unknown>, expected: string, done: DoneFn, theKey: string = key): void {
+    const signer = graphqlQuerySigner(theKey);
+    const handler = createHandlerSpy();
+
+    signer(request, handler).subscribe({
+        error: error => {
+            expect(handler).not.toHaveBeenCalled();
+            expect(request.headers.has('X-Signature')).toBeFalse();
+            expect(error).toBeInstanceOf(Error);
+            expect('message' in error).toBeTrue();
+            expect(error.message).toBe(expected);
+            done();
+        },
+    });
+}
+
 describe('graphqlQuerySigner', () => {
+    beforeEach(() => {
+        jasmine.clock().mockDate(new Date('2026-02-12T03:05:10'));
+    });
+
     it('sign a normal query', done => {
         const request = new HttpRequest('POST', '/graphql', graphqlQuery);
 
-        expectSigned(request, done);
+        expectSigned(request, 'v1.1770833110.899f1ec4384cc3cae362163d835265d74c5a25f609d67ca66bc88101a757256d', done);
     });
 
     it('sign a batched query', done => {
         const request = new HttpRequest('POST', '/graphql', batchedGraphqlQuery);
 
-        expectSigned(request, done);
+        expectSigned(request, 'v1.1770833110.7bb7fc480233e83f36e5178dee272ed7d2865b050d57de32ca6205cb469f4331', done);
     });
 
     it('sign an upload query', done => {
@@ -72,7 +92,18 @@ describe('graphqlQuerySigner', () => {
 
         const request = new HttpRequest('POST', '/graphql', data);
 
-        expectSigned(request, done);
+        expectSigned(request, 'v1.1770833110.cce47630a70e7920d8287b204c0c49828bb393e38bd9b691d7e883dfb58d4a37', done);
+    });
+
+    it('sign an upload query without `operations` will throw', done => {
+        const data = new FormData();
+        const request = new HttpRequest('POST', '/graphql', data);
+
+        expectError(
+            request,
+            'Cannot sign a GraphQL query that is using FormData but that is missing the key `operations`',
+            done,
+        );
     });
 
     it('do not sign other URL', done => {
@@ -88,20 +119,13 @@ describe('graphqlQuerySigner', () => {
     });
 
     it('if mis-configured, will always error, even if query should not be signed', done => {
-        const request = new HttpRequest('GET', 'foo');
-        const signer = graphqlQuerySigner('');
-        const handler = createHandlerSpy();
+        const request = new HttpRequest('POST', '/graphql', graphqlQuery);
 
-        signer(request, handler).subscribe({
-            error: error => {
-                expect(handler).not.toHaveBeenCalled();
-                expect(error).toBeInstanceOf(Error);
-                expect('message' in error).toBeTrue();
-                expect(error.message).toBe(
-                    'graphqlQuerySigner requires a non-empty key. Configure it in local.php under signedQueries.',
-                );
-                done();
-            },
-        });
+        expectError(
+            request,
+            'graphqlQuerySigner requires a non-empty key. Configure it in local.php under signedQueries.',
+            done,
+            '',
+        );
     });
 });
