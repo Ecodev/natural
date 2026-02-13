@@ -10,6 +10,7 @@ const graphqlQuerySignerRequiresANonEmptyKeyConfigureItInLocalPphpUnderSignedQue
     'Z3JhcGhxbFF1ZXJ5U2lnbmVyIHJlcXVpcmVzIGEgbm9uLWVtcHR5IGtleS4gQ29uZmlndXJlIGl0IGluIGxvY2FsLnBocCB1bmRlciBzaWduZWRRdWVyaWVzLg==',
 );
 const xSignature = atob('WC1TaWduYXR1cmU=');
+const v1 = atob('djE=');
 
 function getOperations(req: HttpRequest<unknown>): string {
     if (req.body instanceof FormData) {
@@ -63,7 +64,7 @@ export function graphqlQuerySigner(key: string): HttpInterceptorFn {
                 };
             }),
             switchMap(data => {
-                const header = `v1.${data.timestamp}.${data.hash}`;
+                const header = `${v1}.${data.timestamp}.${data.hash}`;
                 const signedRequest = req.clone({
                     headers: req.headers.set(xSignature, header),
                 });
