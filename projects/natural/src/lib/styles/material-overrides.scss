@@ -1,21 +1,12 @@
 @use '@angular/material' as mat;
 
 body {
-    --nat-components-primary: var(--mat-sys-primary-container);
+    --nat-components-primary: var(--mat-sys-primary-container); // may be used on other files
 
     @include mat.dialog-overrides(
         (
             container-color: var(--mat-sys-surface-bright),
             container-elevation-shadow: var(--mat-sys-level5),
-        )
-    );
-
-    @include mat.button-overrides(
-        (
-            outlined-label-text-color: var(--nat-link-color),
-            text-label-text-color: var(--nat-link-color),
-            filled-container-color: var(--nat-components-primary),
-            filled-label-text-color: var(--mat-sys-on-primary-container),
         )
     );
 

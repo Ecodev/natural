@@ -1,10 +1,13 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@use './styles/color.scss';
 @use './styles/margins.scss';
 @use './styles/material-scrolling-fixes.scss';
 @use './styles/table.scss';
 @use './styles/typography.scss';
+@use 'styles/buttons';
+@use './styles/fab.scss';
+@use './styles/icons.scss';
+@use './styles/backgrounds.scss';
 @use './styles/material-overrides.scss';
 @use './modules/panels/panels.scss';
 @use './modules/sidenav/sidenav.scss';
@@ -58,179 +61,18 @@ body {
     font: var(--mat-sys-body-medium);
 
     --nat-elevation: inset 0 1px rgba(255, 255, 255, 0.3), var(--mat-sys-level1);
-    --nat-gradient-primary: var(--mat-sys-primary-container);
-    --nat-gradient-secondary: var(--mat-sys-secondary-container);
-    --nat-gradient-tertiary: var(--mat-sys-tertiary-container);
-    --nat-gradient-error: var(--mat-sys-error);
-    --nat-good: rgb(0, 175, 0, 1);
-    --nat-on-good: white;
-    --nat-gradient-good: var(--nat-good);
-    --nat-gradient-inverse-surface: var(--mat-sys-inverse-surface);
-    --nat-dark-fixed: #343434;
-    --nat-on-dark-fixed: #f8f8f8;
-    --nat-bad: rgb(200, 11, 11);
-    --nat-on-bad: white;
-    --nat-gradient-bad: var(--nat-bad);
-    --nat-link-color: var(--mat-sys-on-surface);
-
-    @supports (color: color-mix(in srgb, red, blue)) {
-        --nat-link-color: color-mix(in srgb, var(--mat-sys-primary-container) 80%, var(--mat-sys-on-surface));
-
-        --nat-gradient-primary: linear-gradient(
-            175deg,
-            color-mix(in srgb, var(--mat-sys-primary-container) 95%, white),
-            color-mix(in srgb, var(--mat-sys-primary-container) 90%, black)
-        );
-
-        --nat-gradient-secondary: linear-gradient(
-            175deg,
-            color-mix(in srgb, var(--mat-sys-secondary-container) 95%, white),
-            color-mix(in srgb, var(--mat-sys-secondary-container) 90%, black)
-        );
-
-        --nat-gradient-tertiary: linear-gradient(
-            175deg,
-            color-mix(in srgb, var(--mat-sys-tertiary-container) 95%, white),
-            color-mix(in srgb, var(--mat-sys-tertiary-container) 90%, black)
-        );
-
-        --nat-gradient-error: linear-gradient(
-            175deg,
-            color-mix(in srgb, var(--mat-sys-error) 95%, white),
-            color-mix(in srgb, var(--mat-sys-error) 90%, black)
-        );
-
-        --nat-gradient-good: linear-gradient(
-            175deg,
-            color-mix(in srgb, var(--nat-good) 95%, white),
-            color-mix(in srgb, var(--nat-good) 90%, black)
-        );
-
-        --nat-gradient-inverse-surface: linear-gradient(
-            175deg,
-            color-mix(in srgb, var(--mat-sys-inverse-surface) 95%, white),
-            color-mix(in srgb, var(--mat-sys-inverse-surface) 90%, black)
-        );
-
-        --nat-gradient-bad: linear-gradient(
-            175deg,
-            color-mix(in srgb, var(--nat-bad) 60%, white),
-            color-mix(in srgb, var(--nat-bad) 90%, black)
-        );
-
-        --nat-gradient-dark-fixed: linear-gradient(
-            175deg,
-            color-mix(in srgb, var(--nat-dark-fixed) 90%, white),
-            color-mix(in srgb, var(--nat-dark-fixed) 90%, black)
-        );
-    }
 }
 
 .nat-elevation {
     box-shadow: var(--nat-elevation);
 }
 
-.nat-frame {
-    padding: 6px;
-
-    &-rounded {
-        border-radius: var(--mat-sys-corner-small);
-    }
-
-    &-neutral1 {
-        background-color: var(--mat-sys-neutral10) !important;
-        color: var(--mat-sys-on-surface) !important;
-    }
-
-    &-neutral2 {
-        background-color: var(--mat-sys-neutral-variant20) !important;
-        color: var(--mat-sys-on-surface) !important;
-    }
-
-    &-primary {
-        background-color: var(--mat-sys-primary-container) !important;
-        color: var(--mat-sys-on-primary-container) !important;
-    }
-
-    &-secondary {
-        background-color: var(--mat-sys-secondary-container) !important;
-        color: var(--mat-sys-on-secondary-container) !important;
-    }
-
-    &-tertiary {
-        background-color: var(--mat-sys-tertiary-container) !important;
-        color: var(--mat-sys-on-tertiary-container) !important;
-    }
-
-    &-error {
-        background-color: var(--mat-sys-error) !important;
-        color: var(--mat-sys-on-error) !important;
-    }
-
-    &-dark-fixed {
-        background-color: var(--nat-dark-fixed) !important;
-        color: var(--nat-on-dark-fixed) !important;
-    }
-}
-
-.nat-text {
-    &-primary {
-        color: var(--mat-sys-primary-container);
-    }
-
-    &-accent {
-        color: var(--mat-sys-tertiary-container);
-    }
-
-    &-error {
-        color: var(--mat-sys-error-container);
-    }
-}
-
-.nat-gradient {
-    &-primary {
-        background: var(--nat-gradient-primary) !important;
-        color: var(--mat-sys-on-primary-container) !important;
-    }
-
-    &-secondary {
-        background: var(--nat-gradient-secondary) !important;
-        color: var(--mat-sys-on-secondary-container) !important;
-    }
-
-    &-tertiary {
-        background: var(--nat-gradient-tertiary) !important;
-        color: var(--mat-sys-on-tertiary-container) !important;
-    }
-
-    &-error {
-        background: var(--nat-gradient-error) !important;
-        color: var(--mat-sys-on-error) !important;
-    }
-
-    &-good {
-        background: var(--nat-gradient-good) !important;
-        color: var(--nat-on-good) !important;
-    }
-
-    &-bad {
-        background: var(--nat-gradient-bad) !important;
-        color: var(--nat-on-bad) !important;
-    }
-
-    &-inverse-surface {
-        background: var(--nat-gradient-inverse-surface) !important;
-        color: var(--mat-sys-inverse-on-surface) !important;
-    }
-
-    &-dark-fixed {
-        background: var(--nat-gradient-dark-fixed) !important;
-        color: var(--nat-on-dark-fixed) !important;
-    }
+.nat-bold {
+    font-weight: 500;
 }
 
 // Most of our sidenav menus (mainly in admin) use simple nat-gradient-* that applies a contrasted text color
-// that is overridden on child element
+// that is overridden by material on child element
 // This instruction activate text color inheritance to simplify html and css for active routes.
 .mat-mdc-list-item {
     &[routerlinkactive*='nat-frame-'],
@@ -238,69 +80,6 @@ body {
         .mdc-list-item__start,
         .mdc-list-item__primary-text {
             color: inherit !important;
-        }
-    }
-}
-
-.nat-bold {
-    font-weight: 500;
-}
-
-// In fab speed dials, mini fabs are tertiary as well as default fab buttons
-eco-fab-speed-dial .mdc-fab {
-    @include mat.fab-overrides(
-        (
-            container-color: var(--mat-sys-tertiary-container),
-            foreground-color: var(--mat-sys-on-tertiary-container),
-            small-container-color: var(--mat-sys-tertiary-container),
-            small-foreground-color: var(--mat-sys-on-tertiary-container),
-        )
-    );
-}
-
-.mdc-fab,
-.mdc-mini-fab {
-    &.nat-rounded {
-        @include mat.fab-overrides(
-            (
-                container-shape: var(--mat-sys-corner-full),
-                extended-container-shape: var(--mat-sys-corner-full),
-                small-container-shape: var(--mat-sys-corner-full),
-            )
-        );
-    }
-
-    &.nat-flat {
-        @include mat.fab-overrides(
-            (
-                container-elevation-shadow: 0,
-                focus-container-elevation-shadow: 0,
-                hover-container-elevation-shadow: 0,
-                extended-container-elevation-shadow: 0,
-                extended-focus-container-elevation-shadow: 0,
-                extended-hover-container-elevation-shadow: 0,
-                small-container-elevation-shadow: 0,
-                small-focus-container-elevation-shadow: 0,
-                small-hover-container-elevation-shadow: 0,
-            )
-        );
-    }
-}
-
-app-support a,
-.rich-text a,
-a.app-link {
-    cursor: pointer;
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    border-color: var(--mat-sys-primary-container);
-    color: var(--nat-link-color);
-    text-decoration: none;
-
-    &:hover {
-        @supports (color: color-mix(in srgb, red, blue)) {
-            border-color: color-mix(in srgb, var(--mat-sys-primary-container) 85%, black);
-            color: color-mix(in srgb, var(--mat-sys-primary-container) 85%, black);
         }
     }
 }

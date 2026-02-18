@@ -1,0 +1,104 @@
+@use '@angular/material' as mat;
+
+body {
+    --nat-primary-link-color: var(--mat-sys-primary-container);
+    --nat-tertiary-link-color: var(--mat-sys-tertiary-container);
+}
+
+app-support a,
+.rich-text a,
+a.app-link {
+    cursor: pointer;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-color: var(--mat-sys-primary-container);
+    color: var(--nat-primary-link-color);
+    text-decoration: none;
+
+    &:hover {
+        @supports (color: color-mix(in srgb, red, blue)) {
+            border-color: color-mix(in srgb, var(--mat-sys-primary-container) 85%, black);
+            color: color-mix(in srgb, var(--mat-sys-primary-container) 85%, black);
+        }
+    }
+}
+
+.mdc-button {
+    @include mat.button-overrides(
+        (
+            protected-container-color: rgba(0, 0, 0, 0.08),
+            outlined-label-text-color: var(--nat-primary-link-color),
+            text-label-text-color: var(--nat-primary-link-color),
+            filled-container-color: var(--nat-components-primary),
+            filled-label-text-color: var(--mat-sys-on-primary-container),
+        )
+    );
+
+    &.mat-error,
+    &[color='error'] {
+        @include mat.button-overrides(
+            (
+                text-label-text-color: var(--mat-sys-error-container),
+                filled-container-color: var(--mat-sys-error-container),
+                filled-label-text-color: var(--mat-sys-on-error-container),
+                tonal-label-text-color: var(--mat-sys-error-container),
+                tonal-container-color: var(--mat-sys-error-container),
+                protected-label-text-color: var(--mat-sys-error-container),
+                outlined-label-text-color: var(--mat-sys-error-container),
+                text-state-layer-color: var(--mat-sys-error-container),
+            )
+        );
+
+        @supports (color: color-mix(in srgb, red, blue)) {
+            @include mat.button-overrides(
+                (
+                    tonal-label-text-color: color-mix(
+                            in srgb,
+                            var(--mat-sys-error-container) 50%,
+                            var(--mat-sys-on-surface)
+                        ),
+                    tonal-container-color: color-mix(in srgb, var(--mat-sys-error-container) 33%, transparent),
+                    protected-label-text-color: color-mix(
+                            in srgb,
+                            var(--mat-sys-error-container) 50%,
+                            var(--mat-sys-on-surface)
+                        ),
+                )
+            );
+        }
+    }
+
+    &.mat-tertiary,
+    &[color='tertiary'] {
+        @include mat.button-overrides(
+            (
+                text-label-text-color: var(--nat-tertiary-link-color),
+                filled-container-color: var(--mat-sys-tertiary-container),
+                filled-label-text-color: var(--mat-sys-on-tertiary-container),
+                tonal-label-text-color: var(--nat-tertiary-link-color),
+                tonal-container-color: var(--mat-sys-tertiary-container),
+                protected-label-text-color: var(--nat-tertiary-link-color),
+                outlined-label-text-color: var(--nat-tertiary-link-color),
+                text-state-layer-color: var(--mat-sys-tertiary-container),
+            )
+        );
+
+        @supports (color: color-mix(in srgb, red, blue)) {
+            @include mat.button-overrides(
+                (
+                    tonal-label-text-color: color-mix(
+                            in srgb,
+                            var(--mat-sys-tertiary-container) 33%,
+                            var(--mat-sys-on-surface)
+                        ),
+                    tonal-container-color: color-mix(in srgb, var(--mat-sys-tertiary-container) 33%, transparent),
+                    protected-label-text-color: color-mix(
+                            in srgb,
+                            var(--mat-sys-tertiary-container) 50%,
+                            var(--mat-sys-on-surface)
+                        ),
+                )
+            );
+        }
+    }
+}
