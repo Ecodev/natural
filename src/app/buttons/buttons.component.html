@@ -1,94 +1,10 @@
 <h1 class="mat-font-headline-lg">Buttons <mat-slide-toggle [(ngModel)]="disabled">Disabled</mat-slide-toggle></h1>
 
-<div class="nat-vertical nat-gap-5">
-    <button matButton [disabled]="disabled">text default</button>
-    <button matButton="tonal" [disabled]="disabled">tonal</button>
-    <button matButton="filled" color="primary" [disabled]="disabled">flat/filled</button>
-    <button matButton="outlined" color="primary" [disabled]="disabled">tertiary</button>
-    <button matButton="elevated" [disabled]="disabled">raised</button>
-    <br />
-    <button matButton color="error" [disabled]="disabled">error</button>
-    <button matButton="tonal" color="error" [disabled]="disabled">error</button>
-    <button matButton="filled" color="error" [disabled]="disabled">error</button>
-    <button matButton="outlined" color="error" [disabled]="disabled">error</button>
-    <button matButton="elevated" color="error" [disabled]="disabled">error</button>
-    <br />
-    <button matButton color="tertiary" [disabled]="disabled">tertiary</button>
-    <button matButton="tonal" color="tertiary" [disabled]="disabled">tertiary</button>
-    <button matButton="filled" color="tertiary" [disabled]="disabled">tertiary</button>
-    <button matButton="outlined" color="tertiary" [disabled]="disabled">tertiary</button>
-    <button matButton="elevated" color="tertiary" [disabled]="disabled">tertiary</button>
-    <br />
-    <div class="nat-horizontal nat-gap nat-align nat-center">
-        <button matFab [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matFab color="error" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matFab color="tertiary" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matMiniFab [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matMiniFab color="error" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matMiniFab color="tertiary" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
+<div class="nat-horizontal nat-gap">
+    <div data-color-scheme="light" class="frame nat-expand">
+        <app-buttons-set [disabled]="disabled" />
     </div>
-    <div class="nat-horizontal nat-gap nat-align nat-center">
-        <button matFab class="nat-rounded nat-flat" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matFab color="error" class="nat-rounded nat-flat" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matFab color="tertiary" class="nat-rounded nat-flat" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matMiniFab class="nat-rounded nat-flat" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matMiniFab color="error" class="nat-rounded nat-flat" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matMiniFab color="tertiary" class="nat-rounded nat-flat" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
+    <div data-color-scheme="dark" class="frame nat-expand">
+        <app-buttons-set [disabled]="disabled" />
     </div>
-    <br />
-    <div class="nat-horizontal nat-gap nat-align nat-center">
-        <button matIconButton [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matIconButton color="primary" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matIconButton color="error" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-        <button matIconButton color="tertiary" [disabled]="disabled">
-            <mat-icon naturalIcon="add" />
-        </button>
-    </div>
-    <div class="nat-horizontal nat-gap nat-align nat-center">
-        <mat-icon fontIcon="add" />
-        <mat-icon fontIcon="add" color="primary" />
-        <mat-icon fontIcon="add" color="error" />
-        <mat-icon fontIcon="add" color="tertiary" />
-    </div>
-</div>
-
-<div>
-    <natural-fixed-button class="detail-speed-dial" icon="save" matTooltip="Default color" [disabled]="disabled" />
-    <natural-fixed-button
-        class="detail-speed-dial"
-        icon="save"
-        matTooltip="Overrided primary color"
-        color="primary"
-        [disabled]="disabled"
-    />
 </div>

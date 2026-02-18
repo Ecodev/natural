@@ -17,6 +17,32 @@ html {
     );
 }
 
+@supports (color: color-mix(in srgb, red, blue)) {
+    body {
+        // All themes have same tertiary, so same tertiary alteration (more contrasted)
+        --nat-tertiary-link-color: color-mix(in srgb, var(--mat-sys-tertiary-container) 85%, var(--mat-sys-on-surface));
+    }
+
+    // Contrast primary links
+    [data-theme='epicerio'][data-is-dark='true'],
+    [data-theme='chezemmy'],
+    [data-theme='epicentre'][data-is-dark='true'],
+    [data-theme='epicoop'][data-is-dark='true'],
+    [data-theme='jardinvivant'][data-is-dark='true'],
+    [data-theme='lacanopee'][data-is-dark='true'],
+    [data-theme='lavracrie'][data-is-dark='true'],
+    [data-theme='lelocalhauterive'][data-is-dark='true'],
+    [data-theme='levorace'][data-is-dark='true'],
+    [data-theme='rucher'][data-is-dark='true'] {
+        body {
+            --nat-primary-link-color: color-mix(
+                in srgb,
+                var(--mat-sys-primary-container) 80%,
+                var(--mat-sys-on-surface)
+            );
+        }
+    }
+}
 .app-component > router-outlet + * {
     flex: 1;
     flex-direction: column;
