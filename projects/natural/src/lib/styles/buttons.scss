@@ -8,17 +8,19 @@ body {
 app-support a,
 .rich-text a,
 a.app-link {
-    cursor: pointer;
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    border-color: var(--mat-sys-primary-container);
-    color: var(--nat-primary-link-color);
-    text-decoration: none;
+    &:not(.mdc-button) {
+        cursor: pointer;
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        border-color: var(--mat-sys-primary-container);
+        color: var(--nat-primary-link-color);
+        text-decoration: none;
 
-    &:hover {
-        @supports (color: color-mix(in srgb, red, blue)) {
-            border-color: color-mix(in srgb, var(--mat-sys-primary-container) 85%, black);
-            color: color-mix(in srgb, var(--mat-sys-primary-container) 85%, black);
+        &:hover {
+            @supports (color: color-mix(in srgb, red, blue)) {
+                border-color: color-mix(in srgb, var(--mat-sys-primary-container) 85%, black);
+                color: color-mix(in srgb, var(--mat-sys-primary-container) 85%, black);
+            }
         }
     }
 }
