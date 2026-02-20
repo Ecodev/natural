@@ -411,7 +411,7 @@ export class NaturalAbstractList<
      * In panel context, header is hidden when no results.
      */
     public showHeader(): boolean {
-        return !this.isPanel || (this.isPanel && this.showTable());
+        return !this.isPanel || (this.isPanel && !!this.dataSource?.data?.length);
     }
 
     /**
@@ -419,13 +419,6 @@ export class NaturalAbstractList<
      */
     public showSearch(): boolean {
         return !this.isPanel;
-    }
-
-    /**
-     * Table should be shown only when there is data
-     */
-    public showTable(): boolean {
-        return !!this.dataSource && !!this.dataSource.data && this.dataSource.data.length > 0;
     }
 
     /**
