@@ -182,6 +182,8 @@ export class TypeSelectComponent implements DropdownComponent {
                     if (item) {
                         return this.getDisplay(item);
                     }
+
+                    return undefined;
                 })
                 .join(', ') ?? null;
 

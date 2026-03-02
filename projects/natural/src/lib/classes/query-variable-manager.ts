@@ -45,6 +45,8 @@ function mergeConcatArray(destValue: unknown, source: unknown): unknown {
             return source;
         }
     }
+
+    return undefined;
 }
 
 /**

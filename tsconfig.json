@@ -16,11 +16,12 @@
         "skipLibCheck": true,
         "isolatedModules": true,
         "typeRoots": ["node_modules/@types"],
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
         "paths": {
             "@ecodev/natural": ["projects/natural/src/public-api"],
             "@ecodev/natural-editor": ["projects/natural-editor/src/public-api"]
-        },
-        "noImplicitOverride": true
+        }
     },
     "angularCompilerOptions": {
         "strictStandalone": true,

@@ -207,6 +207,8 @@ export function mergeOverrideArray(destValue: unknown, source: unknown): unknown
     if (Array.isArray(source) || isFile(source)) {
         return source;
     }
+
+    return undefined;
 }
 
 /**
