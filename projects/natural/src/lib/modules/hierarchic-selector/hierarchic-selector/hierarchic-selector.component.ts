@@ -146,7 +146,7 @@ export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     public ngOnInit(): void {
         this.hierarchicSelectorService.validateConfiguration(this.config());
 
-        this.selection = new SelectionModel<any>(this.multiple());
+        this.selection = new SelectionModel<ModelNode>(this.multiple());
 
         // Prevent empty screen on first load and init NaturalHierarchicSelectorService with inputted configuration
         let variables;
