@@ -18,10 +18,10 @@
             <mat-icon [naturalIcon]="icon" />
         </div>
     }
-    @if (!model.id) {
+    @if (!model().id) {
         <h1 class="mat-font-headline-sm newLabel">{{ newLabel() }}</h1>
     } @else {
-        <h1 class="mat-font-headline-sm label">{{ model.name || model.fullName || label }}</h1>
+        <h1 class="mat-font-headline-sm label">{{ model().name || model().fullName || label }}</h1>
     }
     <div>
         <ng-content />

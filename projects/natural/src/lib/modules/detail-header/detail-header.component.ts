@@ -46,7 +46,7 @@ export class NaturalDetailHeaderComponent {
      * Typically should be similar to 'New product'.
      */
     public readonly newLabel = input('');
-    @Input({required: true}) public model!: Literal;
+    public readonly model = input.required<Literal>();
     public readonly breadcrumbs = input<NameOrFullName[]>([]);
     public readonly listRoute = input<any[]>([]);
     public readonly listFragment = input<string>();
