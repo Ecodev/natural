@@ -290,6 +290,8 @@ export class NaturalHierarchicSelectorService {
         let node = this.nodeCache.get(key);
 
         if (node) {
+            node.model = model; // Refresh the model that might come from pre-selection with the latest version coming from network
+
             return node;
         }
 
