@@ -15,7 +15,7 @@ export class ModelNode {
     public isSelectable = false;
 
     public constructor(
-        public readonly model: HierarchicModel,
+        public model: HierarchicModel,
         public readonly config: NaturalHierarchicConfiguration,
     ) {}
 
