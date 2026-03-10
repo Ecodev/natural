@@ -7,7 +7,7 @@
 
 import {fileURLToPath} from 'node:url';
 import {extname, join, resolve} from 'node:path';
-import {readdirSync, readFileSync, statSync} from 'node:fs';
+import {readdirSync, readFileSync, statSync, realpathSync} from 'node:fs';
 import {type DefaultTreeAdapterMap, parse, serializeOuter} from 'parse5';
 
 type Node = DefaultTreeAdapterMap['node'];
@@ -16,7 +16,7 @@ type TextNode = DefaultTreeAdapterMap['textNode'];
 
 // Only run if called directly as a script
 const currentFilePath = fileURLToPath(import.meta.url);
-if (currentFilePath === process.argv[1]) {
+if (currentFilePath === realpathSync(process.argv[1])) {
     main();
 }
 
