@@ -4,6 +4,6 @@
     "lib": {
         "entryFile": "src/public-api.ts"
     },
-    "assets": ["./**/*.scss"],
+    "assets": ["./**/*.scss", "./bin/pre-commit-i18n.mjs"],
     "allowedNonPeerDependencies": [".*"]
 }

@@ -7,6 +7,9 @@
         "url": "git+https://github.com/Ecodev/natural.git"
     },
     "sideEffects": false,
+    "bin": {
+        "pre-commit-i18n": "bin/pre-commit-i18n.mjs"
+    },
     "exports": {
         ".": {
             "sass": "./src/lib/_natural.scss"

@@ -2,7 +2,7 @@
 
 pass=true
 
-files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|json|html|md|scss|ts|yml)$')
+files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|mjs|json|html|md|scss|ts|yml)$')
 if [ "$files" != "" ]; then
 
     # Run prettier before commit
@@ -26,6 +26,16 @@ if [ "$files" != "" ]; then
 
     # Automatically add files that may have been fixed by eslint
     echo "$files" | xargs git add
+fi
+
+files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(html)$')
+if [ "$files" != "" ]; then
+
+    # Run eslint before commit
+    echo "$files" | xargs | xargs ./projects/natural/bin/pre-commit-i18n.mjs
+    if [ $? -ne 0 ]; then
+        pass=false
+    fi
 fi
 
 if $pass; then
