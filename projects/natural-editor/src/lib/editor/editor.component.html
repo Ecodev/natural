@@ -75,8 +75,8 @@
                         i18n
                         [disabled]="menu.makeParagraph.disabled"
                         (click)="run($event, 'makeParagraph')"
-                        >Paragraphe
-                    </button>
+                        >Paragraphe</button
+                    >
                 }
                 @if (menu.makeCodeBlock) {
                     <button
@@ -84,51 +84,51 @@
                         i18n
                         [disabled]="menu.makeCodeBlock.disabled"
                         (click)="run($event, 'makeCodeBlock')"
-                        >Code
-                    </button>
+                        >Code</button
+                    >
                 }
                 @if (menu.makeHead1) {
                     <button mat-menu-item i18n [disabled]="menu.makeHead1.disabled" (click)="run($event, 'makeHead1')"
-                        >Titre 1
-                    </button>
+                        >Titre 1</button
+                    >
                 }
                 @if (menu.makeHead2) {
                     <button mat-menu-item i18n [disabled]="menu.makeHead2.disabled" (click)="run($event, 'makeHead2')"
-                        >Titre 2
-                    </button>
+                        >Titre 2</button
+                    >
                 }
                 @if (menu.makeHead3) {
                     <button mat-menu-item i18n [disabled]="menu.makeHead3.disabled" (click)="run($event, 'makeHead3')"
-                        >Titre 3
-                    </button>
+                        >Titre 3</button
+                    >
                 }
                 @if (menu.makeHead4) {
                     <button mat-menu-item i18n [disabled]="menu.makeHead4.disabled" (click)="run($event, 'makeHead4')"
-                        >Titre 4
-                    </button>
+                        >Titre 4</button
+                    >
                 }
                 @if (menu.makeHead5) {
                     <button mat-menu-item i18n [disabled]="menu.makeHead5.disabled" (click)="run($event, 'makeHead5')"
-                        >Titre 5
-                    </button>
+                        >Titre 5</button
+                    >
                 }
                 @if (menu.makeHead6) {
                     <button mat-menu-item i18n [disabled]="menu.makeHead6.disabled" (click)="run($event, 'makeHead6')"
-                        >Titre 6
-                    </button>
+                        >Titre 6</button
+                    >
                 }
                 @if (menu.blockClass || menu.blockId) {
                     <mat-divider />
                 }
                 @if (menu.blockClass) {
                     <button mat-menu-item i18n [disabled]="menu.blockClass.disabled" (click)="run($event, 'blockClass')"
-                        >Classe...
-                    </button>
+                        >Classe...</button
+                    >
                 }
                 @if (menu.blockId) {
                     <button i18n mat-menu-item [disabled]="menu.blockId.disabled" (click)="run($event, 'blockId')"
-                        >ID...
-                    </button>
+                        >ID...</button
+                    >
                 }
             </mat-menu>
             @if (menu.addColumnBefore) {
@@ -144,8 +144,8 @@
                         i18n
                         [disabled]="menu.insertTable.disabled"
                         (click)="run($event, 'insertTable')"
-                        >Insérer un tableau
-                    </button>
+                        >Insérer un tableau</button
+                    >
                 }
                 @if (menu.deleteTable) {
                     <button
@@ -153,18 +153,18 @@
                         i18n
                         [disabled]="menu.deleteTable.disabled"
                         (click)="run($event, 'deleteTable')"
-                        >Supprimer le tableau
-                    </button>
+                        >Supprimer le tableau</button
+                    >
                 }
                 @if (menu.mergeCells) {
                     <button mat-menu-item i18n [disabled]="menu.mergeCells.disabled" (click)="run($event, 'mergeCells')"
-                        >Fusionner les cellules
-                    </button>
+                        >Fusionner les cellules</button
+                    >
                 }
                 @if (menu.splitCell) {
                     <button mat-menu-item i18n [disabled]="menu.splitCell.disabled" (click)="run($event, 'splitCell')"
-                        >Scinder les cellules
-                    </button>
+                        >Scinder les cellules</button
+                    >
                 }
                 @if (menu.cellBackgroundColor) {
                     <button
@@ -172,18 +172,18 @@
                         i18n
                         [disabled]="menu.cellBackgroundColor.disabled"
                         (click)="run($event, 'cellBackgroundColor')"
-                        >Couleur de fond...
-                    </button>
+                        >Couleur de fond...</button
+                    >
                 }
                 @if (menu.tableClass) {
                     <button mat-menu-item i18n [disabled]="menu.tableClass.disabled" (click)="run($event, 'tableClass')"
-                        >Classe...
-                    </button>
+                        >Classe...</button
+                    >
                 }
                 @if (menu.tableId) {
                     <button i18n mat-menu-item [disabled]="menu.tableId.disabled" (click)="run($event, 'tableId')"
-                        >ID...
-                    </button>
+                        >ID...</button
+                    >
                 }
                 <mat-divider />
                 @if (menu.addColumnBefore) {
@@ -192,8 +192,8 @@
                         i18n
                         [disabled]="menu.addColumnBefore.disabled"
                         (click)="run($event, 'addColumnBefore')"
-                        >Insérer une colonne avant
-                    </button>
+                        >Insérer une colonne avant</button
+                    >
                 }
                 @if (menu.addColumnAfter) {
                     <button
@@ -201,8 +201,8 @@
                         i18n
                         [disabled]="menu.addColumnAfter.disabled"
                         (click)="run($event, 'addColumnAfter')"
-                        >Insérer une colonne après
-                    </button>
+                        >Insérer une colonne après</button
+                    >
                 }
                 @if (menu.deleteColumn) {
                     <button
@@ -210,8 +210,8 @@
                         i18n
                         [disabled]="menu.deleteColumn.disabled"
                         (click)="run($event, 'deleteColumn')"
-                        >Supprimer la colonne
-                    </button>
+                        >Supprimer la colonne</button
+                    >
                 }
                 <mat-divider />
                 @if (menu.addRowBefore) {
@@ -220,8 +220,8 @@
                         i18n
                         [disabled]="menu.addRowBefore.disabled"
                         (click)="run($event, 'addRowBefore')"
-                        >Insérer une ligne avant
-                    </button>
+                        >Insérer une ligne avant</button
+                    >
                 }
                 @if (menu.addRowAfter) {
                     <button
@@ -229,13 +229,13 @@
                         i18n
                         [disabled]="menu.addRowAfter.disabled"
                         (click)="run($event, 'addRowAfter')"
-                        >Insérer une ligne après
-                    </button>
+                        >Insérer une ligne après</button
+                    >
                 }
                 @if (menu.deleteRow) {
                     <button mat-menu-item i18n [disabled]="menu.deleteRow.disabled" (click)="run($event, 'deleteRow')"
-                        >Supprimer la ligne
-                    </button>
+                        >Supprimer la ligne</button
+                    >
                 }
                 <mat-divider />
                 @if (menu.toggleHeaderColumn) {
@@ -244,8 +244,8 @@
                         i18n
                         [disabled]="menu.toggleHeaderColumn.disabled"
                         (click)="run($event, 'toggleHeaderColumn')"
-                        >Entête de colonne
-                    </button>
+                        >Entête de colonne</button
+                    >
                 }
                 @if (menu.toggleHeaderRow) {
                     <button
@@ -253,8 +253,8 @@
                         i18n
                         [disabled]="menu.toggleHeaderRow.disabled"
                         (click)="run($event, 'toggleHeaderRow')"
-                        >Entête de ligne
-                    </button>
+                        >Entête de ligne</button
+                    >
                 }
                 @if (menu.toggleHeaderCell) {
                     <button
@@ -262,8 +262,8 @@
                         i18n
                         [disabled]="menu.toggleHeaderCell.disabled"
                         (click)="run($event, 'toggleHeaderCell')"
-                        >Entête de cellule
-                    </button>
+                        >Entête de cellule</button
+                    >
                 }
             </mat-menu>
             @if (imageUploader()) {
