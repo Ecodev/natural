@@ -32,7 +32,7 @@ files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(html|xlf)
 if [ "$files" != "" ]; then
 
     # Run eslint before commit
-    echo "$files" | xargs | xargs ./projects/natural/bin/i18n-check.mjs
+    echo "$files" | xargs | xargs ./projects/natural/bin/i18n-check.ts
     if [ $? -ne 0 ]; then
         pass=false
     fi

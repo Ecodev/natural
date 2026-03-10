@@ -13,7 +13,7 @@
         "e2e": "playwright test",
         "clean": "rm -rf dist/",
         "build-lib": "yarn clean && yarn build-natural && yarn build-natural-editor",
-        "build-natural": "ng build natural && cp -rv README.md dist/natural/ && cd dist/natural && yarn version --no-git-tag-version --new-version `git describe --tags --always`",
+        "build-natural": "ng build natural && cp -rv README.md dist/natural/ && esbuild projects/natural/bin/i18n-check.ts --outfile=dist/natural/bin/i18n-check.mjs && cd dist/natural && yarn version --no-git-tag-version --new-version `git describe --tags --always`",
         "build-natural-editor": "ng build natural-editor && cd dist/natural-editor && yarn version --no-git-tag-version --new-version `git describe --tags --always`",
         "build-demo": "yarn build-natural && yarn build-natural-editor && ng build demo --aot --base-href /natural/ && cp dist/demo/browser/index.html dist/demo/browser/404.html",
         "serve-demo": "echo '💡 open http://localhost:8000/natural/' && mkdir -p dist/server && ln -fs ../demo/browser dist/server/natural && php -S localhost:8000 -t dist/server/",
