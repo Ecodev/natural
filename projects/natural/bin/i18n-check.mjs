@@ -1,7 +1,8 @@
 #! /usr/bin/env node
 // @ts-check
 
-// This script check for errors in HTML files that may break i18n strings
+// This script check for errors in HTML and XLF files that may break i18n strings.
+// It can be run manually, but ideally it should at least be run as a part of a pre-commit hook.
 
 import {extname, join, resolve} from 'node:path';
 import {readdirSync, readFileSync, statSync} from 'node:fs';
@@ -24,9 +25,13 @@ function checkAll(targets) {
     const files = allFiles(targets);
 
     for (const file of files) {
-        const html = readFileSync(file, 'utf-8');
-        const document = parse(html);
-        errorCount += walkAST(document, file);
+        const content = readFileSync(file, 'utf-8');
+
+        if (file.endsWith('.html')) {
+            errorCount += checkHtml(file, content);
+        } else {
+            errorCount += checkXlf(file, content);
+        }
     }
 
     return errorCount;
@@ -42,7 +47,7 @@ function allFiles(targets) {
         if (targetStat.isDirectory()) {
             const entries = readdirSync(target, {recursive: true, withFileTypes: true});
             for (const entry of entries) {
-                if (entry.isFile() && extname(entry.name) === '.html') {
+                if (entry.isFile() && ['.html', '.xlf'].includes(extname(entry.name))) {
                     files.add(resolve(join(entry.parentPath, entry.name)));
                 }
             }
@@ -55,13 +60,10 @@ function allFiles(targets) {
     return [...files.values()];
 }
 
-function checkError(textContent) {
-    if (/^\s|\s$/.test(textContent)) {
-        return 'Must not start or finish with whitespace';
-    } else if (/^\{\{[^}]*}}$/.test(textContent)) {
-        return 'Must not contain only interpolation';
-    }
-    return '';
+function checkHtml(file, content) {
+    const document = parse(content);
+
+    return walkAST(document, file);
 }
 
 function walkAST(node, file) {
@@ -78,11 +80,9 @@ function walkAST(node, file) {
                 }
             }
 
-            const errorMessage = checkError(textContent);
+            const errorMessage = checkHtmlError(textContent);
             if (errorMessage) {
-                console.log(`🛑 ${errorMessage}:`);
-                console.log(file);
-                console.log(`${serializeOuter(element)}\n`);
+                printError(file, errorMessage, serializeOuter(element));
                 errorCount++;
             }
         }
@@ -99,4 +99,39 @@ function walkAST(node, file) {
     }
 
     return errorCount;
+}
+
+function checkHtmlError(textContent) {
+    if (/^\s|\s$/.test(textContent)) {
+        return 'Must not start or finish with whitespace';
+    } else if (/^\{\{[^}]*}}$/.test(textContent)) {
+        return 'Must not contain only interpolation';
+    }
+
+    return '';
+}
+
+function checkXlf(file, content) {
+    let errorCount = 0;
+    const patterns = {
+        'XLF must have ICU within <x> elements (not `{{ foo }}`)': /^\s*(?<line>.*[^";]\{\{.*)$/gm,
+        'XLF must not have weird characters': /^\s*(?<line>.*(‘|’).*)$/gm,
+    };
+
+    for (const [message, r] of Object.entries(patterns)) {
+        let result = null;
+        while ((result = r.exec(content))) {
+            let line = result.groups['line'];
+            printError(file, message, line);
+            errorCount++;
+        }
+    }
+
+    return errorCount;
+}
+
+function printError(file, errorMessage, content) {
+    console.log(`🛑 ${errorMessage}:`);
+    console.log(file);
+    console.log(`${content}\n`);
 }

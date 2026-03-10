@@ -28,11 +28,11 @@ if [ "$files" != "" ]; then
     echo "$files" | xargs git add
 fi
 
-files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(html)$')
+files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(html|xlf)$')
 if [ "$files" != "" ]; then
 
     # Run eslint before commit
-    echo "$files" | xargs | xargs ./projects/natural/bin/pre-commit-i18n.mjs
+    echo "$files" | xargs | xargs ./projects/natural/bin/i18n-check.mjs
     if [ $? -ne 0 ]; then
         pass=false
     fi

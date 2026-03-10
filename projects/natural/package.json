@@ -8,7 +8,7 @@
     },
     "sideEffects": false,
     "bin": {
-        "pre-commit-i18n": "bin/pre-commit-i18n.mjs"
+        "i18n-check": "bin/i18n-check.mjs"
     },
     "exports": {
         ".": {
