@@ -1,0 +1,6 @@
+// We try our best to not wrap action buttons in dialogs. But sometimes it still happens, especially on mobile.
+// And material does not handle that at all. So we add a small vertical space between button.
+// So if buttons wrap they kind a look like a regular (same horizontal and vertical spacing)
+mat-dialog-actions {
+    row-gap: 8px; // magic value taken from Material's `$mat-dialog-button-horizontal-margin` variable
+}
