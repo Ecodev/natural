@@ -1,5 +1,14 @@
 @use '@angular/material' as mat;
 
+// Allow to select label of buttons.
+// Because we use buttons for so many things that really should be copy-pastable.
+// Such as the very common natural-table-button, and the email/phone number
+// buttons in Epicerio. Really there is no practical reason to prevent selection,
+// especially when it is the only UI element that does that.
+.mdc-button {
+    user-select: initial !important;
+}
+
 body {
     --nat-primary-link-color: var(--mat-sys-primary-container);
     --nat-tertiary-link-color: var(--mat-sys-tertiary-container);
