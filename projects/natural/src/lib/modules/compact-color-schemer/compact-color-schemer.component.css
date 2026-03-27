@@ -3,3 +3,12 @@
         display: none;
     }
 }
+
+:host {
+    display: grid;
+    place-content: center;
+}
+
+.mat-mdc-icon-button {
+    color: inherit;
+}
