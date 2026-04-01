@@ -1,4 +1,5 @@
-import {computed, Directive, effect, inject, InjectionToken, input} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
+import {computed, Directive, effect, inject, InjectionToken, input, PLATFORM_ID} from '@angular/core';
 import {MatIcon, MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -51,6 +52,7 @@ export class NaturalIconDirective {
     private readonly domSanitizer = inject(DomSanitizer);
     private readonly config = inject(NATURAL_ICONS_CONFIG, {optional: true});
     private readonly matIconComponent = inject(MatIcon, {host: true, self: true});
+    private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
     public readonly naturalIcon = input.required({
         transform: (value: string | null | undefined): string => value ?? '',
@@ -84,8 +86,6 @@ export class NaturalIconDirective {
     }
 
     private registerIcons(config: NaturalIconsConfig): void {
-        // Ensure that this specific instance of registry has our our icons
-        // exactly once, not less and not more
         const registry = this.matIconRegistry as any;
         if (registry[naturalRegistered]) {
             return;
@@ -94,7 +94,7 @@ export class NaturalIconDirective {
 
         for (const key of Object.keys(config)) {
             const svg = config[key].svg;
-            if (svg) {
+            if (svg && this.isBrowser) {
                 this.matIconRegistry.addSvgIcon(key, this.domSanitizer.bypassSecurityTrustResourceUrl(svg));
             }
         }
