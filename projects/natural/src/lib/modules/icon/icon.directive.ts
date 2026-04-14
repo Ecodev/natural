@@ -86,6 +86,8 @@ export class NaturalIconDirective {
     }
 
     private registerIcons(config: NaturalIconsConfig): void {
+        // Ensure that this specific instance of registry has our our icons
+        // exactly once, not less and not more
         const registry = this.matIconRegistry as any;
         if (registry[naturalRegistered]) {
             return;
