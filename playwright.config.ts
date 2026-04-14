@@ -20,7 +20,7 @@ const config: PlaywrightTestConfig = {
         trace: 'on-all-retries',
     },
     webServer: {
-        command: 'yarn dev',
+        command: 'pnpm dev',
         port: 4201,
         timeout: 120 * 1000,
         reuseExistingServer: !process.env.CI,

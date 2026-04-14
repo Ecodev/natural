@@ -69,7 +69,7 @@ export class NaturalAbstractNavigableList<
                 return;
             }
 
-            let navigationConditionValue: FilterGroupCondition | null = null;
+            let navigationConditionValue: FilterGroupCondition;
 
             // "na" stands for "navigation" (relation) in url
             if (params.na) {

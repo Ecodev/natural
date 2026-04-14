@@ -10,7 +10,7 @@ Prosemirror editor for Angular projects.
 ## Install
 
 ```bash
-yarn add @ecodev/natural-editor
+pnpm add @ecodev/natural-editor
 ```
 
 ## Development

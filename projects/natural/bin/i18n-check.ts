@@ -7,11 +7,10 @@
 
 import {fileURLToPath} from 'node:url';
 import {extname, join, resolve} from 'node:path';
-import {readdirSync, readFileSync, statSync, realpathSync} from 'node:fs';
+import {readdirSync, readFileSync, realpathSync, statSync} from 'node:fs';
 import {type DefaultTreeAdapterMap, parse, serializeOuter} from 'parse5';
 
 type Node = DefaultTreeAdapterMap['node'];
-type Template = DefaultTreeAdapterMap['template'];
 type TextNode = DefaultTreeAdapterMap['textNode'];
 
 // Only run if called directly as a script
@@ -104,7 +103,7 @@ function walkAST(node: Node, file: string): number {
     }
 
     if (node.nodeName === 'template') {
-        errorCount += walkAST((node as Template).content, file);
+        errorCount += walkAST(node.content, file);
     }
 
     return errorCount;
@@ -149,7 +148,7 @@ export function checkXlf(file: string, content: string): number {
     };
 
     for (const [message, r] of Object.entries(patterns)) {
-        let result = null;
+        let result;
         while ((result = r.exec(content))) {
             const line = result.groups?.line ?? '';
             printError(file, message, line);

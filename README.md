@@ -10,15 +10,15 @@ This project is a collection of Angular Material components and various utilitie
 ## Install
 
 ```bash
-yarn add @ecodev/natural
+pnpm add @ecodev/natural
 ```
 
 ## Development
 
 The most useful commands for development are:
 
-- `yarn dev` to start a development server
-- `yarn build-demo` to build the docs locally (it will be published automatically by GitHub Actions)
+- `pnpm dev` to start a development server
+- `pnpm build-demo` to build the docs locally (it will be published automatically by GitHub Actions)
 - `git tag -am 1.2.3 1.2.3 && git push` to publish the lib to npm (via GitHub Actions `release` job)
 
 ### i18n

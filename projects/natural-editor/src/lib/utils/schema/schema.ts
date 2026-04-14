@@ -30,7 +30,7 @@ const advancedMarks = {
 
 const tmpSchema = new Schema({nodes: basicNodes, marks: basicMarks});
 
-export const basicSchema = new Schema({
+export const basicSchema: Schema = new Schema({
     nodes: addListNodes(tmpSchema.spec.nodes, 'paragraph block*', 'block'),
     marks: tmpSchema.spec.marks,
 });
@@ -61,7 +61,7 @@ const tmpSchemaAdvanced = new Schema({
     marks: advancedMarks,
 });
 
-export const advancedSchema = new Schema({
+export const advancedSchema: Schema = new Schema({
     nodes: addListNodes(tmpSchemaAdvanced.spec.nodes, 'paragraph block*', 'block'),
     marks: advancedMarks,
 });
