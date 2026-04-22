@@ -33,7 +33,7 @@ application to extract and translate strings.
 This is an Angular component to search for things via configurable facets. Facets may be
 configured to use one of the built-in component, or a custom component to input values.
 
-See the component in action on [the demo page](https://ecodev.github.io/natural).
+See the component in action on [the demo page](https://ecodev.github.io/natural-demo).
 
 #### Prior work
 
