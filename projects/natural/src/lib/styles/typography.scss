@@ -2,4 +2,35 @@
 
 body {
     @include mat.system-classes();
+
+    // TODO After Angular 22, refactor below code with https://github.com/angular/components/commit/a46b0a1d4200bf74b036c25ee477d22025f444c8
+    h1 {
+        font: var(--mat-sys-headline-small);
+        letter-spacing: var(--mat-sys-headline-small-tracking);
+    }
+
+    h2 {
+        font: var(--mat-sys-title-large);
+        letter-spacing: var(--mat-sys-title-large-tracking);
+    }
+
+    h3 {
+        font: var(--mat-sys-title-medium);
+        letter-spacing: var(--mat-sys-title-medium-tracking);
+    }
+
+    h4 {
+        font: var(--mat-sys-body-large);
+        letter-spacing: var(--mat-sys-body-large-tracking);
+    }
+
+    h5 {
+        font: var(--mat-sys-body-medium);
+        letter-spacing: var(--mat-sys-body-medium-tracking);
+    }
+
+    h6 {
+        font: var(--mat-sys-body-small);
+        letter-spacing: var(--mat-sys-body-small-tracking);
+    }
 }

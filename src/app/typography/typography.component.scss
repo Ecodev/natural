@@ -1,3 +1,9 @@
+.titles {
+    display: grid;
+    grid: auto / auto 1fr;
+    gap: 20px;
+}
+
 .margins {
     display: grid;
     grid-template-columns: auto auto auto;

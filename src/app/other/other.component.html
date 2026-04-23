@@ -1,5 +1,5 @@
 <div>
-    <h1 class="mat-font-headline-sm">natural-table-button</h1>
+    <h1>natural-table-button</h1>
     <div class="mat-body">
         @for (conf of configurations; track conf) {
             <natural-table-button
@@ -25,7 +25,7 @@
         }
     </div>
 
-    <h1 class="mat-font-headline-sm">HTTP Prefix</h1>
+    <h1>HTTP Prefix</h1>
     <div class="nat-horizontal nat-gap">
         <div>
             <mat-form-field>
@@ -57,7 +57,7 @@
     <br />
     <br />
     <br />
-    <h1 class="mat-font-headline-sm">Icons</h1>
+    <h1>Icons</h1>
     <div class="mat-body icons">
         <span>Native font mat-icon</span>
         <mat-icon fontIcon="search" />
@@ -121,7 +121,7 @@
     <br />
     <br />
     <br />
-    <h1 class="mat-font-headline-sm">Dialog trigger</h1>
+    <h1>Dialog trigger</h1>
     <button matButton="filled" color="primary" routerLink="dialog">Open dialog</button>
 
     <br />
@@ -129,7 +129,7 @@
     <br />
     <br />
 
-    <h1 class="mat-font-headline-sm">Error handler</h1>
+    <h1>Error handler</h1>
     <button matButton="filled" color="primary" (click)="error()">Throw error !</button>
     <button matButton="filled" color="primary" (click)="error2()">httpClient error !</button>
     <button matButton="filled" color="primary" (click)="error3()">fetch error !</button>
@@ -142,14 +142,14 @@
 
     <div matRipple style="padding: 20px; border: 1px solid cyan">custom ripple</div>
 
-    <h1 class="mat-font-headline-sm">Stamp</h1>
-    <h2 class="mat-font-title-lg">Empty</h2>
+    <h1>Stamp</h1>
+    <h2>Empty</h2>
     <natural-stamp [item]="item1" />
 
-    <h2 class="mat-font-title-lg">Partial</h2>
+    <h2>Partial</h2>
     <natural-stamp [item]="item2" />
 
-    <h2 class="mat-font-title-lg">Full</h2>
+    <h2>Full</h2>
     <natural-stamp [item]="item3" />
 </div>
 
