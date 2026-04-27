@@ -109,7 +109,12 @@ export class NaturalAbstractList<
     /**
      * Selection for bulk actions
      */
-    public readonly selection = new SelectionModel<ExtractTall<TService>['items'][0]>(true, []);
+    public readonly selection = new SelectionModel<ExtractTall<TService>['items'][0]>(
+        true,
+        [],
+        true,
+        (a, b) => a.id === b.id,
+    );
 
     /**
      * Next executed action from bulk menu
@@ -141,7 +146,7 @@ export class NaturalAbstractList<
     /**
      * List of page sizes
      */
-    public readonly pageSizeOptions = [5, 25, 50, 100, 200];
+    public readonly pageSizeOptions = [5, 10, 25, 50, 100, 200];
 
     /**
      * Initial pagination setup
