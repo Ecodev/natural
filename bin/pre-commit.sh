@@ -32,7 +32,7 @@ files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(html|xlf)
 if [ "$files" != "" ]; then
 
     # Run i18n checks before commit
-    echo "$files" | xargs | xargs ./projects/natural/bin/i18n-check.ts
+    echo "$files" | xargs | xargs ./projects/natural/bin/i18n-check.mts
     if [ $? -ne 0 ]; then
         pass=false
     fi
