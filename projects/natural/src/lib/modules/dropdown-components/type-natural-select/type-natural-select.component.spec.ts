@@ -2,7 +2,13 @@ import {TestBed, tick} from '@angular/core/testing';
 import {FilterGroupConditionField, TypeNaturalSelectComponent, TypeSelectNaturalConfiguration} from '@ecodev/natural';
 import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
 import {ItemService} from '../../../testing/item.service';
-import {testAssociationSelect, TestFixture} from '../testing/utils';
+import {
+    testAssociationSelectCreation,
+    testAssociationSelectReloading,
+    testAssociationSelectRendering,
+    testAssociationSelectValidating,
+    TestFixture,
+} from '../testing/utils';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
 
 function createComponent(
@@ -47,5 +53,8 @@ describe('TypeNaturalSelectComponent', () => {
         }).compileComponents();
     });
 
-    testAssociationSelect(fixture, createComponent);
+    testAssociationSelectCreation(fixture, createComponent);
+    testAssociationSelectReloading(fixture, createComponent);
+    testAssociationSelectRendering(fixture, createComponent);
+    testAssociationSelectValidating(fixture, createComponent);
 });

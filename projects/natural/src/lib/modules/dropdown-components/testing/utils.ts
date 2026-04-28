@@ -29,7 +29,7 @@ type ComponentCreator<T extends AbstractAssociationSelectComponent<C>, C> = (
     condition: FilterGroupConditionField | null,
 ) => void;
 
-export function testAssociationSelect<T extends AbstractAssociationSelectComponent<C>, C>(
+export function testAssociationSelectCreation<T extends AbstractAssociationSelectComponent<C>, C>(
     t: TestFixture<T, C>,
     createComponent: ComponentCreator<T, C>,
 ): void {
@@ -37,7 +37,12 @@ export function testAssociationSelect<T extends AbstractAssociationSelectCompone
         createComponent(t, null);
         expect(t.component).toBeTruthy();
     }));
+}
 
+export function testAssociationSelectReloading<T extends AbstractAssociationSelectComponent<C>, C>(
+    t: TestFixture<T, C>,
+    createComponent: ComponentCreator<T, C>,
+): void {
     it('should get empty condition without value', fakeAsync(() => {
         const empty: FilterGroupConditionField = {};
 
@@ -68,7 +73,12 @@ export function testAssociationSelect<T extends AbstractAssociationSelectCompone
         expect(t.component.getCondition()).toEqual(conditionNone);
         expect(t.component.getCondition()).not.toBe(conditionNone);
     }));
+}
 
+export function testAssociationSelectRendering<T extends AbstractAssociationSelectComponent<C>, C>(
+    t: TestFixture<T, C>,
+    createComponent: ComponentCreator<T, C>,
+): void {
     it('should render `null` as empty string', fakeAsync(() => {
         createComponent(t, null);
         expect(t.component.renderedValue.value).toBe('');
@@ -93,7 +103,12 @@ export function testAssociationSelect<T extends AbstractAssociationSelectCompone
         createComponent(t, conditionNone);
         expect(t.component.renderedValue.value).toBe('sans');
     }));
+}
 
+export function testAssociationSelectValidating<T extends AbstractAssociationSelectComponent<C>, C>(
+    t: TestFixture<T, C>,
+    createComponent: ComponentCreator<T, C>,
+): void {
     it('should validate if at least one selection', fakeAsync(() => {
         createComponent(t, null);
         expect(t.component.isValid()).toBe(false);

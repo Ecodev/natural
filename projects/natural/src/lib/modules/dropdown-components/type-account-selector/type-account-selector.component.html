@@ -1,0 +1,36 @@
+<form [formGroup]="form">
+    <mat-form-field style="max-width: 12em; margin-right: 1em">
+        <mat-label i18n>Compte</mat-label>
+        <mat-select panelWidth="" [formControl]="whereCtrl">
+            @for (item of possibleWhere; track item) {
+                <mat-option [value]="item.key">
+                    {{ item.label }}
+                </mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field style="max-width: 7em; margin-right: 1em">
+        <mat-label i18n="Mathematical operator < > =">Opérateur</mat-label>
+        <mat-select panelWidth="" [formControl]="operatorCtrl" [required]="true">
+            @for (item of operators; track item) {
+                <mat-option [value]="item.key">
+                    {{ item.label }}
+                </mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-checkbox i18n [formControl]="recursiveCtrl">inclure les sous-comptes</mat-checkbox>
+
+    @if (requireValueCtrl) {
+        <natural-hierarchic-selector
+            style="margin-right: 20px"
+            [config]="configuration.config"
+            [filters]="configuration.filters"
+            [multiple]="true"
+            [selected]="valueCtrl.value || {}"
+            (selectionChange)="selectionChange($event)"
+        />
+    }
+</form>

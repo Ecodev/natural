@@ -19,6 +19,8 @@ export {
     TypeHierarchicSelectorComponent,
 } from './type-hierarchic-selector/type-hierarchic-selector.component';
 
+export {TypeAccountSelectorComponent} from './type-account-selector/type-account-selector.component';
+
 export {type TypeDateConfiguration, TypeDateComponent} from './type-date/type-date.component';
 
 export {type TypeDateRangeConfiguration, TypeDateRangeComponent} from './type-date-range/type-date-range.component';

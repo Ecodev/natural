@@ -1,4 +1,4 @@
-import {Directive, inject} from '@angular/core';
+import {Directive, inject, InjectionToken} from '@angular/core';
 import {BehaviorSubject, merge, Observable} from 'rxjs';
 import {FilterGroupConditionField} from '../search/classes/graphql-doctrine.types';
 import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../search/dropdown-container/dropdown.service';
@@ -6,23 +6,40 @@ import {DropdownComponent} from '../search/types/dropdown-component';
 import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {PossibleDiscreteOperatorKeys, possibleDiscreteOperators} from './types';
 import {startWith} from 'rxjs/operators';
+import type {PossibleWhereKeys} from './type-account-selector/type-account-selector.component';
+
+// If you use this to set it to false, then you **MUST** call the init method in your constructor
+export const DO_INIT = new InjectionToken<boolean>('Must be true', {
+    factory: () => true,
+});
 
 @Directive()
 export abstract class AbstractAssociationSelectComponent<C> implements DropdownComponent {
-    public readonly configuration: C;
+    public configuration!: C;
     public readonly renderedValue = new BehaviorSubject<string>('');
 
     public requireValueCtrl = false;
     public readonly operators = possibleDiscreteOperators;
     public readonly operatorCtrl = new FormControl<PossibleDiscreteOperatorKeys>('is', {nonNullable: true});
     public readonly valueCtrl = new FormControl();
-    public readonly form = new FormGroup({
+    public readonly form = new FormGroup<{
+        operator: FormControl<PossibleDiscreteOperatorKeys>;
+        value: FormControl<unknown>;
+        where?: FormControl<PossibleWhereKeys>;
+        recursive?: FormControl<boolean>;
+    }>({
         operator: this.operatorCtrl,
         value: this.valueCtrl,
     });
 
     public constructor() {
-        const data = inject<NaturalDropdownData<C>>(NATURAL_DROPDOWN_DATA);
+        if (inject(DO_INIT)) {
+            const data = inject<NaturalDropdownData<C>>(NATURAL_DROPDOWN_DATA);
+            this.init(data);
+        }
+    }
+
+    protected init(data: NaturalDropdownData<C>): void {
         this.configuration = data.configuration;
 
         // Immediately initValidators and everytime the operator change later
@@ -62,7 +79,7 @@ export abstract class AbstractAssociationSelectComponent<C> implements DropdownC
         this.valueCtrl.updateValueAndValidity();
     }
 
-    private reloadCondition(condition: FilterGroupConditionField | null): void {
+    protected reloadCondition(condition: FilterGroupConditionField | null): void {
         if (!condition) {
             return;
         }
@@ -101,16 +118,20 @@ export abstract class AbstractAssociationSelectComponent<C> implements DropdownC
         return 'is';
     }
 
-    protected operatorKeyToCondition(key: PossibleDiscreteOperatorKeys, values: string[]): FilterGroupConditionField {
+    protected operatorKeyToCondition(
+        key: PossibleDiscreteOperatorKeys,
+        values: string[],
+        extra: Record<string, boolean | string> = {},
+    ): FilterGroupConditionField {
         switch (key) {
             case 'is':
-                return {have: {values: values}};
+                return {have: {values: values, ...extra}};
             case 'isnot':
-                return {have: {values: values, not: true}};
+                return {have: {values: values, not: true, ...extra}};
             case 'any':
-                return {empty: {not: true}};
+                return {empty: {not: true, ...extra}};
             case 'none':
-                return {empty: {not: false}};
+                return {empty: {not: false, ...extra}};
             default:
                 throw new Error('Unsupported operator key: ' + (key as string));
         }

@@ -29,6 +29,7 @@ import {TypeOptionsComponent} from '../../../projects/natural/src/lib/modules/dr
 import {NaturalSearchComponent} from '../../../projects/natural/src/lib/modules/search/search/search.component';
 import {ErrorService} from '../../../projects/natural/src/lib/testing/error.service';
 import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
+import {TypeAccountSelectorComponent} from '../../../projects/natural/src/lib/modules/dropdown-components/type-account-selector/type-account-selector.component';
 
 @Component({
     selector: 'app-search',
@@ -155,6 +156,23 @@ export class SearchComponent implements OnInit {
                 config: [
                     {
                         service: ErrorService,
+                        parentsRelationNames: ['parent'],
+                        childrenRelationNames: ['parent'],
+                        selectableAtKey: 'any',
+                    },
+                ],
+            } satisfies TypeHierarchicSelectorConfiguration,
+        },
+        {
+            display: 'Account',
+            field: 'account',
+            component: TypeAccountSelectorComponent,
+            configuration: {
+                key: 'any',
+                service: this.itemService,
+                config: [
+                    {
+                        service: ItemService,
                         parentsRelationNames: ['parent'],
                         childrenRelationNames: ['parent'],
                         selectableAtKey: 'any',
