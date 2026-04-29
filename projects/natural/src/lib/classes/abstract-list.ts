@@ -4,8 +4,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {ActivatedRoute, Data, NavigationExtras, Router} from '@angular/router';
-import {defaults, isEmpty, pick} from 'es-toolkit/compat';
 import {isEqual} from 'es-toolkit';
+import {defaults, isEmpty, pick} from 'es-toolkit/compat';
 import {Observable, Subject} from 'rxjs';
 import {NaturalAlertService} from '../modules/alert/alert.service';
 import {AvailableColumn} from '../modules/columns-picker/types';
@@ -36,6 +36,65 @@ function unwrapNavigable(item: MaybeNavigable): Literal {
     }
 
     return item;
+}
+
+export function getNumberRows(dataSource: {data?: PaginatedData<MaybeNavigable> | null} | undefined): number {
+    return dataSource?.data?.items.filter(row => unwrapNavigable(row).id).length ?? 0;
+}
+
+export function getVisibleSelections(
+    selection: SelectionModel<any>,
+    dataSource: {data?: PaginatedData<MaybeNavigable> | null} | undefined,
+): number {
+    return dataSource?.data?.items.filter(row => selection.isSelected(unwrapNavigable(row))).length ?? 0;
+}
+
+export function isAllVisibleSelected(
+    selection: SelectionModel<any>,
+    dataSource: {data?: PaginatedData<MaybeNavigable> | null} | undefined,
+): boolean {
+    const visibleSelections = getVisibleSelections(selection, dataSource);
+    return visibleSelections > 0 && visibleSelections === getNumberRows(dataSource);
+}
+
+export function isPartiallyVisibleSelected(
+    selection: SelectionModel<any>,
+    dataSource: {data?: PaginatedData<MaybeNavigable> | null} | undefined,
+): boolean {
+    const visibleSelections = getVisibleSelections(selection, dataSource);
+    return visibleSelections > 0 && visibleSelections < getNumberRows(dataSource);
+}
+
+export function selectVisible(
+    selection: SelectionModel<any>,
+    dataSource: {data?: PaginatedData<MaybeNavigable> | null} | undefined,
+): void {
+    dataSource?.data?.items.forEach(row => {
+        const unwrapped = unwrapNavigable(row);
+        if (unwrapped.id) {
+            selection.select(unwrapped);
+        }
+    });
+}
+
+export function unselectVisible(
+    selection: SelectionModel<any>,
+    dataSource: {data?: PaginatedData<MaybeNavigable> | null} | undefined,
+): void {
+    dataSource?.data?.items.forEach(row => {
+        selection.deselect(unwrapNavigable(row));
+    });
+}
+
+export function masterToggleVisible(
+    selection: SelectionModel<any>,
+    dataSource: {data?: PaginatedData<MaybeNavigable> | null} | undefined,
+): void {
+    if (isAllVisibleSelected(selection, dataSource)) {
+        unselectVisible(selection, dataSource);
+    } else {
+        selectVisible(selection, dataSource);
+    }
 }
 
 /**
@@ -166,6 +225,10 @@ export class NaturalAbstractList<
     protected readonly route = inject(ActivatedRoute);
     protected readonly alertService = inject(NaturalAlertService);
     protected readonly persistenceService = inject(NaturalPersistenceService);
+
+    protected readonly isAllVisibleSelected = isAllVisibleSelected;
+    protected readonly isPartiallyVisibleSelected = isPartiallyVisibleSelected;
+    protected readonly masterToggleVisible = masterToggleVisible;
 
     // eslint-disable-next-line @angular-eslint/prefer-inject
     public constructor(public readonly service: TService) {
@@ -362,38 +425,6 @@ export class NaturalAbstractList<
                 persist(pagination);
             }
         }
-    }
-
-    /**
-     * Selects all rows if they are not all selected; otherwise clear selection
-     */
-    public masterToggle(): void {
-        if (this.isAllSelected()) {
-            this.selection.clear();
-        } else {
-            this.dataSource?.data?.items.forEach(row => {
-                const unwrapped = unwrapNavigable(row);
-                if (unwrapped.id) {
-                    this.selection.select(unwrapped);
-                }
-            });
-        }
-    }
-
-    /**
-     * Whether the number of selected elements matches the total number of rows
-     */
-    public isAllSelected(): boolean {
-        const numSelected = this.selection.selected.length;
-        let numRows = 0;
-        this.dataSource?.data?.items.forEach(row => {
-            const unwrapped = unwrapNavigable(row);
-            if (unwrapped.id) {
-                numRows++;
-            }
-        });
-
-        return numSelected === numRows;
     }
 
     /**

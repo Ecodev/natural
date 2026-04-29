@@ -30,9 +30,9 @@
                     <ng-container matColumnDef="select">
                         <th *matHeaderCellDef mat-header-cell class="natural-3em-column">
                             <mat-checkbox
-                                [checked]="selection.hasValue() && isAllSelected()"
-                                [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                (change)="$event ? masterToggle() : null"
+                                [checked]="isAllVisibleSelected(selection, dataSource)"
+                                [indeterminate]="isPartiallyVisibleSelected(selection, dataSource)"
+                                (change)="$event ? masterToggleVisible(selection, dataSource) : null"
                             />
                         </th>
                         <td *matCellDef="let element" mat-cell>
