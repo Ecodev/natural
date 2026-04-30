@@ -13,15 +13,15 @@
         "e2e": "playwright test",
         "clean": "rm -rf dist/",
         "build-lib": "pnpm clean && pnpm build-natural && pnpm build-natural-editor",
-        "build-natural": "ng build natural && cp -rv README.md dist/natural/ && esbuild projects/natural/bin/i18n-check.mts --outfile=dist/natural/bin/i18n-check.mjs && cd dist/natural && pnpm version `git describe --tags --always`",
-        "build-natural-editor": "ng build natural-editor && cd dist/natural-editor && pnpm version `git describe --tags --always`",
+        "build-natural": "ng build natural && cp -rv README.md dist/natural/ && esbuild projects/natural/bin/i18n-check.mts --outfile=dist/natural/bin/i18n-check.mjs && cd dist/natural && pnpm version --no-git-checks --no-git-tag-version `git describe --tags --always`",
+        "build-natural-editor": "ng build natural-editor && cd dist/natural-editor && pnpm version --no-git-checks --no-git-tag-version `git describe --tags --always`",
         "build-demo": "pnpm build-natural && pnpm build-natural-editor && ng build demo --aot --base-href /natural-demo/ && cp dist/demo/browser/index.html dist/demo/browser/404.html",
         "serve-demo": "echo '💡 open http://localhost:8000/natural/' && mkdir -p dist/server && ln -fs ../demo/browser dist/server/natural && php -S localhost:8000 -t dist/server/",
         "relink": "cd dist/natural && (pnpm unlink ; pnpm link) && cd ../natural-editor && (pnpm unlink ; pnpm link)",
         "prettier": "./node_modules/.bin/prettier --experimental-cli --write ."
     },
     "private": true,
-    "packageManager": "pnpm@10.33.0",
+    "packageManager": "pnpm@11.0.1",
     "dependencies": {
         "@angular/cdk": "^21.2.0",
         "@angular/common": "^21.2.0",
