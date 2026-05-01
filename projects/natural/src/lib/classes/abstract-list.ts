@@ -1,5 +1,5 @@
 import {SelectionModel} from '@angular/cdk/collections';
-import {Directive, inject, Input, OnInit} from '@angular/core';
+import {Directive, inject, input, Input, OnInit} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
@@ -7,6 +7,7 @@ import {ActivatedRoute, Data, NavigationExtras, Router} from '@angular/router';
 import {isEqual} from 'es-toolkit';
 import {defaults, isEmpty, pick} from 'es-toolkit/compat';
 import {Observable, Subject} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {NaturalAlertService} from '../modules/alert/alert.service';
 import {AvailableColumn} from '../modules/columns-picker/types';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
@@ -244,6 +245,8 @@ export class NaturalAbstractList<
             this.applyForcedVariables(variables);
         }
     }
+
+    public readonly resetSelectionOnChange = input(true);
 
     /**
      * If change, check DocumentsComponent that overrides this function without calling super.ngOnInit().
@@ -495,9 +498,14 @@ export class NaturalAbstractList<
         // Here the casting is a bit unfortunate but required because NaturalAbstractNavigableList
         // breaks the data structure convention (by wrapping items in a structure). Ideally we should remove
         // the casting and resolve things in a better way, but that's too much work for now
-        return this.service
-            .watchAll(this.variablesManager as unknown as any)
-            .pipe(takeUntilDestroyed(this.destroyRef)) as unknown as Observable<Tall>;
+        return this.service.watchAll(this.variablesManager as unknown as any).pipe(
+            takeUntilDestroyed(this.destroyRef),
+            tap(() => {
+                if (this.resetSelectionOnChange()) {
+                    this.selection.clear();
+                }
+            }),
+        ) as unknown as Observable<Tall>;
     }
 
     protected initFromPersisted(): void {
