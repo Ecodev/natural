@@ -21,7 +21,7 @@
         "prettier": "./node_modules/.bin/prettier --experimental-cli --write ."
     },
     "private": true,
-    "packageManager": "pnpm@11.0.1",
+    "packageManager": "pnpm@11.2.1",
     "dependencies": {
         "@angular/cdk": "^21.2.0",
         "@angular/common": "^21.2.0",
