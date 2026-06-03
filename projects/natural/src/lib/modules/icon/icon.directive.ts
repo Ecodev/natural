@@ -96,8 +96,12 @@ export class NaturalIconDirective {
 
         for (const key of Object.keys(config)) {
             const svg = config[key].svg;
-            if (svg && this.isBrowser) {
+            if (!svg) continue;
+
+            if (this.isBrowser) {
                 this.matIconRegistry.addSvgIcon(key, this.domSanitizer.bypassSecurityTrustResourceUrl(svg));
+            } else {
+                this.matIconRegistry.addSvgIconLiteral(key, this.domSanitizer.bypassSecurityTrustHtml('<svg></svg>'));
             }
         }
     }
