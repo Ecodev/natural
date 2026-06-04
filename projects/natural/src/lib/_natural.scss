@@ -72,6 +72,12 @@ body {
     font-weight: 500;
 }
 
+.nat-fixed-fab {
+    position: fixed !important;
+    right: 32px;
+    bottom: 32px;
+}
+
 // Most of our sidenav menus (mainly in admin) use simple nat-gradient-* that applies a contrasted text color
 // that is overridden by material on child element
 // This instruction activate text color inheritance to simplify html and css for active routes.
