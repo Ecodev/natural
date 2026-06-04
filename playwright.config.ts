@@ -1,6 +1,6 @@
-import {PlaywrightTestConfig} from '@playwright/test';
+import {defineConfig} from '@playwright/test';
 
-const config: PlaywrightTestConfig = {
+export default defineConfig({
     testDir: './e2e/',
     outputDir: __dirname + '/logs/tests/e2e/',
     retries: 2,
@@ -25,6 +25,4 @@ const config: PlaywrightTestConfig = {
         timeout: 120 * 1000,
         reuseExistingServer: !process.env.CI,
     },
-};
-
-export default config;
+});

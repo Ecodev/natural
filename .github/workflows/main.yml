@@ -15,7 +15,7 @@ jobs:
               with:
                   node-version: '24'
                   cache: 'pnpm'
-            - run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 pnpm install --frozen-lockfile
+            - run: pnpm install --frozen-lockfile
             - run: pnpm build-demo
             - run: pnpm build-natural # Build natural again, because when building natural-editor ngcc was used on natural
             - uses: actions/upload-artifact@v7
@@ -34,7 +34,7 @@ jobs:
               with:
                   node-version: '24'
                   cache: 'pnpm'
-            - run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 pnpm install --frozen-lockfile
+            - run: pnpm install --frozen-lockfile
             - run: ./node_modules/.bin/ng test natural --progress false --watch=false --browsers ChromeHeadlessCustom
             - run: ./node_modules/.bin/ng test natural-editor --progress false --watch=false --browsers ChromeHeadlessCustom
             - run: ./node_modules/.bin/ng test demo --progress false --watch=false --browsers ChromeHeadlessCustom
@@ -51,7 +51,7 @@ jobs:
               with:
                   node-version: '24'
                   cache: 'pnpm'
-            - run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 pnpm install --frozen-lockfile
+            - run: pnpm install --frozen-lockfile
             - run: pnpm lint
 
     prettier:
@@ -65,7 +65,7 @@ jobs:
               with:
                   node-version: '24'
                   cache: 'pnpm'
-            - run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 pnpm install --frozen-lockfile
+            - run: pnpm install --frozen-lockfile
             - run: ./node_modules/.bin/prettier --experimental-cli --check .
 
     publish-demo:
