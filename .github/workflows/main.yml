@@ -2,7 +2,8 @@ name: main
 on: [push, pull_request]
 permissions:
     contents: read
-
+env:
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 jobs:
     build:
         runs-on: ubuntu-latest
