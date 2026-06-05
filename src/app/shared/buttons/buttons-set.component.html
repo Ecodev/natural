@@ -86,9 +86,17 @@
     <natural-fixed-button class="detail-speed-dial" icon="save" matTooltip="Default color" [disabled]="disabled()" />
     <natural-fixed-button
         class="detail-speed-dial"
-        icon="save"
+        label="extended"
         matTooltip="Overrided primary color"
         color="primary"
+        [disabled]="disabled()"
+    />
+    <natural-fixed-button
+        class="detail-speed-dial"
+        icon="save"
+        label="extended icon"
+        matTooltip="Overrided primary color"
+        color="tertiary"
         [disabled]="disabled()"
     />
 </div>

@@ -11,9 +11,13 @@ import {MatFabButton} from '@angular/material/button';
     imports: [MatFabButton, RouterLink, MatIcon, NaturalIconDirective],
     templateUrl: './fixed-button.component.html',
     styleUrl: './fixed-button.component.scss',
+    host: {
+        '[class.nat-fixed-fab]': 'true',
+    },
 })
 export class NaturalFixedButtonComponent {
-    public readonly icon = input.required<string>();
+    public readonly icon = input<string>();
+    public readonly label = input<string>();
     public readonly link = input<RouterLink['routerLink'] | null>(null);
     public readonly color = input<NaturalPalette>('tertiary');
     public readonly disabled = input(false);

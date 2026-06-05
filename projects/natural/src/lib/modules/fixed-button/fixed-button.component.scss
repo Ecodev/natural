@@ -1,13 +1,6 @@
 @use '@angular/material' as mat;
 
 :host {
-    position: fixed !important;
-    right: 32px;
-
-    // Default bottom right
-    bottom: 32px;
-    z-index: 999; // < than 1000 that is the z-index of overlay contents
-
     @include mat.fab-overrides(
         (
             container-color: var(--mat-sys-tertiary-container),

@@ -4,3 +4,11 @@
     padding: 20px;
     color: var(--mat-sys-on-surface);
 }
+
+::ng-deep {
+    div.frame:first-of-type app-buttons-set {
+        natural-fixed-button {
+            transform: translateX(-40vw);
+        }
+    }
+}

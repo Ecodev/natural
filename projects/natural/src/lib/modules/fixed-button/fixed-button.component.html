@@ -1,3 +1,6 @@
-<button mat-fab [color]="color()" [disabled]="disabled()" [routerLink]="link()">
-    <mat-icon [naturalIcon]="icon()" />
+<button matFab [extended]="!!label()" [color]="color()" [disabled]="disabled()" [routerLink]="link()">
+    @if (!!icon()) {
+        <mat-icon [naturalIcon]="icon()" />
+    }
+    {{ label() }}
 </button>
