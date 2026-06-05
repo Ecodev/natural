@@ -1,7 +1,8 @@
 @if (isCreation) {
     <natural-fixed-button
         class="detail-speed-dial"
-        icon="save"
+        label="Enregistrer"
+        i18n-label
         [disabled]="form.disabled"
         [color]="form.valid ? 'tertiary' : 'error'"
         (click)="clickCreate()"
