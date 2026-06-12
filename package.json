@@ -67,7 +67,7 @@
         "@types/jasmine": "~5.1.9",
         "@types/node": "^22.14.1",
         "angular-eslint": "^21.1.0",
-        "esbuild": "^0.28.0",
+        "esbuild": "^0.28.1",
         "eslint": "^9.24.0",
         "jasmine-core": "~5.10.0",
         "jasmine-spec-reporter": "~7.0.0",
