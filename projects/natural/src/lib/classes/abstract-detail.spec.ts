@@ -265,6 +265,7 @@ describe('NaturalAbstractDetail', () => {
 
         const deleteSpy = spyOn(service, 'delete').and.callFake(() => of(true));
         const preDeleteSpy = spyOn(detail, 'preDelete' as any).and.callThrough();
+        const postDeleteSpy = spyOn(detail, 'postDelete' as any).and.callThrough();
         const confirmSpy = spyOn(TestBed.inject(NaturalAlertService), 'confirm').and.callFake(() => of(true));
 
         detail.delete();
@@ -272,6 +273,7 @@ describe('NaturalAbstractDetail', () => {
         await harness.fixture.whenStable();
         expect(deleteSpy).toHaveBeenCalledOnceWith([model]);
         expect(preDeleteSpy).toHaveBeenCalledOnceWith(model);
+        expect(postDeleteSpy).toHaveBeenCalledOnceWith(model);
         expect(confirmSpy).toHaveBeenCalledTimes(1);
         expect(router.url).toBe('/item');
     });

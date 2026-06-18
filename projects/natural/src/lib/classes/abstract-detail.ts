@@ -262,12 +262,16 @@ export class NaturalAbstractDetail<
                         return EMPTY;
                     }
 
-                    this.preDelete(this.data.model);
+                    const model = this.data.model;
+                    this.preDelete(model);
 
-                    return this.service.delete([this.data.model]).pipe(
+                    return this.service.delete([model]).pipe(
                         switchMap(() => {
                             this.alertService.info($localize`Supprimé`);
 
+                            return this.postDelete(model).pipe(endWith(undefined), last());
+                        }),
+                        switchMap(() => {
                             if (this.isPanel) {
                                 this.panelService?.goToPenultimatePanel();
 
@@ -310,6 +314,15 @@ export class NaturalAbstractDetail<
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected preDelete(model: ExtractTone<TService>): void {
         // noop
+    }
+
+    /**
+     * Returns an observable that will be subscribed to immediately and the
+     * redirect navigation will only happen after the observable completes.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    protected postDelete(model: ExtractTone<TService>): Observable<unknown> {
+        return EMPTY;
     }
 
     /**
