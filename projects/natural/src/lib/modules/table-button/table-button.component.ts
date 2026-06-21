@@ -26,6 +26,9 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
     encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class.nat-icon-button]': 'icon() && !label()',
+    },
 })
 export class NaturalTableButtonComponent {
     public readonly queryParams = input<Params>({});

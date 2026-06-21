@@ -59,6 +59,14 @@
                         <td *matFooterCellDef mat-footer-cell>name</td>
                     </ng-container>
 
+                    <ng-container matColumnDef="edit">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>edit</th>
+                        <td *matCellDef="let element" mat-cell>
+                            <natural-table-button icon="add" [navigate]="['.']" />
+                        </td>
+                        <td *matFooterCellDef mat-footer-cell>edit</td>
+                    </ng-container>
+
                     <ng-container matColumnDef="description">
                         <th *matHeaderCellDef mat-header-cell mat-sort-header>description</th>
                         <td *matCellDef="let element" mat-cell>{{ element.description }}</td>

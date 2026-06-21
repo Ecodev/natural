@@ -72,6 +72,10 @@ export class ListComponent extends NaturalAbstractList<ItemService> implements O
             label: 'name',
         },
         {
+            id: 'edit',
+            label: 'edit',
+        },
+        {
             id: 'description',
             label: 'description',
         },
