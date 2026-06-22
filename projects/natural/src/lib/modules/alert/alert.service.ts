@@ -16,6 +16,7 @@ export class NaturalAlertService {
      */
     public info(message: string, duration: number | null = 2500): MatSnackBarRef<SimpleSnackBar> {
         return this.snackBar.open(message, undefined, {
+            panelClass: ['snackbar-info'],
             duration: duration === null ? undefined : duration,
             verticalPosition: 'top',
             horizontalPosition: 'end',
@@ -50,6 +51,7 @@ export class NaturalAlertService {
                 confirmText: confirmText,
                 cancelText: cancelText,
             },
+            panelClass: ['snackbar-confirm'],
         });
 
         return dialog.afterClosed();
