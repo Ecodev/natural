@@ -36,12 +36,19 @@ export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlV
     public readonly placeholder = input<string>();
 
     /**
-     * Mat-hint, if given, and it is non-empty, then `subscriptSizing` will
+     * Mat-hint, if given, and it is non-empty, then `computedSubscriptSizing` will
      * automatically be set to `dynamic` to allow for long, wrapping text.
      */
     public readonly hint = input<string | null>();
 
-    protected readonly subscriptSizing = computed(() => (this.hint() ? 'dynamic' : 'fixed'));
+    /**
+     * Explicit subscript sizing. Takes priority over the computed value when non-null.
+     */
+    public readonly subscriptSizing = input<'dynamic' | 'fixed' | null>(null);
+
+    protected readonly computedSubscriptSizing = computed(
+        () => this.subscriptSizing() ?? (this.hint() ? 'dynamic' : 'fixed'),
+    );
 
     /**
      * If given an error message, it will be displayed in a `<mat-error>`, but only if the control
