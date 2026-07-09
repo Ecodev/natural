@@ -164,6 +164,10 @@ export function deliverableEmail(control: AbstractControl): ValidationErrors | n
         return error;
     }
 
+    if (value.includes('..')) {
+        return error;
+    }
+
     const tld = value.split('.').pop();
     if (!validTlds.includes(tld)) {
         return error;

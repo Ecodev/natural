@@ -117,6 +117,7 @@ describe('deliverableEmail', () => {
         validate(deliverableEmail, false, 'john@example.non-existing-tld');
         validate(deliverableEmail, false, 'root@localhost');
         validate(deliverableEmail, false, 'root@127.0.0.1');
+        validate(deliverableEmail, false, 'xyz.qze@qwer..net'); // consecutive dots are invalid
         validate(deliverableEmail, true, '');
         validate(deliverableEmail, true, null);
 
