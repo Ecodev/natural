@@ -11,7 +11,7 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import {AbstractControl} from '@angular/forms';
-import {Observable, of, Subject, tap} from 'rxjs';
+import {finalize, Observable, of, Subject, tap} from 'rxjs';
 import {NaturalFileService} from '../file.service';
 import {UpperCasePipe} from '@angular/common';
 import {FileModel} from '../types';
@@ -111,14 +111,12 @@ export class NaturalFileComponent implements OnInit, OnChanges {
         this.updateImage();
 
         const formCtrl = this.formCtrl();
-        if (formCtrl) {
-            formCtrl.setValue(this.model);
-        }
+        formCtrl?.setErrors({...formCtrl.errors, naturalFileUploading: true});
 
         const observable =
             this.uploader()?.(file).pipe(tap(() => this.alertService.info($localize`Mis à jour`))) ?? of(this.model);
 
-        observable.subscribe(result => {
+        observable.pipe(finalize(() => this.formCtrl()?.updateValueAndValidity())).subscribe(result => {
             this.model = result;
             const formCtrlValue = this.formCtrl();
             if (formCtrlValue) {
