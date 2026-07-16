@@ -235,10 +235,51 @@ export function decimal(scale: number): ValidatorFn {
 const twoDecimals = decimal(2);
 
 /**
- * Validate that the value is an amount of money, meaning a number with at most 2 decimals
+ * Validate that the value is an amount of money, meaning a number with at most 2 decimals,
+ * and that is within the given `min` and `max` range (inclusive).
+ *
+ * A range is always required, because unbounded financial inputs allow gross typos (eg. an extra
+ * digit) to slip through and cause data corruption, so callers must always think about a sensible
+ * limit. For most cases, prefer the ready-made `signedMoney()` or `unsignedMoney()` helpers instead
+ * of calling this directly.
  */
-export function money(control: AbstractControl): ValidationErrors | null {
-    return twoDecimals(control) ? {money: true} : null;
+export function money(min: number, max: number): ValidatorFn {
+    const minValidator = Validators.min(min);
+    const maxValidator = Validators.max(max);
+
+    return (control: AbstractControl): ValidationErrors | null => {
+        if (twoDecimals(control)) {
+            return {money: true};
+        }
+
+        return minValidator(control) || maxValidator(control);
+    };
+}
+
+/**
+ * Highest amount of money that should ever be manually entered by a human, in any currency.
+ *
+ * This is an arbitrary limit, about 10x higher than the biggest amount ever legitimately entered
+ * in production so far (see #12570), meant to catch obvious data-entry mistakes rather than to be
+ * a hard technical limit. It stays well below the range of a database `SIGNED INT` or `UNSIGNED INT`
+ * column storing centimes.
+ */
+const maxMoney = 5_000_000;
+
+/**
+ * Validate a signed amount of money (can be negative), suitable for a value stored in a database
+ * column of type `SIGNED INT`, such as a balance.
+ */
+export function signedMoney(): ValidatorFn {
+    return money(-maxMoney, maxMoney);
+}
+
+/**
+ * Validate an unsigned amount of money (cannot be negative), suitable for a value stored in a
+ * database column of type `UNSIGNED INT`, such as a price.
+ */
+export function unsignedMoney(): ValidatorFn {
+    return money(0, maxMoney);
 }
 
 /**

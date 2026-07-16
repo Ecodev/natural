@@ -57,6 +57,30 @@
     <br />
     <br />
     <br />
+    <h1>Money validators</h1>
+    <div class="nat-horizontal nat-gap">
+        <mat-form-field>
+            <mat-label>money(-1000, 1000)</mat-label>
+            <input matInput [formControl]="moneyControl" />
+            <mat-error>{{ moneyControl.errors | errorMessage }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>signedMoney()</mat-label>
+            <input matInput [formControl]="signedMoneyControl" />
+            <mat-error>{{ signedMoneyControl.errors | errorMessage }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>unsignedMoney()</mat-label>
+            <input matInput [formControl]="unsignedMoneyControl" />
+            <mat-error>{{ unsignedMoneyControl.errors | errorMessage }}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <br />
+    <br />
+    <br />
     <h1>Icons</h1>
     <div class="mat-body icons">
         <span>Native font mat-icon</span>

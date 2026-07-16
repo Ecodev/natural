@@ -5,9 +5,12 @@ import {
     greaterThan,
     ifValid,
     integer,
+    money,
     nfcCardHex,
+    signedMoney,
     time,
     unique,
+    unsignedMoney,
     url,
 } from '@ecodev/natural';
 import {
@@ -300,6 +303,47 @@ describe('decimal', () => {
             validate(validator, true, -1.12);
             validate(validator, false, -1.1234);
         });
+    });
+});
+
+describe('money', () => {
+    it('should validate decimals and range', () => {
+        const validator = money(-100, 100);
+        validate(validator, true, null);
+        validate(validator, true, undefined);
+        validate(validator, true, '');
+        validate(validator, true, '0');
+        validate(validator, true, '100');
+        validate(validator, true, '100.00');
+        validate(validator, true, '-100');
+        validate(validator, true, '99.99');
+        validate(validator, true, '-99.99');
+        validate(validator, false, '100.01');
+        validate(validator, false, '-100.01');
+        validate(validator, false, '101');
+        validate(validator, false, '-101');
+        validate(validator, false, '1.234'); // too many decimals
+        validate(validator, false, 'foo');
+    });
+});
+
+describe('signedMoney', () => {
+    it('should allow negative and positive amounts within the human limit', () => {
+        const validator = signedMoney();
+        validate(validator, true, '-5000000');
+        validate(validator, true, '5000000');
+        validate(validator, false, '-5000000.01');
+        validate(validator, false, '5000000.01');
+    });
+});
+
+describe('unsignedMoney', () => {
+    it('should only allow positive amounts within the human limit', () => {
+        const validator = unsignedMoney();
+        validate(validator, true, '0');
+        validate(validator, true, '5000000');
+        validate(validator, false, '-0.01');
+        validate(validator, false, '5000000.01');
     });
 });
 

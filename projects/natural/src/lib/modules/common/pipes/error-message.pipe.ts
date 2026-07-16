@@ -42,7 +42,7 @@ import {urlPattern} from '../../../classes/validators';
  *     - `deliverableEmail`
  *     - `greaterThan`
  *     - `integer`
- *     - `money`
+ *     - `money` (also covers `signedMoney` and `unsignedMoney`)
  *     - `nfcCardHex`
  *     - `time`
  *     - `unique`

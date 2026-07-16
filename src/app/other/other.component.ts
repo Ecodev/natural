@@ -5,12 +5,19 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {MatButton} from '@angular/material/button';
 import {MatRipple} from '@angular/material/core';
 import {MatDatepickerToggle} from '@angular/material/datepicker';
-import {MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/material/form-field';
+import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/material/form-field';
 import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {Params, QueryParamsHandling, RouterLink, RouterOutlet} from '@angular/router';
-import {NaturalPalette, NaturalStampComponent} from '@ecodev/natural';
+import {
+    money,
+    NaturalErrorMessagePipe,
+    NaturalPalette,
+    NaturalStampComponent,
+    signedMoney,
+    unsignedMoney,
+} from '@ecodev/natural';
 import {NaturalHttpPrefixDirective} from '../../../projects/natural/src/lib/directives/http-prefix.directive';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {NaturalTableButtonComponent} from '../../../projects/natural/src/lib/modules/table-button/table-button.component';
@@ -57,6 +64,8 @@ fewHoursAgo.setHours(fewHoursAgo.getHours() - 3);
         MatRipple,
         RouterOutlet,
         NaturalStampComponent,
+        MatError,
+        NaturalErrorMessagePipe,
     ],
     templateUrl: './other.component.html',
     styleUrl: './other.component.scss',
@@ -253,6 +262,13 @@ export class OtherComponent implements OnInit {
     public readonly httpPrefixGroup = new FormGroup({
         prefix: new FormControl('', [Validators.required]),
     });
+
+    /**
+     * Money validators
+     */
+    public readonly moneyControl = new FormControl('', [money(-1000, 1000)]);
+    public readonly signedMoneyControl = new FormControl('', [signedMoney()]);
+    public readonly unsignedMoneyControl = new FormControl('', [unsignedMoney()]);
 
     public ngOnInit(): void {
         this.httpPrefixControl.valueChanges.subscribe(value => {
