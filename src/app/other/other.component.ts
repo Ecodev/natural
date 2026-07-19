@@ -267,8 +267,8 @@ export class OtherComponent implements OnInit {
      * Money validators
      */
     public readonly moneyControl = new FormControl('', [money(-1000, 1000)]);
-    public readonly signedMoneyControl = new FormControl('', [signedMoney()]);
-    public readonly unsignedMoneyControl = new FormControl('', [unsignedMoney()]);
+    public readonly signedMoneyControl = new FormControl('', [signedMoney]);
+    public readonly unsignedMoneyControl = new FormControl('', [unsignedMoney]);
 
     public ngOnInit(): void {
         this.httpPrefixControl.valueChanges.subscribe(value => {

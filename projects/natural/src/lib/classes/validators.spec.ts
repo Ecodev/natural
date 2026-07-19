@@ -329,7 +329,7 @@ describe('money', () => {
 
 describe('signedMoney', () => {
     it('should allow negative and positive amounts within the human limit', () => {
-        const validator = signedMoney();
+        const validator = signedMoney;
         validate(validator, true, '-5000000');
         validate(validator, true, '5000000');
         validate(validator, false, '-5000000.01');
@@ -339,7 +339,7 @@ describe('signedMoney', () => {
 
 describe('unsignedMoney', () => {
     it('should only allow positive amounts within the human limit', () => {
-        const validator = unsignedMoney();
+        const validator = unsignedMoney;
         validate(validator, true, '0');
         validate(validator, true, '5000000');
         validate(validator, false, '-0.01');

@@ -240,7 +240,7 @@ const twoDecimals = decimal(2);
  *
  * A range is always required, because unbounded financial inputs allow gross typos (eg. an extra
  * digit) to slip through and cause data corruption, so callers must always think about a sensible
- * limit. For most cases, prefer the ready-made `signedMoney()` or `unsignedMoney()` helpers instead
+ * limit. For most cases, prefer the ready-made `signedMoney` or `unsignedMoney` helpers instead
  * of calling this directly.
  */
 export function money(min: number, max: number): ValidatorFn {
@@ -270,17 +270,13 @@ const maxMoney = 5_000_000;
  * Validate a signed amount of money (can be negative), suitable for a value stored in a database
  * column of type `SIGNED INT`, such as a balance.
  */
-export function signedMoney(): ValidatorFn {
-    return money(-maxMoney, maxMoney);
-}
+export const signedMoney = money(-maxMoney, maxMoney);
 
 /**
  * Validate an unsigned amount of money (cannot be negative), suitable for a value stored in a
  * database column of type `UNSIGNED INT`, such as a price.
  */
-export function unsignedMoney(): ValidatorFn {
-    return money(0, maxMoney);
-}
+export const unsignedMoney = money(0, maxMoney);
 
 /**
  * Validate that the number is strictly greater than given one.
