@@ -1,6 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {ValidationErrors} from '@angular/forms';
 import {urlPattern} from '../../../classes/validators';
+import {formatIsoDate, formatSwissDate} from '../../../classes/utility';
+
 /**
  * Return a single error message for the first found error, if any.
  *
@@ -36,6 +38,8 @@ import {urlPattern} from '../../../classes/validators';
  *     - `Validators.min`
  *     - `Validators.minlength`
  *     - `Validators.required`
+ *     - `matDatepickerMin`
+ *     - `matDatepickerMax`
  * - Natural
  *     - `available`
  *     - `decimal`
@@ -86,6 +90,38 @@ export class NaturalErrorMessagePipe implements PipeTransform {
             return $localize`Doit être plus petit ou égal à ${errors.max.max}${unit}`;
         } else if (errors.greaterThan) {
             return $localize`Doit être plus grand que ${errors.greaterThan.greaterThan}${unit}`;
+        } else if (errors.matDatepickerMin) {
+            const min = formatIsoDate(errors.matDatepickerMin.min as Date);
+            const date = new Date();
+            const today = formatIsoDate(date);
+
+            if (min === today) {
+                return $localize`Ne doit pas être dans le passé`;
+            }
+
+            date.setDate(date.getDate() + 1);
+            const tomorrow = formatIsoDate(date);
+            if (min === tomorrow) {
+                return $localize`Doit être dans le futur`;
+            } else {
+                return $localize`Doit être plus grand ou égal à ${formatSwissDate(errors.matDatepickerMin.min)}`;
+            }
+        } else if (errors.matDatepickerMax) {
+            const max = formatIsoDate(errors.matDatepickerMax.max as Date);
+            const date = new Date();
+            const today = formatIsoDate(date);
+
+            if (max === today) {
+                return $localize`Ne doit pas être dans le futur`;
+            }
+
+            date.setDate(date.getDate() - 1);
+            const yesterday = formatIsoDate(date);
+            if (max === yesterday) {
+                return $localize`Doit être dans le passé`;
+            } else {
+                return $localize`Doit être plus petit ou égal à ${formatSwissDate(errors.matDatepickerMax.max)}`;
+            }
         } else if (errors.notCity) {
             return $localize`Veuillez choisir une ville de la liste`;
         } else if (errors.decimal) {

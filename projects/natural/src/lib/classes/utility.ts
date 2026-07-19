@@ -27,6 +27,19 @@ export function formatIsoDate(date: Date | null): string | null {
 }
 
 /**
+ * Very basic formatting to get only swiss date, without time and ignoring entirely the timezone
+ *
+ * So something like: "23.09.2021"
+ */
+export function formatSwissDate(date: Date): string {
+    const y = date.getFullYear();
+    const m = date.getMonth() + 1;
+    const d = date.getDate();
+
+    return (d < 10 ? '0' : '') + d + '.' + (m < 10 ? '0' : '') + m + '.' + y;
+}
+
+/**
  * Format a date and time in a way that will preserve the local time zone.
  * This allows the server side to know the day (without time) that was selected on client side.
  *

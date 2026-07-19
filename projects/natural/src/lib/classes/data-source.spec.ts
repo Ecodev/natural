@@ -1,6 +1,6 @@
 import {NaturalDataSource, PaginatedData} from './data-source';
 import {Subject} from 'rxjs';
-import {deepFreeze} from '@ecodev/natural';
+import {deepFreeze} from './utility';
 
 type Model = {
     a: string;

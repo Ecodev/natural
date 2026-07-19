@@ -5,7 +5,7 @@ import {PaginatedData} from '../classes/data-source';
 import {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
 import {FormValidators, NaturalAbstractModelService} from '../services/abstract-model.service';
 import {delay, switchMap} from 'rxjs/operators';
-import {deepFreeze} from '@ecodev/natural';
+import {deepFreeze} from '../classes/utility';
 import {deepClone} from '../modules/search/classes/utils';
 
 export type Item = {

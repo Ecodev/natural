@@ -3,13 +3,10 @@ import {
     formatIsoDateTime,
     makePlural,
     relationsToIds,
-    rgbToHex,
     SortingOrder,
     upperCaseFirstLetter,
-    validateColumns,
-    validatePagination,
-    validateSorting,
 } from '@ecodev/natural';
+import {rgbToHex, validateColumns, validatePagination, validateSorting} from './utility';
 
 describe('relationsToIds', () => {
     it('should transform relations to id and remove __typename, but never touch File or Date instances', () => {

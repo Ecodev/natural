@@ -7,6 +7,12 @@ describe('NaturalErrorMessagePipe', () => {
         expect(pipe).toBeTruthy();
     });
 
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
     const cases: (
         | [ValidationErrors | null | undefined, string]
         | [ValidationErrors | null | undefined, string, string]
@@ -35,6 +41,60 @@ describe('NaturalErrorMessagePipe', () => {
         [{notCity: true}, 'Veuillez choisir une ville de la liste'],
         [{time: 'mon message'}, 'mon message'],
         [{nfcCardHex: 'mon message'}, 'mon message'],
+        [
+            {
+                matDatepickerMin: {
+                    min: today,
+                    actual: new Date('2000-01-01T15:00:00.000Z'),
+                },
+            },
+            'Ne doit pas être dans le passé',
+        ],
+        [
+            {
+                matDatepickerMin: {
+                    min: tomorrow,
+                    actual: new Date('2000-01-01T15:00:00.000Z'),
+                },
+            },
+            'Doit être dans le futur',
+        ],
+        [
+            {
+                matDatepickerMin: {
+                    min: new Date('2001-02-03T00:00:00.000Z'),
+                    actual: new Date('2000-01-01T15:00:00.000Z'),
+                },
+            },
+            'Doit être plus grand ou égal à 03.02.2001',
+        ],
+        [
+            {
+                matDatepickerMax: {
+                    max: today,
+                    actual: new Date('2999-01-01T15:00:00.000Z'),
+                },
+            },
+            'Ne doit pas être dans le futur',
+        ],
+        [
+            {
+                matDatepickerMax: {
+                    max: yesterday,
+                    actual: new Date('2999-01-01T15:00:00.000Z'),
+                },
+            },
+            'Doit être dans le passé',
+        ],
+        [
+            {
+                matDatepickerMax: {
+                    max: new Date('2001-02-03T00:00:00.000Z'),
+                    actual: new Date('2999-01-01T15:00:00.000Z'),
+                },
+            },
+            'Doit être plus petit ou égal à 03.02.2001',
+        ],
     ];
 
     cases.forEach(parameters => {
