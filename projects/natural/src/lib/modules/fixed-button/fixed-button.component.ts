@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {NaturalPalette} from '../../types/types';
 
@@ -11,6 +11,7 @@ import {MatFabButton} from '@angular/material/button';
     imports: [MatFabButton, RouterLink, MatIcon, NaturalIconDirective],
     templateUrl: './fixed-button.component.html',
     styleUrl: './fixed-button.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class.nat-fixed-fab]': 'true',
     },
