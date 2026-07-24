@@ -1,16 +1,16 @@
 import {inject, Injectable, Injector} from '@angular/core';
 import {intersection} from 'es-toolkit';
-import {first, forkJoin, Observable} from 'rxjs';
+import {first, forkJoin, type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {NaturalQueryVariablesManager, QueryVariables} from '../../../classes/query-variable-manager';
-import {Literal, UntypedModelService} from '../../../types/types';
-import {FilterGroupCondition} from '../../search/classes/graphql-doctrine.types';
-import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
+import {NaturalQueryVariablesManager, type QueryVariables} from '../../../classes/query-variable-manager';
+import {type Literal, type UntypedModelService} from '../../../types/types';
+import {type FilterGroupCondition} from '../../search/classes/graphql-doctrine.types';
+import {type NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
 import {
-    HierarchicFilterConfiguration,
-    HierarchicFiltersConfiguration,
+    type HierarchicFilterConfiguration,
+    type HierarchicFiltersConfiguration,
 } from '../classes/hierarchic-filters-configuration';
-import {HierarchicModel, ModelNode} from '../classes/model-node';
+import {type HierarchicModel, ModelNode} from '../classes/model-node';
 
 export type OrganizedModelSelection = Record<string, any[]>;
 

@@ -1,6 +1,6 @@
 import {DestroyRef, Directive, inject} from '@angular/core';
-import {NaturalPanelsService} from './panels.service';
-import {NaturalPanelData} from './types';
+import {type NaturalPanelsService} from './panels.service';
+import {type NaturalPanelData} from './types';
 import {Observable} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 

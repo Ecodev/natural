@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component, DebugElement} from '@angular/core';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
+import {Component, type DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {MatIcon} from '@angular/material/icon';
 import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';

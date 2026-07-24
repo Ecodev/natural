@@ -1,12 +1,12 @@
 import {Component, DestroyRef, inject} from '@angular/core';
 import {MatListOption, MatSelectionList} from '@angular/material/list';
-import {BehaviorSubject, merge, Observable, of} from 'rxjs';
-import {FilterGroupConditionField, Scalar} from '../../search/classes/graphql-doctrine.types';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
-import {DropdownComponent} from '../../search/types/dropdown-component';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators} from '@angular/forms';
+import {BehaviorSubject, merge, type Observable, of} from 'rxjs';
+import {type FilterGroupConditionField, type Scalar} from '../../search/classes/graphql-doctrine.types';
+import {NATURAL_DROPDOWN_DATA, type NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {type DropdownComponent} from '../../search/types/dropdown-component';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, type ValidatorFn, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
-import {PossibleDiscreteOperatorKeys, possibleDiscreteOperators} from '../types';
+import {type PossibleDiscreteOperatorKeys, possibleDiscreteOperators} from '../types';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
 import {MatFormField, MatLabel} from '@angular/material/form-field';

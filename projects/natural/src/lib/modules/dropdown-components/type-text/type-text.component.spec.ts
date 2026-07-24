@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {
-    FilterGroupConditionField,
+    type FilterGroupConditionField,
     NATURAL_DROPDOWN_DATA,
-    NaturalDropdownData,
+    type NaturalDropdownData,
     NaturalDropdownRef,
 } from '@ecodev/natural';
 import {TypeTextComponent} from './type-text.component';

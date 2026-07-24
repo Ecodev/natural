@@ -3,10 +3,10 @@ import {
     memorySessionStorageProvider,
     NATURAL_PERSISTENCE_VALIDATOR,
     NaturalPersistenceService,
-    NaturalStorage,
+    type NaturalStorage,
     SESSION_STORAGE,
 } from '@ecodev/natural';
-import {ActivatedRoute} from '@angular/router';
+import {type ActivatedRoute} from '@angular/router';
 
 function mockedActivatedRoute(entries: readonly (readonly [string, any])[]): ActivatedRoute {
     return {

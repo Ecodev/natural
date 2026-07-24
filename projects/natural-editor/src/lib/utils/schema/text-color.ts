@@ -1,4 +1,4 @@
-import {Attrs, MarkSpec} from 'prosemirror-model';
+import {type Attrs, type MarkSpec} from 'prosemirror-model';
 
 export const textColor: MarkSpec = {
     attrs: {color: {default: '#FF0000'}},

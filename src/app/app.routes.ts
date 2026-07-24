@@ -1,11 +1,11 @@
-import {Routes} from '@angular/router';
+import {type Routes} from '@angular/router';
 import {
     fallbackIfNoOpenedPanels,
     NaturalDialogTriggerComponent,
-    NaturalDialogTriggerRoutingData,
+    type NaturalDialogTriggerRoutingData,
     NaturalPanelsComponent,
     naturalPanelsUrlMatcher,
-    NaturalSeo,
+    type NaturalSeo,
 } from '@ecodev/natural';
 import {resolveHardcodedItem, resolveItem} from '../../projects/natural/src/lib/testing/item.resolver';
 import {AlertComponent} from './alert/alert.component';

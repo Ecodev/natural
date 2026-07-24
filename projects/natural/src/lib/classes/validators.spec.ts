@@ -14,17 +14,17 @@ import {
     url,
 } from '@ecodev/natural';
 import {
-    AsyncValidatorFn,
+    type AsyncValidatorFn,
     FormControl,
-    FormControlStatus,
-    ValidationErrors,
-    ValidatorFn,
+    type FormControlStatus,
+    type ValidationErrors,
+    type ValidatorFn,
     Validators,
 } from '@angular/forms';
 import {TestScheduler} from 'rxjs/testing';
-import {concat, forkJoin, NEVER, Observable, of, Subject, tap} from 'rxjs';
+import {concat, forkJoin, NEVER, type Observable, of, Subject, tap} from 'rxjs';
 import {first} from 'rxjs/operators';
-import {UntypedModelService} from '../types/types';
+import {type UntypedModelService} from '../types/types';
 
 function validate(validatorFn: ValidatorFn, expected: boolean, value: any): void {
     const control = new FormControl();

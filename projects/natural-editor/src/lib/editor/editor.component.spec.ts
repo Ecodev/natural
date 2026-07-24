@@ -1,9 +1,9 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalEditorComponent} from './editor.component';
 import {Component, inject, InjectionToken} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {ImageUploader} from '../utils/image';
+import {type ImageUploader} from '../utils/image';
 import {of} from 'rxjs';
 import {naturalProviders} from '@ecodev/natural';
 

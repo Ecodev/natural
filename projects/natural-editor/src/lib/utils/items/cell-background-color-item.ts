@@ -1,9 +1,9 @@
-import {EditorState, Transaction} from 'prosemirror-state';
+import {type EditorState, type Transaction} from 'prosemirror-state';
 import {CellSelection, isInTable, selectionCell, setCellAttr} from 'prosemirror-tables';
-import {EditorView} from 'prosemirror-view';
+import {type EditorView} from 'prosemirror-view';
 import {Item} from './item';
-import {MatDialog} from '@angular/material/dialog';
-import {ColorDialogComponent, ColorDialogData} from '../../color-dialog/color-dialog.component';
+import {type MatDialog} from '@angular/material/dialog';
+import {ColorDialogComponent, type ColorDialogData} from '../../color-dialog/color-dialog.component';
 
 const setCellBackgroundColor = setCellAttr.bind(null, 'background');
 

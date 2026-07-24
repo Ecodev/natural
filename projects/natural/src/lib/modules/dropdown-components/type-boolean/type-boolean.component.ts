@@ -1,8 +1,8 @@
 import {Component, inject} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
-import {DropdownComponent} from '../../search/types/dropdown-component';
-import {TypeOptionsComponent, TypeOptionsConfiguration} from '../type-options/type-options.component';
+import {NATURAL_DROPDOWN_DATA, type NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {type DropdownComponent} from '../../search/types/dropdown-component';
+import {TypeOptionsComponent, type TypeOptionsConfiguration} from '../type-options/type-options.component';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 
 export type TypeBooleanConfiguration = {

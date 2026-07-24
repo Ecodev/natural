@@ -1,6 +1,6 @@
 import {Item} from './item';
-import {EditorState} from 'prosemirror-state';
-import {NodeType} from 'prosemirror-model';
+import {type EditorState} from 'prosemirror-state';
+import {type NodeType} from 'prosemirror-model';
 
 function canInsert(state: EditorState, nodeType: NodeType): boolean {
     const $from = state.selection.$from;

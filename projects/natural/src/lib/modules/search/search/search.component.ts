@@ -1,7 +1,7 @@
-import {Component, inject, Input, input, OnChanges, output, signal} from '@angular/core';
+import {Component, inject, Input, input, type OnChanges, output, signal} from '@angular/core';
 import {deepClone} from '../classes/utils';
-import {NaturalSearchFacets} from '../types/facet';
-import {GroupSelections, NaturalSearchSelections} from '../types/values';
+import {type NaturalSearchFacets} from '../types/facet';
+import {type GroupSelections, type NaturalSearchSelections} from '../types/values';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map} from 'rxjs';
 import {MatDivider} from '@angular/material/divider';

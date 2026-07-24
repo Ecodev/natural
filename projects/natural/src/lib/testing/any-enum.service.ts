@@ -1,5 +1,5 @@
-import {Observable, of} from 'rxjs';
-import {IEnum, NaturalEnumService} from '@ecodev/natural';
+import {type Observable, of} from 'rxjs';
+import {type IEnum, NaturalEnumService} from '@ecodev/natural';
 import {Injectable} from '@angular/core';
 
 @Injectable({

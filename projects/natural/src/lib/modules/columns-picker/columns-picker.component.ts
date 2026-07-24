@@ -1,6 +1,6 @@
-import {Component, DestroyRef, inject, Input, input, OnChanges, output, SimpleChanges} from '@angular/core';
-import {NaturalPalette} from '../../types/types';
-import {AvailableColumn, Button} from './types';
+import {Component, DestroyRef, inject, Input, input, type OnChanges, output, type SimpleChanges} from '@angular/core';
+import {type NaturalPalette} from '../../types/types';
+import {type AvailableColumn, type Button} from './types';
 import {cancellableTimeout} from '../../classes/rxjs';
 import {map} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';

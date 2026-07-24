@@ -1,10 +1,10 @@
-import {ComponentType} from '@angular/cdk/portal';
-import {InjectionToken, Injector} from '@angular/core';
-import {UrlSegment} from '@angular/router';
-import {Literal} from '../../types/types';
-import {Observable} from 'rxjs';
-import {NaturalAbstractPanel} from './abstract-panel';
-import {LinkableObject} from '../../services/link-mutation.service';
+import {type ComponentType} from '@angular/cdk/portal';
+import {InjectionToken, type Injector} from '@angular/core';
+import {type UrlSegment} from '@angular/router';
+import {type Literal} from '../../types/types';
+import {type Observable} from 'rxjs';
+import {type NaturalAbstractPanel} from './abstract-panel';
+import {type LinkableObject} from '../../services/link-mutation.service';
 
 /**
  * Kind of snapshot of the instance of a panel activated route

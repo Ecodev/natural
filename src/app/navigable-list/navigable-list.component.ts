@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatIcon} from '@angular/material/icon';
@@ -19,7 +19,13 @@ import {
 } from '@angular/material/table';
 import {MatTooltip} from '@angular/material/tooltip';
 import {RouterLink} from '@angular/router';
-import {AvailableColumn, NaturalAbstractNavigableList, Sorting, SortingOrder, TypedMatCellDef} from '@ecodev/natural';
+import {
+    type AvailableColumn,
+    NaturalAbstractNavigableList,
+    type Sorting,
+    SortingOrder,
+    TypedMatCellDef,
+} from '@ecodev/natural';
 import {NaturalColumnsPickerComponent} from '../../../projects/natural/src/lib/modules/columns-picker/columns-picker.component';
 import {NaturalIconDirective} from '../../../projects/natural/src/lib/modules/icon/icon.directive';
 import {NaturalSearchComponent} from '../../../projects/natural/src/lib/modules/search/search/search.component';

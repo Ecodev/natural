@@ -1,7 +1,7 @@
-import {ComponentType} from '@angular/cdk/portal';
-import {Component, inject, OnDestroy} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {type ComponentType} from '@angular/cdk/portal';
+import {Component, inject, type OnDestroy} from '@angular/core';
+import {MatDialog, type MatDialogConfig, type MatDialogRef} from '@angular/material/dialog';
+import {ActivatedRoute, Router, type RouterLink} from '@angular/router';
 
 export type NaturalDialogTriggerRoutingData<T, D> = {
     component: ComponentType<T>;

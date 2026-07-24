@@ -1,10 +1,10 @@
-import {Component, OnInit, viewChild} from '@angular/core';
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {Component, type OnInit, viewChild} from '@angular/core';
+import {type ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {provideRouter, Router, RouterOutlet} from '@angular/router';
 import {MatTabGroupHarness} from '@angular/material/tabs/testing';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
-import {HarnessLoader} from '@angular/cdk/testing';
+import {type HarnessLoader} from '@angular/cdk/testing';
 import {NaturalLinkableTabDirective} from '@ecodev/natural';
 
 @Component({

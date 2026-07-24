@@ -1,4 +1,4 @@
-import {ApolloClient, ApolloLink, InMemoryCache} from '@apollo/client';
+import {type ApolloClient, ApolloLink, InMemoryCache} from '@apollo/client';
 
 export const apolloDefaultOptions: ApolloClient.Options['defaultOptions'] = {
     query: {

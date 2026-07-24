@@ -1,4 +1,4 @@
-import {Component, DOCUMENT, ElementRef, inject, OnInit, viewChild} from '@angular/core';
+import {Component, DOCUMENT, type ElementRef, inject, type OnInit, viewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';

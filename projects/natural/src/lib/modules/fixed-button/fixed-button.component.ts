@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {NaturalPalette} from '../../types/types';
+import {type NaturalPalette} from '../../types/types';
 
 import {NaturalIconDirective} from '../icon/icon.directive';
 import {MatIcon} from '@angular/material/icon';

@@ -1,5 +1,5 @@
 import {graphqlQuerySigner} from './signing';
-import {HttpHandlerFn, HttpRequest, HttpResponse} from '@angular/common/http';
+import {type HttpHandlerFn, HttpRequest, HttpResponse} from '@angular/common/http';
 import {of} from 'rxjs';
 
 const graphqlQuery = {

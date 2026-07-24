@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
-import {provideRouter, Router, Routes} from '@angular/router';
+import {type ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
+import {provideRouter, Router, type Routes} from '@angular/router';
 import {
     memorySessionStorageProvider,
     NaturalPersistenceService,

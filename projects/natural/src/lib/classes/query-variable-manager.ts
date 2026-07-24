@@ -1,7 +1,7 @@
 import {defaultsDeep, mergeWith} from 'es-toolkit/compat';
 import {cloneDeep, omit} from 'es-toolkit';
 import {BehaviorSubject} from 'rxjs';
-import {Literal} from '../types/types';
+import {type Literal} from '../types/types';
 import {cloneDeepButSkipFile, isFile, mergeOverrideArray} from './utility';
 import {hasMixedGroupLogic} from './query-variable-manager-utils';
 

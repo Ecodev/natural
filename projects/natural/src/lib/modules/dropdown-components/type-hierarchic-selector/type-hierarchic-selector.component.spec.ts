@@ -1,8 +1,8 @@
 import {TestBed, tick} from '@angular/core/testing';
 import {
-    FilterGroupConditionField,
+    type FilterGroupConditionField,
     TypeHierarchicSelectorComponent,
-    TypeHierarchicSelectorConfiguration,
+    type TypeHierarchicSelectorConfiguration,
 } from '@ecodev/natural';
 import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
 import {ItemService} from '../../../testing/item.service';
@@ -11,7 +11,7 @@ import {
     testAssociationSelectReloading,
     testAssociationSelectRendering,
     testAssociationSelectValidating,
-    TestFixture,
+    type TestFixture,
 } from '../testing/utils';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
 

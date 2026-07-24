@@ -1,14 +1,14 @@
-import {Directive, input, OnInit} from '@angular/core';
-import {NavigationExtras, RouterLink} from '@angular/router';
+import {Directive, input, type OnInit} from '@angular/core';
+import {type NavigationExtras, type RouterLink} from '@angular/router';
 import {map} from 'rxjs/operators';
-import {NaturalSearchSelections} from '../modules/search/types/values';
-import {NaturalAbstractModelService} from '../services/abstract-model.service';
+import {type NaturalSearchSelections} from '../modules/search/types/values';
+import {type NaturalAbstractModelService} from '../services/abstract-model.service';
 import {NaturalAbstractList} from './abstract-list';
-import {PaginatedData} from './data-source';
-import {NaturalQueryVariablesManager, QueryVariables} from './query-variable-manager';
-import {ExtractTall, ExtractTallOne, ExtractVall, Literal} from '../types/types';
-import {first, Observable} from 'rxjs';
-import {FilterGroupCondition} from '../modules/search/classes/graphql-doctrine.types';
+import {type PaginatedData} from './data-source';
+import {NaturalQueryVariablesManager, type QueryVariables} from './query-variable-manager';
+import {type ExtractTall, type ExtractTallOne, type ExtractVall, type Literal} from '../types/types';
+import {first, type Observable} from 'rxjs';
+import {type FilterGroupCondition} from '../modules/search/classes/graphql-doctrine.types';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 type BreadcrumbItem = {

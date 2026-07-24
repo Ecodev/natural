@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar, MatSnackBarRef, SimpleSnackBar} from '@angular/material/snack-bar';
-import {Observable} from 'rxjs';
-import {NaturalConfirmComponent, NaturalConfirmData} from './confirm.component';
+import {MatSnackBar, type MatSnackBarRef, type SimpleSnackBar} from '@angular/material/snack-bar';
+import {type Observable} from 'rxjs';
+import {NaturalConfirmComponent, type NaturalConfirmData} from './confirm.component';
 
 @Injectable({
     providedIn: 'root',

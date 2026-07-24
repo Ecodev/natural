@@ -1,16 +1,16 @@
-import {DropdownFacet, Facet, FlagFacet, NaturalSearchFacets} from '../types/facet';
-import {NaturalSearchSelection, NaturalSearchSelections} from '../types/values';
+import {type DropdownFacet, type Facet, type FlagFacet, type NaturalSearchFacets} from '../types/facet';
+import {type NaturalSearchSelection, type NaturalSearchSelections} from '../types/values';
 import {
-    Filter,
-    FilterGroup,
-    FilterGroupCondition,
-    FilterGroupConditionField,
-    JoinOn,
+    type Filter,
+    type FilterGroup,
+    type FilterGroupCondition,
+    type FilterGroupConditionField,
+    type JoinOn,
     LogicalOperator,
 } from './graphql-doctrine.types';
 import {deepClone, getFacetFromSelection} from './utils';
 import {replaceToday} from './transformers';
-import {TypeDateComponent, TypeDateConfiguration} from '../../dropdown-components/type-date/type-date.component';
+import {TypeDateComponent, type TypeDateConfiguration} from '../../dropdown-components/type-date/type-date.component';
 
 export function toGraphQLDoctrineFilter(
     facets: NaturalSearchFacets | null,

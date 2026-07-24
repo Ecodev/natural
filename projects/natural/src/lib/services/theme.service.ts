@@ -3,7 +3,7 @@ import {
     computed,
     DOCUMENT,
     effect,
-    EnvironmentProviders,
+    type EnvironmentProviders,
     inject,
     Injectable,
     InjectionToken,

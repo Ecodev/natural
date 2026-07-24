@@ -1,5 +1,5 @@
-import {EditorState, TextSelection, Transaction} from 'prosemirror-state';
-import {Fragment, Node as ProsemirrorNode, NodeType} from 'prosemirror-model';
+import {type EditorState, TextSelection, type Transaction} from 'prosemirror-state';
+import {type Fragment, type Node as ProsemirrorNode, type NodeType} from 'prosemirror-model';
 import {tableNodeTypes} from 'prosemirror-tables';
 import {Item} from './item';
 

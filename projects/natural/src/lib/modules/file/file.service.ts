@@ -1,7 +1,7 @@
 import {DOCUMENT, inject, Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {FileSelection} from './abstract-file';
-import {FileModel} from './types';
+import {type FileSelection} from './abstract-file';
+import {type FileModel} from './types';
 
 // @dynamic
 @Injectable({

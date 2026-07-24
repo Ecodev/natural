@@ -1,6 +1,6 @@
 // Basic; loosely typed structure for graphql-doctrine filters
 
-import {Literal} from '../../../types/types';
+import {type Literal} from '../../../types/types';
 
 export type Filter = {
     groups?: FilterGroup[] | null;

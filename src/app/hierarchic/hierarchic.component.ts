@@ -1,13 +1,13 @@
 import {Component, inject} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {
-    HierarchicDialogConfig,
-    HierarchicDialogResult,
-    NaturalHierarchicConfiguration,
+    type HierarchicDialogConfig,
+    type HierarchicDialogResult,
+    type NaturalHierarchicConfiguration,
     NaturalHierarchicSelectorDialogService,
-    NaturalSearchFacets,
-    NaturalSearchSelections,
-    OrganizedModelSelection,
+    type NaturalSearchFacets,
+    type NaturalSearchSelections,
+    type OrganizedModelSelection,
     TypeNumberComponent,
 } from '@ecodev/natural';
 import {NaturalHierarchicSelectorComponent} from '../../../projects/natural/src/lib/modules/hierarchic-selector/hierarchic-selector/hierarchic-selector.component';

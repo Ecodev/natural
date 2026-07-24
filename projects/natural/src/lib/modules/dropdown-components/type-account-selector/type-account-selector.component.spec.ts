@@ -1,8 +1,8 @@
 import {fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {FilterGroupConditionField, TypeHierarchicSelectorConfiguration} from '@ecodev/natural';
+import {type FilterGroupConditionField, type TypeHierarchicSelectorConfiguration} from '@ecodev/natural';
 import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
 import {ItemService} from '../../../testing/item.service';
-import {testAssociationSelectCreation, testAssociationSelectValidating, TestFixture} from '../testing/utils';
+import {testAssociationSelectCreation, testAssociationSelectValidating, type TestFixture} from '../testing/utils';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
 import {type Extra, TypeAccountSelectorComponent} from './type-account-selector.component';
 

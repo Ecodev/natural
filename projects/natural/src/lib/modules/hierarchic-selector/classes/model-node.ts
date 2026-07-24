@@ -1,6 +1,6 @@
-import {BehaviorSubject, Observable} from 'rxjs';
-import {NaturalHierarchicConfiguration} from './hierarchic-configuration';
-import {NameOrFullName} from '../../../types/types';
+import {BehaviorSubject, type Observable} from 'rxjs';
+import {type NaturalHierarchicConfiguration} from './hierarchic-configuration';
+import {type NameOrFullName} from '../../../types/types';
 
 export type HierarchicModel = {__typename: string} & NameOrFullName;
 

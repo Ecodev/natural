@@ -1,5 +1,9 @@
 import {TestBed, tick} from '@angular/core/testing';
-import {FilterGroupConditionField, TypeNaturalSelectComponent, TypeSelectNaturalConfiguration} from '@ecodev/natural';
+import {
+    type FilterGroupConditionField,
+    TypeNaturalSelectComponent,
+    type TypeSelectNaturalConfiguration,
+} from '@ecodev/natural';
 import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
 import {ItemService} from '../../../testing/item.service';
 import {
@@ -7,7 +11,7 @@ import {
     testAssociationSelectReloading,
     testAssociationSelectRendering,
     testAssociationSelectValidating,
-    TestFixture,
+    type TestFixture,
 } from '../testing/utils';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
 

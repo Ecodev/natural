@@ -1,8 +1,8 @@
 import {DOCUMENT, inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable, throwError} from 'rxjs';
+import {type Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {GraphQLFormattedError} from 'graphql';
+import {type GraphQLFormattedError} from 'graphql';
 
 /**
  * Service for storing the last error and redirecting to error page conveniently

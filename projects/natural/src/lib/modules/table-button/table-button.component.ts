@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation} from '@angular/core';
-import {Params, QueryParamsHandling, RouterLink, UrlTree} from '@angular/router';
+import {type Params, type QueryParamsHandling, RouterLink, UrlTree} from '@angular/router';
 
 import {MatButton, type MatButtonAppearance, MatIconButton} from '@angular/material/button';
-import {NaturalPalette} from '../../types/types';
+import {type NaturalPalette} from '../../types/types';
 import {NaturalIconDirective} from '../icon/icon.directive';
 import {MatIcon} from '@angular/material/icon';
 import {Subject} from 'rxjs';

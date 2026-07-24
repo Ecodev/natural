@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {naturalProviders, provideThemes} from '@ecodev/natural';
 import {HomeComponent} from './home.component';
 import {provideRouter} from '@angular/router';

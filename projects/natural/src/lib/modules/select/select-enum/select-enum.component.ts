@@ -1,7 +1,7 @@
-import {Component, inject, Input, input, OnInit} from '@angular/core';
-import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {IEnum, NaturalEnumService} from '../../../services/enum.service';
+import {Component, inject, Input, input, type OnInit} from '@angular/core';
+import {type ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {type Observable} from 'rxjs';
+import {type IEnum, NaturalEnumService} from '../../../services/enum.service';
 import {AbstractSelect} from '../abstract-select.component';
 import {MatOption} from '@angular/material/core';
 import {AsyncPipe} from '@angular/common';

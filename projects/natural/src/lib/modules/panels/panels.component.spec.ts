@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalPanelsComponent} from './panels.component';
 import {providePanels} from './panels.module';
 import {naturalProviders} from '@ecodev/natural';

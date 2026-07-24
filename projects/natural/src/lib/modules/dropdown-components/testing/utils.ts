@@ -1,7 +1,7 @@
 import {fakeAsync} from '@angular/core/testing';
-import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
-import {NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
-import {AbstractAssociationSelectComponent} from '../abstract-association-select-component.directive';
+import {type FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
+import {type NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {type AbstractAssociationSelectComponent} from '../abstract-association-select-component.directive';
 
 const conditionIs: FilterGroupConditionField = {
     have: {values: ['123']},

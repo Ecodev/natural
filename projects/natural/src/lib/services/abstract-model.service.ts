@@ -1,15 +1,21 @@
 import {Apollo, gql, onlyCompleteData} from 'apollo-angular';
-import {ApolloLink, NetworkStatus, ObservableQuery, WatchQueryFetchPolicy} from '@apollo/client';
-import {AbstractControl, AsyncValidatorFn, UntypedFormControl, UntypedFormGroup, ValidatorFn} from '@angular/forms';
-import {DocumentNode} from 'graphql';
+import {type ApolloLink, NetworkStatus, type ObservableQuery, type WatchQueryFetchPolicy} from '@apollo/client';
+import {
+    type AbstractControl,
+    type AsyncValidatorFn,
+    UntypedFormControl,
+    UntypedFormGroup,
+    type ValidatorFn,
+} from '@angular/forms';
+import {type DocumentNode} from 'graphql';
 import {merge, pick} from 'es-toolkit';
 import {defaults} from 'es-toolkit/compat';
-import {catchError, combineLatest, EMPTY, first, from, Observable, of, OperatorFunction} from 'rxjs';
+import {catchError, combineLatest, EMPTY, first, from, Observable, of, type OperatorFunction} from 'rxjs';
 import {debounceTime, filter, map, shareReplay, startWith, switchMap, takeWhile, tap} from 'rxjs/operators';
-import {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
-import {Literal} from '../types/types';
+import {NaturalQueryVariablesManager, type QueryVariables} from '../classes/query-variable-manager';
+import {type Literal} from '../types/types';
 import {makePlural, relationsToIds, upperCaseFirstLetter} from '../classes/utility';
-import {PaginatedData} from '../classes/data-source';
+import {type PaginatedData} from '../classes/data-source';
 import {NaturalDebounceService} from './debounce.service';
 import {deepClone} from '../modules/search/classes/utils';
 import {inject} from '@angular/core';

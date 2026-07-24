@@ -1,4 +1,4 @@
-import {FilterGroupConditionField} from '../search/classes/graphql-doctrine.types';
+import {type FilterGroupConditionField} from '../search/classes/graphql-doctrine.types';
 
 type PossibleNullableOperatorKeys = 'any' | 'none';
 

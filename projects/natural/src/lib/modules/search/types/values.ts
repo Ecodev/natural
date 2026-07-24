@@ -1,5 +1,5 @@
-import {FilterGroupConditionField} from '../classes/graphql-doctrine.types';
-import {Facet} from './facet';
+import {type FilterGroupConditionField} from '../classes/graphql-doctrine.types';
+import {type Facet} from './facet';
 
 /**
  * Type for a search selection

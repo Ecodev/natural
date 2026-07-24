@@ -1,5 +1,5 @@
 import {Component, Input, input} from '@angular/core';
-import {Literal, NameOrFullName} from '../../types/types';
+import {type Literal, type NameOrFullName} from '../../types/types';
 import {NaturalIconDirective} from '../icon/icon.directive';
 import {MatIcon} from '@angular/material/icon';
 import {RouterLink} from '@angular/router';

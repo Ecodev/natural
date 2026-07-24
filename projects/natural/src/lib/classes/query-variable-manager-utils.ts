@@ -1,6 +1,6 @@
 import {cloneDeep, groupBy, uniq} from 'es-toolkit';
 import {LogicalOperator} from '../modules/search/classes/graphql-doctrine.types';
-import {Literal} from '../types/types';
+import {type Literal} from '../types/types';
 
 export function hasMixedGroupLogic(groups: Literal[]): boolean {
     // Complete lack of definition by fallback on AND operator

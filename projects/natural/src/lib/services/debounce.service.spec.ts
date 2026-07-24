@@ -1,8 +1,8 @@
 import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {TestScheduler} from 'rxjs/testing';
-import {Observable, of, tap, throwError} from 'rxjs';
+import {type Observable, of, tap, throwError} from 'rxjs';
 import {NaturalDebounceService} from './debounce.service';
-import {UntypedModelService} from '../types/types';
+import {type UntypedModelService} from '../types/types';
 
 type SpyResult = {
     called: number;

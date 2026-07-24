@@ -1,6 +1,12 @@
 import {Injectable} from '@angular/core';
-import {FileModel, Literal, NaturalAbstractModelService, PaginatedData, QueryVariables} from '@ecodev/natural';
-import {Observable, of} from 'rxjs';
+import {
+    type FileModel,
+    type Literal,
+    NaturalAbstractModelService,
+    type PaginatedData,
+    type QueryVariables,
+} from '@ecodev/natural';
+import {type Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
 
 @Injectable({

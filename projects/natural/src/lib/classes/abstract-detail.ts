@@ -1,18 +1,24 @@
-import {Directive, inject, OnInit} from '@angular/core';
+import {Directive, inject, type OnInit} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {ActivatedRoute, type NavigationExtras, Router} from '@angular/router';
 import {kebabCase} from 'es-toolkit';
 import {NaturalAlertService} from '../modules/alert/alert.service';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
-import {NaturalAbstractModelService, WithId} from '../services/abstract-model.service';
-import {ExtractResolve, ExtractTcreate, ExtractTone, ExtractTupdate, Literal} from '../types/types';
+import {type NaturalAbstractModelService, type WithId} from '../services/abstract-model.service';
+import {
+    type ExtractResolve,
+    type ExtractTcreate,
+    type ExtractTone,
+    type ExtractTupdate,
+    type Literal,
+} from '../types/types';
 import {EMPTY, endWith, finalize, last, Observable, switchMap, tap} from 'rxjs';
 import {ifValid, validateAllFormControls} from './validators';
-import {PaginatedData} from './data-source';
-import {QueryVariables} from './query-variable-manager';
+import {type PaginatedData} from './data-source';
+import {type QueryVariables} from './query-variable-manager';
 import {CumulativeChanges} from './cumulative-changes';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {NaturalDialogTriggerProvidedData} from '../modules/dialog-trigger/dialog-trigger.component';
+import {type NaturalDialogTriggerProvidedData} from '../modules/dialog-trigger/dialog-trigger.component';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**

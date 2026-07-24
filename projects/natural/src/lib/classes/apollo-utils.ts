@@ -1,5 +1,5 @@
-import {HttpBatchLink, HttpLink} from 'apollo-angular/http';
-import {ApolloLink, DocumentNode} from '@apollo/client';
+import {type HttpBatchLink, type HttpLink} from 'apollo-angular/http';
+import {ApolloLink, type DocumentNode} from '@apollo/client';
 import {formatIsoDateTime, isFile} from './utility';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error

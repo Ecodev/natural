@@ -5,23 +5,27 @@ import {
     inject,
     Input,
     input,
-    OnChanges,
-    OnInit,
+    type OnChanges,
+    type OnInit,
     output,
     TemplateRef,
     viewChild,
 } from '@angular/core';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {NaturalDataSource, PaginatedData} from '../../classes/data-source';
-import {NaturalQueryVariablesManager, PaginationInput, QueryVariables} from '../../classes/query-variable-manager';
-import {HierarchicFiltersConfiguration} from '../hierarchic-selector/classes/hierarchic-filters-configuration';
-import {LinkableObject, NaturalLinkMutationService} from '../../services/link-mutation.service';
-import {NaturalHierarchicConfiguration} from '../hierarchic-selector/classes/hierarchic-configuration';
-import {HierarchicDialogConfig} from '../hierarchic-selector/hierarchic-selector-dialog/hierarchic-selector-dialog.component';
+import {MatPaginator, type PageEvent} from '@angular/material/paginator';
+import {NaturalDataSource, type PaginatedData} from '../../classes/data-source';
+import {
+    NaturalQueryVariablesManager,
+    type PaginationInput,
+    type QueryVariables,
+} from '../../classes/query-variable-manager';
+import {type HierarchicFiltersConfiguration} from '../hierarchic-selector/classes/hierarchic-filters-configuration';
+import {type LinkableObject, NaturalLinkMutationService} from '../../services/link-mutation.service';
+import {type NaturalHierarchicConfiguration} from '../hierarchic-selector/classes/hierarchic-configuration';
+import {type HierarchicDialogConfig} from '../hierarchic-selector/hierarchic-selector-dialog/hierarchic-selector-dialog.component';
 import {NaturalHierarchicSelectorDialogService} from '../hierarchic-selector/hierarchic-selector-dialog/hierarchic-selector-dialog.service';
 import {NaturalSelectComponent} from '../select/select/select.component';
-import {NaturalAbstractModelService} from '../../services/abstract-model.service';
-import {ExtractTallOne, ExtractVall} from '../../types/types';
+import {type NaturalAbstractModelService} from '../../services/abstract-model.service';
+import {type ExtractTallOne, type ExtractVall} from '../../types/types';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {NaturalIconDirective} from '../icon/icon.directive';
 import {MatIcon} from '@angular/material/icon';

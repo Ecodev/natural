@@ -6,11 +6,11 @@ import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
 import {
     AbstractTestHostWithFormControlComponent,
     AbstractTestHostWithNgModelComponent,
-    TestFixture,
+    type TestFixture,
     testSelectAndSelectHierarchicCommonBehavior,
 } from '../testing/utils';
 import {By} from '@angular/platform-browser';
-import {ItemService} from '../../../testing/item.service';
+import {type ItemService} from '../../../testing/item.service';
 
 @Component({
     imports: [FormsModule, NaturalSelectComponent],

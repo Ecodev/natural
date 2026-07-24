@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
@@ -19,7 +19,14 @@ import {
     MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import {AvailableColumn, Button, NaturalAbstractList, Sorting, SortingOrder, TypedMatCellDef} from '@ecodev/natural';
+import {
+    type AvailableColumn,
+    type Button,
+    NaturalAbstractList,
+    type Sorting,
+    SortingOrder,
+    TypedMatCellDef,
+} from '@ecodev/natural';
 import {NaturalColumnsPickerComponent} from '../../../projects/natural/src/lib/modules/columns-picker/columns-picker.component';
 import {NaturalSearchComponent} from '../../../projects/natural/src/lib/modules/search/search/search.component';
 import {NaturalTableButtonComponent} from '../../../projects/natural/src/lib/modules/table-button/table-button.component';

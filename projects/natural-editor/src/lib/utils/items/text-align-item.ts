@@ -1,5 +1,5 @@
-import {Node, NodeType, Schema} from 'prosemirror-model';
-import {AllSelection, TextSelection, Transaction} from 'prosemirror-state';
+import {type Node, type NodeType, type Schema} from 'prosemirror-model';
+import {AllSelection, TextSelection, type Transaction} from 'prosemirror-state';
 import {Item} from './item';
 
 type Alignment = 'left' | 'right' | 'center' | 'justify';

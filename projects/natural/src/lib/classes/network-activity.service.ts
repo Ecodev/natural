@@ -1,6 +1,6 @@
 import {inject, Injectable, PLATFORM_ID, signal} from '@angular/core';
-import {GraphQLFormattedError} from 'graphql';
-import {HttpInterceptorFn} from '@angular/common/http';
+import {type GraphQLFormattedError} from 'graphql';
+import {type HttpInterceptorFn} from '@angular/common/http';
 import {finalize} from 'rxjs';
 import {isPlatformBrowser} from '@angular/common';
 

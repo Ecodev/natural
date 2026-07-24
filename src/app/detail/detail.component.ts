@@ -1,16 +1,16 @@
 import {JsonPipe} from '@angular/common';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {collectErrors, NaturalAbstractDetail, NaturalSeoResolveData} from '@ecodev/natural';
+import {collectErrors, NaturalAbstractDetail, type NaturalSeoResolveData} from '@ecodev/natural';
 import {NaturalLinkableTabDirective} from '../../../projects/natural/src/lib/modules/common/directives/linkable-tab.directive';
 import {NaturalDetailHeaderComponent} from '../../../projects/natural/src/lib/modules/detail-header/detail-header.component';
 import {NaturalFixedButtonDetailComponent} from '../../../projects/natural/src/lib/modules/fixed-button-detail/fixed-button-detail.component';
-import {Item, ItemInput, ItemService} from '../../../projects/natural/src/lib/testing/item.service';
+import {type Item, type ItemInput, ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 
 @Component({
     selector: 'app-detail',

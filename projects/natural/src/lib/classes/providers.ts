@@ -1,4 +1,4 @@
-import {ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {type ApplicationConfig, importProvidersFrom} from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {localStorageProvider, sessionStorageProvider} from '../modules/common/services/memory-storage';

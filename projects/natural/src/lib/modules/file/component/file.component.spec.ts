@@ -1,9 +1,9 @@
 import {Component, viewChild} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {naturalProviders} from '../../../classes/providers';
-import {FileModel} from '../types';
+import {type FileModel} from '../types';
 import {NaturalFileComponent} from './file.component';
 
 @Component({

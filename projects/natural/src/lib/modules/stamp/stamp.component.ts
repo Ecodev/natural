@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, computed, input} from '@angular/core';
-import {NameOrFullName} from '../../types/types';
+import {type NameOrFullName} from '../../types/types';
 import {NaturalTimeAgoPipe} from '../common/pipes/time-ago.pipe';
 import {DatePipe} from '@angular/common';
 

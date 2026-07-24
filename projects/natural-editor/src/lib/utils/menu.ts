@@ -7,8 +7,8 @@ import {
     undoItem,
     wrapItem,
 } from 'prosemirror-menu';
-import {MarkType, NodeType, Schema} from 'prosemirror-model';
-import {MatDialog} from '@angular/material/dialog';
+import {type MarkType, type NodeType, type Schema} from 'prosemirror-model';
+import {type MatDialog} from '@angular/material/dialog';
 import {
     addColumnAfter,
     addColumnBefore,
@@ -23,7 +23,7 @@ import {
     toggleHeaderColumn,
     toggleHeaderRow,
 } from 'prosemirror-tables';
-import {Item} from './items/item';
+import {type Item} from './items/item';
 import {paragraphWithAlignment} from './schema/paragraph-with-alignment';
 import {TextAlignItem} from './items/text-align-item';
 import {CellBackgroundColorItem} from './items/cell-background-color-item';

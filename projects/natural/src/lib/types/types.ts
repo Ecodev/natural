@@ -1,8 +1,8 @@
-import {PaginatedData} from '../classes/data-source';
-import {NaturalAbstractModelService, VariablesWithInput} from '../services/abstract-model.service';
-import {QueryVariables} from '../classes/query-variable-manager';
-import {ObservedValueOf} from 'rxjs';
-import {ResolveData} from '@angular/router';
+import {type PaginatedData} from '../classes/data-source';
+import {type NaturalAbstractModelService, type VariablesWithInput} from '../services/abstract-model.service';
+import {type QueryVariables} from '../classes/query-variable-manager';
+import {type ObservedValueOf} from 'rxjs';
+import {type ResolveData} from '@angular/router';
 
 /**
  * An object literal with any keys and values

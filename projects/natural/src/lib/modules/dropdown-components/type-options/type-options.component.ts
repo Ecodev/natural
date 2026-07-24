@@ -2,11 +2,11 @@ import {Component, inject} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {BehaviorSubject} from 'rxjs';
-import {Literal} from '../../../types/types';
-import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
+import {type Literal} from '../../../types/types';
+import {type FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
 import {NaturalDropdownRef} from '../../search/dropdown-container/dropdown-ref';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
-import {DropdownComponent} from '../../search/types/dropdown-component';
+import {NATURAL_DROPDOWN_DATA, type NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {type DropdownComponent} from '../../search/types/dropdown-component';
 import {isEqual} from 'es-toolkit/compat';
 
 export type TypeOption = {

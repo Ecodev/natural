@@ -5,10 +5,10 @@ import {
     inject,
     Input,
     input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    SimpleChanges,
+    type OnChanges,
+    type OnDestroy,
+    type OnInit,
+    type SimpleChanges,
 } from '@angular/core';
 import {
     acceptType,
@@ -21,7 +21,7 @@ import {
     stopEvent,
 } from './utils';
 import {NaturalFileService} from './file.service';
-import {forkJoin, map, Observable, ObservableInput, of, Subject, tap} from 'rxjs';
+import {forkJoin, map, type Observable, type ObservableInput, of, Subject, tap} from 'rxjs';
 import {outputFromObservable} from '@angular/core/rxjs-interop';
 
 export type InvalidFile = {

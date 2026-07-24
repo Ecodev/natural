@@ -1,11 +1,11 @@
 import {fakeAsync, TestBed} from '@angular/core/testing';
 import {
-    HierarchicDialogResult,
-    NaturalHierarchicSelectorDialogComponent,
+    type HierarchicDialogResult,
+    type NaturalHierarchicSelectorDialogComponent,
     NaturalHierarchicSelectorDialogService,
     naturalProviders,
     NaturalSelectHierarchicComponent,
-    OrganizedModelSelection,
+    type OrganizedModelSelection,
 } from '@ecodev/natural';
 import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -14,12 +14,12 @@ import {
     AbstractTestHostWithFormControlComponent,
     AbstractTestHostWithNgModelComponent,
     itemHierarchicConfig,
-    TestFixture,
+    type TestFixture,
     testSelectAndSelectHierarchicCommonBehavior,
 } from '../testing/utils';
 import {By} from '@angular/platform-browser';
 import {of} from 'rxjs';
-import {MatDialogRef} from '@angular/material/dialog';
+import {type MatDialogRef} from '@angular/material/dialog';
 import {ItemService} from '../../../testing/item.service';
 
 @Component({

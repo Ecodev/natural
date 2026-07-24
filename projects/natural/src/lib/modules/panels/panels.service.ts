@@ -1,19 +1,19 @@
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {ComponentType} from '@angular/cdk/portal';
+import {type ComponentType} from '@angular/cdk/portal';
 import {inject, Injectable, Injector, runInInjectionContext} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {ActivatedRoute, DefaultUrlSerializer, NavigationError, Router, UrlSegment} from '@angular/router';
+import {MatDialog, type MatDialogConfig} from '@angular/material/dialog';
+import {type ActivatedRoute, DefaultUrlSerializer, NavigationError, Router, type UrlSegment} from '@angular/router';
 import {differenceWith, flatten} from 'es-toolkit';
 import {isEqual} from 'es-toolkit/compat';
-import {forkJoin, Observable, of, Subject, Subscription} from 'rxjs';
-import {NaturalAbstractPanel} from './abstract-panel';
+import {forkJoin, type Observable, of, Subject, type Subscription} from 'rxjs';
+import {type NaturalAbstractPanel} from './abstract-panel';
 import {getStackConfig} from './panels.urlmatcher';
 import {
-    NaturalPanelConfig,
-    NaturalPanelData,
-    NaturalPanelsBeforeOpenPanel,
-    NaturalPanelsRouterRule,
+    type NaturalPanelConfig,
+    type NaturalPanelData,
+    type NaturalPanelsBeforeOpenPanel,
+    type NaturalPanelsRouterRule,
     PanelsHooksConfig,
 } from './types';
 

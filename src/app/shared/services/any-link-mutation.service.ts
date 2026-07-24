@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {ApolloLink} from '@apollo/client';
-import {debug, LinkableObject} from '@ecodev/natural';
-import {delay, Observable, of} from 'rxjs';
+import {type ApolloLink} from '@apollo/client';
+import {debug, type LinkableObject} from '@ecodev/natural';
+import {delay, type Observable, of} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',

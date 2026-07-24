@@ -4,7 +4,7 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {Observable} from 'rxjs';
 import {NaturalCustomCssDirective} from '../../../projects/natural-editor/src/lib/custom-css/custom-css.directive';
 import {NaturalEditorComponent} from '../../../projects/natural-editor/src/lib/editor/editor.component';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {DomSanitizer, type SafeHtml} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-editor',

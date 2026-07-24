@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {NaturalSidenavStackService} from './sidenav-stack.service';
-import {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
+import {type NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
 import {signal} from '@angular/core';
 
 describe('NaturalSidenavStackService', () => {

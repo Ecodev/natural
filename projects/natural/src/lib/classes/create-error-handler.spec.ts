@@ -1,7 +1,7 @@
 import {createErrorHandler} from './create-error-handler';
-import {ErrorLink} from '@apollo/client/link/error';
-import {FormattedExecutionResult, GraphQLError, GraphQLFormattedError} from 'graphql';
-import {ErrorService, NaturalAlertService, NetworkActivityService} from '@ecodev/natural';
+import {type ErrorLink} from '@apollo/client/link/error';
+import {type FormattedExecutionResult, GraphQLError, type GraphQLFormattedError} from 'graphql';
+import {type ErrorService, type NaturalAlertService, type NetworkActivityService} from '@ecodev/natural';
 import {CombinedGraphQLErrors, ServerError} from '@apollo/client';
 
 function combinedGraphQLErrors(errors: readonly GraphQLFormattedError[]): CombinedGraphQLErrors {

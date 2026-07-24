@@ -1,13 +1,13 @@
 import {TestBed} from '@angular/core/testing';
 import {
-    Literal,
+    type Literal,
     NaturalErrorHandler,
-    NaturalLoggerExtra,
-    NaturalLoggerType,
+    type NaturalLoggerExtra,
+    type NaturalLoggerType,
     provideErrorHandler,
 } from '@ecodev/natural';
-import {HttpTestingController, provideHttpClientTesting, RequestMatch} from '@angular/common/http/testing';
-import {Observable, of, throwError} from 'rxjs';
+import {HttpTestingController, provideHttpClientTesting, type RequestMatch} from '@angular/common/http/testing';
+import {type Observable, of, throwError} from 'rxjs';
 import {HttpClient, provideHttpClient} from '@angular/common/http';
 
 const expectedRequest: RequestMatch = {

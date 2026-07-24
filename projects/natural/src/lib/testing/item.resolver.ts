@@ -1,7 +1,7 @@
-import {Observable} from 'rxjs';
-import {Item, ItemInput, ItemService} from './item.service';
+import {type Observable} from 'rxjs';
+import {type Item, type ItemInput, ItemService} from './item.service';
 import {inject} from '@angular/core';
-import {ActivatedRouteSnapshot} from '@angular/router';
+import {type ActivatedRouteSnapshot} from '@angular/router';
 
 /**
  * Resolve Item data for router and panels service

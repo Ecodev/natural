@@ -1,5 +1,5 @@
-import {MutableAttrs, TableNodes, TableNodesOptions} from 'prosemirror-tables';
-import {Attrs, Node as ProsemirrorNode} from 'prosemirror-model';
+import {type MutableAttrs, type TableNodes, type TableNodesOptions} from 'prosemirror-tables';
+import {type Attrs, type Node as ProsemirrorNode} from 'prosemirror-model';
 
 type CellAttributes = TableNodesOptions['cellAttributes'];
 

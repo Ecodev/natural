@@ -1,6 +1,6 @@
 import {JsonPipe} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatRipple} from '@angular/material/core';
@@ -9,11 +9,11 @@ import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/m
 import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
-import {Params, QueryParamsHandling, RouterLink, RouterOutlet} from '@angular/router';
+import {type Params, type QueryParamsHandling, RouterLink, RouterOutlet} from '@angular/router';
 import {
     money,
     NaturalErrorMessagePipe,
-    NaturalPalette,
+    type NaturalPalette,
     NaturalStampComponent,
     signedMoney,
     unsignedMoney,

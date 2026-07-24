@@ -5,16 +5,16 @@ import {
     inject,
     input,
     Input,
-    OnChanges,
-    OnInit,
+    type OnChanges,
+    type OnInit,
     output,
-    SimpleChanges,
+    type SimpleChanges,
 } from '@angular/core';
-import {AbstractControl} from '@angular/forms';
-import {finalize, Observable, of, Subject, tap} from 'rxjs';
+import {type AbstractControl} from '@angular/forms';
+import {finalize, type Observable, of, Subject, tap} from 'rxjs';
 import {NaturalFileService} from '../file.service';
 import {UpperCasePipe} from '@angular/common';
-import {FileModel} from '../types';
+import {type FileModel} from '../types';
 import {NaturalAlertService} from '../../alert/alert.service';
 import {NaturalCapitalizePipe} from '../../common/pipes/capitalize.pipe';
 import {NaturalIconDirective} from '../../icon/icon.directive';

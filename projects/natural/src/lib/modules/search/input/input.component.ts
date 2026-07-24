@@ -1,6 +1,6 @@
 import {
     Component,
-    ComponentRef,
+    type ComponentRef,
     createComponent,
     createEnvironmentInjector,
     ElementRef,
@@ -8,27 +8,27 @@ import {
     inject,
     Input,
     input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
+    type OnChanges,
+    type OnDestroy,
+    type OnInit,
     output,
-    StaticProvider,
+    type StaticProvider,
     viewChild,
 } from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn} from '@angular/forms';
-import {ErrorStateMatcher, MatRipple} from '@angular/material/core';
-import {FilterGroupConditionField} from '../classes/graphql-doctrine.types';
+import {FormControl, FormsModule, ReactiveFormsModule, type ValidationErrors, type ValidatorFn} from '@angular/forms';
+import {type ErrorStateMatcher, MatRipple} from '@angular/material/core';
+import {type FilterGroupConditionField} from '../classes/graphql-doctrine.types';
 import {getFacetFromSelection} from '../classes/utils';
 import {NaturalDropdownRef} from '../dropdown-container/dropdown-ref';
 import {
     NATURAL_DROPDOWN_DATA,
-    NaturalDropdownData,
+    type NaturalDropdownData,
     NaturalDropdownService,
 } from '../dropdown-container/dropdown.service';
-import {FacetSelectorComponent, FacetSelectorConfiguration} from '../facet-selector/facet-selector.component';
-import {DropdownComponent} from '../types/dropdown-component';
-import {DropdownFacet, Facet, FlagFacet, NaturalSearchFacets} from '../types/facet';
-import {DropdownResult, NaturalSearchSelection} from '../types/values';
+import {FacetSelectorComponent, type FacetSelectorConfiguration} from '../facet-selector/facet-selector.component';
+import {type DropdownComponent} from '../types/dropdown-component';
+import {type DropdownFacet, type Facet, type FlagFacet, type NaturalSearchFacets} from '../types/facet';
+import {type DropdownResult, type NaturalSearchSelection} from '../types/values';
 import {MatIconButton} from '@angular/material/button';
 import {NaturalIconDirective} from '../../icon/icon.directive';
 import {MatIcon} from '@angular/material/icon';

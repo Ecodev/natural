@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable, timer} from 'rxjs';
-import {PaginatedData} from '../classes/data-source';
-import {QueryVariables} from '../classes/query-variable-manager';
+import {type Observable, timer} from 'rxjs';
+import {type PaginatedData} from '../classes/data-source';
+import {type QueryVariables} from '../classes/query-variable-manager';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {map} from 'rxjs/operators';
-import {Item} from './item.service';
+import {type Item} from './item.service';
 
 function error(method: string): Observable<any> {
     return timer(1000).pipe(

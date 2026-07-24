@@ -1,9 +1,9 @@
-import {CombinedGraphQLErrors, ErrorLike, ServerError} from '@apollo/client';
+import {CombinedGraphQLErrors, type ErrorLike, ServerError} from '@apollo/client';
 import {ErrorLink} from '@apollo/client/link/error';
 import type {ErrorService} from '../services/error.service';
 import type {NetworkActivityService} from './network-activity.service';
 import type {NaturalAlertService} from '../modules/alert/alert.service';
-import {FormattedExecutionResult} from 'graphql';
+import {type FormattedExecutionResult} from 'graphql';
 
 /**
  * Create an Apollo link to show alert in case of error, and message if network is down

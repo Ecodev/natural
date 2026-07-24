@@ -1,6 +1,6 @@
-import {Type} from '@angular/core';
-import {QueryVariables} from '../../../classes/query-variable-manager';
-import {UntypedModelService} from '../../../types/types';
+import {type Type} from '@angular/core';
+import {type QueryVariables} from '../../../classes/query-variable-manager';
+import {type UntypedModelService} from '../../../types/types';
 
 export type NaturalHierarchicConfiguration<T extends UntypedModelService = UntypedModelService> = {
     /**

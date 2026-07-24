@@ -1,6 +1,6 @@
-import {Type} from '@angular/core';
-import {DropdownComponent} from './dropdown-component';
-import {NaturalSearchSelection} from './values';
+import {type Type} from '@angular/core';
+import {type DropdownComponent} from './dropdown-component';
+import {type NaturalSearchSelection} from './values';
 
 type BasicFacet = {
     /**

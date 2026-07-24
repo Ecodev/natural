@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 import {NaturalQueryVariablesManager} from '../../../classes/query-variable-manager';
-import {Literal, UntypedModelService} from '../../../types/types';
-import {NaturalHierarchicConfiguration} from '../../hierarchic-selector/classes/hierarchic-configuration';
-import {OrganizedModelSelection} from '../../hierarchic-selector/hierarchic-selector/hierarchic-selector.service';
-import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
+import {type Literal, type UntypedModelService} from '../../../types/types';
+import {type NaturalHierarchicConfiguration} from '../../hierarchic-selector/classes/hierarchic-configuration';
+import {type OrganizedModelSelection} from '../../hierarchic-selector/hierarchic-selector/hierarchic-selector.service';
+import {type FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
 import {AbstractAssociationSelectComponent} from '../abstract-association-select-component.directive';
-import {EMPTY, Observable} from 'rxjs';
+import {EMPTY, type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {NaturalHierarchicSelectorComponent} from '../../hierarchic-selector/hierarchic-selector/hierarchic-selector.component';
 import {MatOption} from '@angular/material/core';

@@ -1,6 +1,6 @@
 import {JsonPipe} from '@angular/common';
 import {Component, input} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
+import {type AbstractControl} from '@angular/forms';
 
 @Component({
     selector: 'app-debug-control',

@@ -1,7 +1,15 @@
 import {Injectable} from '@angular/core';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
-import {createPost, deletePosts, Post, PostInput, postQuery, postsQuery, updatePost} from './mock-apollo.provider';
-import {Literal, PaginatedData, QueryVariables} from '@ecodev/natural';
+import {
+    createPost,
+    deletePosts,
+    type Post,
+    type PostInput,
+    postQuery,
+    postsQuery,
+    updatePost,
+} from './mock-apollo.provider';
+import {type Literal, type PaginatedData, type QueryVariables} from '@ecodev/natural';
 
 @Injectable({
     providedIn: 'root',

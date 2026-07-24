@@ -1,9 +1,9 @@
 import {Subject} from 'rxjs';
-import {DropdownComponent} from '../types/dropdown-component';
-import {DropdownResult} from '../types/values';
-import {NaturalDropdownContainerComponent} from './dropdown-container.component';
-import {ComponentPortal, ComponentType} from '@angular/cdk/portal';
-import {ComponentRef, Injector, StaticProvider} from '@angular/core';
+import {type DropdownComponent} from '../types/dropdown-component';
+import {type DropdownResult} from '../types/values';
+import {type NaturalDropdownContainerComponent} from './dropdown-container.component';
+import {ComponentPortal, type ComponentType} from '@angular/cdk/portal';
+import {type ComponentRef, Injector, type StaticProvider} from '@angular/core';
 
 export class NaturalDropdownRef {
     public readonly componentInstance: DropdownComponent;

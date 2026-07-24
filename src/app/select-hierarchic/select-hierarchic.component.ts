@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel, MatHint} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {NaturalHierarchicConfiguration} from '@ecodev/natural';
+import {type NaturalHierarchicConfiguration} from '@ecodev/natural';
 import {NaturalSelectHierarchicComponent} from '../../../projects/natural/src/lib/modules/select/select-hierarchic/select-hierarchic.component';
 import {ItemService} from '../../../projects/natural/src/lib/testing/item.service';
 import {AbstractSelect} from '../AbstractSelect';

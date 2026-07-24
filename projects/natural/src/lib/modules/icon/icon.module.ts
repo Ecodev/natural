@@ -1,6 +1,6 @@
-import {EnvironmentProviders, inject, provideAppInitializer, Provider} from '@angular/core';
+import {type EnvironmentProviders, inject, provideAppInitializer, type Provider} from '@angular/core';
 import {MatIconRegistry} from '@angular/material/icon';
-import {NATURAL_ICONS_CONFIG, NaturalIconsConfig} from './icon.directive';
+import {NATURAL_ICONS_CONFIG, type NaturalIconsConfig} from './icon.directive';
 
 /**
  * Configure Material Symbols, instead of Material Icons, and configure custom Natural icons.

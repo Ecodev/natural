@@ -1,11 +1,11 @@
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {fakeAsync, flush, TestBed} from '@angular/core/testing';
 import {
-    HierarchicDialogConfig,
-    HierarchicDialogResult,
+    type HierarchicDialogConfig,
+    type HierarchicDialogResult,
     NaturalHierarchicSelectorDialogService,
     naturalProviders,
-    OrganizedModelSelection,
+    type OrganizedModelSelection,
 } from '@ecodev/natural';
 
 describe('NaturalHierarchicSelectorDialogService', () => {

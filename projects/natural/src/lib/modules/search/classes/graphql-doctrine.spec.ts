@@ -1,6 +1,6 @@
-import {formatIsoDate, NaturalSearchFacets, toGraphQLDoctrineFilter, TypeDateComponent} from '@ecodev/natural';
-import {NaturalSearchSelection, NaturalSearchSelections} from '../types/values';
-import {Filter, LogicalOperator} from './graphql-doctrine.types';
+import {formatIsoDate, type NaturalSearchFacets, toGraphQLDoctrineFilter, TypeDateComponent} from '@ecodev/natural';
+import {type NaturalSearchSelection, type NaturalSearchSelections} from '../types/values';
+import {type Filter, LogicalOperator} from './graphql-doctrine.types';
 
 function yearToJulian(year: number, endOfYear: boolean): number {
     return endOfYear ? 2451909 : 2415020;

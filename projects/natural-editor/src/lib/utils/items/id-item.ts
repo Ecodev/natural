@@ -1,9 +1,9 @@
-import {Node, NodeType} from 'prosemirror-model';
-import {EditorState, Transaction} from 'prosemirror-state';
+import {type Node, type NodeType} from 'prosemirror-model';
+import {type EditorState, type Transaction} from 'prosemirror-state';
 import {Item} from './item';
 import {selectionContainsNodeType} from './utils';
-import {MatDialog} from '@angular/material/dialog';
-import {IdDialogComponent, IdDialogData} from '../../id-dialog/id-dialog.component';
+import {type MatDialog} from '@angular/material/dialog';
+import {IdDialogComponent, type IdDialogData} from '../../id-dialog/id-dialog.component';
 
 function setId(tr: Transaction, idValue: string, allowedNodeTypes: string[]): Transaction {
     const {selection, doc} = tr;

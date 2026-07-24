@@ -1,20 +1,20 @@
 import {JsonPipe} from '@angular/common';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
-    DropdownFacet,
-    Filter,
+    type DropdownFacet,
+    type Filter,
     fromUrl,
-    NaturalSearchFacets,
-    NaturalSearchSelections,
+    type NaturalSearchFacets,
+    type NaturalSearchSelections,
     toGraphQLDoctrineFilter,
     toUrl,
     TypeDateComponent,
     type TypeDateConfiguration,
     TypeDateRangeComponent,
     TypeHierarchicSelectorComponent,
-    TypeHierarchicSelectorConfiguration,
+    type TypeHierarchicSelectorConfiguration,
     TypeNaturalSelectComponent,
     TypeNumberComponent,
     type TypeNumberConfiguration,

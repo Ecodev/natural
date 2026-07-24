@@ -1,4 +1,4 @@
-import {NaturalSearchSelection} from '../types/values';
+import {type NaturalSearchSelection} from '../types/values';
 import {formatIsoDate} from '../../../classes/utility';
 
 /**

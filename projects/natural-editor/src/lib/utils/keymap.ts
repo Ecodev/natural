@@ -12,8 +12,8 @@ import {
 import {liftListItem, sinkListItem, splitListItem, wrapInList} from 'prosemirror-schema-list';
 import {redo, undo} from 'prosemirror-history';
 import {undoInputRule} from 'prosemirror-inputrules';
-import {MarkType, NodeType, Schema} from 'prosemirror-model';
-import {Command} from 'prosemirror-state';
+import {type MarkType, type NodeType, type Schema} from 'prosemirror-model';
+import {type Command} from 'prosemirror-state';
 
 type Keymap = Record<string, Command>;
 

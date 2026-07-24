@@ -1,7 +1,17 @@
 import {type Apollo} from 'apollo-angular';
 import {DestroyRef} from '@angular/core';
 import {type ApolloClient} from '@apollo/client';
-import {filter, map, MonoTypeOperatorFunction, Observable, OperatorFunction, take, takeUntil, tap, timer} from 'rxjs';
+import {
+    filter,
+    map,
+    type MonoTypeOperatorFunction,
+    type Observable,
+    type OperatorFunction,
+    take,
+    takeUntil,
+    tap,
+    timer,
+} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**

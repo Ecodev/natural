@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {MatButton} from '@angular/material/button';
-import {Literal} from '@ecodev/natural';
+import {type Literal} from '@ecodev/natural';
 import {NaturalDetailHeaderComponent} from '../../../projects/natural/src/lib/modules/detail-header/detail-header.component';
 
 @Component({

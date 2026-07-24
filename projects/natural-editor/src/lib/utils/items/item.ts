@@ -1,6 +1,6 @@
-import {MenuItemSpec} from 'prosemirror-menu';
-import {EditorState} from 'prosemirror-state';
-import {EditorView} from 'prosemirror-view';
+import {type MenuItemSpec} from 'prosemirror-menu';
+import {type EditorState} from 'prosemirror-state';
+import {type EditorView} from 'prosemirror-view';
 
 /**
  * One item of the menu.

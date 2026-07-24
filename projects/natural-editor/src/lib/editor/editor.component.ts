@@ -1,14 +1,24 @@
-import {Component, DOCUMENT, ElementRef, inject, input, OnDestroy, OnInit, output, viewChild} from '@angular/core';
-import {ControlValueAccessor, NgControl} from '@angular/forms';
+import {
+    Component,
+    DOCUMENT,
+    ElementRef,
+    inject,
+    input,
+    type OnDestroy,
+    type OnInit,
+    output,
+    viewChild,
+} from '@angular/core';
+import {type ControlValueAccessor, NgControl} from '@angular/forms';
 import {EditorView} from 'prosemirror-view';
-import {EditorState, Plugin, Transaction} from 'prosemirror-state';
-import {DOMParser, DOMSerializer, Schema} from 'prosemirror-model';
+import {EditorState, Plugin, type Transaction} from 'prosemirror-state';
+import {DOMParser, DOMSerializer, type Schema} from 'prosemirror-model';
 import {MatDialog} from '@angular/material/dialog';
 import {goToNextCell, tableEditing} from 'prosemirror-tables';
 import {keymap} from 'prosemirror-keymap';
-import {ImagePlugin, ImageUploader} from '../utils/image';
+import {ImagePlugin, type ImageUploader} from '../utils/image';
 import {advancedSchema, basicSchema} from '../utils/schema/schema';
-import {buildMenuItems, Key, MenuItems} from '../utils/menu';
+import {buildMenuItems, type Key, type MenuItems} from '../utils/menu';
 import {history} from 'prosemirror-history';
 import {baseKeymap} from 'prosemirror-commands';
 import {dropCursor} from 'prosemirror-dropcursor';

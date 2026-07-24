@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
-import {Item, ItemService} from '../testing/item.service';
+import {type Item, ItemService} from '../testing/item.service';
 import {NaturalAbstractEditableList} from '@ecodev/natural';
 import {Directive} from '@angular/core';
 

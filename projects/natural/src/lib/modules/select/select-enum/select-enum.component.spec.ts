@@ -1,4 +1,4 @@
-import {Component, DebugElement} from '@angular/core';
+import {Component, type DebugElement} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
@@ -9,7 +9,7 @@ import {
     AbstractTestHostWithFormControlComponent,
     AbstractTestHostWithNgModelComponent,
     testAllSelectCommonBehavior,
-    TestFixture,
+    type TestFixture,
 } from '../testing/utils';
 
 @Component({

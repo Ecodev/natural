@@ -1,10 +1,10 @@
 import {Apollo, gql} from 'apollo-angular';
-import {ApolloLink} from '@apollo/client';
+import {type ApolloLink} from '@apollo/client';
 import {inject, Injectable} from '@angular/core';
 import {clone} from 'es-toolkit';
-import {forkJoin, Observable, of} from 'rxjs';
+import {forkJoin, type Observable, of} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
-import {Literal} from '../types/types';
+import {type Literal} from '../types/types';
 import {upperCaseFirstLetter} from '../classes/utility';
 
 /**

@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
+import {type FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
 import {NaturalHierarchicSelectorComponent} from '../../hierarchic-selector/hierarchic-selector/hierarchic-selector.component';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
@@ -8,9 +8,9 @@ import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angula
 import {MatCheckbox} from '@angular/material/checkbox';
 import {
     TypeHierarchicSelectorComponent,
-    TypeHierarchicSelectorConfiguration,
+    type TypeHierarchicSelectorConfiguration,
 } from '../type-hierarchic-selector/type-hierarchic-selector.component';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {NATURAL_DROPDOWN_DATA, type NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
 import type {PossibleDiscreteOperatorKeys} from '../types';
 import {DO_INIT} from '../abstract-association-select-component.directive';
 import {startWith} from 'rxjs/operators';

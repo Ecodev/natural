@@ -1,8 +1,8 @@
 import {provideHttpClient} from '@angular/common/http';
 import {enableProdMode, provideZoneChangeDetection} from '@angular/core';
 import {DateAdapter, provideNativeDateAdapter} from '@angular/material/core';
-import {MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions} from '@angular/material/paginator';
-import {MAT_TABS_CONFIG, MatTabsConfig} from '@angular/material/tabs';
+import {MAT_PAGINATOR_DEFAULT_OPTIONS, type MatPaginatorDefaultOptions} from '@angular/material/paginator';
+import {MAT_TABS_CONFIG, type MatTabsConfig} from '@angular/material/tabs';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {provideRouter, withRouterConfig} from '@angular/router';
 import {

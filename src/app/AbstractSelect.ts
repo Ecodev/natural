@@ -1,8 +1,8 @@
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {type AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {collectErrors, validateAllFormControls} from '@ecodev/natural';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {ErrorService} from '../../projects/natural/src/lib/testing/error.service';
-import {Item, ItemService} from '../../projects/natural/src/lib/testing/item.service';
+import {type Item, ItemService} from '../../projects/natural/src/lib/testing/item.service';
 import {inject} from '@angular/core';
 
 export class AbstractSelect {

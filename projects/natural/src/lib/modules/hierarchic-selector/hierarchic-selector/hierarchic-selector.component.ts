@@ -1,5 +1,5 @@
 import {SelectionModel} from '@angular/cdk/collections';
-import {Component, inject, input, OnChanges, OnInit, output, SimpleChanges} from '@angular/core';
+import {Component, inject, input, type OnChanges, type OnInit, output, type SimpleChanges} from '@angular/core';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatChipAvatar, MatChipListbox, MatChipOption, MatChipRemove} from '@angular/material/chips';
@@ -16,19 +16,19 @@ import {
     MatTreeNodePadding,
     MatTreeNodeToggle,
 } from '@angular/material/tree';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
-import {QueryVariables} from '../../../classes/query-variable-manager';
+import {type QueryVariables} from '../../../classes/query-variable-manager';
 import {replaceObjectKeepingReference} from '../../../classes/utility';
 import {NaturalIconDirective} from '../../icon/icon.directive';
 import {toGraphQLDoctrineFilter} from '../../search/classes/graphql-doctrine';
 import {NaturalSearchComponent} from '../../search/search/search.component';
-import {NaturalSearchFacets} from '../../search/types/facet';
-import {NaturalSearchSelections} from '../../search/types/values';
-import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
-import {HierarchicFiltersConfiguration} from '../classes/hierarchic-filters-configuration';
-import {ModelNode} from '../classes/model-node';
-import {NaturalHierarchicSelectorService, OrganizedModelSelection} from './hierarchic-selector.service';
+import {type NaturalSearchFacets} from '../../search/types/facet';
+import {type NaturalSearchSelections} from '../../search/types/values';
+import {type NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
+import {type HierarchicFiltersConfiguration} from '../classes/hierarchic-filters-configuration';
+import {type ModelNode} from '../classes/model-node';
+import {NaturalHierarchicSelectorService, type OrganizedModelSelection} from './hierarchic-selector.service';
 import {NgTemplateOutlet} from '@angular/common';
 
 @Component({

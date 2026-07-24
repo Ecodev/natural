@@ -1,20 +1,28 @@
 import {
     createFlexibleConnectedPositionStrategy,
     createOverlayRef,
-    FlexibleConnectedPositionStrategy,
+    type FlexibleConnectedPositionStrategy,
     OverlayConfig,
 } from '@angular/cdk/overlay';
-import {ComponentPortal, ComponentType} from '@angular/cdk/portal';
-import {ComponentRef, ElementRef, inject, Injectable, InjectionToken, Injector, StaticProvider} from '@angular/core';
+import {ComponentPortal, type ComponentType} from '@angular/cdk/portal';
+import {
+    type ComponentRef,
+    type ElementRef,
+    inject,
+    Injectable,
+    InjectionToken,
+    Injector,
+    type StaticProvider,
+} from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
-import {FilterGroupConditionField} from '../classes/graphql-doctrine.types';
+import {type FilterGroupConditionField} from '../classes/graphql-doctrine.types';
 import {
     NATURAL_DROPDOWN_CONTAINER_DATA,
     NaturalDropdownContainerComponent,
-    NaturalDropdownContainerData,
+    type NaturalDropdownContainerData,
 } from './dropdown-container.component';
 import {NaturalDropdownRef} from './dropdown-ref';
-import {DropdownComponent} from '../types/dropdown-component';
+import {type DropdownComponent} from '../types/dropdown-component';
 
 export type NaturalDropdownData<C = any> = {
     condition: FilterGroupConditionField | null;
