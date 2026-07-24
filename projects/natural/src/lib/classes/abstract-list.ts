@@ -1,30 +1,35 @@
 import {SelectionModel} from '@angular/cdk/collections';
-import {Directive, inject, input, Input, OnInit} from '@angular/core';
+import type { OnInit} from '@angular/core';
+import {Directive, inject, input, Input} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {PageEvent} from '@angular/material/paginator';
-import {Sort} from '@angular/material/sort';
-import {ActivatedRoute, Data, NavigationExtras, Router} from '@angular/router';
+import type {PageEvent} from '@angular/material/paginator';
+import type {Sort} from '@angular/material/sort';
+import type { Data, NavigationExtras} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {isEqual} from 'es-toolkit';
 import {defaults, isEmpty, pick} from 'es-toolkit/compat';
-import {Observable, Subject} from 'rxjs';
+import type {Observable} from 'rxjs';
+import { Subject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {NaturalAlertService} from '../modules/alert/alert.service';
-import {AvailableColumn} from '../modules/columns-picker/types';
+import type {AvailableColumn} from '../modules/columns-picker/types';
 import {NaturalAbstractPanel} from '../modules/panels/abstract-panel';
 import {toGraphQLDoctrineFilter} from '../modules/search/classes/graphql-doctrine';
 import {fromUrl, toUrl} from '../modules/search/classes/url';
-import {NaturalSearchFacets} from '../modules/search/types/facet';
-import {NaturalSearchSelections} from '../modules/search/types/values';
-import {NaturalAbstractModelService} from '../services/abstract-model.service';
+import type {NaturalSearchFacets} from '../modules/search/types/facet';
+import type {NaturalSearchSelections} from '../modules/search/types/values';
+import type {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {NaturalPersistenceService} from '../services/persistence.service';
-import {ExtractTall, ExtractVall, Literal} from '../types/types';
-import {NavigableItem} from './abstract-navigable-list';
-import {NaturalDataSource, PaginatedData} from './data-source';
-import {
-    NaturalQueryVariablesManager,
+import type {ExtractTall, ExtractVall, Literal} from '../types/types';
+import type {NavigableItem} from './abstract-navigable-list';
+import type { PaginatedData} from './data-source';
+import {NaturalDataSource} from './data-source';
+import type {
     PaginationInput,
     QueryVariables,
-    Sorting,
+    Sorting} from './query-variable-manager';
+import {
+    NaturalQueryVariablesManager,
     SortingOrder,
 } from './query-variable-manager';
 import {onHistoryEvent, validateColumns, validatePagination, validateSorting} from './utility';

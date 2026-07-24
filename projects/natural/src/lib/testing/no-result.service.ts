@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {PaginatedData} from '../classes/data-source';
+import type {Observable} from 'rxjs';
+import { of} from 'rxjs';
+import type {PaginatedData} from '../classes/data-source';
 import {delay} from 'rxjs/operators';
-import {Item, ItemService} from './item.service';
+import type {Item} from './item.service';
+import { ItemService} from './item.service';
 
 /**
  * A service that has no items

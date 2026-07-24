@@ -1,6 +1,11 @@
+import type {
+    ComponentRef,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    StaticProvider} from '@angular/core';
 import {
     Component,
-    ComponentRef,
     createComponent,
     createEnvironmentInjector,
     ElementRef,
@@ -8,27 +13,27 @@ import {
     inject,
     Input,
     input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
     output,
-    StaticProvider,
     viewChild,
 } from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn} from '@angular/forms';
-import {ErrorStateMatcher, MatRipple} from '@angular/material/core';
-import {FilterGroupConditionField} from '../classes/graphql-doctrine.types';
+import type { ValidationErrors, ValidatorFn} from '@angular/forms';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import type {ErrorStateMatcher} from '@angular/material/core';
+import { MatRipple} from '@angular/material/core';
+import type {FilterGroupConditionField} from '../classes/graphql-doctrine.types';
 import {getFacetFromSelection} from '../classes/utils';
 import {NaturalDropdownRef} from '../dropdown-container/dropdown-ref';
+import type {
+    NaturalDropdownData} from '../dropdown-container/dropdown.service';
 import {
     NATURAL_DROPDOWN_DATA,
-    NaturalDropdownData,
     NaturalDropdownService,
 } from '../dropdown-container/dropdown.service';
-import {FacetSelectorComponent, FacetSelectorConfiguration} from '../facet-selector/facet-selector.component';
-import {DropdownComponent} from '../types/dropdown-component';
-import {DropdownFacet, Facet, FlagFacet, NaturalSearchFacets} from '../types/facet';
-import {DropdownResult, NaturalSearchSelection} from '../types/values';
+import type { FacetSelectorConfiguration} from '../facet-selector/facet-selector.component';
+import {FacetSelectorComponent} from '../facet-selector/facet-selector.component';
+import type {DropdownComponent} from '../types/dropdown-component';
+import type {DropdownFacet, Facet, FlagFacet, NaturalSearchFacets} from '../types/facet';
+import type {DropdownResult, NaturalSearchSelection} from '../types/values';
 import {MatIconButton} from '@angular/material/button';
 import {NaturalIconDirective} from '../../icon/icon.directive';
 import {MatIcon} from '@angular/material/icon';

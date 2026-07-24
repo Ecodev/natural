@@ -1,19 +1,22 @@
-import {
+import type {
     AbstractControl,
     AsyncValidatorFn,
-    FormArray,
     FormControlStatus,
-    FormGroup,
     ValidationErrors,
-    ValidatorFn,
+    ValidatorFn} from '@angular/forms';
+import {
+    FormArray,
+    FormGroup,
     Validators,
 } from '@angular/forms';
-import {Observable, of, timer} from 'rxjs';
+import type {Observable} from 'rxjs';
+import { of, timer} from 'rxjs';
 import {filter, first, map, switchMap} from 'rxjs/operators';
-import {NaturalQueryVariablesManager, QueryVariables} from './query-variable-manager';
+import type { QueryVariables} from './query-variable-manager';
+import {NaturalQueryVariablesManager} from './query-variable-manager';
 import {validTlds} from './tld';
-import {FilterGroupCondition} from '../modules/search/classes/graphql-doctrine.types';
-import {UntypedModelService} from '../types/types';
+import type {FilterGroupCondition} from '../modules/search/classes/graphql-doctrine.types';
+import type {UntypedModelService} from '../types/types';
 
 function isEmptyInputValue(value: any): boolean {
     // we don't check for string here so it also works with arrays

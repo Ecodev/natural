@@ -6,7 +6,7 @@ import {
     wrapPrefix,
     wrapSuffix,
 } from '@ecodev/natural';
-import {NaturalSearchSelection} from '../types/values';
+import type {NaturalSearchSelection} from '../types/values';
 import {replaceToday} from './transformers';
 
 describe('wrapLike', () => {

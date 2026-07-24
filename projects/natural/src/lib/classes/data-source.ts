@@ -1,7 +1,7 @@
 import {DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {map, takeUntil} from 'rxjs/operators';
-import {Literal} from '../types/types';
+import type {Literal} from '../types/types';
 
 export type PaginatedData<T> = {
     readonly items: readonly T[];

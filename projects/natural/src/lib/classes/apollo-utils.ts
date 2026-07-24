@@ -1,6 +1,7 @@
-import {ApolloLink, DocumentNode} from '@apollo/client/core';
+import type { DocumentNode} from '@apollo/client/core';
+import {ApolloLink} from '@apollo/client/core';
 import {formatIsoDateTime, isFile} from './utility';
-import {HttpBatchLink, HttpLink, Options} from 'apollo-angular/http';
+import type {HttpBatchLink, HttpLink, Options} from 'apollo-angular/http';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import extractFiles from 'extract-files/extractFiles.mjs';

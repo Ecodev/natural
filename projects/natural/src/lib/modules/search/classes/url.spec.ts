@@ -1,4 +1,4 @@
-import {NaturalSearchSelections} from '../types/values';
+import type {NaturalSearchSelections} from '../types/values';
 import {fromUrl, toNavigationParameters, toUrl} from './url';
 
 describe('toUrl', () => {

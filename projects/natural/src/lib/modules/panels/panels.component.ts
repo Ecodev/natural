@@ -1,4 +1,5 @@
-import {Component, inject, OnDestroy} from '@angular/core';
+import type { OnDestroy} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NaturalPanelsService} from './panels.service';
 

@@ -1,4 +1,5 @@
-import {Directive, DOCUMENT, effect, inject, input, OnDestroy} from '@angular/core';
+import type { OnDestroy} from '@angular/core';
+import {Directive, DOCUMENT, effect, inject, input} from '@angular/core';
 
 /**
  * Prefix all CSS selectors with the given selector

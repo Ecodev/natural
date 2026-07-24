@@ -1,4 +1,5 @@
-import {DestroyRef, Directive, inject, OnInit, output} from '@angular/core';
+import type { OnInit} from '@angular/core';
+import {DestroyRef, Directive, inject, output} from '@angular/core';
 import {NaturalAbstractFile} from './abstract-file';
 import {eventToFiles, stopEvent} from './utils';
 import {asyncScheduler, Subject} from 'rxjs';

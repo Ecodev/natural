@@ -1,5 +1,6 @@
 import {Component, viewChild} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
 import {NaturalFileSelectDirective} from './file-select.directive';
 import {NaturalFileService} from './file.service';
 

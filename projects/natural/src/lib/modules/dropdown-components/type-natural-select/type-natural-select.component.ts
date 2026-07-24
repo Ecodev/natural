@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
-import {ExtractTone, ExtractVall, UntypedModelService} from '../../../types/types';
+import type {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
+import type {ExtractTone, ExtractVall, UntypedModelService} from '../../../types/types';
 import {AbstractAssociationSelectComponent} from '../abstract-association-select-component.directive';
-import {EMPTY, Observable} from 'rxjs';
+import type { Observable} from 'rxjs';
+import {EMPTY} from 'rxjs';
 import {NaturalSelectComponent} from '../../select/select/select.component';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';

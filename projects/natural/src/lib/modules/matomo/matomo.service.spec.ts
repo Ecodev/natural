@@ -1,14 +1,16 @@
 import {TestBed} from '@angular/core/testing';
+import type {
+    NaturalSeo,
+    NaturalSeoConfig} from '@ecodev/natural';
 import {
     NATURAL_SEO_CONFIG,
     NaturalMatomoService,
-    NaturalSeo,
-    NaturalSeoConfig,
     NaturalSeoService,
 } from '@ecodev/natural';
 import {Component, DOCUMENT} from '@angular/core';
-import {provideRouter, Router, Routes} from '@angular/router';
-import {PaqItem} from './matomo.service';
+import type { Routes} from '@angular/router';
+import {provideRouter, Router} from '@angular/router';
+import type {PaqItem} from './matomo.service';
 
 @Component({
     template: ` <div i18n>Test component</div>`,

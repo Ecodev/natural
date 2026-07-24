@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
+import type {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
 
 @Injectable({providedIn: 'root'})
 export class NaturalSidenavStackService {

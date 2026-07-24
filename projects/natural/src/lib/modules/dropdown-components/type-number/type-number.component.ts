@@ -1,10 +1,12 @@
 import {Component, inject} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators} from '@angular/forms';
+import type { ValidatorFn} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {BehaviorSubject, merge} from 'rxjs';
-import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
+import type {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
 import {NaturalDropdownRef} from '../../search/dropdown-container/dropdown-ref';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
-import {DropdownComponent} from '../../search/types/dropdown-component';
+import type { NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
+import type {DropdownComponent} from '../../search/types/dropdown-component';
 import {
     type PossibleComparableOperator,
     type PossibleComparableOperatorKeys,

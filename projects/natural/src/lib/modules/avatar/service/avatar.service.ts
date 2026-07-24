@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Source, SourceCreator} from '../sources/source';
+import type {Source, SourceCreator} from '../sources/source';
 import {Gravatar} from '../sources/gravatar';
 import {Initials} from '../sources/initials';
 import {Image} from '../sources/image';

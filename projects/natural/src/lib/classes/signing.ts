@@ -1,4 +1,4 @@
-import {HttpInterceptorFn, HttpRequest} from '@angular/common/http';
+import type {HttpInterceptorFn, HttpRequest} from '@angular/common/http';
 import {hmacSha256} from './crypto';
 import {map, of, switchMap, throwError} from 'rxjs';
 

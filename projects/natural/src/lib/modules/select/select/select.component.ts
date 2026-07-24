@@ -1,24 +1,27 @@
-import {
+import type {
     AfterViewInit,
+    OnInit} from '@angular/core';
+import {
     Component,
     contentChild,
     DestroyRef,
     inject,
     Input,
     input,
-    OnInit,
     TemplateRef,
     viewChild,
 } from '@angular/core';
-import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import type {ControlValueAccessor} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {merge} from 'es-toolkit';
-import {Observable} from 'rxjs';
+import type {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, finalize, map} from 'rxjs/operators';
-import {PaginatedData} from '../../../classes/data-source';
-import {NaturalQueryVariablesManager, QueryVariables} from '../../../classes/query-variable-manager';
-import {NaturalAbstractModelService} from '../../../services/abstract-model.service';
-import {ExtractTallOne, ExtractVall, Literal} from '../../../types/types';
+import type {PaginatedData} from '../../../classes/data-source';
+import type { QueryVariables} from '../../../classes/query-variable-manager';
+import {NaturalQueryVariablesManager} from '../../../classes/query-variable-manager';
+import type {NaturalAbstractModelService} from '../../../services/abstract-model.service';
+import type {ExtractTallOne, ExtractVall, Literal} from '../../../types/types';
 import {AbstractSelect} from '../abstract-select.component';
 import {RouterLink} from '@angular/router';
 import {MatTooltip} from '@angular/material/tooltip';

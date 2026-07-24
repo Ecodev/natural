@@ -1,6 +1,9 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {FilterGroupConditionField, NaturalDropdownRef} from '@ecodev/natural';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
+import type {FilterGroupConditionField} from '@ecodev/natural';
+import { NaturalDropdownRef} from '@ecodev/natural';
+import type { NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
 import {TypeBooleanComponent} from './type-boolean.component';
 
 describe('TypeBooleanComponent', () => {

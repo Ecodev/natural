@@ -1,5 +1,6 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {ValidationErrors} from '@angular/forms';
+import type { PipeTransform} from '@angular/core';
+import {Pipe} from '@angular/core';
+import type {ValidationErrors} from '@angular/forms';
 import {urlPattern} from '../../../classes/validators';
 import {formatIsoDate, formatSwissDate} from '../../../classes/utility';
 

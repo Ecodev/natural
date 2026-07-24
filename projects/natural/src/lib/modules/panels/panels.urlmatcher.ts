@@ -1,8 +1,8 @@
-import {Injector} from '@angular/core';
-import {Route, UrlMatcher, UrlMatchResult, UrlSegment, UrlSegmentGroup} from '@angular/router';
+import type {Injector} from '@angular/core';
+import type {Route, UrlMatcher, UrlMatchResult, UrlSegment, UrlSegmentGroup} from '@angular/router';
 import {flatten, merge} from 'es-toolkit';
-import {NaturalPanelConfig, NaturalPanelsRouterRule} from './types';
-import {Literal} from '../../types/types';
+import type {NaturalPanelConfig, NaturalPanelsRouterRule} from './types';
+import type {Literal} from '../../types/types';
 
 function getConsumedSegments(segments: UrlSegment[], routes: NaturalPanelsRouterRule[]): UrlSegment[] {
     return flatten(getStackConfig(segments, routes).map(conf => conf.route.segments));

@@ -1,4 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
 import {NaturalFixedButtonDetailComponent} from './fixed-button-detail.component';
 import {ActivatedRoute} from '@angular/router';
 import {Subject} from 'rxjs';

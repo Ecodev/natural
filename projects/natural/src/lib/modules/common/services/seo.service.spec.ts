@@ -1,15 +1,17 @@
 import {TestBed} from '@angular/core/testing';
+import type {
+    NaturalDialogTriggerRoutingData,
+    NaturalSeo,
+    NaturalSeoConfig} from '@ecodev/natural';
 import {
     NATURAL_SEO_CONFIG,
     NaturalDialogTriggerComponent,
-    NaturalDialogTriggerRoutingData,
-    NaturalSeo,
-    NaturalSeoConfig,
     NaturalSeoService,
 } from '@ecodev/natural';
 import {stripTags} from './seo.service';
 import {Component} from '@angular/core';
-import {provideRouter, Router, Routes} from '@angular/router';
+import type { Routes} from '@angular/router';
+import {provideRouter, Router} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
 import {of} from 'rxjs';
 

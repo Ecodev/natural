@@ -1,9 +1,11 @@
 import {inject, Injectable} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
+import type { MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {defaults} from 'es-toolkit/compat';
-import {
+import type {
     HierarchicDialogConfig,
-    HierarchicDialogResult,
+    HierarchicDialogResult} from './hierarchic-selector-dialog.component';
+import {
     NaturalHierarchicSelectorDialogComponent,
 } from './hierarchic-selector-dialog.component';
 

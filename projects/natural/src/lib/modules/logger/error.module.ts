@@ -1,9 +1,11 @@
-import {ErrorHandler, Provider, Type} from '@angular/core';
+import type { Provider, Type} from '@angular/core';
+import {ErrorHandler} from '@angular/core';
+import type {
+    NaturalLoggerExtra} from './error-handler';
 import {
     NaturalErrorHandler,
     NaturalLoggerConfigExtra,
-    NaturalLoggerConfigUrl,
-    NaturalLoggerExtra,
+    NaturalLoggerConfigUrl
 } from './error-handler';
 
 export function provideErrorHandler(url: string | null, extraService?: Type<NaturalLoggerExtra>): Provider[] {

@@ -1,5 +1,7 @@
-import {Component, DebugElement} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import type { DebugElement} from '@angular/core';
+import {Component} from '@angular/core';
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
 import {NaturalSrcDensityDirective} from './src-density.directive';
 import {By} from '@angular/platform-browser';
 

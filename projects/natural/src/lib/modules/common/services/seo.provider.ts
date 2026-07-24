@@ -1,5 +1,7 @@
-import {EnvironmentProviders, inject, provideAppInitializer, Provider} from '@angular/core';
-import {NATURAL_SEO_CONFIG, NaturalSeoConfig, NaturalSeoService} from './seo.service';
+import type {EnvironmentProviders, Provider} from '@angular/core';
+import { inject, provideAppInitializer} from '@angular/core';
+import type { NaturalSeoConfig} from './seo.service';
+import {NATURAL_SEO_CONFIG, NaturalSeoService} from './seo.service';
 
 /**
  * Configure and starts `NaturalSeoService`

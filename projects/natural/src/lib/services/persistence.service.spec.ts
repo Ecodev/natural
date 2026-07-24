@@ -1,12 +1,13 @@
 import {TestBed} from '@angular/core/testing';
+import type {
+    NaturalStorage} from '@ecodev/natural';
 import {
     memorySessionStorageProvider,
     NATURAL_PERSISTENCE_VALIDATOR,
     NaturalPersistenceService,
-    NaturalStorage,
     SESSION_STORAGE,
 } from '@ecodev/natural';
-import {ActivatedRoute} from '@angular/router';
+import type {ActivatedRoute} from '@angular/router';
 
 function mockedActivatedRoute(entries: readonly (readonly [string, any])[]): ActivatedRoute {
     return {

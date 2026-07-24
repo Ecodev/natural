@@ -1,7 +1,9 @@
-import {Decoration, DecorationSet, EditorView} from 'prosemirror-view';
-import {EditorState, Plugin} from 'prosemirror-state';
-import {Observable} from 'rxjs';
-import {Schema} from 'prosemirror-model';
+import type { EditorView} from 'prosemirror-view';
+import {Decoration, DecorationSet} from 'prosemirror-view';
+import type {EditorState} from 'prosemirror-state';
+import { Plugin} from 'prosemirror-state';
+import type {Observable} from 'rxjs';
+import type {Schema} from 'prosemirror-model';
 import {DOCUMENT, inject, Injectable} from '@angular/core';
 
 /**

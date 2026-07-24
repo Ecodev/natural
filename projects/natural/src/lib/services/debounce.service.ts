@@ -14,7 +14,7 @@ import {
     take,
 } from 'rxjs';
 import {Injectable} from '@angular/core';
-import {UntypedModelService} from '../types/types';
+import type {UntypedModelService} from '../types/types';
 
 type Debounced<T extends UntypedModelService> = {
     object: Parameters<T['updateNow']>[0];

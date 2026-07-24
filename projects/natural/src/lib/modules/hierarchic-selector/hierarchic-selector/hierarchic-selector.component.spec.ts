@@ -1,12 +1,13 @@
-import {
+import type {
     NaturalHierarchicConfiguration,
-    NaturalHierarchicSelectorComponent,
-    OrganizedModelSelection,
+    OrganizedModelSelection} from '@ecodev/natural';
+import {
+    NaturalHierarchicSelectorComponent
 } from '@ecodev/natural';
 import {TestBed} from '@angular/core/testing';
 import {ItemService} from '../../../testing/item.service';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
-import {ModelNode} from '../classes/model-node';
+import type {ModelNode} from '../classes/model-node';
 
 describe('NaturalHierarchicSelectorComponent', () => {
     beforeEach(() => {

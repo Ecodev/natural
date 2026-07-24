@@ -1,5 +1,5 @@
-import {BehaviorSubject} from 'rxjs';
-import {FilterGroupConditionField} from '../classes/graphql-doctrine.types';
+import type {BehaviorSubject} from 'rxjs';
+import type {FilterGroupConditionField} from '../classes/graphql-doctrine.types';
 
 export type DropdownComponent = {
     /**

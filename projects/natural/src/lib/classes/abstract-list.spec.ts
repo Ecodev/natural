@@ -1,6 +1,8 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import type {ComponentFixture} from '@angular/core/testing';
+import { fakeAsync, TestBed, tick} from '@angular/core/testing';
+import type {
+    AvailableColumn} from '@ecodev/natural';
 import {
-    AvailableColumn,
     memorySessionStorageProvider,
     NaturalAbstractList,
     NaturalColumnsPickerComponent,
@@ -9,7 +11,8 @@ import {
 } from '@ecodev/natural';
 import {ItemService} from '../testing/item.service';
 import {Component, inject} from '@angular/core';
-import {ActivatedRoute, Data} from '@angular/router';
+import type { Data} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
 
 @Component({

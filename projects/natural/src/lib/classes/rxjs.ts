@@ -1,4 +1,5 @@
-import {map, MonoTypeOperatorFunction, Observable, take, takeUntil, tap, timer} from 'rxjs';
+import type { MonoTypeOperatorFunction, Observable} from 'rxjs';
+import {map, take, takeUntil, tap, timer} from 'rxjs';
 import {DestroyRef} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 

@@ -1,4 +1,5 @@
-import {Injectable, InjectionToken, Provider} from '@angular/core';
+import type { Provider} from '@angular/core';
+import {Injectable, InjectionToken} from '@angular/core';
 
 export const SESSION_STORAGE = new InjectionToken<NaturalStorage>(
     'Session storage that can be shimed when running on server or in tests',

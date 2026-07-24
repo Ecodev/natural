@@ -1,4 +1,4 @@
-import {Literal} from '@ecodev/natural';
+import type {Literal} from '@ecodev/natural';
 import {CumulativeChanges} from './cumulative-changes';
 
 describe('CumulativeChanges', () => {

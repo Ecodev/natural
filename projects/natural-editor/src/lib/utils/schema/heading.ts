@@ -1,4 +1,4 @@
-import {Attrs, NodeSpec} from 'prosemirror-model';
+import type {Attrs, NodeSpec} from 'prosemirror-model';
 
 type Attributes = {
     class: string;

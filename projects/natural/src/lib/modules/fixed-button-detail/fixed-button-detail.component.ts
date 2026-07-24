@@ -1,5 +1,5 @@
 import {Component, inject, Input, output} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import type {FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatTooltip} from '@angular/material/tooltip';

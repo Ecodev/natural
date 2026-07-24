@@ -1,8 +1,8 @@
 import {Component, Input, input, output, viewChild} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalInputComponent} from '../input/input.component';
-import {NaturalSearchFacets} from '../types/facet';
-import {GroupSelections, NaturalSearchSelection} from '../types/values';
+import type {NaturalSearchFacets} from '../types/facet';
+import type {GroupSelections, NaturalSearchSelection} from '../types/values';
 
 @Component({
     selector: 'natural-group',

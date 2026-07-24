@@ -1,9 +1,10 @@
 import {isPlatformBrowser} from '@angular/common';
+import type {
+    EnvironmentProviders} from '@angular/core';
 import {
     computed,
     DOCUMENT,
     effect,
-    EnvironmentProviders,
     inject,
     Injectable,
     InjectionToken,

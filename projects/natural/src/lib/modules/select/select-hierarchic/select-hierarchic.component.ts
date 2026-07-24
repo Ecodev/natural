@@ -1,13 +1,16 @@
-import {Component, inject, Input, input, OnInit} from '@angular/core';
-import {ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatDialogConfig} from '@angular/material/dialog';
-import {Literal} from '../../../types/types';
-import {HierarchicFiltersConfiguration} from '../../hierarchic-selector/classes/hierarchic-filters-configuration';
-import {
+import type { OnInit} from '@angular/core';
+import {Component, inject, Input, input} from '@angular/core';
+import type {ControlValueAccessor} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import type {MatDialogConfig} from '@angular/material/dialog';
+import type {Literal} from '../../../types/types';
+import type {HierarchicFiltersConfiguration} from '../../hierarchic-selector/classes/hierarchic-filters-configuration';
+import type {
     HierarchicDialogConfig,
     NaturalHierarchicConfiguration,
-    NaturalHierarchicSelectorDialogService,
-    OrganizedModelSelection,
+    OrganizedModelSelection} from '../../hierarchic-selector/public-api';
+import {
+    NaturalHierarchicSelectorDialogService
 } from '../../hierarchic-selector/public-api';
 import {AbstractSelect} from '../abstract-select.component';
 import {RouterLink} from '@angular/router';

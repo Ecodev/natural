@@ -1,12 +1,14 @@
-import {AbstractControl, UntypedFormArray, UntypedFormGroup} from '@angular/forms';
+import type {AbstractControl} from '@angular/forms';
+import { UntypedFormArray, UntypedFormGroup} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
 import {merge} from 'es-toolkit';
-import {NaturalAbstractModelService} from '../services/abstract-model.service';
-import {NaturalQueryVariablesManager, QueryVariables} from './query-variable-manager';
-import {ExtractTallOne, ExtractVall, Literal} from '../types/types';
+import type {NaturalAbstractModelService} from '../services/abstract-model.service';
+import type { QueryVariables} from './query-variable-manager';
+import {NaturalQueryVariablesManager} from './query-variable-manager';
+import type {ExtractTallOne, ExtractVall, Literal} from '../types/types';
 import {validateAllFormControls} from './validators';
 import {Directive} from '@angular/core';
-import {PaginatedData} from './data-source';
+import type {PaginatedData} from './data-source';
 
 /**
  * This class helps managing non-paginated rows of items that can be edited in-place, typically in a <mat-table>.

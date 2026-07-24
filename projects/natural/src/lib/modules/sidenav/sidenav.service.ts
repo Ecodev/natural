@@ -1,8 +1,8 @@
 import {DestroyRef, inject, Injectable} from '@angular/core';
-import {MatDrawerMode} from '@angular/material/sidenav';
+import type {MatDrawerMode} from '@angular/material/sidenav';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
-import {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
+import type {NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
 import {SESSION_STORAGE} from '../common/services/memory-storage';
 import {NaturalSidenavStackService} from './sidenav-stack.service';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';

@@ -1,8 +1,10 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
+import type {
+    NaturalDropdownContainerData} from './dropdown-container.component';
 import {
     NATURAL_DROPDOWN_CONTAINER_DATA,
-    NaturalDropdownContainerComponent,
-    NaturalDropdownContainerData,
+    NaturalDropdownContainerComponent
 } from './dropdown-container.component';
 
 describe('NaturalDropdownContainerComponent', () => {

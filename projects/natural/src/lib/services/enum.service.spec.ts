@@ -1,6 +1,7 @@
 import {fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
-import {IEnum, NaturalEnumService} from './enum.service';
+import type {IEnum} from './enum.service';
+import { NaturalEnumService} from './enum.service';
 
 describe('NaturalEnumService', () => {
     let service: NaturalEnumService;

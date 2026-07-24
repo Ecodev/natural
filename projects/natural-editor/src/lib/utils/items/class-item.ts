@@ -1,9 +1,10 @@
-import {Node, NodeType} from 'prosemirror-model';
-import {EditorState, Transaction} from 'prosemirror-state';
+import type {Node, NodeType} from 'prosemirror-model';
+import type {EditorState, Transaction} from 'prosemirror-state';
 import {Item} from './item';
 import {selectionContainsNodeType} from './utils';
-import {MatDialog} from '@angular/material/dialog';
-import {ClassDialogComponent, ClassDialogData} from '../../class-dialog/class-dialog.component';
+import type {MatDialog} from '@angular/material/dialog';
+import type { ClassDialogData} from '../../class-dialog/class-dialog.component';
+import {ClassDialogComponent} from '../../class-dialog/class-dialog.component';
 
 function setClass(tr: Transaction, classValue: string, allowedNodeTypes: string[]): Transaction {
     const {selection, doc} = tr;

@@ -1,11 +1,12 @@
 import {Component, inject} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import type {ErrorStateMatcher} from '@angular/material/core';
 import {BehaviorSubject} from 'rxjs';
-import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
+import type {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
 import {NaturalDropdownRef} from '../../search/dropdown-container/dropdown-ref';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
-import {DropdownComponent} from '../../search/types/dropdown-component';
+import type { NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
+import type {DropdownComponent} from '../../search/types/dropdown-component';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 

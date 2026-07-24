@@ -1,5 +1,5 @@
 import {Directive, input} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
+import type {AbstractControl} from '@angular/forms';
 
 /**
  * Need to add http:// prefix if we don't have prefix already AND we don't have part of it

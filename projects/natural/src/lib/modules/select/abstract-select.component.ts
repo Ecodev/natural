@@ -1,7 +1,9 @@
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {computed, Directive, DoCheck, inject, input, Input, OnInit, output} from '@angular/core';
+import type { DoCheck, OnInit} from '@angular/core';
+import {computed, Directive, inject, input, Input, output} from '@angular/core';
+import type {
+    ControlValueAccessor} from '@angular/forms';
 import {
-    ControlValueAccessor,
     FormControl,
     FormControlDirective,
     FormControlName,

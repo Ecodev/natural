@@ -13,18 +13,20 @@ import {
     unsignedMoney,
     url,
 } from '@ecodev/natural';
-import {
+import type {
     AsyncValidatorFn,
-    FormControl,
     FormControlStatus,
     ValidationErrors,
-    ValidatorFn,
+    ValidatorFn} from '@angular/forms';
+import {
+    FormControl,
     Validators,
 } from '@angular/forms';
 import {TestScheduler} from 'rxjs/testing';
-import {concat, forkJoin, NEVER, Observable, of, Subject, tap} from 'rxjs';
+import type { Observable} from 'rxjs';
+import {concat, forkJoin, NEVER, of, Subject, tap} from 'rxjs';
 import {first} from 'rxjs/operators';
-import {UntypedModelService} from '../types/types';
+import type {UntypedModelService} from '../types/types';
 
 function validate(validatorFn: ValidatorFn, expected: boolean, value: any): void {
     const control = new FormControl();

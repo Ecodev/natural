@@ -1,9 +1,12 @@
 import {TestBed} from '@angular/core/testing';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
-import {Item, ItemInput, ItemService} from '../testing/item.service';
-import {Literal, NaturalAbstractDetail, NaturalAlertService} from '@ecodev/natural';
+import type {Item, ItemInput} from '../testing/item.service';
+import { ItemService} from '../testing/item.service';
+import type {Literal} from '@ecodev/natural';
+import { NaturalAbstractDetail, NaturalAlertService} from '@ecodev/natural';
 import {Component, inject, Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, provideRouter, Route, Router} from '@angular/router';
+import type {ActivatedRouteSnapshot, Route} from '@angular/router';
+import { provideRouter, Router} from '@angular/router';
 import {RouterTestingHarness} from '@angular/router/testing';
 import {BehaviorSubject, of, Subject} from 'rxjs';
 

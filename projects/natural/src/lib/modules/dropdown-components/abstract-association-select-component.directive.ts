@@ -1,10 +1,14 @@
 import {Directive, inject, InjectionToken} from '@angular/core';
-import {BehaviorSubject, merge, Observable} from 'rxjs';
-import {FilterGroupConditionField} from '../search/classes/graphql-doctrine.types';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../search/dropdown-container/dropdown.service';
-import {DropdownComponent} from '../search/types/dropdown-component';
-import {FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {PossibleDiscreteOperatorKeys, possibleDiscreteOperators} from './types';
+import type { Observable} from 'rxjs';
+import {BehaviorSubject, merge} from 'rxjs';
+import type {FilterGroupConditionField} from '../search/classes/graphql-doctrine.types';
+import type { NaturalDropdownData} from '../search/dropdown-container/dropdown.service';
+import {NATURAL_DROPDOWN_DATA} from '../search/dropdown-container/dropdown.service';
+import type {DropdownComponent} from '../search/types/dropdown-component';
+import type { ValidatorFn} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import type {PossibleDiscreteOperatorKeys} from './types';
+import { possibleDiscreteOperators} from './types';
 import {startWith} from 'rxjs/operators';
 import type {PossibleWhereKeys} from './type-account-selector/type-account-selector.component';
 

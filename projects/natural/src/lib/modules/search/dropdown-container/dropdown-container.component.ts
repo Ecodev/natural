@@ -1,13 +1,16 @@
-import {ConfigurableFocusTrapFactory, FocusTrap} from '@angular/cdk/a11y';
-import {BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal} from '@angular/cdk/portal';
+import type { FocusTrap} from '@angular/cdk/a11y';
+import {ConfigurableFocusTrapFactory} from '@angular/cdk/a11y';
+import type { ComponentPortal, TemplatePortal} from '@angular/cdk/portal';
+import {BasePortalOutlet, CdkPortalOutlet} from '@angular/cdk/portal';
+import type {
+    ComponentRef,
+    EmbeddedViewRef,
+    OnDestroy} from '@angular/core';
 import {
     Component,
-    ComponentRef,
     ElementRef,
-    EmbeddedViewRef,
     inject,
     InjectionToken,
-    OnDestroy,
     viewChild,
     ViewEncapsulation,
 } from '@angular/core';

@@ -1,13 +1,14 @@
+import type {
+    InputRule} from 'prosemirror-inputrules';
 import {
     ellipsis,
     emDash,
-    InputRule,
     inputRules,
     textblockTypeInputRule,
     wrappingInputRule,
 } from 'prosemirror-inputrules';
-import {NodeType, Schema} from 'prosemirror-model';
-import {Plugin} from 'prosemirror-state';
+import type {NodeType, Schema} from 'prosemirror-model';
+import type {Plugin} from 'prosemirror-state';
 
 /**
  * Given a blockquote node type, returns an input rule that turns `"> "`

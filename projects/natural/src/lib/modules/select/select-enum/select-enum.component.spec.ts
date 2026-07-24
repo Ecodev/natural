@@ -1,15 +1,17 @@
-import {Component, DebugElement} from '@angular/core';
+import type { DebugElement} from '@angular/core';
+import {Component} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {NaturalEnumService, NaturalSelectEnumComponent} from '@ecodev/natural';
 import {AnyEnumService} from '../../../testing/any-enum.service';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
+import type {
+    TestFixture} from '../testing/utils';
 import {
     AbstractTestHostWithFormControlComponent,
     AbstractTestHostWithNgModelComponent,
-    testAllSelectCommonBehavior,
-    TestFixture,
+    testAllSelectCommonBehavior
 } from '../testing/utils';
 
 @Component({

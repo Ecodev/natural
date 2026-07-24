@@ -1,21 +1,24 @@
 import {Component, inject} from '@angular/core';
-import {
+import type {
     AbstractControl,
+    FormGroupDirective,
+    NgForm,
+    ValidationErrors,
+    ValidatorFn} from '@angular/forms';
+import {
     FormControl,
     FormGroup,
-    FormGroupDirective,
     FormsModule,
-    NgForm,
     ReactiveFormsModule,
-    ValidationErrors,
-    ValidatorFn,
     Validators,
 } from '@angular/forms';
-import {DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS} from '@angular/material/core';
+import type { ErrorStateMatcher} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
 import {BehaviorSubject, merge} from 'rxjs';
-import {DropdownComponent} from '../../search/types/dropdown-component';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
-import {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
+import type {DropdownComponent} from '../../search/types/dropdown-component';
+import type { NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
+import type {FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
 import {dateMax, dateMin, serialize} from '../utils';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {MatInput} from '@angular/material/input';

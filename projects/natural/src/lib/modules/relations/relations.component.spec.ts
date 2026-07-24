@@ -1,4 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
 import {NaturalLinkMutationService, naturalProviders, NaturalRelationsComponent} from '@ecodev/natural';
 import {ItemService} from '../../testing/item.service';
 import {MockApolloProvider} from '../../testing/mock-apollo.provider';

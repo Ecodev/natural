@@ -1,17 +1,21 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import type {ComponentFixture} from '@angular/core/testing';
+import { fakeAsync, TestBed, tick} from '@angular/core/testing';
+import type {
+    NaturalPanelData,
+    NaturalPanelsRouterRule} from '@ecodev/natural';
 import {
     NaturalAbstractPanel,
-    NaturalPanelData,
     NaturalPanelsComponent,
-    NaturalPanelsRouterRule,
     NaturalPanelsService,
     naturalPanelsUrlMatcher,
     naturalProviders,
     providePanels,
 } from '@ecodev/natural';
 import {Component, inject, Injector, viewChild} from '@angular/core';
-import {provideRouter, Router, RouterOutlet, Routes, UrlSegment, withRouterConfig} from '@angular/router';
-import {Observable, of} from 'rxjs';
+import type { Routes} from '@angular/router';
+import {provideRouter, Router, RouterOutlet, UrlSegment, withRouterConfig} from '@angular/router';
+import type {Observable} from 'rxjs';
+import { of} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {fallbackIfNoOpenedPanels} from './fallback-if-no-opened-panels.urlmatcher';
 

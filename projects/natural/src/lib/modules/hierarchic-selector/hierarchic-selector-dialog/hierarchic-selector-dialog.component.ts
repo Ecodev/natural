@@ -2,11 +2,11 @@ import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {clone} from 'es-toolkit';
 import {defaults} from 'es-toolkit/compat';
-import {NaturalSearchFacets} from '../../search/types/facet';
-import {NaturalSearchSelections} from '../../search/types/values';
-import {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
-import {HierarchicFiltersConfiguration} from '../classes/hierarchic-filters-configuration';
-import {OrganizedModelSelection} from '../hierarchic-selector/hierarchic-selector.service';
+import type {NaturalSearchFacets} from '../../search/types/facet';
+import type {NaturalSearchSelections} from '../../search/types/values';
+import type {NaturalHierarchicConfiguration} from '../classes/hierarchic-configuration';
+import type {HierarchicFiltersConfiguration} from '../classes/hierarchic-filters-configuration';
+import type {OrganizedModelSelection} from '../hierarchic-selector/hierarchic-selector.service';
 import {MatButton} from '@angular/material/button';
 import {NaturalHierarchicSelectorComponent} from '../hierarchic-selector/hierarchic-selector.component';
 

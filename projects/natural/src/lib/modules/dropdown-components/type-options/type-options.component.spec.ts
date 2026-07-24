@@ -1,7 +1,11 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {FilterGroupConditionField, NaturalDropdownRef} from '@ecodev/natural';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
-import {TypeOptionsComponent, TypeOptionsConfiguration} from './type-options.component';
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
+import type {FilterGroupConditionField} from '@ecodev/natural';
+import { NaturalDropdownRef} from '@ecodev/natural';
+import type { NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
+import type { TypeOptionsConfiguration} from './type-options.component';
+import {TypeOptionsComponent} from './type-options.component';
 
 describe('TypeOptionsComponent', () => {
     let component: TypeOptionsComponent;

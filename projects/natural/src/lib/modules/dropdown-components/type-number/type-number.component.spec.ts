@@ -1,11 +1,13 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
+import type {
     FilterGroupConditionField,
-    NATURAL_DROPDOWN_DATA,
     NaturalDropdownData,
+    TypeNumberConfiguration} from '@ecodev/natural';
+import {
+    NATURAL_DROPDOWN_DATA,
     NaturalDropdownRef,
-    TypeNumberComponent,
-    TypeNumberConfiguration,
+    TypeNumberComponent
 } from '@ecodev/natural';
 
 describe('TypeNumberComponent', () => {

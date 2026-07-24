@@ -1,25 +1,27 @@
 import {fakeAsync, TestBed} from '@angular/core/testing';
-import {
+import type {
     HierarchicDialogResult,
     NaturalHierarchicSelectorDialogComponent,
+    OrganizedModelSelection} from '@ecodev/natural';
+import {
     NaturalHierarchicSelectorDialogService,
     naturalProviders,
-    NaturalSelectHierarchicComponent,
-    OrganizedModelSelection,
+    NaturalSelectHierarchicComponent
 } from '@ecodev/natural';
 import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
+import type {
+    TestFixture} from '../testing/utils';
 import {
     AbstractTestHostWithFormControlComponent,
     AbstractTestHostWithNgModelComponent,
     itemHierarchicConfig,
-    TestFixture,
     testSelectAndSelectHierarchicCommonBehavior,
 } from '../testing/utils';
 import {By} from '@angular/platform-browser';
 import {of} from 'rxjs';
-import {MatDialogRef} from '@angular/material/dialog';
+import type {MatDialogRef} from '@angular/material/dialog';
 import {ItemService} from '../../../testing/item.service';
 
 @Component({

@@ -3,14 +3,15 @@ import {NaturalSelectComponent} from '@ecodev/natural';
 import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
+import type {
+    TestFixture} from '../testing/utils';
 import {
     AbstractTestHostWithFormControlComponent,
     AbstractTestHostWithNgModelComponent,
-    TestFixture,
     testSelectAndSelectHierarchicCommonBehavior,
 } from '../testing/utils';
 import {By} from '@angular/platform-browser';
-import {ItemService} from '../../../testing/item.service';
+import type {ItemService} from '../../../testing/item.service';
 
 @Component({
     imports: [FormsModule, NaturalSelectComponent],

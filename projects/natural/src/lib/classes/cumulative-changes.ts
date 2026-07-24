@@ -1,5 +1,5 @@
 import {isEqual} from 'es-toolkit';
-import {Literal} from '../types/types';
+import type {Literal} from '../types/types';
 import {cloneDeepButSkipFile} from './utility';
 
 /**

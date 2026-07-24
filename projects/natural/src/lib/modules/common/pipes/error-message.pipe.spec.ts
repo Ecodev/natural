@@ -1,5 +1,5 @@
 import {NaturalErrorMessagePipe, urlPattern} from '@ecodev/natural';
-import {ValidationErrors} from '@angular/forms';
+import type {ValidationErrors} from '@angular/forms';
 
 describe('NaturalErrorMessagePipe', () => {
     it('create an instance', () => {

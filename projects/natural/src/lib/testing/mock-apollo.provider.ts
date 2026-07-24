@@ -1,9 +1,11 @@
 import {Apollo, gql} from 'apollo-angular';
 import {ApolloClient, InMemoryCache} from '@apollo/client/core';
 import {SchemaLink} from '@apollo/client/link/schema';
-import {inject, Injectable, NgZone, Provider} from '@angular/core';
+import type { Provider} from '@angular/core';
+import {inject, Injectable, NgZone} from '@angular/core';
 import {buildSchema} from 'graphql';
-import {addMocksToSchema, IMocks} from '@graphql-tools/mock';
+import type { IMocks} from '@graphql-tools/mock';
+import {addMocksToSchema} from '@graphql-tools/mock';
 
 export type Blog = {
     id: string;

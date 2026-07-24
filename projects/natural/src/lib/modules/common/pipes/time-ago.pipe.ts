@@ -1,4 +1,5 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import type { PipeTransform} from '@angular/core';
+import {Pipe} from '@angular/core';
 
 function isDate(value: any): value is Date {
     return value instanceof Date && !isNaN(value.valueOf());

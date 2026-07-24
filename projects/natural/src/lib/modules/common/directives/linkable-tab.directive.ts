@@ -1,5 +1,7 @@
-import {AfterViewInit, DestroyRef, Directive, inject, input} from '@angular/core';
-import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import type {AfterViewInit} from '@angular/core';
+import { DestroyRef, Directive, inject, input} from '@angular/core';
+import type {MatTab} from '@angular/material/tabs';
+import { MatTabGroup} from '@angular/material/tabs';
 import {ActivatedRoute, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 import {clone} from 'es-toolkit';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';

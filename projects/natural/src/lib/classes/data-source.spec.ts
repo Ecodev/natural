@@ -1,4 +1,5 @@
-import {NaturalDataSource, PaginatedData} from './data-source';
+import type { PaginatedData} from './data-source';
+import {NaturalDataSource} from './data-source';
 import {Subject} from 'rxjs';
 import {deepFreeze} from './utility';
 

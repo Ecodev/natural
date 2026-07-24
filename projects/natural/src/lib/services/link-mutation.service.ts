@@ -1,10 +1,11 @@
 import {Apollo, gql} from 'apollo-angular';
-import {FetchResult} from '@apollo/client/core';
+import type {FetchResult} from '@apollo/client/core';
 import {inject, Injectable} from '@angular/core';
 import {clone} from 'es-toolkit';
-import {forkJoin, Observable, of} from 'rxjs';
+import type { Observable} from 'rxjs';
+import {forkJoin, of} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
-import {Literal} from '../types/types';
+import type {Literal} from '../types/types';
 import {upperCaseFirstLetter} from '../classes/utility';
 
 /**

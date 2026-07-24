@@ -1,12 +1,15 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
+import type {
     FilterGroupConditionField,
+    TypeSelectConfiguration} from '@ecodev/natural';
+import {
     NaturalDropdownRef,
-    TypeSelectComponent,
-    TypeSelectConfiguration,
+    TypeSelectComponent
 } from '@ecodev/natural';
 import {of} from 'rxjs';
-import {NATURAL_DROPDOWN_DATA, NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import type { NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
+import {NATURAL_DROPDOWN_DATA} from '../../search/dropdown-container/dropdown.service';
 
 describe('TypeSelectComponent', () => {
     let component: TypeSelectComponent;

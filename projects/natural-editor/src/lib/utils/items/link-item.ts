@@ -1,10 +1,11 @@
 import {Item} from './item';
-import {MarkType} from 'prosemirror-model';
-import {MatDialog} from '@angular/material/dialog';
-import {EditorState, Transaction} from 'prosemirror-state';
-import {EditorView} from 'prosemirror-view';
+import type {MarkType} from 'prosemirror-model';
+import type {MatDialog} from '@angular/material/dialog';
+import type {EditorState, Transaction} from 'prosemirror-state';
+import type {EditorView} from 'prosemirror-view';
 import {toggleMark} from 'prosemirror-commands';
-import {LinkDialogComponent, LinkDialogData} from '../../link-dialog/link-dialog.component';
+import type { LinkDialogData} from '../../link-dialog/link-dialog.component';
+import {LinkDialogComponent} from '../../link-dialog/link-dialog.component';
 import {markActive} from './utils';
 
 export class LinkItem extends Item {

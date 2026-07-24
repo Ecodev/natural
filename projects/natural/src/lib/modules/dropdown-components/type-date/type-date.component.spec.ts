@@ -1,11 +1,13 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
 import {DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter, provideNativeDateAdapter} from '@angular/material/core';
-import {
+import type {
     FilterGroupConditionField,
-    NATURAL_DROPDOWN_DATA,
     NaturalDropdownData,
-    TypeDateComponent,
-    TypeDateConfiguration,
+    TypeDateConfiguration} from '@ecodev/natural';
+import {
+    NATURAL_DROPDOWN_DATA,
+    TypeDateComponent
 } from '@ecodev/natural';
 import {Injectable} from '@angular/core';
 

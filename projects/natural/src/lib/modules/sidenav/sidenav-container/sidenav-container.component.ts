@@ -1,5 +1,7 @@
-import {Component, inject, input, OnDestroy, OnInit, viewChild} from '@angular/core';
-import {MatDrawer, MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
+import type { OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, input, viewChild} from '@angular/core';
+import type {MatDrawer} from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {NaturalSidenavService} from '../sidenav.service';
 
 @Component({

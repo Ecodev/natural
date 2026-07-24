@@ -1,5 +1,5 @@
-import {DateAdapter} from '@angular/material/core';
-import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
+import type {DateAdapter} from '@angular/material/core';
+import type {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 
 /**
  * Get only date, without time and ignoring entirely the timezone

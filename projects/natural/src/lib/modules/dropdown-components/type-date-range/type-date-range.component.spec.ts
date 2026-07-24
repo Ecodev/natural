@@ -1,11 +1,13 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import type {ComponentFixture} from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
 import {MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core';
-import {
+import type {
     FilterGroupConditionField,
-    NATURAL_DROPDOWN_DATA,
     NaturalDropdownData,
-    TypeDateRangeComponent,
-    TypeDateRangeConfiguration,
+    TypeDateRangeConfiguration} from '@ecodev/natural';
+import {
+    NATURAL_DROPDOWN_DATA,
+    TypeDateRangeComponent
 } from '@ecodev/natural';
 
 describe('TypeDateRangeComponent', () => {

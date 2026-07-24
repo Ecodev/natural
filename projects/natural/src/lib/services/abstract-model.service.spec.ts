@@ -1,14 +1,16 @@
 import {fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
 import {NaturalQueryVariablesManager} from '@ecodev/natural';
-import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
-import {MockApolloProvider, PostInput} from '../testing/mock-apollo.provider';
+import type { Observable} from 'rxjs';
+import {BehaviorSubject, of, throwError} from 'rxjs';
+import type { PostInput} from '../testing/mock-apollo.provider';
+import {MockApolloProvider} from '../testing/mock-apollo.provider';
 import {NotConfiguredService} from '../testing/not-configured.service';
 import {PostService} from '../testing/post.service';
-import {Literal} from '../types/types';
+import type {Literal} from '../types/types';
 import {NullService} from '../testing/null.service';
 import {Apollo} from 'apollo-angular';
 import {takeWhile} from 'rxjs/operators';
-import {ApolloQueryResult} from '@apollo/client/core/types';
+import type {ApolloQueryResult} from '@apollo/client/core/types';
 
 const observableError =
     'Cannot use Observable as variables. Instead you should use .subscribe() to call the method with a real value';

@@ -1,6 +1,7 @@
 import {DOCUMENT, inject, Injectable, InjectionToken, LOCALE_ID} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
-import {ActivatedRouteSnapshot, Data, NavigationEnd, PRIMARY_OUTLET, Router} from '@angular/router';
+import type {ActivatedRouteSnapshot, Data} from '@angular/router';
+import { NavigationEnd, PRIMARY_OUTLET, Router} from '@angular/router';
 import {NaturalDialogTriggerComponent} from '../../dialog-trigger/dialog-trigger.component';
 import {combineLatest, filter, map, Observable, of, startWith, switchMap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';

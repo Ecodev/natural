@@ -1,9 +1,10 @@
-import {EditorState, Transaction} from 'prosemirror-state';
-import {EditorView} from 'prosemirror-view';
+import type {EditorState, Transaction} from 'prosemirror-state';
+import type {EditorView} from 'prosemirror-view';
 import {Item} from './item';
-import {MatDialog} from '@angular/material/dialog';
-import {ColorDialogComponent, ColorDialogData} from '../../color-dialog/color-dialog.component';
-import {MarkType} from 'prosemirror-model';
+import type {MatDialog} from '@angular/material/dialog';
+import type { ColorDialogData} from '../../color-dialog/color-dialog.component';
+import {ColorDialogComponent} from '../../color-dialog/color-dialog.component';
+import type {MarkType} from 'prosemirror-model';
 import {markActive} from './utils';
 import {toggleMark} from 'prosemirror-commands';
 import {rgbToHex} from '@ecodev/natural';

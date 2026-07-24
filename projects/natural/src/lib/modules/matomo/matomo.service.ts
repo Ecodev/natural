@@ -1,7 +1,7 @@
 import {DOCUMENT, inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {isPlatformBrowser} from '@angular/common';
-import {Subscription} from 'rxjs';
+import type {Subscription} from 'rxjs';
 import {Title} from '@angular/platform-browser';
 
 /**

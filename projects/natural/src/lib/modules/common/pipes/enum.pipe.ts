@@ -1,6 +1,7 @@
-import {inject, Pipe, PipeTransform} from '@angular/core';
+import type { PipeTransform} from '@angular/core';
+import {inject, Pipe} from '@angular/core';
 import {NaturalEnumService} from '../../../services/enum.service';
-import {Observable} from 'rxjs';
+import type {Observable} from 'rxjs';
 
 /**
  * A pipe to output an enum user-friendly name, instead of its value.

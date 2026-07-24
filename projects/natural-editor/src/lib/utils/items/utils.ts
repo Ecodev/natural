@@ -1,6 +1,6 @@
-import {Command, EditorState} from 'prosemirror-state';
-import {MarkType} from 'prosemirror-model';
-import {MenuItem, MenuItemSpec} from 'prosemirror-menu';
+import type {Command, EditorState} from 'prosemirror-state';
+import type {MarkType} from 'prosemirror-model';
+import type {MenuItem, MenuItemSpec} from 'prosemirror-menu';
 import {Item} from './item';
 import {toggleMark} from 'prosemirror-commands';
 

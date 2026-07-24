@@ -1,7 +1,7 @@
-import {NaturalSearchSelections} from '../types/values';
+import type {NaturalSearchSelections} from '../types/values';
 import {deepClone} from './utils';
-import {Literal} from '../../../types/types';
-import {Params} from '@angular/router';
+import type {Literal} from '../../../types/types';
+import type {Params} from '@angular/router';
 
 /**
  * Returns a string representation of the selection that can be used in URL.

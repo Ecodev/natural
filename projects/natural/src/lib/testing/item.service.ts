@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {concat, concatWith, NEVER, Observable, of} from 'rxjs';
-import {PaginatedData} from '../classes/data-source';
-import {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
-import {FormValidators, NaturalAbstractModelService} from '../services/abstract-model.service';
+import type { Observable} from 'rxjs';
+import {concat, concatWith, NEVER, of} from 'rxjs';
+import type {PaginatedData} from '../classes/data-source';
+import type {NaturalQueryVariablesManager, QueryVariables} from '../classes/query-variable-manager';
+import type {FormValidators} from '../services/abstract-model.service';
+import { NaturalAbstractModelService} from '../services/abstract-model.service';
 import {delay, switchMap} from 'rxjs/operators';
 import {deepFreeze} from '../classes/utility';
 import {deepClone} from '../modules/search/classes/utils';

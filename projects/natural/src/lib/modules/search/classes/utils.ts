@@ -1,5 +1,5 @@
-import {Facet, NaturalSearchFacets} from '../types/facet';
-import {NaturalSearchSelection} from '../types/values';
+import type {Facet, NaturalSearchFacets} from '../types/facet';
+import type {NaturalSearchSelection} from '../types/values';
 
 /**
  * Lookup a facet by its `name` and then by its `field`, or return null if not found

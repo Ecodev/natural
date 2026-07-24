@@ -1,10 +1,12 @@
-import {ComponentFixture, fakeAsync, tick} from '@angular/core/testing';
-import {NaturalHierarchicConfiguration} from '@ecodev/natural';
+import type {ComponentFixture} from '@angular/core/testing';
+import { fakeAsync, tick} from '@angular/core/testing';
+import type {NaturalHierarchicConfiguration} from '@ecodev/natural';
 import {By} from '@angular/platform-browser';
-import {DebugElement, Directive, inject} from '@angular/core';
+import type {DebugElement} from '@angular/core';
+import { Directive, inject} from '@angular/core';
 import {ItemService} from '../../../testing/item.service';
 import {FormControl, Validators} from '@angular/forms';
-import {AbstractSelect} from '../abstract-select.component';
+import type {AbstractSelect} from '../abstract-select.component';
 
 export const itemHierarchicConfig: NaturalHierarchicConfiguration[] = [
     {
