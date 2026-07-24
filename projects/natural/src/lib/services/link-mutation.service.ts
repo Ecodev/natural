@@ -1,5 +1,5 @@
 import {Apollo, gql} from 'apollo-angular';
-import {FetchResult} from '@apollo/client/core';
+import {ApolloLink} from '@apollo/client';
 import {inject, Injectable} from '@angular/core';
 import {clone} from 'es-toolkit';
 import {forkJoin, Observable, of} from 'rxjs';
@@ -83,7 +83,7 @@ export class NaturalLinkMutationService {
         obj2: LinkableObject,
         otherName: string | null = null,
         variables: Literal = {},
-    ): Observable<FetchResult<{id: string}>> {
+    ): Observable<ApolloLink.Result<{id: string}>> {
         // clone prevents to affect the original reference
         const clonedVariables = clone(variables);
 
@@ -100,7 +100,7 @@ export class NaturalLinkMutationService {
         objects: LinkableObject[],
         otherName: string | null = null,
         variables: Literal = {},
-    ): Observable<FetchResult<{id: string}>[]> {
+    ): Observable<ApolloLink.Result<{id: string}>[]> {
         return forkJoin(objects.map(obj2 => this.link(obj1, obj2, otherName, variables)));
     }
 
@@ -111,7 +111,7 @@ export class NaturalLinkMutationService {
         obj1: LinkableObject,
         obj2: LinkableObject,
         otherName: string | null = null,
-    ): Observable<FetchResult<{id: string}>> {
+    ): Observable<ApolloLink.Result<{id: string}>> {
         return this.getMutation('unlink', obj1, obj2, otherName).pipe(switchMap(mutation => this.execute(mutation)));
     }
 
@@ -137,7 +137,7 @@ export class NaturalLinkMutationService {
             })
             .pipe(
                 map(({data}) => {
-                    if (data.__type?.fields) {
+                    if (data?.__type?.fields) {
                         this.allMutations = data.__type.fields
                             .filter(v => /^(link|unlink)/.exec(v.name))
                             .map(v => {
@@ -188,14 +188,14 @@ export class NaturalLinkMutationService {
     /**
      * Execute mutation
      */
-    private execute(mutation: string): Observable<FetchResult<{id: string}>> {
+    private execute(mutation: string): Observable<ApolloLink.Result<{id: string}>> {
         return this.apollo
             .mutate<{id: string}>({
                 mutation: gql(mutation),
             })
             .pipe(
                 map(r => {
-                    this.apollo.client.reFetchObservableQueries();
+                    this.apollo.client.refetchObservableQueries();
                     return r;
                 }),
             );

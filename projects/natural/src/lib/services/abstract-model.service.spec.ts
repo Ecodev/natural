@@ -8,7 +8,7 @@ import {Literal} from '../types/types';
 import {NullService} from '../testing/null.service';
 import {Apollo} from 'apollo-angular';
 import {takeWhile} from 'rxjs/operators';
-import {ApolloQueryResult} from '@apollo/client/core/types';
+import {ObservableQuery} from '@apollo/client';
 
 const observableError =
     'Cannot use Observable as variables. Instead you should use .subscribe() to call the method with a real value';
@@ -30,9 +30,9 @@ describe('NaturalAbstractModelService', () => {
         it('should be delay deleted resolving', fakeAsync(() => {
             const apollo = TestBed.inject(Apollo);
 
-            let resolveMyPromise: (value: ApolloQueryResult<any>[]) => void;
-            apollo.client.reFetchObservableQueries = () =>
-                new Promise<ApolloQueryResult<any>[]>(resolve => {
+            let resolveMyPromise: (value: ObservableQuery.Result<any>[]) => void;
+            apollo.client.refetchObservableQueries = () =>
+                new Promise<ObservableQuery.Result<any>[]>(resolve => {
                     resolveMyPromise = resolve;
                 });
 
@@ -66,7 +66,7 @@ describe('NaturalAbstractModelService', () => {
             expect(service).toBeTruthy();
         });
 
-        it('should resolve to model and optional enums', fakeAsync(() => {
+        it('should resolve to model', fakeAsync(() => {
             expectAnythingAndComplete(id => service.resolve(id), '123');
         }));
 
@@ -318,7 +318,7 @@ describe('NaturalAbstractModelService', () => {
             expect(service).toBeTruthy();
         });
 
-        it('should throw instead of resolve to model and optional enums', () => {
+        it('should throw instead of resolve to model', () => {
             expect(() => service.resolve('123')).toThrowError(notConfiguredError);
         });
 
@@ -486,8 +486,8 @@ function expectAnythingAndCompleteWithQVM(
     return result;
 }
 
-describe('NaturalAbstractModelService with failing Apollo should still keep watchAll observable alive', () => {
-    it('should resolve to model and optional enums', fakeAsync(() => {
+describe('NaturalAbstractModelService with failing Apollo', () => {
+    it('should still keep watchAll observable alive', fakeAsync(() => {
         let count = 0;
         let actual: any;
         let completed = false;
@@ -501,7 +501,10 @@ describe('NaturalAbstractModelService with failing Apollo should still keep watc
                             const obs =
                                 count === 2
                                     ? throwError(() => new Error('mock XHR failure'))
-                                    : of({data: {posts: count}});
+                                    : of({
+                                          dataState: 'complete',
+                                          data: {posts: count},
+                                      });
 
                             return {
                                 valueChanges: obs,

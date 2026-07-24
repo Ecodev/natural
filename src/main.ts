@@ -21,7 +21,7 @@ import {DemoLoggerExtra} from './app/demo.error-handler';
 import {AnyLinkMutationService} from './app/shared/services/any-link-mutation.service';
 import {environment} from './environments/environment';
 import {provideApollo} from 'apollo-angular';
-import {InMemoryCache} from '@apollo/client/core';
+import {apolloOptionsFactory} from './app/shared/config/apollo-options.provider';
 
 if (environment.production) {
     enableProdMode();
@@ -31,7 +31,7 @@ bootstrapApplication(AppComponent, {
     providers: [
         provideZoneChangeDetection({eventCoalescing: true}),
         provideNativeDateAdapter(),
-        provideApollo(() => ({cache: new InMemoryCache()})),
+        provideApollo(apolloOptionsFactory),
         naturalProviders,
         provideIcons({
             natural: {

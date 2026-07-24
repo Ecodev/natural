@@ -1,5 +1,7 @@
-import {map, MonoTypeOperatorFunction, Observable, take, takeUntil, tap, timer} from 'rxjs';
+import {type Apollo} from 'apollo-angular';
 import {DestroyRef} from '@angular/core';
+import {type ApolloClient} from '@apollo/client';
+import {filter, map, MonoTypeOperatorFunction, Observable, OperatorFunction, take, takeUntil, tap, timer} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 /**
@@ -56,4 +58,33 @@ export function debug<T>(debugName: string): MonoTypeOperatorFunction<T> {
         error: error => console.log('ERROR', debugName, error),
         complete: () => console.log('COMPLETE', debugName),
     });
+}
+
+/**
+ * Filter emitted results to only receive results that are successful (`result.data !== undefined`).
+ *
+ * This is a small wrapper around rxjs `filter()` for convenience only.
+ *
+ * This should be entirely deleted once we adopt Apollo Client 4.2 modern signatures that provide the same convenience but through typing inference only.
+ *
+ * See https://github.com/the-guild-org/apollo-angular/issues/2429
+ *
+ * Usage:
+ *
+ * ```ts
+ * apollo
+ *   .query({
+ *     query: myQuery,
+ *   })
+ *   .pipe(ignoreErrors())
+ *   .subscribe(result => {
+ *     // Do something with complete result
+ *   });
+ * ```
+ */
+export function ignoreErrors<TData>(): OperatorFunction<
+    Apollo.QueryResult<TData>,
+    ApolloClient.QueryResultMap<TData>['none']
+> {
+    return filter((result): result is ApolloClient.QueryResultMap<TData>['none'] => result.data !== undefined);
 }

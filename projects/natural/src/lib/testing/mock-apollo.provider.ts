@@ -1,9 +1,10 @@
 import {Apollo, gql} from 'apollo-angular';
-import {ApolloClient, InMemoryCache} from '@apollo/client/core';
+import {ApolloClient, InMemoryCache} from '@apollo/client';
 import {SchemaLink} from '@apollo/client/link/schema';
 import {inject, Injectable, NgZone, Provider} from '@angular/core';
 import {buildSchema} from 'graphql';
 import {addMocksToSchema, IMocks} from '@graphql-tools/mock';
+import {apolloDefaultOptions} from '../../../../../src/app/shared/config/apollo-options.provider';
 
 export type Blog = {
     id: string;
@@ -155,7 +156,7 @@ const typeDefs = `
  * This will create a fake ApolloClient who can responds to queries
  * against our real schema with random values
  */
-function createMockClient(): ApolloClient<unknown> {
+function createMockClient(): ApolloClient {
     // Configure hardcoded mocked values on a type basis.
     // That means all data will look be very similar, but at least
     // tests are robust and won't change if/when random generators
@@ -176,6 +177,7 @@ function createMockClient(): ApolloClient<unknown> {
     return new ApolloClient({
         cache: apolloCache,
         link: new SchemaLink({schema: schemaWithMocks}),
+        defaultOptions: apolloDefaultOptions,
     });
 }
 
