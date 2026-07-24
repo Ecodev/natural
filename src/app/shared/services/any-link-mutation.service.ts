@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FetchResult} from '@apollo/client/core';
+import {ApolloLink} from '@apollo/client';
 import {debug, LinkableObject} from '@ecodev/natural';
 import {delay, Observable, of} from 'rxjs';
 
@@ -7,15 +7,15 @@ import {delay, Observable, of} from 'rxjs';
     providedIn: 'root',
 })
 export class AnyLinkMutationService {
-    public link(obj1: LinkableObject): Observable<FetchResult<{id: string}>> {
+    public link(obj1: LinkableObject): Observable<ApolloLink.Result<{id: string}>> {
         return of({data: obj1}).pipe(debug('Mock NaturalLinkMutationService.link()'), delay(500));
     }
 
-    public linkMany(obj1: LinkableObject): Observable<FetchResult<{id: string}>[]> {
+    public linkMany(obj1: LinkableObject): Observable<ApolloLink.Result<{id: string}>[]> {
         return of([{data: obj1}]).pipe(debug('Mock NaturalLinkMutationService.linkMany()'), delay(500));
     }
 
-    public unlink(obj1: LinkableObject): Observable<FetchResult<{id: string}>> {
+    public unlink(obj1: LinkableObject): Observable<ApolloLink.Result<{id: string}>> {
         return of({data: obj1}).pipe(debug('Mock NaturalLinkMutationService.unlink()'), delay(500));
     }
 }

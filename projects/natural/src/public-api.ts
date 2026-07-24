@@ -9,9 +9,10 @@ export * from './lib/classes/abstract-editable-list';
 export * from './lib/classes/abstract-list';
 export * from './lib/classes/abstract-navigable-list';
 export {createHttpLink, hasFilesAndProcessDate} from './lib/classes/apollo-utils';
+export {createErrorLink} from './lib/classes/create-error-handler';
 export * from './lib/classes/data-source';
 export * from './lib/classes/query-variable-manager';
-export {cancellableTimeout, debug} from './lib/classes/rxjs';
+export {cancellableTimeout, debug, ignoreErrors} from './lib/classes/rxjs';
 export {
     copyToClipboard,
     formatIsoDate,
@@ -35,6 +36,7 @@ export {NaturalPersistenceService, NATURAL_PERSISTENCE_VALIDATOR} from './lib/se
 export {provideThemes, ColorScheme, NaturalThemeService} from './lib/services/theme.service';
 export type {PersistenceValidator} from './lib/services/persistence.service';
 export * from './lib/services/swiss-parsing-date-adapter.service';
+export {ErrorService} from './lib/services/error.service';
 
 export type {
     ExtractResolve,

@@ -1,5 +1,5 @@
-import {Apollo, gql, MutationResult} from 'apollo-angular';
-import {FetchResult, NetworkStatus, WatchQueryFetchPolicy} from '@apollo/client/core';
+import {Apollo, gql, onlyCompleteData} from 'apollo-angular';
+import {ApolloLink, NetworkStatus, ObservableQuery, WatchQueryFetchPolicy} from '@apollo/client';
 import {AbstractControl, AsyncValidatorFn, UntypedFormControl, UntypedFormGroup, ValidatorFn} from '@angular/forms';
 import {DocumentNode} from 'graphql';
 import {merge, pick} from 'es-toolkit';
@@ -11,7 +11,6 @@ import {Literal} from '../types/types';
 import {makePlural, relationsToIds, upperCaseFirstLetter} from '../classes/utility';
 import {PaginatedData} from '../classes/data-source';
 import {NaturalDebounceService} from './debounce.service';
-import {ApolloQueryResult} from '@apollo/client/core/types';
 import {deepClone} from '../modules/search/classes/utils';
 import {inject} from '@angular/core';
 
@@ -202,7 +201,10 @@ export abstract class NaturalAbstractModelService<
         return this.prepareOneQuery(id, fetchPolicy).pipe(map(result => (result.data as Literal)[this.name]));
     }
 
-    private prepareOneQuery(id: string, fetchPolicy: WatchQueryFetchPolicy): Observable<ApolloQueryResult<unknown>> {
+    private prepareOneQuery(
+        id: string,
+        fetchPolicy: WatchQueryFetchPolicy,
+    ): Observable<ObservableQuery.Result<unknown>> {
         this.throwIfObservable(id);
         this.throwIfNotQuery(this.oneQuery);
 
@@ -215,9 +217,10 @@ export abstract class NaturalAbstractModelService<
                     variables: variables,
                     fetchPolicy: fetchPolicy,
                     nextFetchPolicy: 'cache-only',
+                    notifyOnNetworkStatusChange: false,
                 }).valueChanges;
             }),
-            filter(result => !!result.data),
+            onlyCompleteData(),
         );
     }
 
@@ -239,7 +242,7 @@ export abstract class NaturalAbstractModelService<
                 const manager = new NaturalQueryVariablesManager<Vall>(queryVariablesManager);
                 manager.merge('partial-variables', partialVariables);
 
-                return this.apollo.query<unknown, Vall>({
+                return this.apollo.query({
                     query: this.allQuery,
                     variables: manager.variables.value,
                     fetchPolicy: 'network-only',
@@ -285,14 +288,15 @@ export abstract class NaturalAbstractModelService<
                 this.throwIfNotQuery(this.allQuery);
 
                 return this.apollo
-                    .watchQuery<unknown, Vall>({
+                    .watchQuery({
                         query: this.allQuery,
                         variables: manager.variables.value,
                         fetchPolicy: fetchPolicy,
+                        notifyOnNetworkStatusChange: false,
                     })
                     .valueChanges.pipe(
                         catchError(() => EMPTY),
-                        filter(r => !!r.data),
+                        onlyCompleteData(),
                         this.mapAll(),
                     );
             }),
@@ -370,7 +374,7 @@ export abstract class NaturalAbstractModelService<
             })
             .pipe(
                 map(result => {
-                    this.apollo.client.reFetchObservableQueries();
+                    this.apollo.client.refetchObservableQueries();
                     return this.mapCreation(result);
                 }),
             );
@@ -411,7 +415,7 @@ export abstract class NaturalAbstractModelService<
             })
             .pipe(
                 map(result => {
-                    this.apollo.client.reFetchObservableQueries();
+                    this.apollo.client.refetchObservableQueries();
                     return this.mapUpdate(result);
                 }),
             );
@@ -447,7 +451,7 @@ export abstract class NaturalAbstractModelService<
                 switchMap(result => {
                     const mappedResult = this.mapDelete(result);
 
-                    return from(this.apollo.client.reFetchObservableQueries()).pipe(map(() => mappedResult));
+                    return from(this.apollo.client.refetchObservableQueries()).pipe(map(() => mappedResult));
                 }),
             );
     }
@@ -505,7 +509,7 @@ export abstract class NaturalAbstractModelService<
         const queryName = 'Count' + upperCaseFirstLetter(this.plural);
         const filterType = upperCaseFirstLetter(this.name) + 'Filter';
 
-        const query = gql`
+        const query = gql<{count: {length: number}}, Literal>`
             query ${queryName} ($filter: ${filterType}) {
             count: ${this.plural} (filter: $filter, pagination: {pageSize: 0, pageIndex: 0}) {
             length
@@ -518,13 +522,13 @@ export abstract class NaturalAbstractModelService<
                 const manager = new NaturalQueryVariablesManager<Vall>(queryVariablesManager);
                 manager.merge('partial-variables', partialVariables);
 
-                return this.apollo.query<{count: {length: number}}, Vall>({
+                return this.apollo.query({
                     query: query,
                     variables: manager.variables.value,
                     fetchPolicy: 'network-only',
                 });
             }),
-            map(result => result.data.count.length),
+            map(result => result.data!.count.length),
         );
     }
 
@@ -557,14 +561,14 @@ export abstract class NaturalAbstractModelService<
     /**
      * This is used to extract only the array of fetched objects out of the entire fetched data
      */
-    protected mapAll(): OperatorFunction<FetchResult<unknown>, Tall> {
-        return map(result => (result.data as any)[this.plural]); // See https://github.com/apollographql/apollo-client/issues/5662
+    protected mapAll(): OperatorFunction<ApolloLink.Result<unknown>, Tall> {
+        return map(result => (result as any).data[this.plural]); // See https://github.com/apollographql/apollo-client/issues/5662
     }
 
     /**
      * This is used to extract only the created object out of the entire fetched data
      */
-    protected mapCreation(result: MutationResult<unknown>): Tcreate {
+    protected mapCreation(result: Apollo.MutateResult): Tcreate {
         const name = this.createName ?? 'create' + upperCaseFirstLetter(this.name);
         return (result.data as any)[name]; // See https://github.com/apollographql/apollo-client/issues/5662
     }
@@ -572,7 +576,7 @@ export abstract class NaturalAbstractModelService<
     /**
      * This is used to extract only the updated object out of the entire fetched data
      */
-    protected mapUpdate(result: MutationResult<unknown>): Tupdate {
+    protected mapUpdate(result: Apollo.MutateResult): Tupdate {
         const name = this.updateName ?? 'update' + upperCaseFirstLetter(this.name);
         return (result.data as any)[name]; // See https://github.com/apollographql/apollo-client/issues/5662
     }
@@ -580,7 +584,7 @@ export abstract class NaturalAbstractModelService<
     /**
      * This is used to extract only flag when deleting an object
      */
-    protected mapDelete(result: MutationResult<unknown>): Tdelete {
+    protected mapDelete(result: Apollo.MutateResult): Tdelete {
         const name = this.deleteName ?? 'delete' + upperCaseFirstLetter(this.plural);
         return (result.data as any)[name]; // See https://github.com/apollographql/apollo-client/issues/5662
     }

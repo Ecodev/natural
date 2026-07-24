@@ -1,6 +1,5 @@
 import {hasFilesAndProcessDate, isMutation, naturalExtractFiles} from './apollo-utils';
-import {OperationDefinitionNode, SchemaDefinitionNode} from 'graphql/language/ast';
-import {Kind} from 'graphql/language/kinds';
+import {Kind, OperationDefinitionNode, SchemaDefinitionNode} from 'graphql';
 
 describe('hasFilesAndProcessDate', () => {
     // Use a pattern because tests may be executed in different time zones

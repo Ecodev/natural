@@ -52,7 +52,7 @@ export class NaturalEnumService {
             .pipe(
                 map(result => {
                     const values: IEnum[] = [];
-                    if (result.data.__type?.enumValues) {
+                    if (result.data?.__type?.enumValues) {
                         for (const enumValue of result.data.__type.enumValues) {
                             values.push({
                                 value: enumValue.name,

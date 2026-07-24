@@ -4,5 +4,5 @@
         "outDir": "../../out-tsc/spec",
         "types": ["jasmine"]
     },
-    "include": ["./src/**/*.ts"]
+    "include": ["./src/**/*.ts", "../../src/app/shared/config/apollo.d.ts"]
 }
