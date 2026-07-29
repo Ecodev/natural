@@ -569,7 +569,7 @@ export class NaturalAbstractList<
     }
 
     /**
-     * Delete multiple items at once
+     * Delete multiple items at once, and then refresh the list of items automatically
      */
     protected bulkDelete(): Observable<void> {
         const subject = new Subject<void>();
@@ -581,12 +581,16 @@ export class NaturalAbstractList<
                 // never call this method.
                 const selection = this.selection.selected as {id: string}[];
 
-                this.service.delete(selection).subscribe(() => {
-                    this.selection.clear();
-                    this.alertService.info($localize`Supprimé`);
-                    subject.next();
-                    subject.complete();
-                });
+                this.service
+                    .delete(selection, {
+                        refetchQueries: this.service.allQuery ? [this.service.allQuery] : [],
+                    })
+                    .subscribe(() => {
+                        this.selection.clear();
+                        this.alertService.info($localize`Supprimé`);
+                        subject.next();
+                        subject.complete();
+                    });
             }
         });
 

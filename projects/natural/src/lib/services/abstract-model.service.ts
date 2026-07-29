@@ -10,7 +10,7 @@ import {
 import {type DocumentNode} from 'graphql';
 import {merge, pick} from 'es-toolkit';
 import {defaults} from 'es-toolkit/compat';
-import {catchError, combineLatest, EMPTY, first, from, Observable, of, type OperatorFunction} from 'rxjs';
+import {catchError, combineLatest, EMPTY, first, Observable, of, type OperatorFunction} from 'rxjs';
 import {debounceTime, filter, map, shareReplay, startWith, switchMap, takeWhile, tap} from 'rxjs/operators';
 import {NaturalQueryVariablesManager, type QueryVariables} from '../classes/query-variable-manager';
 import {type Literal} from '../types/types';
@@ -31,6 +31,10 @@ export type VariablesWithInput = {
 export type FormControls = Record<string, AbstractControl>;
 
 export type WithId<T> = {id: string} & T;
+
+export type MutateOptionsWithoutVariables<Tdelete, Vdelete extends {ids: string[]}> = Vdelete extends never
+    ? never
+    : Omit<Apollo.MutateOptions<Tdelete, Vdelete>, 'mutation' | 'variables'>;
 
 export abstract class NaturalAbstractModelService<
     Tone,
@@ -68,7 +72,7 @@ export abstract class NaturalAbstractModelService<
     public constructor(
         protected readonly name: string,
         protected readonly oneQuery: DocumentNode | null,
-        protected readonly allQuery: DocumentNode | null,
+        public readonly allQuery: DocumentNode | null,
         protected readonly createMutation: DocumentNode | null,
         protected readonly updateMutation: DocumentNode | null,
         protected readonly deleteMutation: DocumentNode | null,
@@ -430,7 +434,13 @@ export abstract class NaturalAbstractModelService<
     /**
      * Delete objects and then refetch the list of objects
      */
-    public delete(objects: {id: string}[]): Observable<Tdelete> {
+    public delete(
+        objects: {id: string}[],
+        options: MutateOptionsWithoutVariables<Tdelete, Vdelete> = {} as MutateOptionsWithoutVariables<
+            Tdelete,
+            Vdelete
+        >,
+    ): Observable<Tdelete> {
         this.throwIfObservable(objects);
         this.throwIfNotQuery(this.deleteMutation);
 
@@ -449,17 +459,11 @@ export abstract class NaturalAbstractModelService<
 
         return this.apollo
             .mutate<Tdelete, Vdelete>({
+                ...options,
                 mutation: this.deleteMutation,
                 variables: variables,
             })
-            .pipe(
-                // Delay the observable until Apollo refetch is completed
-                switchMap(result => {
-                    const mappedResult = this.mapDelete(result);
-
-                    return from(this.apollo.client.refetchObservableQueries()).pipe(map(() => mappedResult));
-                }),
-            );
+            .pipe(map(result => this.mapDelete(result)));
     }
 
     /**

@@ -8,7 +8,6 @@ import {type Literal} from '../types/types';
 import {NullService} from '../testing/null.service';
 import {Apollo} from 'apollo-angular';
 import {takeWhile} from 'rxjs/operators';
-import {type ObservableQuery} from '@apollo/client';
 
 const observableError =
     'Cannot use Observable as variables. Instead you should use .subscribe() to call the method with a real value';
@@ -26,41 +25,6 @@ describe('NaturalAbstractModelService', () => {
         beforeEach(() => {
             service = TestBed.inject(PostService);
         });
-
-        it('should be delay deleted resolving', fakeAsync(() => {
-            const apollo = TestBed.inject(Apollo);
-
-            let resolveMyPromise: (value: ObservableQuery.Result<any>[]) => void;
-            apollo.client.refetchObservableQueries = () =>
-                new Promise<ObservableQuery.Result<any>[]>(resolve => {
-                    resolveMyPromise = resolve;
-                });
-
-            let resolved = false;
-            let completed = false;
-            service.delete([{id: '123'}]).subscribe({
-                next: () => {
-                    resolved = true;
-                },
-                complete: () => {
-                    completed = true;
-                },
-            });
-
-            expect(resolved).toBeFalse();
-            expect(completed).toBeFalse();
-
-            tick(2000);
-
-            expect(resolved).toBeFalse();
-            expect(completed).toBeFalse();
-
-            resolveMyPromise!([]);
-            tick(2000);
-
-            expect(resolved).toBeTrue();
-            expect(completed).toBeTrue();
-        }));
 
         it('should be created', () => {
             expect(service).toBeTruthy();

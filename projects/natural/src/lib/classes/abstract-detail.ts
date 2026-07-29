@@ -50,7 +50,7 @@ export class NaturalAbstractDetail<
         any,
         any,
         any,
-        unknown,
+        any,
         any
     >,
     ExtraResolve extends Literal = Record<never, never>,
