@@ -94,7 +94,7 @@ export class NaturalRelationsComponent<
         any,
         unknown,
         any,
-        any,
+        unknown,
         any
     >,
 >

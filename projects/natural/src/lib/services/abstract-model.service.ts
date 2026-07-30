@@ -1,5 +1,11 @@
 import {Apollo, gql, onlyCompleteData} from 'apollo-angular';
-import {type ApolloLink, NetworkStatus, type ObservableQuery, type WatchQueryFetchPolicy} from '@apollo/client';
+import {
+    type ApolloLink,
+    NetworkStatus,
+    type ObservableQuery,
+    type OperationVariables,
+    type WatchQueryFetchPolicy,
+} from '@apollo/client';
 import {
     type AbstractControl,
     type AsyncValidatorFn,
@@ -32,9 +38,10 @@ export type FormControls = Record<string, AbstractControl>;
 
 export type WithId<T> = {id: string} & T;
 
-export type MutateOptionsWithoutVariables<Tdelete, Vdelete extends {ids: string[]}> = Vdelete extends never
-    ? never
-    : Omit<Apollo.MutateOptions<Tdelete, Vdelete>, 'mutation' | 'variables'>;
+export type MutateOptionsWithoutVariables<Tcreate, Vcreate extends OperationVariables> = Omit<
+    Apollo.MutateOptions<Tcreate, Vcreate>,
+    'mutation' | 'variables'
+>;
 
 export abstract class NaturalAbstractModelService<
     Tone,
@@ -366,9 +373,12 @@ export abstract class NaturalAbstractModelService<
     }
 
     /**
-     * Create an object in DB and then refetch the list of objects
+     * Create an object in DB
      */
-    public create(object: Vcreate['input']): Observable<Tcreate> {
+    public create(
+        object: Vcreate['input'],
+        options: MutateOptionsWithoutVariables<Literal, Literal> = {},
+    ): Observable<Tcreate> {
         this.throwIfObservable(object);
         this.throwIfNotQuery(this.createMutation);
 
@@ -379,15 +389,11 @@ export abstract class NaturalAbstractModelService<
 
         return this.apollo
             .mutate<Tcreate, Vcreate>({
+                ...(options as MutateOptionsWithoutVariables<Tcreate, Vcreate>),
                 mutation: this.createMutation,
                 variables: variables,
             })
-            .pipe(
-                map(result => {
-                    this.apollo.client.refetchObservableQueries();
-                    return this.mapCreation(result);
-                }),
-            );
+            .pipe(map(result => this.mapCreation(result)));
     }
 
     /**
@@ -436,10 +442,7 @@ export abstract class NaturalAbstractModelService<
      */
     public delete(
         objects: {id: string}[],
-        options: MutateOptionsWithoutVariables<Tdelete, Vdelete> = {} as MutateOptionsWithoutVariables<
-            Tdelete,
-            Vdelete
-        >,
+        options: MutateOptionsWithoutVariables<Literal, Literal> = {},
     ): Observable<Tdelete> {
         this.throwIfObservable(objects);
         this.throwIfNotQuery(this.deleteMutation);
@@ -459,7 +462,7 @@ export abstract class NaturalAbstractModelService<
 
         return this.apollo
             .mutate<Tdelete, Vdelete>({
-                ...options,
+                ...(options as MutateOptionsWithoutVariables<Tdelete, Vdelete>),
                 mutation: this.deleteMutation,
                 variables: variables,
             })
