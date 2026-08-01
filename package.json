@@ -37,7 +37,7 @@
         "@graphql-tools/mock": "^9.0.25",
         "apollo-angular": "^14.1.0",
         "es-toolkit": "^1.39.10",
-        "extract-files": "^13.0.0",
+        "extract-files": "^14.0.0",
         "graphql": "^16.11.0",
         "prosemirror-commands": "^1.7.1",
         "prosemirror-dropcursor": "^1.8.2",
