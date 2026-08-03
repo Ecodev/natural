@@ -324,13 +324,10 @@ export abstract class NaturalAbstractModelService<
      * This functions allow to quickly create or update objects.
      *
      * Manages a "creation is pending" status, and update when creation is ready.
-     * Uses regular update/updateNow and create methods.
-     * Used mainly when editing multiple objects in same controller (like in editable arrays)
+     * Uses regular `create()` (with immediate effect) and `update()` (with debounced effect) methods.
+     * Used mainly when editing multiple objects in the same controller, like in editable arrays.
      */
-    public createOrUpdate(
-        object: Vcreate['input'] | WithId<Vupdate['input']>,
-        now = false,
-    ): Observable<Tcreate | Tupdate> {
+    public createOrUpdate(object: Vcreate['input'] | WithId<Vupdate['input']>): Observable<Tcreate | Tupdate> {
         this.throwIfObservable(object);
         this.throwIfNotQuery(this.createMutation);
         this.throwIfNotQuery(this.updateMutation);
@@ -350,12 +347,7 @@ export abstract class NaturalAbstractModelService<
 
         // If object has Id, just save it
         if ('id' in object && object.id) {
-            if (now) {
-                // used mainly for tests, because lodash debounced used in update() does not work fine with fakeAsync and tick()
-                return this.updateNow(object as WithId<Vupdate['input']>);
-            } else {
-                return this.update(object as WithId<Vupdate['input']>);
-            }
+            return this.update(object as WithId<Vupdate['input']>);
         }
 
         // If object was not saving, and has no ID, create it
@@ -412,7 +404,10 @@ export abstract class NaturalAbstractModelService<
     /**
      * Update an object immediately when subscribing
      */
-    public updateNow(object: WithId<Vupdate['input']>): Observable<Tupdate> {
+    public updateNow(
+        object: WithId<Vupdate['input']>,
+        options: MutateOptionsWithoutVariables<Literal, Literal> = {},
+    ): Observable<Tupdate> {
         this.throwIfObservable(object);
         this.throwIfNotQuery(this.updateMutation);
 
@@ -426,15 +421,11 @@ export abstract class NaturalAbstractModelService<
 
         return this.apollo
             .mutate<Tupdate, Vupdate>({
+                ...(options as MutateOptionsWithoutVariables<Tupdate, Vupdate>),
                 mutation: this.updateMutation,
                 variables: variables,
             })
-            .pipe(
-                map(result => {
-                    this.apollo.client.refetchObservableQueries();
-                    return this.mapUpdate(result);
-                }),
-            );
+            .pipe(map(result => this.mapUpdate(result)));
     }
 
     /**

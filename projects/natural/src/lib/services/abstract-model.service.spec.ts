@@ -197,7 +197,7 @@ describe('NaturalAbstractModelService', () => {
             };
 
             let creationResult: any;
-            const creation = service.createOrUpdate(input, true);
+            const creation = service.createOrUpdate(input);
             creation.subscribe(v => (creationResult = v));
 
             // After create, should be usual object after creation
@@ -207,11 +207,11 @@ describe('NaturalAbstractModelService', () => {
 
             // Create or update again
             let updateResult: any;
-            const update = service.createOrUpdate(creationResult, true);
+            const update = service.createOrUpdate(creationResult);
             update.subscribe(v => (updateResult = v));
 
             // should show created + updated objects merged
-            tick();
+            tick(5000);
             expect('updateDate' in updateResult).toBeTrue();
 
             flush();
@@ -227,11 +227,11 @@ describe('NaturalAbstractModelService', () => {
             let repeatedResult: any = null;
 
             // Create, should be cached
-            const creation = service.createOrUpdate(input, true);
+            const creation = service.createOrUpdate(input);
             creation.subscribe(res => (result = res));
 
             // Repeated create should wait for the first creation, then update the object
-            const repeatedCreation = service.createOrUpdate(input, true);
+            const repeatedCreation = service.createOrUpdate(input);
             repeatedCreation.subscribe(res => (repeatedResult = res));
 
             tick(5000);
