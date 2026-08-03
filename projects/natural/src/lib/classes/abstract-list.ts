@@ -584,6 +584,7 @@ export class NaturalAbstractList<
                 this.service
                     .delete(selection, {
                         refetchQueries: this.service.allQuery ? [this.service.allQuery] : [],
+                        awaitRefetchQueries: true,
                     })
                     .subscribe(() => {
                         this.selection.clear();
