@@ -429,7 +429,7 @@ export abstract class NaturalAbstractModelService<
     }
 
     /**
-     * Delete objects and then refetch the list of objects
+     * Delete objects
      */
     public delete(
         objects: {id: string}[],
