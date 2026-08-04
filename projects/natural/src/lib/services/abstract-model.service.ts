@@ -43,6 +43,11 @@ export type MutateOptionsWithoutVariables<Tcreate, Vcreate extends OperationVari
     'mutation' | 'variables'
 >;
 
+export type WatchQueryOptionsWithoutVariables<Tcreate, Vcreate extends OperationVariables> = Omit<
+    Apollo.WatchQueryOptions<Tcreate, Vcreate>,
+    'query' | 'variables' | 'notifyOnNetworkStatusChange'
+>;
+
 export abstract class NaturalAbstractModelService<
     Tone,
     Vone extends {id: string},
@@ -198,7 +203,7 @@ export abstract class NaturalAbstractModelService<
      * You must subscribe to start getting results (and fetch from network).
      */
     public getOne(id: string): Observable<Tone> {
-        return this.prepareOneQuery(id, 'cache-and-network').pipe(
+        return this.prepareOneQuery(id, {fetchPolicy: 'cache-and-network', nextFetchPolicy: 'cache-only'}).pipe(
             takeWhile(result => result.networkStatus !== NetworkStatus.ready, true),
             map(result => (result.data as Literal)[this.name]),
         );
@@ -214,13 +219,19 @@ export abstract class NaturalAbstractModelService<
      *
      * You **MUST** unsubscribe.
      */
-    public watchOne(id: string, fetchPolicy: WatchQueryFetchPolicy = 'cache-and-network'): Observable<Tone> {
-        return this.prepareOneQuery(id, fetchPolicy).pipe(map(result => (result.data as Literal)[this.name]));
+    public watchOne(
+        id: string,
+        options: WatchQueryOptionsWithoutVariables<unknown, Literal> = {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-only',
+        },
+    ): Observable<Tone> {
+        return this.prepareOneQuery(id, options).pipe(map(result => (result.data as Literal)[this.name]));
     }
 
     private prepareOneQuery(
         id: string,
-        fetchPolicy: WatchQueryFetchPolicy,
+        options: WatchQueryOptionsWithoutVariables<unknown, Literal>,
     ): Observable<ObservableQuery.Result<unknown>> {
         this.throwIfObservable(id);
         this.throwIfNotQuery(this.oneQuery);
@@ -230,10 +241,9 @@ export abstract class NaturalAbstractModelService<
                 this.throwIfNotQuery(this.oneQuery);
 
                 return this.apollo.watchQuery<unknown, Vone>({
+                    ...(options as WatchQueryOptionsWithoutVariables<unknown, Vone>),
                     query: this.oneQuery,
                     variables: variables,
-                    fetchPolicy: fetchPolicy,
-                    nextFetchPolicy: 'cache-only',
                     notifyOnNetworkStatusChange: false,
                 }).valueChanges;
             }),
@@ -469,8 +479,8 @@ export abstract class NaturalAbstractModelService<
      */
     public resolve(id: string | undefined): Observable<Observable<Tone | Vcreate['input']>> {
         if (id) {
-            const onlyNetwork = this.watchOne(id, 'network-only').pipe(first());
-            const onlyCache = this.watchOne(id, 'cache-first');
+            const onlyNetwork = this.watchOne(id, {fetchPolicy: 'network-only'}).pipe(first());
+            const onlyCache = this.watchOne(id, {fetchPolicy: 'cache-first', nextFetchPolicy: 'cache-and-network'});
 
             // In theory, we can rely on Apollo Cache to return a result instantly. It is very fast indeed,
             // but it is still asynchronous, so there may be a very short time when we don't have the model
