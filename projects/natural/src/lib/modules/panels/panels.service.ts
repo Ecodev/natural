@@ -230,17 +230,18 @@ export class NaturalPanelsService {
      * Selecting a panel is equivalent to close all those that are in front of him
      * @param index of panel in stack. The most behind (the first one) is 0.
      */
-    private selectPanelByIndex(index: number): Observable<void> {
-        const lastDialog = this.dialog.openDialogs[this.dialog.openDialogs.length - 1];
-
+    private selectPanelByIndex(index: number): Observable<unknown> {
         // Update new panels set positions
         this.updateComponentsPosition();
 
+        const dialogsToClose = [];
         for (let i = this.dialog.openDialogs.length - 1; i >= index + 1; i--) {
-            this.dialog.openDialogs[i].close();
+            dialogsToClose.push(this.dialog.openDialogs[i]);
         }
+        const allClosed = forkJoin(dialogsToClose.map(dialog => dialog.afterClosed()));
+        dialogsToClose.map(dialog => dialog.close());
 
-        return lastDialog.afterClosed();
+        return allClosed;
     }
 
     /**
