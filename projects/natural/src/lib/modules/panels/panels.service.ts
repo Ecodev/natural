@@ -3,10 +3,17 @@ import {type ComponentType} from '@angular/cdk/portal';
 import {inject, Injectable, Injector, runInInjectionContext} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatDialog, type MatDialogConfig, type MatDialogRef} from '@angular/material/dialog';
-import {type ActivatedRoute, DefaultUrlSerializer, NavigationError, Router, type UrlSegment} from '@angular/router';
+import {
+    type ActivatedRoute,
+    DefaultUrlSerializer,
+    NavigationError,
+    NavigationStart,
+    Router,
+    type UrlSegment,
+} from '@angular/router';
 import {differenceWith, flatten} from 'es-toolkit';
 import {isEqual} from 'es-toolkit/compat';
-import {forkJoin, type Observable, of, Subject, type Subscription} from 'rxjs';
+import {filter, forkJoin, type Observable, of, Subject, type Subscription, takeUntil} from 'rxjs';
 import {NaturalAbstractPanel} from './abstract-panel';
 import {getStackConfig} from './panels.urlmatcher';
 import {
@@ -348,7 +355,10 @@ export class NaturalPanelsService {
             });
         }
 
-        return forkJoin(resolvedData);
+        return forkJoin(resolvedData).pipe(
+            // If user is navigating to another page while we are resolving, cancel resolving and thus cancel opening the panel entirely
+            takeUntil(this.router.events.pipe(filter(e => e instanceof NavigationStart))),
+        );
     }
 
     private openPanel(componentOrTemplateRef: ComponentType<NaturalAbstractPanel>, panelData: NaturalPanelData): void {
