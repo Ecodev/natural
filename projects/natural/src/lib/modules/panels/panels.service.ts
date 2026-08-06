@@ -2,12 +2,12 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {type ComponentType} from '@angular/cdk/portal';
 import {inject, Injectable, Injector, runInInjectionContext} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {MatDialog, type MatDialogConfig} from '@angular/material/dialog';
+import {MatDialog, type MatDialogConfig, type MatDialogRef} from '@angular/material/dialog';
 import {type ActivatedRoute, DefaultUrlSerializer, NavigationError, Router, type UrlSegment} from '@angular/router';
 import {differenceWith, flatten} from 'es-toolkit';
 import {isEqual} from 'es-toolkit/compat';
 import {forkJoin, type Observable, of, Subject, type Subscription} from 'rxjs';
-import {type NaturalAbstractPanel} from './abstract-panel';
+import {NaturalAbstractPanel} from './abstract-panel';
 import {getStackConfig} from './panels.urlmatcher';
 import {
     type NaturalPanelConfig,
@@ -16,6 +16,7 @@ import {
     type NaturalPanelsRouterRule,
     PanelsHooksConfig,
 } from './types';
+import type {Literal} from '../../types/types';
 
 function segmentsToString(segments: UrlSegment[]): string {
     return segments.map(s => s.toString()).join('/');
@@ -263,7 +264,10 @@ export class NaturalPanelsService {
             });
         } else if (configsToRemove.length && !configsToAdd.length) {
             // only remove panels
-            this.selectPanelByIndex(indexOfNextPanel).subscribe(() => this.updateComponentsPosition());
+            this.selectPanelByIndex(indexOfNextPanel).subscribe(() => {
+                this.updateComponentsPosition();
+                this.refreshPanel(newFullConfig, newFullConfig[indexOfNextPanel], this.dialog.openDialogs.at(-1));
+            });
         } else if (!configsToRemove.length && configsToAdd.length) {
             // only add panels
             this.openPanels(configsToAdd, newFullConfig).subscribe(() => this.updateComponentsPosition());
@@ -289,28 +293,9 @@ export class NaturalPanelsService {
             // For each new config entry, open a new panel
             for (let i = 0; i < newItemsConfig.length; i++) {
                 const config = newItemsConfig[i];
-                let itemData: NaturalPanelData = {
-                    // Config of actual panel route
-                    config: config,
+                const panelData = this.getPanelData(fullConfig, config, resolvedResult[i]);
 
-                    // Data resolved by service
-                    // Use in component by calling this.panelData.data.xyz
-                    data: resolvedResult[i],
-                    linkableObjects: [],
-                };
-
-                if (this.hooksConfig?.beforeOpenPanel) {
-                    const event: NaturalPanelsBeforeOpenPanel = {
-                        itemData: itemData,
-                        panelConfig: config,
-                        resolvedResult: resolvedResult,
-                        fullPanelsConfig: fullConfig,
-                    };
-
-                    itemData = this.hooksConfig.beforeOpenPanel(this.injector, event);
-                }
-
-                this.openPanel(config.component, itemData);
+                this.openPanel(config.component, panelData);
             }
 
             this.dialog.openDialogs[this.dialog.openDialogs.length - 1].afterOpened().subscribe(() => {
@@ -319,6 +304,33 @@ export class NaturalPanelsService {
         });
 
         return subject;
+    }
+
+    private getPanelData(
+        fullConfig: NaturalPanelConfig[],
+        config: NaturalPanelConfig,
+        resolvedResult: Literal,
+    ): NaturalPanelData {
+        let panelData: NaturalPanelData = {
+            // Config of actual panel route
+            config: config,
+
+            // Data resolved by service
+            // Use in component by calling this.panelData.data.xyz
+            data: resolvedResult,
+            linkableObjects: [],
+        };
+
+        if (this.hooksConfig?.beforeOpenPanel) {
+            const event: NaturalPanelsBeforeOpenPanel = {
+                panelData: panelData,
+                fullPanelsConfig: fullConfig,
+            };
+
+            panelData = this.hooksConfig.beforeOpenPanel(this.injector, event);
+        }
+
+        return panelData;
     }
 
     private getResolvedData(config: NaturalPanelConfig): Observable<Record<string, unknown>> {
@@ -339,7 +351,7 @@ export class NaturalPanelsService {
         return forkJoin(resolvedData);
     }
 
-    private openPanel(componentOrTemplateRef: ComponentType<NaturalAbstractPanel>, data: NaturalPanelData): void {
+    private openPanel(componentOrTemplateRef: ComponentType<NaturalAbstractPanel>, panelData: NaturalPanelData): void {
         const conf: MatDialogConfig = {
             panelClass: this.panelClass,
             closeOnNavigation: false,
@@ -355,11 +367,28 @@ export class NaturalPanelsService {
         const dialogRef = this.dialog.open<NaturalAbstractPanel>(componentOrTemplateRef, conf);
 
         // Panelisable interface attributes/functions
-        dialogRef.componentInstance.initPanel(data);
+        dialogRef.componentInstance.initPanel(panelData);
 
         dialogRef.beforeClosed().subscribe(() => {
             const index = this.getPanelIndex(dialogRef.componentInstance);
             this.goToPanelByIndex(index - 1);
+        });
+    }
+
+    private refreshPanel(
+        fullConfig: NaturalPanelConfig[],
+        config: NaturalPanelConfig,
+        dialog: MatDialogRef<unknown> | undefined,
+    ): void {
+        this.getResolvedData(config).subscribe(resolvedResult => {
+            const panelData = this.getPanelData(fullConfig, config, resolvedResult);
+            if (!dialog || !(dialog.componentInstance instanceof NaturalAbstractPanel)) {
+                return;
+            }
+
+            dialog.componentInstance.initPanel(panelData);
+            // eslint-disable-next-line @angular-eslint/no-lifecycle-call
+            dialog.componentInstance.ngOnInit();
         });
     }
 

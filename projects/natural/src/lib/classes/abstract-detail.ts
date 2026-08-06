@@ -1,4 +1,4 @@
-import {Directive, inject, type OnInit} from '@angular/core';
+import {Directive, inject} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {ActivatedRoute, type NavigationExtras, Router} from '@angular/router';
 import {kebabCase} from 'es-toolkit';
@@ -54,10 +54,7 @@ export class NaturalAbstractDetail<
         any
     >,
     ExtraResolve extends Literal = Record<never, never>,
->
-    extends NaturalAbstractPanel
-    implements OnInit
-{
+> extends NaturalAbstractPanel {
     /**
      * Data retrieved by the server via route resolvers.
      *
@@ -113,7 +110,7 @@ export class NaturalAbstractDetail<
     /**
      * You probably should not override this method. Instead, consider overriding `initForm()`.
      */
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         if (this.isPanel) {
             this.initForm();
         } else {

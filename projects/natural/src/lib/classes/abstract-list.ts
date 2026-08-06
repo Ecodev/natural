@@ -1,5 +1,5 @@
 import {SelectionModel} from '@angular/cdk/collections';
-import {Directive, inject, input, Input, type OnInit} from '@angular/core';
+import {Directive, inject, input, Input} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {type PageEvent} from '@angular/material/paginator';
 import {type Sort} from '@angular/material/sort';
@@ -130,10 +130,7 @@ export class NaturalAbstractList<
     // It should only be specified to override default if the service items are
     // mapped to a different structure like in NaturalAbstractNavigableList
     Tall extends PaginatedData<MaybeNavigable> = ExtractTall<TService>,
->
-    extends NaturalAbstractPanel
-    implements OnInit
-{
+> extends NaturalAbstractPanel {
     /**
      * Whether search should be loaded from url/storage and persisted in it too.
      */
@@ -251,7 +248,7 @@ export class NaturalAbstractList<
     /**
      * If change, check DocumentsComponent that overrides this function without calling super.ngOnInit().
      */
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         this.routeData = this.route.snapshot.data;
 
         this.initFromRoute();

@@ -54,10 +54,8 @@ export type NaturalPanelsRouterRule = {
 };
 
 export type NaturalPanelsBeforeOpenPanel = {
-    itemData: NaturalPanelData;
-    panelConfig: NaturalPanelConfig;
+    panelData: NaturalPanelData;
     fullPanelsConfig: NaturalPanelConfig[];
-    resolvedResult: any; // todo : Generic or NaturalAbstractModelService
 };
 
 export type NaturalPanelsHooksConfig = {

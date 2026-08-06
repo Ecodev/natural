@@ -1,4 +1,4 @@
-import {DestroyRef, Directive, inject} from '@angular/core';
+import {DestroyRef, Directive, inject, type OnInit} from '@angular/core';
 import {type NaturalPanelsService} from './panels.service';
 import {type NaturalPanelData} from './types';
 import {Observable} from 'rxjs';
@@ -11,7 +11,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         '(click)': 'clickPanel()',
     },
 })
-export class NaturalAbstractPanel {
+export abstract class NaturalAbstractPanel implements OnInit {
     protected readonly destroyRef = inject(DestroyRef);
     /**
      * The data property is the container where the resolved content is stored
@@ -35,6 +35,11 @@ export class NaturalAbstractPanel {
      */
     public panelData?: NaturalPanelData;
     public panelService?: NaturalPanelsService;
+
+    // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+    public ngOnInit(): void {
+        // noop
+    }
 
     /**
      * Bind click on panels, to allow the selection of those who are behind
