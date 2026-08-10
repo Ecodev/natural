@@ -7,13 +7,5 @@
         "declarationMap": true,
         "inlineSources": true
     },
-    "exclude": ["**/*.spec.ts"],
-    "angularCompilerOptions": {
-        "extendedDiagnostics": {
-            "checks": {
-                "nullishCoalescingNotNullable": "suppress",
-                "optionalChainNotNullable": "suppress"
-            }
-        }
-    }
+    "exclude": ["**/*.spec.ts"]
 }
