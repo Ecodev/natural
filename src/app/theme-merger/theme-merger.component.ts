@@ -1,4 +1,12 @@
-import {Component, DOCUMENT, type ElementRef, inject, type OnInit, viewChild} from '@angular/core';
+import {
+    Component,
+    DOCUMENT,
+    type ElementRef,
+    inject,
+    type OnInit,
+    viewChild,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';
@@ -33,6 +41,7 @@ import {
     ],
     templateUrl: './theme-merger.component.html',
     styleUrl: './theme-merger.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ThemeMergerComponent implements OnInit {
     private readonly document = inject(DOCUMENT);

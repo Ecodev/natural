@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {concat, concatWith, NEVER, type Observable, of} from 'rxjs';
 import {type PaginatedData} from '../classes/data-source';
@@ -19,9 +19,7 @@ export type Item = {
 
 export type ItemInput = Omit<Item, '__typename' | 'id'>;
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class ItemService extends NaturalAbstractModelService<
     Item,
     {id: string},

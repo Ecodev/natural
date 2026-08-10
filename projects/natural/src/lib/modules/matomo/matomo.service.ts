@@ -1,4 +1,4 @@
-import {DOCUMENT, inject, Injectable, PLATFORM_ID} from '@angular/core';
+import {DOCUMENT, inject, Service, PLATFORM_ID} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {isPlatformBrowser} from '@angular/common';
 import {type Subscription} from 'rxjs';
@@ -30,9 +30,7 @@ type Paq = {
  *
  * @dynamic
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalMatomoService {
     private readonly router = inject(Router);
     private readonly document = inject(DOCUMENT);

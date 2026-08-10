@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {BehaviorSubject} from 'rxjs';
@@ -21,6 +21,7 @@ export type TypeOptionsConfiguration = {
 @Component({
     imports: [FormsModule, ReactiveFormsModule, MatButtonToggleGroup, MatButtonToggle],
     templateUrl: './type-options.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeOptionsComponent implements DropdownComponent {
     public readonly renderedValue = new BehaviorSubject<string>('');

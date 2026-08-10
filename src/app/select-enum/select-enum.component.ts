@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {type IEnum, NaturalEnumService} from '@ecodev/natural';
@@ -20,6 +20,7 @@ import {DebugControlComponent} from '../debug-form.component';
             useClass: AnyEnumService,
         },
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class SelectEnumComponent extends AbstractSelect {
     public readonly formControlMultiple = new FormControl();

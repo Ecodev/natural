@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {Subject} from 'rxjs';
 import {type NaturalSidenavContainerComponent} from './sidenav-container/sidenav-container.component';
 
-@Injectable({providedIn: 'root'})
+@Service()
 export class NaturalSidenavStackService {
     /**
      * The stack of all currently living sidenavs

@@ -1,6 +1,6 @@
 import {Apollo, gql} from 'apollo-angular';
 import {type ApolloLink} from '@apollo/client';
-import {inject, Injectable} from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {clone} from 'es-toolkit';
 import {forkJoin, type Observable, of} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
@@ -64,9 +64,7 @@ type Mutation = {
     arg2: MutationArg;
 };
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalLinkMutationService {
     private readonly apollo = inject(Apollo);
 

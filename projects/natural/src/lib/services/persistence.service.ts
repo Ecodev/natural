@@ -1,4 +1,4 @@
-import {inject, Injectable, InjectionToken} from '@angular/core';
+import {inject, Service, InjectionToken} from '@angular/core';
 import {type ActivatedRoute, type NavigationExtras, Router} from '@angular/router';
 import {clone} from 'es-toolkit';
 import {SESSION_STORAGE} from '../modules/common/services/memory-storage';
@@ -15,9 +15,7 @@ export const NATURAL_PERSISTENCE_VALIDATOR = new InjectionToken<PersistenceValid
     'Validator for persisted value retrieved from NaturalPersistenceService. If returns false, the persisted value will never be returned.',
 );
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalPersistenceService {
     private readonly router = inject(Router);
     private readonly sessionStorage = inject(SESSION_STORAGE);

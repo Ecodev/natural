@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, input, ChangeDetectionStrategy} from '@angular/core';
 import {MatButton, MatFabButton, MatIconButton, MatMiniFabButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -18,6 +18,7 @@ import {NaturalFixedButtonComponent, NaturalIconDirective} from '@ecodev/natural
     ],
     templateUrl: './buttons-set.component.html',
     styleUrl: './buttons-set.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ButtonsSetComponent {
     public readonly disabled = input(false);

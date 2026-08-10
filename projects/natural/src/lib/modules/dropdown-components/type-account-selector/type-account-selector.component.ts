@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {type FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
 import {NaturalHierarchicSelectorComponent} from '../../hierarchic-selector/hierarchic-selector/hierarchic-selector.component';
 import {MatOption} from '@angular/material/core';
@@ -68,6 +68,7 @@ const possibleWhere: readonly PossibleWhere[] = [
             useValue: false,
         },
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeAccountSelectorComponent extends TypeHierarchicSelectorComponent {
     public readonly whereCtrl = new FormControl<PossibleWhereKeys>('DebitOrCredit', {

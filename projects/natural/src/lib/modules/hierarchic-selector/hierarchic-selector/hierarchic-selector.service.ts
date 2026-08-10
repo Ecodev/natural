@@ -1,4 +1,4 @@
-import {inject, Injectable, Injector} from '@angular/core';
+import {inject, Service, Injector} from '@angular/core';
 import {intersection} from 'es-toolkit';
 import {first, forkJoin, type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -20,7 +20,7 @@ type ContextualizedConfig<T extends UntypedModelService = UntypedModelService> =
     variablesManager: NaturalQueryVariablesManager;
 };
 
-@Injectable({providedIn: 'root'})
+@Service()
 export class NaturalHierarchicSelectorService {
     private readonly injector = inject(Injector);
 

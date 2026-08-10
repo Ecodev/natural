@@ -14,6 +14,7 @@ import {
     output,
     type StaticProvider,
     viewChild,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, type ValidationErrors, type ValidatorFn} from '@angular/forms';
 import {type ErrorStateMatcher, MatRipple} from '@angular/material/core';
@@ -69,6 +70,7 @@ function isComponentValid(component: DropdownComponent): ValidatorFn {
     ],
     templateUrl: './input.component.html',
     styleUrl: './input.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(focus)': 'focus()',
     },

@@ -8,13 +8,14 @@ import {
     NaturalSeoService,
 } from '@ecodev/natural';
 import {stripTags} from './seo.service';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {provideRouter, Router, type Routes} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
 import {of} from 'rxjs';
 
 @Component({
     template: ` <div i18n>Test simple component</div>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestSimpleComponent {}
 

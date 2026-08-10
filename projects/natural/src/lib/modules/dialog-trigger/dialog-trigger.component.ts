@@ -1,5 +1,5 @@
 import {type ComponentType} from '@angular/cdk/portal';
-import {Component, inject, type OnDestroy} from '@angular/core';
+import {Component, inject, type OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {MatDialog, type MatDialogConfig, type MatDialogRef} from '@angular/material/dialog';
 import {ActivatedRoute, Router, type RouterLink} from '@angular/router';
 
@@ -19,6 +19,7 @@ export type NaturalDialogTriggerRedirectionValues = RouterLink['routerLink'] | n
 
 @Component({
     template: '',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalDialogTriggerComponent<T, D> implements OnDestroy {
     private readonly dialog = inject(MatDialog);

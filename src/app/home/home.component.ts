@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatListItem, MatListItemIcon, MatNavList} from '@angular/material/list';
@@ -37,6 +37,7 @@ import {NaturalSidenavComponent} from '../../../projects/natural/src/lib/modules
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class HomeComponent {
     public readonly router = inject(Router);

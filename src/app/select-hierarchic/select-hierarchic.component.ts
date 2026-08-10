@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel, MatHint} from '@angular/material/form-field';
@@ -25,6 +25,7 @@ import {DebugControlComponent} from '../debug-form.component';
     ],
     templateUrl: './select-hierarchic.component.html',
     styleUrl: './select-hierarchic.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class SelectHierarchicComponent extends AbstractSelect {
     public hierarchicConfig: NaturalHierarchicConfiguration[] = [

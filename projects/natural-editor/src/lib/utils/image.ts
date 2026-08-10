@@ -2,14 +2,14 @@ import {Decoration, DecorationSet, type EditorView} from 'prosemirror-view';
 import {type EditorState, Plugin} from 'prosemirror-state';
 import {type Observable} from 'rxjs';
 import {type Schema} from 'prosemirror-model';
-import {DOCUMENT, inject, Injectable} from '@angular/core';
+import {DOCUMENT, inject, Service} from '@angular/core';
 
 /**
  * Callback to upload the image to the server, and return the URL used to view the uploaded image.
  */
 export type ImageUploader = (file: File) => Observable<string>;
 
-@Injectable({providedIn: 'root'})
+@Service()
 export class ImagePlugin {
     public readonly plugin: Plugin<DecorationSet>;
 

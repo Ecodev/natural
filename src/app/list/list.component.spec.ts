@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
 import {provideRouter, Router, type Routes} from '@angular/router';
 import {
@@ -11,7 +11,7 @@ import {
 import {MockApolloProvider} from '../../../projects/natural/src/lib/testing/mock-apollo.provider';
 import {ListComponent} from './list.component';
 
-@Injectable({providedIn: 'root'})
+@Service()
 class MockNaturalPersistenceService extends NaturalPersistenceService {
     public override persistInUrl(): Promise<boolean> {
         // Nullify the redirection, it crashes in testing environment and it's not the point to be tested here

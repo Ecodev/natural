@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type Observable, of} from 'rxjs';
 import {type PaginatedData} from '../classes/data-source';
 import {delay} from 'rxjs/operators';
@@ -7,9 +7,7 @@ import {type Item, ItemService} from './item.service';
 /**
  * A service that has no items
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NoResultService extends ItemService {
     public override watchAll(): Observable<PaginatedData<Item>> {
         return of({

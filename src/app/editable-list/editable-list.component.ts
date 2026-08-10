@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconButton} from '@angular/material/button';
@@ -52,6 +52,7 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     ],
     templateUrl: './editable-list.component.html',
     styleUrl: './editable-list.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class EditableListComponent extends NaturalAbstractEditableList<ItemService> {
     public columns = ['name', 'description'];

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type Source, type SourceCreator} from '../sources/source';
 import {Gravatar} from '../sources/gravatar';
 import {Initials} from '../sources/initials';
@@ -9,9 +9,7 @@ type SourceType = 'gravatar' | 'image' | 'initials';
 /**
  * Provides utilities methods related to Avatar component
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class AvatarService {
     /**
      * Ordered pairs of possible sources. First in the list is the highest priority.

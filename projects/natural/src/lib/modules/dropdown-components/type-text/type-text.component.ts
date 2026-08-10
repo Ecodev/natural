@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {type ErrorStateMatcher} from '@angular/material/core';
 import {BehaviorSubject} from 'rxjs';
@@ -22,6 +22,7 @@ export class InvalidWithValueStateMatcher implements ErrorStateMatcher {
     imports: [MatFormField, MatLabel, MatError, MatInput, FormsModule, ReactiveFormsModule],
     templateUrl: './type-text.component.html',
     styleUrl: './type-text.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeTextComponent implements DropdownComponent {
     protected dropdownRef = inject(NaturalDropdownRef);

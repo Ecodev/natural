@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component, input} from '@angular/core';
+import {Component, input, ChangeDetectionStrategy} from '@angular/core';
 import {type AbstractControl} from '@angular/forms';
 
 @Component({
@@ -12,6 +12,7 @@ status: {{ control().status | json }}
 errors: {{ control().errors | json }}
 value: {{ control().value | json }}
 </pre>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class DebugControlComponent {
     public readonly control = input.required<AbstractControl<unknown>>();

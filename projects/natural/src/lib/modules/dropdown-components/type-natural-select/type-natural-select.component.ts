@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {type FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
 import {type ExtractTone, type ExtractVall, type UntypedModelService} from '../../../types/types';
 import {AbstractAssociationSelectComponent} from '../abstract-association-select-component.directive';
@@ -19,6 +19,7 @@ export type TypeSelectNaturalConfiguration<TService extends UntypedModelService>
 @Component({
     imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, MatOption, NaturalSelectComponent],
     templateUrl: './type-natural-select.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeNaturalSelectComponent<
     TService extends UntypedModelService,

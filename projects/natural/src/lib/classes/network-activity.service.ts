@@ -1,4 +1,4 @@
-import {inject, Injectable, PLATFORM_ID, signal} from '@angular/core';
+import {inject, Service, PLATFORM_ID, signal} from '@angular/core';
 import {type GraphQLFormattedError} from 'graphql';
 import {type HttpInterceptorFn} from '@angular/common/http';
 import {finalize} from 'rxjs';
@@ -29,9 +29,7 @@ export const activityInterceptor: HttpInterceptorFn = (req, next) => {
  *
  * The tracking will be entirely disabled for SSR.
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NetworkActivityService {
     private progress: ProgressBar | null = null;
     private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));

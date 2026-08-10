@@ -1,4 +1,4 @@
-import {Component, viewChild} from '@angular/core';
+import {Component, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalFileSelectDirective} from './file-select.directive';
 import {NaturalFileService} from './file.service';
@@ -6,6 +6,7 @@ import {NaturalFileService} from './file.service';
 @Component({
     imports: [NaturalFileSelectDirective],
     template: '<input type="file" naturalFileSelect />',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class ContainerComponent {
     public readonly ngf = viewChild.required(NaturalFileSelectDirective);

@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NATURAL_DROPDOWN_DATA, type NaturalDropdownData} from '../../search/dropdown-container/dropdown.service';
 import {type DropdownComponent} from '../../search/types/dropdown-component';
@@ -40,5 +40,6 @@ export type TypeBooleanConfiguration = {
             },
         },
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeBooleanComponent extends TypeOptionsComponent implements DropdownComponent {}

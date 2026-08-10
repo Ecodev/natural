@@ -1,6 +1,6 @@
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalEditorComponent} from './editor.component';
-import {Component, inject, InjectionToken} from '@angular/core';
+import {Component, inject, InjectionToken, ChangeDetectionStrategy} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {type ImageUploader} from '../utils/image';
@@ -12,6 +12,7 @@ const IMAGE_UPLOADER = new InjectionToken<ImageUploader | null>('Image uploader 
 @Component({
     imports: [FormsModule, NaturalEditorComponent],
     template: ` <natural-editor [imageUploader]="imageUploader" [(ngModel)]="myValue" />`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestHostComponent {
     public readonly imageUploader = inject(IMAGE_UPLOADER);

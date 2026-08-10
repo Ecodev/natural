@@ -1,7 +1,6 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": "./",
         "outDir": "./dist/out-tsc",
         "esModuleInterop": true,
         "sourceMap": true,
@@ -15,19 +14,17 @@
         "noFallthroughCasesInSwitch": true,
         "skipLibCheck": true,
         "isolatedModules": true,
-        "typeRoots": ["node_modules/@types"],
         "noImplicitOverride": true,
         "noImplicitReturns": true,
         "paths": {
-            "@ecodev/natural": ["projects/natural/src/public-api"],
-            "@ecodev/natural-editor": ["projects/natural-editor/src/public-api"]
+            "@ecodev/natural": ["./projects/natural/src/public-api"],
+            "@ecodev/natural-editor": ["./projects/natural-editor/src/public-api"]
         }
     },
     "angularCompilerOptions": {
         "strictStandalone": true,
         "strictInjectionParameters": true,
         "strictInputAccessModifiers": true,
-        "strictTemplates": true,
         "extendedDiagnostics": {
             "defaultCategory": "error",
             "checks": {

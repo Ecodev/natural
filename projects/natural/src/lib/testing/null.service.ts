@@ -1,13 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {createPost, type Post, type PostInput} from './mock-apollo.provider';
 
 /**
  * A service that returns `null` on creation, for testing purpose
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NullService extends NaturalAbstractModelService<
     never,
     never,

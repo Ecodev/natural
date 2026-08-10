@@ -1,4 +1,4 @@
-import {Component, viewChild} from '@angular/core';
+import {Component, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {Subject} from 'rxjs';
@@ -9,6 +9,7 @@ import {NaturalFileComponent} from './file.component';
 @Component({
     imports: [ReactiveFormsModule, NaturalFileComponent],
     template: `<natural-file [formCtrl]="formGroup.controls.image" [uploader]="uploader" />`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestHostWithUploaderComponent {
     public readonly formGroup = new FormGroup({
@@ -22,6 +23,7 @@ class TestHostWithUploaderComponent {
 @Component({
     imports: [ReactiveFormsModule, NaturalFileComponent],
     template: `<natural-file [formCtrl]="formGroup.controls.image" />`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestHostWithoutUploaderComponent {
     public readonly formGroup = new FormGroup({

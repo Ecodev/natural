@@ -1,4 +1,4 @@
-import {Component, DOCUMENT} from '@angular/core';
+import {Component, DOCUMENT, ChangeDetectionStrategy} from '@angular/core';
 import {NaturalCustomCssDirective, prefixCss} from './custom-css.directive';
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
@@ -7,6 +7,7 @@ import {By} from '@angular/platform-browser';
     imports: [NaturalCustomCssDirective],
     template: ` <div id="test1" naturalCustomCss="p {background: pink;}"></div>
         <div id="test2" [naturalCustomCss]="css"></div>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestComponent {
     public readonly missing = undefined;

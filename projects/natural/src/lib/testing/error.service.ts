@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type Observable, timer} from 'rxjs';
 import {type PaginatedData} from '../classes/data-source';
 import {type QueryVariables} from '../classes/query-variable-manager';
@@ -14,9 +14,7 @@ function error(method: string): Observable<any> {
     );
 }
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class ErrorService extends NaturalAbstractModelService<
     Item,
     {id: string},

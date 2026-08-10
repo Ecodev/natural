@@ -6,12 +6,13 @@ import {
     type NaturalSeoConfig,
     NaturalSeoService,
 } from '@ecodev/natural';
-import {Component, DOCUMENT} from '@angular/core';
+import {Component, DOCUMENT, ChangeDetectionStrategy} from '@angular/core';
 import {provideRouter, Router, type Routes} from '@angular/router';
 import {type PaqItem} from './matomo.service';
 
 @Component({
     template: ` <div i18n>Test component</div>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestSimpleComponent {}
 

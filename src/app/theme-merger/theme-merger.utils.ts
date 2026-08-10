@@ -4,12 +4,7 @@ export type ThemeToken = {
 };
 
 export type SchemeVariation =
-    | 'light'
-    | 'light-medium-contrast'
-    | 'light-high-contrast'
-    | 'dark'
-    | 'dark-medium-contrast'
-    | 'dark-high-contrast';
+    'light' | 'light-medium-contrast' | 'light-high-contrast' | 'dark' | 'dark-medium-contrast' | 'dark-high-contrast';
 
 export type MaterialTheme = {
     seed?: string;

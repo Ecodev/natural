@@ -9,6 +9,7 @@ import {
     type OnInit,
     output,
     type SimpleChanges,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {type AbstractControl} from '@angular/forms';
 import {finalize, type Observable, of, Subject, tap} from 'rxjs';
@@ -38,6 +39,7 @@ import {commonImageMimeTypes} from '../utils';
     ],
     templateUrl: './file.component.html',
     styleUrl: './file.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '[style.height.px]': 'height()',
     },

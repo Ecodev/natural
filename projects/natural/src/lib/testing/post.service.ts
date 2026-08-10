@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 import {
     createPost,
@@ -11,9 +11,7 @@ import {
 } from './mock-apollo.provider';
 import {type Literal, type PaginatedData, type QueryVariables} from '@ecodev/natural';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class PostService extends NaturalAbstractModelService<
     Post,
     {id: string},

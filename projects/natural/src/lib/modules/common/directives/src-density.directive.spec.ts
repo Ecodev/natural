@@ -1,4 +1,4 @@
-import {Component, type DebugElement} from '@angular/core';
+import {Component, type DebugElement, ChangeDetectionStrategy} from '@angular/core';
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalSrcDensityDirective} from './src-density.directive';
 import {By} from '@angular/platform-browser';
@@ -12,6 +12,7 @@ import {By} from '@angular/platform-browser';
         <img src="foo.jpg" srcset="bar.jpg" naturalSrcDensity="https://example.com/api/image/123.jpg" />
         <img naturalSrcDensity="https://example.com/api/image/123/201" />
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestComponent {
     protected readonly url1 = 'https://example.com/api/image/123/200';

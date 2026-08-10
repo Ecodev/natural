@@ -1,4 +1,4 @@
-import {DestroyRef, inject, Injectable} from '@angular/core';
+import {DestroyRef, inject, Service} from '@angular/core';
 import {type MatDrawerMode} from '@angular/material/sidenav';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
@@ -23,7 +23,7 @@ function assert(value: unknown): asserts value {
  * https://github.com/angular/material2/issues/6743
  * Maybe the better is to wait next release
  */
-@Injectable({providedIn: 'root'})
+@Service()
 export class NaturalSidenavService {
     private readonly destroyRef = inject(DestroyRef);
     private readonly breakpointObserver = inject(BreakpointObserver);

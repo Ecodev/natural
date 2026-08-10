@@ -9,7 +9,7 @@ import {
     type ComponentRef,
     type ElementRef,
     inject,
-    Injectable,
+    Service,
     InjectionToken,
     Injector,
     type StaticProvider,
@@ -32,9 +32,7 @@ export type NaturalDropdownData<C = any> = {
 
 export const NATURAL_DROPDOWN_DATA = new InjectionToken<NaturalDropdownData>('NaturalDropdownData');
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalDropdownService {
     private readonly injector = inject(Injector);
 

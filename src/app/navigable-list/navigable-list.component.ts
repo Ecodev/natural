@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatIcon} from '@angular/material/icon';
@@ -62,6 +62,7 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     ],
     templateUrl: './navigable-list.component.html',
     styleUrl: './navigable-list.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NavigableListComponent extends NaturalAbstractNavigableList<ItemService> implements OnInit {
     protected override defaultPagination = {

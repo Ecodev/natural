@@ -10,6 +10,7 @@ import {
     type OnDestroy,
     viewChild,
     ViewEncapsulation,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {Subject} from 'rxjs';
 import {MatButton} from '@angular/material/button';
@@ -36,6 +37,7 @@ const EXIT_ANIMATION = '_mat-menu-exit';
     imports: [CdkPortalOutlet, MatButton],
     templateUrl: './dropdown-container.component.html',
     styleUrl: './dropdown-container.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
     encapsulation: ViewEncapsulation.None,
 })

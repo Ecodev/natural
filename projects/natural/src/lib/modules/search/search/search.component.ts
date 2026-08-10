@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, type OnChanges, output, signal} from '@angular/core';
+import {Component, inject, Input, input, type OnChanges, output, signal, ChangeDetectionStrategy} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {type NaturalSearchFacets} from '../types/facet';
 import {type GroupSelections, type NaturalSearchSelections} from '../types/values';
@@ -17,6 +17,7 @@ import {AsyncPipe} from '@angular/common';
     imports: [AsyncPipe, NaturalGroupComponent, MatIconButton, MatTooltip, MatIcon, NaturalIconDirective, MatDivider],
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalSearchComponent implements OnChanges {
     private readonly breakpointObserver = inject(BreakpointObserver);

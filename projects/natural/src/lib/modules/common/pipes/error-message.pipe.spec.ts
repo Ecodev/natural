@@ -14,8 +14,7 @@ describe('NaturalErrorMessagePipe', () => {
     yesterday.setDate(yesterday.getDate() - 1);
 
     const cases: (
-        | [ValidationErrors | null | undefined, string]
-        | [ValidationErrors | null | undefined, string, string]
+        [ValidationErrors | null | undefined, string] | [ValidationErrors | null | undefined, string, string]
     )[] = [
         // Past
         [null, ''],

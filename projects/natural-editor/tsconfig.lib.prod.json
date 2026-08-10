@@ -4,13 +4,15 @@
     "compilerOptions": {
         "declarationMap": false,
         "paths": {
-            "@ecodev/natural": ["dist/natural"]
+            "@ecodev/natural": ["../../dist/natural"]
         }
     },
     "angularCompilerOptions": {
         "compilationMode": "partial",
         "extendedDiagnostics": {
             "checks": {
+                "nullishCoalescingNotNullable": "suppress",
+                "optionalChainNotNullable": "suppress",
                 "unusedStandaloneImports": "error"
             }
         }

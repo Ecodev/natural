@@ -1,10 +1,10 @@
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component, type DebugElement} from '@angular/core';
+import {Component, type DebugElement, ChangeDetectionStrategy} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {MatIcon} from '@angular/material/icon';
 import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 import {NaturalIconDirective, provideIcons} from '@ecodev/natural';
-import {provideHttpClient} from '@angular/common/http';
+import {provideHttpClient, withXhr} from '@angular/common/http';
 
 @Component({
     imports: [MatIcon, NaturalIconDirective],
@@ -19,6 +19,7 @@ import {provideHttpClient} from '@angular/common/http';
         <mat-icon [naturalIcon]="null" />
         <mat-icon [naturalIcon]="undefined" />
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestComponent {}
 
@@ -40,7 +41,7 @@ describe('NaturalIconComponent', () => {
     beforeEach(() => {
         fixture = TestBed.configureTestingModule({
             providers: [
-                provideHttpClient(),
+                provideHttpClient(withXhr()),
                 provideHttpClientTesting(),
                 provideIcons({
                     customFontName: {font: 'download'},

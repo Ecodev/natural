@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {NativeDateAdapter} from '@angular/material/core';
 
 const patterns: readonly RegExp[] = [
@@ -10,9 +10,7 @@ const patterns: readonly RegExp[] = [
     /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/,
 ];
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalSwissParsingDateAdapter extends NativeDateAdapter {
     /**
      * Parse commonly accepted swiss format, such as:

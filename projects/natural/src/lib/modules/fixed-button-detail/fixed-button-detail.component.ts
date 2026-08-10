@@ -1,4 +1,4 @@
-import {Component, inject, Input, output} from '@angular/core';
+import {Component, inject, Input, output, ChangeDetectionStrategy} from '@angular/core';
 import {type FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -17,6 +17,7 @@ type Model = {
     imports: [NaturalFixedButtonComponent, MatTooltip],
     templateUrl: './fixed-button-detail.component.html',
     styleUrl: './fixed-button-detail.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalFixedButtonDetailComponent {
     private canChange = true;

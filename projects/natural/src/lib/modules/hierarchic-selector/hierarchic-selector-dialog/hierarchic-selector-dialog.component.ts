@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {clone} from 'es-toolkit';
 import {defaults} from 'es-toolkit/compat';
@@ -56,6 +56,7 @@ export type HierarchicDialogConfig = {
     imports: [MatDialogModule, NaturalHierarchicSelectorComponent, MatButton],
     templateUrl: './hierarchic-selector-dialog.component.html',
     styleUrl: './hierarchic-selector-dialog.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalHierarchicSelectorDialogComponent {
     private dialogRef =

@@ -8,7 +8,7 @@ import {
     naturalProviders,
 } from '@ecodev/natural';
 import {ItemService} from '../testing/item.service';
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, type Data} from '@angular/router';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
 
@@ -19,6 +19,7 @@ import {MockApolloProvider} from '../testing/mock-apollo.provider';
         [selections]="selectedColumns"
         (selectionChange)="selectColumns($event)"
     />`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestListComponent extends NaturalAbstractList<ItemService> {
     public override availableColumns: AvailableColumn[] = [

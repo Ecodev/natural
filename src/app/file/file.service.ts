@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {
     type FileModel,
     type Literal,
@@ -9,9 +9,7 @@ import {
 import {type Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class FileService extends NaturalAbstractModelService<
     FileModel,
     {id: string},

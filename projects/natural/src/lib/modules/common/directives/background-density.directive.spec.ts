@@ -1,4 +1,4 @@
-import {Component, type DebugElement} from '@angular/core';
+import {Component, type DebugElement, ChangeDetectionStrategy} from '@angular/core';
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NaturalBackgroundDensityDirective} from './background-density.directive';
@@ -21,6 +21,7 @@ import {NaturalBackgroundDensityDirective} from './background-density.directive'
         <div naturalBackgroundDensity="https://example.com/api/image/123/201"></div>
         <div naturalBackgroundDensity="url(data:image/png;base64,aabbcc)"></div>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestComponent {
     protected readonly url1 = 'https://example.com/api/image/123/200';

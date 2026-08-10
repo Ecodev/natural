@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
@@ -32,6 +32,7 @@ import {type Item, type ItemInput, ItemService} from '../../../projects/natural/
     ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class DetailComponent extends NaturalAbstractDetail<ItemService, NaturalSeoResolveData> implements OnInit {
     protected readonly collectErrors = collectErrors;

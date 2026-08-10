@@ -13,7 +13,7 @@ import {
     Subject,
     take,
 } from 'rxjs';
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type UntypedModelService} from '../types/types';
 
 type Debounced<T extends UntypedModelService> = {
@@ -32,9 +32,7 @@ type Debounced<T extends UntypedModelService> = {
  *
  * `id` must be the ID of the object that will be updated.
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalDebounceService {
     /**
      * Stores the debounced update function

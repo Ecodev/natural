@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {NaturalQueryVariablesManager} from '../../../classes/query-variable-manager';
 import {type Literal, type UntypedModelService} from '../../../types/types';
 import {type NaturalHierarchicConfiguration} from '../../hierarchic-selector/classes/hierarchic-configuration';
@@ -38,6 +38,7 @@ export type TypeHierarchicSelectorConfiguration = {
         NaturalHierarchicSelectorComponent,
     ],
     templateUrl: './type-hierarchic-selector.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeHierarchicSelectorComponent extends AbstractAssociationSelectComponent<TypeHierarchicSelectorConfiguration> {
     public getCondition(): FilterGroupConditionField {

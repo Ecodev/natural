@@ -1,4 +1,4 @@
-import {Component, inject, input, type OnDestroy, type OnInit, viewChild} from '@angular/core';
+import {Component, inject, input, type OnDestroy, type OnInit, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {type MatDrawer, MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {NaturalSidenavService} from '../sidenav.service';
 
@@ -8,6 +8,7 @@ import {NaturalSidenavService} from '../sidenav.service';
     templateUrl: './sidenav-container.component.html',
     styleUrl: './sidenav-container.component.scss',
     providers: [NaturalSidenavService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '[attr.no-scroll]': 'noScroll()',
     },

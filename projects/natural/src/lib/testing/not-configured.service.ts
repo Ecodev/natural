@@ -1,12 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {NaturalAbstractModelService} from '../services/abstract-model.service';
 
 /**
  * A service that is not configured at all for testing purposes.
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NotConfiguredService extends NaturalAbstractModelService<
     any,
     any,

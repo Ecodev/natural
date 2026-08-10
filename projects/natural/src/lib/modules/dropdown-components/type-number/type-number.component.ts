@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, type ValidatorFn, Validators} from '@angular/forms';
 import {BehaviorSubject, merge} from 'rxjs';
 import {type FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
@@ -33,6 +33,7 @@ export type TypeNumberConfiguration = {
     imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatError, MatSelect, MatOption, MatInput],
     templateUrl: './type-number.component.html',
     styleUrl: './type-number.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeNumberComponent implements DropdownComponent {
     protected dropdownRef = inject(NaturalDropdownRef);

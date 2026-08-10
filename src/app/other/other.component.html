@@ -36,8 +36,7 @@
         touched: {{ httpPrefixControl.touched | json }}dirty: {{ httpPrefixControl.dirty | json }}status: {{
                     httpPrefixControl.status | json
                 }}errors: {{ httpPrefixControl.errors | json }}value: {{ httpPrefixControl.value | json }}
-      </pre
-            >
+      </pre>
         </div>
 
         <div [formGroup]="httpPrefixGroup">
@@ -49,8 +48,7 @@
         touched: {{ httpPrefixGroup.touched | json }}dirty: {{ httpPrefixGroup.dirty | json }}status: {{
                     httpPrefixGroup.status | json
                 }}errors: {{ httpPrefixGroup.get('prefix')?.errors | json }}value: {{ httpPrefixGroup.value | json }}
-      </pre
-            >
+      </pre>
         </div>
     </div>
 

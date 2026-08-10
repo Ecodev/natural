@@ -2,7 +2,7 @@
     matIconButton
     matTooltipPosition="below"
     i18n-matTooltip
-    [matTooltip]="current()?.label"
+    [matTooltip]="$safeNavigationMigration(current()?.label)"
     [matMenuTriggerFor]="menu"
     ><mat-icon [fontIcon]="current()?.icon ?? ''"
 /></button>

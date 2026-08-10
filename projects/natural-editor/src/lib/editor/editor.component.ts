@@ -8,6 +8,7 @@ import {
     type OnInit,
     output,
     viewChild,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {type ControlValueAccessor, NgControl} from '@angular/forms';
 import {EditorView} from 'prosemirror-view';
@@ -63,6 +64,7 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
     templateUrl: './editor.component.html',
     styleUrl: './editor.component.scss',
     providers: [ImagePlugin],
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAccessor {
     private readonly ngControl = inject(NgControl, {optional: true, self: true});
@@ -199,7 +201,6 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
     }
 
     private createPlugins(): Plugin[] {
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         const isMac = !!this.document.defaultView?.navigator.platform.match(/Mac/);
 
         const plugins = [

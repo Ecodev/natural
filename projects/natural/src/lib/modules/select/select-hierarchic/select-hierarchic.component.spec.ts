@@ -7,7 +7,7 @@ import {
     NaturalSelectHierarchicComponent,
     type OrganizedModelSelection,
 } from '@ecodev/natural';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
 import {
@@ -36,6 +36,7 @@ import {ItemService} from '../../../testing/item.service';
             (blur)="onBlur()"
         />
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestHostWithHierarchicAndNgModelComponent extends AbstractTestHostWithNgModelComponent {}
 
@@ -51,6 +52,7 @@ class TestHostWithHierarchicAndNgModelComponent extends AbstractTestHostWithNgMo
             (blur)="onBlur()"
         />
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestHostWithHierarchicAndFormControlComponent extends AbstractTestHostWithFormControlComponent {}
 

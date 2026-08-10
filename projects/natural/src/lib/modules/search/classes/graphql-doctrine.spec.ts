@@ -318,7 +318,7 @@ describe('toGraphQLDoctrineFilter', () => {
             ],
         ];
 
-        const expected = {
+        const expected: Filter = {
             groups: [
                 {
                     joins: {
@@ -342,7 +342,7 @@ describe('toGraphQLDoctrineFilter', () => {
             ],
         };
 
-        expect(toGraphQLDoctrineFilter(facets, input)).toEqual(expected as Filter);
+        expect(toGraphQLDoctrineFilter(facets, input)).toEqual(expected);
     });
 
     it('should group with OR', () => {

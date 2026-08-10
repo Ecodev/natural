@@ -1,6 +1,6 @@
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {type ComponentType} from '@angular/cdk/portal';
-import {inject, Injectable, Injector, runInInjectionContext} from '@angular/core';
+import {inject, Service, Injector, runInInjectionContext} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatDialog, type MatDialogConfig, type MatDialogRef} from '@angular/material/dialog';
 import {
@@ -37,9 +37,7 @@ function compareConfigs(a: NaturalPanelConfig, b: NaturalPanelConfig): boolean {
  * TODO: implement route update when closing dialog with escape
  * @dynamic
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalPanelsService {
     private readonly router = inject(Router);
     private readonly dialog = inject(MatDialog);

@@ -1,12 +1,10 @@
-import {DOCUMENT, inject, Injectable} from '@angular/core';
+import {DOCUMENT, inject, Service} from '@angular/core';
 import {Subject} from 'rxjs';
 import {type FileSelection} from './abstract-file';
 import {type FileModel} from './types';
 
 // @dynamic
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalFileService {
     private readonly document = inject(DOCUMENT);
 

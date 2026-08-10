@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ifValid, NaturalIconDirective} from '@ecodev/natural';
@@ -36,6 +36,7 @@ export type ColorDialogData = {
     ],
     templateUrl: './color-dialog.component.html',
     styleUrl: './color-dialog.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ColorDialogComponent {
     private dialogRef = inject<MatDialogRef<ColorDialogComponent, ColorDialogData>>(MatDialogRef);

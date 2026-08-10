@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
     MatCell,
@@ -44,6 +44,7 @@ type Item = {
     ],
     templateUrl: './table-style.component.html',
     styleUrl: './table-style.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TableStyleComponent {
     public readonly columns = ['name', 'value', 'sortable_value'];

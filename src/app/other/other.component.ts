@@ -1,6 +1,6 @@
 import {JsonPipe} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatRipple} from '@angular/material/core';
@@ -69,8 +69,11 @@ fewHoursAgo.setHours(fewHoursAgo.getHours() - 3);
     ],
     templateUrl: './other.component.html',
     styleUrl: './other.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class OtherComponent implements OnInit {
+    private readonly httpClient = inject(HttpClient);
+
     protected readonly item1 = {
         creator: null,
         updater: null,
@@ -100,8 +103,6 @@ export class OtherComponent implements OnInit {
         creationDate: lastWeek.toISOString(),
         updateDate: fewHoursAgo.toISOString(),
     };
-
-    private httpClient = inject(HttpClient);
 
     /**
      * Single control

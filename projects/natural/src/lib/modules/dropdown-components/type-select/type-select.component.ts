@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {Component, DestroyRef, inject, ChangeDetectionStrategy} from '@angular/core';
 import {MatListOption, MatSelectionList} from '@angular/material/list';
 import {BehaviorSubject, merge, type Observable, of} from 'rxjs';
 import {type FilterGroupConditionField, type Scalar} from '../../search/classes/graphql-doctrine.types';
@@ -44,6 +44,7 @@ export type TypeSelectConfiguration = {
         MatListOption,
     ],
     templateUrl: './type-select.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeSelectComponent implements DropdownComponent {
     private readonly destroyRef = inject(DestroyRef);

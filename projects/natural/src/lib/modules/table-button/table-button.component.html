@@ -1,78 +1,79 @@
 <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 <!-- Because directives can't be applied conditionally (routerLink, matButton and matIconButton), we have to use different elements -->
 @let theIcon = icon();
+@let theType = type();
 
-<!-- Edge case of a button without any kind of link at all -->
-@if (type() === 'none') {
-    <span>
-        @if (theIcon) {
-            <mat-icon [naturalIcon]="theIcon" />
-        }
+@switch (theType) {
+    <!-- App routed link -->
+    @case ('routerLinkOrClick') {
         @if (label()) {
-            <span>{{ label() }}</span>
-        }
-    </span>
-} @else {
-    @switch (type()) {
-        <!-- App routed link -->
-        @case ('routerLinkOrClick') {
-            @if (label()) {
-                <a
-                    [matButton]="appearance()"
-                    [color]="color()"
-                    [disabled]="disabled()"
-                    [queryParams]="queryParams()"
-                    [queryParamsHandling]="queryParamsHandling()"
-                    [routerLink]="navigate()"
-                    [fragment]="fragment()"
-                    [preserveFragment]="preserveFragment()"
-                    (click)="buttonClick$.next($event)"
-                >
-                    @if (theIcon) {
-                        <mat-icon [naturalIcon]="theIcon" />
-                    }
-                    <span>{{ label() }}</span>
-                </a>
-            } @else {
-                <a
-                    matIconButton
-                    [color]="color()"
-                    [disabled]="disabled()"
-                    [queryParams]="queryParams()"
-                    [queryParamsHandling]="queryParamsHandling()"
-                    [routerLink]="navigate()"
-                    [fragment]="fragment()"
-                    [preserveFragment]="preserveFragment()"
-                    (click)="buttonClick$.next($event)"
-                >
-                    @if (theIcon) {
-                        <mat-icon [naturalIcon]="theIcon" />
-                    }
-                </a>
-            }
-        }
-        <!-- External link -->
-        @case ('href') {
-            @if (label()) {
-                <a
-                    target="_blank"
-                    [matButton]="appearance()"
-                    [attr.href]="href()"
-                    [color]="color()"
-                    [disabled]="disabled()"
-                >
-                    @if (theIcon) {
-                        <mat-icon [naturalIcon]="theIcon" />
-                    }
-                    <span>{{ label() }}</span>
-                </a>
-            } @else {
-                <a matIconButton target="_blank" [attr.href]="href()" [color]="color()" [disabled]="disabled()">
-                    @if (theIcon) {
-                        <mat-icon [naturalIcon]="theIcon" />
-                    }
-                </a>
-            }
+            <a
+                [matButton]="appearance()"
+                [color]="color()"
+                [disabled]="disabled()"
+                [queryParams]="queryParams()"
+                [queryParamsHandling]="queryParamsHandling()"
+                [routerLink]="navigate()"
+                [fragment]="fragment()"
+                [preserveFragment]="preserveFragment()"
+                (click)="buttonClick$.next($event)"
+            >
+                @if (theIcon) {
+                    <mat-icon [naturalIcon]="theIcon" />
+                }
+                <span>{{ label() }}</span>
+            </a>
+        } @else {
+            <a
+                matIconButton
+                [color]="color()"
+                [disabled]="disabled()"
+                [queryParams]="queryParams()"
+                [queryParamsHandling]="queryParamsHandling()"
+                [routerLink]="navigate()"
+                [fragment]="fragment()"
+                [preserveFragment]="preserveFragment()"
+                (click)="buttonClick$.next($event)"
+            >
+                @if (theIcon) {
+                    <mat-icon [naturalIcon]="theIcon" />
+                }
+            </a>
         }
     }
+    <!-- External link -->
+    @case ('href') {
+        @if (label()) {
+            <a
+                target="_blank"
+                [matButton]="appearance()"
+                [attr.href]="href()"
+                [color]="color()"
+                [disabled]="disabled()"
+            >
+                @if (theIcon) {
+                    <mat-icon [naturalIcon]="theIcon" />
+                }
+                <span>{{ label() }}</span>
+            </a>
+        } @else {
+            <a matIconButton target="_blank" [attr.href]="href()" [color]="color()" [disabled]="disabled()">
+                @if (theIcon) {
+                    <mat-icon [naturalIcon]="theIcon" />
+                }
+            </a>
+        }
+    }
+    <!-- Edge case of a button without any kind of link at all-->
+    @case ('none') {
+        <span>
+            @if (theIcon) {
+                <mat-icon [naturalIcon]="theIcon" />
+            }
+            @if (label()) {
+                <span>{{ label() }}</span>
+            }
+        </span>
+    }
+    @default never;
 }

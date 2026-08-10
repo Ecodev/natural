@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {
     type AbstractControl,
     FormControl,
@@ -75,6 +75,7 @@ function toGreaterThanFrom<D>(dateAdapter: DateAdapter<D>): ValidatorFn {
         MatDatepickerToggle,
     ],
     templateUrl: './type-date-range.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeDateRangeComponent<D = any> implements DropdownComponent {
     private dateAdapter = inject<DateAdapter<D>>(DateAdapter);

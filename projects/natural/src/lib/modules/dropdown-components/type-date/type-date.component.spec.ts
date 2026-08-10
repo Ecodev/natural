@@ -7,9 +7,9 @@ import {
     TypeDateComponent,
     type TypeDateConfiguration,
 } from '@ecodev/natural';
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 
-@Injectable({providedIn: 'root'})
+@Service()
 class ImpossibleParsingDateAdapter extends NativeDateAdapter {
     public override parse(): Date | null {
         throw new Error('`parse` method should never be called at all');

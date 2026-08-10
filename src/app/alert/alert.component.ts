@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {NaturalAlertService} from '@ecodev/natural';
 
@@ -6,6 +6,7 @@ import {NaturalAlertService} from '@ecodev/natural';
     selector: 'app-panels',
     imports: [MatButton],
     templateUrl: './alert.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AlertComponent {
     private readonly alertService = inject(NaturalAlertService);

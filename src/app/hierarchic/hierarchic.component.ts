@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {
     type HierarchicDialogConfig,
@@ -18,6 +18,7 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     imports: [NaturalHierarchicSelectorComponent, MatButton],
     templateUrl: './hierarchic.component.html',
     styleUrl: './hierarchic.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class HierarchicComponent {
     private itemService = inject(ItemService);

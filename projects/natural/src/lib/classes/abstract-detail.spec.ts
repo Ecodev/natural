@@ -2,13 +2,14 @@ import {TestBed} from '@angular/core/testing';
 import {MockApolloProvider} from '../testing/mock-apollo.provider';
 import {type Item, type ItemInput, ItemService} from '../testing/item.service';
 import {type Literal, NaturalAbstractDetail, NaturalAlertService} from '@ecodev/natural';
-import {Component, inject, Injectable} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, Service} from '@angular/core';
 import {type ActivatedRouteSnapshot, provideRouter, type Route, Router} from '@angular/router';
 import {RouterTestingHarness} from '@angular/router/testing';
 import {BehaviorSubject, of, Subject} from 'rxjs';
 
 @Component({
     template: ` <div i18n>Test simple component</div>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestSimpleComponent extends NaturalAbstractDetail<ItemService> {
     public constructor() {
@@ -20,12 +21,11 @@ class TestSimpleComponent extends NaturalAbstractDetail<ItemService> {
 
 @Component({
     template: ` <div i18n>Test list component</div>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestListComponent {}
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 class WithExtraFormField extends ItemService {
     protected override getFormExtraFieldDefaultValues(): Literal {
         return {extraField: 'my default value'};
@@ -247,6 +247,7 @@ describe('NaturalAbstractDetail', () => {
         detail.create();
 
         await harness.fixture.whenStable();
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         expect(spy).toHaveBeenCalledOnceWith({
             id: '123', // This is an extra property that shouldn't really be there, but it's ok to have it because it has no effect
             name: 'my name',
@@ -379,6 +380,7 @@ describe('NaturalAbstractDetail', () => {
 
         const spy = spyOn(service, 'create').and.callFake(() => of(serverResponse));
         detail.create();
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         expect(spy).toHaveBeenCalledOnceWith({
             id: '123', // This is an extra property that shouldn't really be there, but it's ok to have it because it has no effect
             name: 'my name',

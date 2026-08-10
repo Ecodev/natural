@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
@@ -61,6 +61,7 @@ import {ItemService} from '../../../projects/natural/src/lib/testing/item.servic
     ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ListComponent extends NaturalAbstractList<ItemService> implements OnInit {
     public override readonly pageSizeOptions = [1, 2, 3, 4, 5];

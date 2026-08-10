@@ -1,5 +1,5 @@
 import {Apollo, gql} from 'apollo-angular';
-import {inject, Injectable} from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -32,9 +32,7 @@ export type IEnum = {
     name: string;
 };
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalEnumService {
     private readonly apollo = inject(Apollo);
 

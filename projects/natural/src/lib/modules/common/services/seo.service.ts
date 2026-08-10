@@ -1,4 +1,4 @@
-import {DOCUMENT, inject, Injectable, InjectionToken, LOCALE_ID} from '@angular/core';
+import {DOCUMENT, inject, Service, InjectionToken, LOCALE_ID} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
 import {type ActivatedRouteSnapshot, type Data, NavigationEnd, PRIMARY_OUTLET, Router} from '@angular/router';
 import {NaturalDialogTriggerComponent} from '../../dialog-trigger/dialog-trigger.component';
@@ -142,9 +142,7 @@ type ResolvedData = {
  * `dialog title` only exists if a `NaturalDialogTriggerComponent` is currently open, and that some SEO is
  * configured for it in the routing.
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalSeoService {
     private readonly router = inject(Router);
     private readonly titleService = inject(Title);

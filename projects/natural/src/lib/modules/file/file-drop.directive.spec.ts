@@ -1,4 +1,4 @@
-import {Component, viewChild} from '@angular/core';
+import {Component, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {NaturalFileService} from '@ecodev/natural';
 import {NaturalFileDropDirective} from './file-drop.directive';
@@ -6,6 +6,7 @@ import {NaturalFileDropDirective} from './file-drop.directive';
 @Component({
     imports: [NaturalFileDropDirective],
     template: '<div i18n naturalFileDrop>my drag and drop area</div>',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class ContainerComponent {
     public readonly ngf = viewChild.required(NaturalFileDropDirective);

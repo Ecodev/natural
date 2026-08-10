@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, type ValidatorFn, Validators} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MatOption} from '@angular/material/core';
 import {BehaviorSubject, merge, startWith} from 'rxjs';
@@ -46,6 +46,7 @@ export type TypeDateConfiguration<D = Date> = {
     ],
     templateUrl: './type-date.component.html',
     styleUrl: './type-date.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeDateComponent<D = any> implements DropdownComponent {
     private dateAdapter = inject<DateAdapter<D>>(DateAdapter);

@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {NaturalSelectComponent} from '@ecodev/natural';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MockApolloProvider} from '../../../testing/mock-apollo.provider';
 import {
@@ -26,6 +26,7 @@ import {type ItemService} from '../../../testing/item.service';
             (blur)="onBlur()"
         />
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestHostWithServiceAndNgModelComponent extends AbstractTestHostWithNgModelComponent {}
 
@@ -41,6 +42,7 @@ class TestHostWithServiceAndNgModelComponent extends AbstractTestHostWithNgModel
             (blur)="onBlur()"
         />
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestHostWithServiceAndFormControlComponent extends AbstractTestHostWithFormControlComponent {}
 

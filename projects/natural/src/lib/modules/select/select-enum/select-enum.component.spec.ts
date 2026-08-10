@@ -1,4 +1,4 @@
-import {Component, type DebugElement} from '@angular/core';
+import {Component, type DebugElement, ChangeDetectionStrategy} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
@@ -26,6 +26,7 @@ import {
             (blur)="onBlur()"
         />
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestHostWithNgModelComponent extends AbstractTestHostWithNgModelComponent {}
 
@@ -41,6 +42,7 @@ class TestHostWithNgModelComponent extends AbstractTestHostWithNgModelComponent 
             (blur)="onBlur()"
         />
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestHostWithFormControlComponent extends AbstractTestHostWithFormControlComponent {}
 

@@ -1,5 +1,14 @@
 import {SelectionModel} from '@angular/cdk/collections';
-import {Component, inject, input, type OnChanges, type OnInit, output, type SimpleChanges} from '@angular/core';
+import {
+    Component,
+    inject,
+    input,
+    type OnChanges,
+    type OnInit,
+    output,
+    type SimpleChanges,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatChipAvatar, MatChipListbox, MatChipOption, MatChipRemove} from '@angular/material/chips';
@@ -58,6 +67,7 @@ import {NgTemplateOutlet} from '@angular/common';
     templateUrl: './hierarchic-selector.component.html',
     styleUrl: './hierarchic-selector.component.scss',
     providers: [NaturalHierarchicSelectorService],
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalHierarchicSelectorComponent implements OnInit, OnChanges {
     protected readonly hierarchicSelectorService = inject(NaturalHierarchicSelectorService);

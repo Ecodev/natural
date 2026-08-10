@@ -1,4 +1,4 @@
-import {Component, Input, input, output, viewChild} from '@angular/core';
+import {Component, Input, input, output, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {deepClone} from '../classes/utils';
 import {NaturalInputComponent} from '../input/input.component';
 import {type NaturalSearchFacets} from '../types/facet';
@@ -9,6 +9,7 @@ import {type GroupSelections, type NaturalSearchSelection} from '../types/values
     imports: [NaturalInputComponent],
     templateUrl: './group.component.html',
     styleUrl: './group.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalGroupComponent {
     public readonly newValueInput = viewChild.required<NaturalInputComponent>('newValueInput');

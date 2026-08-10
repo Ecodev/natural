@@ -9,7 +9,7 @@ import {
     naturalProviders,
     providePanels,
 } from '@ecodev/natural';
-import {Component, inject, Injector, viewChild} from '@angular/core';
+import {Component, inject, Injector, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {provideRouter, Router, RouterOutlet, type Routes, UrlSegment, withRouterConfig} from '@angular/router';
 import {type Observable, of} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
@@ -19,6 +19,7 @@ import {fallbackIfNoOpenedPanels} from './fallback-if-no-opened-panels.urlmatche
     selector: 'natural-test-root',
     imports: [RouterOutlet],
     template: '<router-outlet />',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestRootComponent {
     public readonly routerOutlet = viewChild.required(RouterOutlet);
@@ -27,6 +28,7 @@ class TestRootComponent {
 @Component({
     selector: 'natural-test-no-panel',
     template: `<h1 i18n>Page without panels at all</h1>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestNoPanelComponent {}
 
@@ -37,24 +39,28 @@ class TestNoPanelComponent {}
         <h1 i18n>Page with panels</h1>
         <router-outlet />
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestWithPanelComponent {}
 
 @Component({
     selector: 'natural-test-panel-a',
     template: `<h1 i18n>Panel A content</h1>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestPanelAComponent extends NaturalAbstractPanel {}
 
 @Component({
     selector: 'natural-test-panel-b',
     template: `<h1 i18n>Panel B content</h1>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestPanelBComponent extends NaturalAbstractPanel {}
 
 @Component({
     selector: 'natural-test-fallback',
     template: `<h1 i18n>404 fallback page</h1>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestFallbackComponent {}
 

@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';
@@ -60,6 +60,7 @@ function selectionToJson(selection: FileSelection): JsonFileSelection {
     ],
     templateUrl: './file.component.html',
     styleUrl: './file.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class FileComponent {
     private readonly uploadService = inject(NaturalFileService);

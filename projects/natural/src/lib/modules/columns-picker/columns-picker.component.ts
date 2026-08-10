@@ -1,4 +1,14 @@
-import {Component, DestroyRef, inject, Input, input, type OnChanges, output, type SimpleChanges} from '@angular/core';
+import {
+    Component,
+    DestroyRef,
+    inject,
+    Input,
+    input,
+    type OnChanges,
+    output,
+    type SimpleChanges,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 import {type NaturalPalette} from '../../types/types';
 import {type AvailableColumn, type Button} from './types';
 import {cancellableTimeout} from '../../classes/rxjs';
@@ -30,6 +40,7 @@ import {MatTooltip} from '@angular/material/tooltip';
     ],
     templateUrl: './columns-picker.component.html',
     styleUrl: './columns-picker.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalColumnsPickerComponent implements OnChanges {
     private readonly destroyRef = inject(DestroyRef);

@@ -10,6 +10,7 @@ import {
     output,
     TemplateRef,
     viewChild,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {MatPaginator, type PageEvent} from '@angular/material/paginator';
 import {NaturalDataSource, type PaginatedData} from '../../classes/data-source';
@@ -83,6 +84,7 @@ import {TypedMatCellDef} from '../../directives/typed-mat-cell-def.directive';
     ],
     templateUrl: './relations.component.html',
     styleUrl: './relations.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalRelationsComponent<
     TService extends NaturalAbstractModelService<

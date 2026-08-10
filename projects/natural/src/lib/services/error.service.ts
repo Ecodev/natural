@@ -1,4 +1,4 @@
-import {DOCUMENT, inject, Injectable} from '@angular/core';
+import {DOCUMENT, inject, Service} from '@angular/core';
 import {Router} from '@angular/router';
 import {type Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
@@ -7,9 +7,7 @@ import {type GraphQLFormattedError} from 'graphql';
 /**
  * Service for storing the last error and redirecting to error page conveniently
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class ErrorService {
     private readonly document = inject(DOCUMENT);
     private readonly router = inject(Router);

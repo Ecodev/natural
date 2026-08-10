@@ -9,6 +9,7 @@ import {
     type OnInit,
     TemplateRef,
     viewChild,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {type ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material/autocomplete';
@@ -94,6 +95,7 @@ type ValueTypeFor<TService> = string | ExtractTallOne<TService>;
     ],
     templateUrl: './select.component.html',
     styleUrl: './select.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalSelectComponent<
     TService extends NaturalAbstractModelService<

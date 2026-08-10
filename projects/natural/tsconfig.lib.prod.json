@@ -8,6 +8,8 @@
         "compilationMode": "partial",
         "extendedDiagnostics": {
             "checks": {
+                "nullishCoalescingNotNullable": "suppress",
+                "optionalChainNotNullable": "suppress",
                 "unusedStandaloneImports": "error"
             }
         }

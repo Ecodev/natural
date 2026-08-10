@@ -1,4 +1,4 @@
-import {Component, Input, input} from '@angular/core';
+import {Component, Input, input, ChangeDetectionStrategy} from '@angular/core';
 import {type Literal, type NameOrFullName} from '../../types/types';
 import {NaturalIconDirective} from '../icon/icon.directive';
 import {MatIcon} from '@angular/material/icon';
@@ -10,6 +10,7 @@ import {MatButton} from '@angular/material/button';
     imports: [MatButton, RouterLink, MatIcon, NaturalIconDirective],
     templateUrl: './detail-header.component.html',
     styleUrl: './detail-header.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalDetailHeaderComponent {
     /**

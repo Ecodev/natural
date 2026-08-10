@@ -1,4 +1,4 @@
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NaturalAbstractDetail, type NaturalHierarchicConfiguration} from '@ecodev/natural';
 import {NaturalRelationsComponent} from '../../../projects/natural/src/lib/modules/relations/relations.component';
@@ -11,6 +11,7 @@ import {NoResultService} from '../../../projects/natural/src/lib/testing/no-resu
     imports: [FormsModule, ReactiveFormsModule, NaturalRelationsComponent],
     templateUrl: './relations.component.html',
     styleUrl: './relations.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class RelationsComponent extends NaturalAbstractDetail<ItemService> implements OnInit {
     public readonly noResultService = inject(NoResultService);

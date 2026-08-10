@@ -5,7 +5,7 @@ import {
     effect,
     type EnvironmentProviders,
     inject,
-    Injectable,
+    Service,
     InjectionToken,
     makeEnvironmentProviders,
     PLATFORM_ID,
@@ -55,9 +55,7 @@ export const colorSchemeOptions = [
  * to restore `data-color-scheme` and `data-theme` attributes on the `<html>` element (eg: from
  * local storage, or from DB).
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalThemeService {
     private readonly allThemes = inject(NATURAL_THEMES_CONFIG);
     private readonly storage = inject(LOCAL_STORAGE);

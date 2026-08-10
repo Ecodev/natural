@@ -1,5 +1,5 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {DOCUMENT, ErrorHandler, inject, Injectable, InjectionToken} from '@angular/core';
+import {DOCUMENT, ErrorHandler, inject, Service, InjectionToken} from '@angular/core';
 import {catchError, EMPTY, first, type Observable, of} from 'rxjs';
 
 export type NaturalLoggerType = {
@@ -42,9 +42,7 @@ export const NaturalLoggerConfigExtra = new InjectionToken<NaturalLoggerExtra>(
  * provideErrorHandler('http://example.com', ExtraService),
  * ```
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class NaturalErrorHandler extends ErrorHandler {
     private readonly http = inject(HttpClient);
     private readonly document = inject(DOCUMENT);

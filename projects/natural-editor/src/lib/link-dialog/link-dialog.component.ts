@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ifValid, NaturalErrorMessagePipe} from '@ecodev/natural';
@@ -26,6 +26,7 @@ export type LinkDialogData = {
     ],
     templateUrl: './link-dialog.component.html',
     styleUrl: './link-dialog.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class LinkDialogComponent {
     private dialogRef = inject<MatDialogRef<LinkDialogComponent, LinkDialogData>>(MatDialogRef);

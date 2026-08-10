@@ -1,4 +1,4 @@
-import {Component, type OnInit, viewChild} from '@angular/core';
+import {Component, type OnInit, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {type ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {provideRouter, Router, RouterOutlet} from '@angular/router';
 import {MatTabGroupHarness} from '@angular/material/tabs/testing';
@@ -11,6 +11,7 @@ import {NaturalLinkableTabDirective} from '@ecodev/natural';
     selector: 'natural-test-root',
     imports: [RouterOutlet],
     template: '<router-outlet />',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestRootComponent {
     public readonly routerOutlet = viewChild.required(RouterOutlet);
@@ -26,6 +27,7 @@ class TestRootComponent {
             <mat-tab i18n label="Tab 3" i18n-label id="third">Tab content 3</mat-tab>
         </mat-tab-group>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestSimpleComponent implements OnInit {
     public initialized = 0;

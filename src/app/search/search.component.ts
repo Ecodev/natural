@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
@@ -36,6 +36,7 @@ import {TypeAccountSelectorComponent} from '../../../projects/natural/src/lib/mo
     imports: [NaturalSearchComponent, MatButton, JsonPipe],
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class SearchComponent implements OnInit {
     private readonly router = inject(Router);

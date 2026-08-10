@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {Observable} from 'rxjs';
@@ -11,6 +11,7 @@ import {DomSanitizer, type SafeHtml} from '@angular/platform-browser';
     imports: [MatCheckbox, FormsModule, NaturalEditorComponent, NaturalCustomCssDirective],
     templateUrl: './editor.component.html',
     styleUrl: './editor.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class EditorComponent {
     private readonly domSanitizer = inject(DomSanitizer);

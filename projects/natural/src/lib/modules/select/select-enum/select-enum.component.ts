@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, type OnInit} from '@angular/core';
+import {Component, inject, Input, input, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {type ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {type Observable} from 'rxjs';
 import {type IEnum, NaturalEnumService} from '../../../services/enum.service';
@@ -25,6 +25,7 @@ type Value = IEnum['value'] | IEnum['value'][];
     ],
     templateUrl: './select-enum.component.html',
     styleUrl: './select-enum.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalSelectEnumComponent extends AbstractSelect<Value, Value> implements OnInit, ControlValueAccessor {
     private readonly enumService = inject(NaturalEnumService);

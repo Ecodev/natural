@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, type OnInit} from '@angular/core';
+import {Component, inject, Input, input, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {type ControlValueAccessor, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {type MatDialogConfig} from '@angular/material/dialog';
 import {type Literal} from '../../../types/types';
@@ -66,6 +66,7 @@ function defaultDisplayFn(item: Literal | null): string {
     ],
     templateUrl: './select-hierarchic.component.html',
     styleUrl: './select-hierarchic.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalSelectHierarchicComponent
     extends AbstractSelect<Literal, string>

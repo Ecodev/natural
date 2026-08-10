@@ -1,5 +1,5 @@
 import {ifValid} from '@ecodev/natural';
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
@@ -23,6 +23,7 @@ export type IdDialogData = {
     imports: [MatDialogModule, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatError, MatInput, MatButton],
     templateUrl: './id-dialog.component.html',
     styleUrl: './id-dialog.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class IdDialogComponent {
     private dialogRef = inject<MatDialogRef<IdDialogComponent, IdDialogData>>(MatDialogRef);

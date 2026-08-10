@@ -1,10 +1,11 @@
-import {Component, inject, type OnDestroy} from '@angular/core';
+import {Component, inject, type OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NaturalPanelsService} from './panels.service';
 
 @Component({
     selector: 'natural-panels',
     template: '',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NaturalPanelsComponent implements OnDestroy {
     private readonly panelsService = inject(NaturalPanelsService);

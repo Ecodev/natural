@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {type FilterGroupConditionField} from '../../search/classes/graphql-doctrine.types';
 import {NaturalDropdownRef} from '../../search/dropdown-container/dropdown-ref';
@@ -18,6 +18,7 @@ export type FacetSelectorConfiguration = {
     imports: [MatNavList, MatListItem],
     templateUrl: './facet-selector.component.html',
     styleUrl: './facet-selector.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class FacetSelectorComponent implements DropdownComponent {
     public readonly data = inject<NaturalDropdownData<FacetSelectorConfiguration>>(NATURAL_DROPDOWN_DATA);
