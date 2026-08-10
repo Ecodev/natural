@@ -33,6 +33,7 @@ export class TypedMatCellDef<T> extends MatCellDef {
      */
     public readonly matCellDefDataSource = input<T[] | Observable<T[]> | DataSource<T>>();
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public static ngTemplateContextGuard<T>(dir: TypedMatCellDef<T>, ctx: any): ctx is {$implicit: T; index: number} {
         return true;
     }

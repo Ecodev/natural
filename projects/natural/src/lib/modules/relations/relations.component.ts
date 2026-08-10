@@ -231,7 +231,7 @@ export class NaturalRelationsComponent<
         this.pagination();
 
         // Force disabled if cannot update object
-        if (this.main && this.main.permissions) {
+        if (this.main?.permissions) {
             this.disabled = this.disabled || !this.main.permissions.update;
         }
     }

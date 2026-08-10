@@ -91,10 +91,10 @@
                     [config]="hierarchicConfig"
                 />
             </div>
-            <button matButton="filled" (click)="updateValidatorRequired(formGroup.get('amazingField')!)"
+            <button matButton="filled" (click)="updateValidatorRequired(formGroup.controls.amazingField)"
                 >required
             </button>
-            <button matButton="filled" (click)="updateValidatorOptional(formGroup.get('amazingField')!)"
+            <button matButton="filled" (click)="updateValidatorOptional(formGroup.controls.amazingField)"
                 >optional
             </button>
             <app-debug-control [control]="formGroup" />

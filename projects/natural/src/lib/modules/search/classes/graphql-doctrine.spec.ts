@@ -154,7 +154,7 @@ describe('toGraphQLDoctrineFilter', () => {
                 {
                     conditions: [
                         {
-                            custom: {search: {value: 'foo'}} as any,
+                            custom: {search: {value: 'foo'}},
                         },
                     ],
                 },
@@ -454,7 +454,7 @@ describe('toGraphQLDoctrineFilter', () => {
                 {
                     conditions: [
                         {
-                            creationDate: {less: {value: formatIsoDate(new Date())}} as any,
+                            creationDate: {less: {value: formatIsoDate(new Date())}},
                         },
                     ],
                 },

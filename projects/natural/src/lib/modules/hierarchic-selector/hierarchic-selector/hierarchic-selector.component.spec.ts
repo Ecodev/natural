@@ -28,7 +28,7 @@ describe('NaturalHierarchicSelectorComponent', () => {
         const allCalled = new Promise<void>(resolve => (resolveAllCalled = resolve));
         let called = 0;
 
-        fixture.componentRef.setInput('selected', {item: [preSelection]} as OrganizedModelSelection);
+        fixture.componentRef.setInput('selected', {item: [preSelection]} satisfies OrganizedModelSelection);
         fixture.componentRef.setInput('config', [
             {
                 service: ItemService,

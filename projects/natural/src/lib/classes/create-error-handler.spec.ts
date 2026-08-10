@@ -81,10 +81,7 @@ const internalServerError = combinedGraphQLErrors([
             },
         ],
         path: ['tableCharts'],
-        // The typing says `extensions` must always exist. However, it is incorrect, because in
-        // real life runtime it is sometimes missing. This might be something wrong in `@apollo/client`,
-        // but I could not find the root cause.
-    } as unknown as GraphQLError,
+    },
 ]);
 
 describe('createErrorHandler', () => {

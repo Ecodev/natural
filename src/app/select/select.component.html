@@ -81,10 +81,10 @@
             <div class="form-group" [formGroup]="formGroup">
                 <natural-select formControlName="amazingField" placeholder="FormGroup (update)" [service]="service" />
             </div>
-            <button matButton="filled" (click)="updateValidatorRequired(formGroup.get('amazingField')!)"
+            <button matButton="filled" (click)="updateValidatorRequired(formGroup.controls.amazingField)"
                 >required
             </button>
-            <button matButton="filled" (click)="updateValidatorOptional(formGroup.get('amazingField')!)"
+            <button matButton="filled" (click)="updateValidatorOptional(formGroup.controls.amazingField)"
                 >optional
             </button>
             <app-debug-control [control]="formGroup" />
