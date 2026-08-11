@@ -56,6 +56,10 @@ export type FileSelection = {
     },
 })
 export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChanges {
+    private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
+    protected readonly naturalFileService = inject(NaturalFileService);
+    private readonly document = inject(DOCUMENT);
+
     private fileElement?: HTMLInputElement;
 
     /**
@@ -113,10 +117,6 @@ export abstract class NaturalAbstractFile implements OnInit, OnDestroy, OnChange
      * The list of files that have been selected.
      */
     public readonly filesChange = outputFromObservable(this.filesChange$);
-
-    private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
-    protected readonly naturalFileService = inject(NaturalFileService);
-    private readonly document = inject(DOCUMENT);
 
     public ngOnDestroy(): void {
         delete this.fileElement; // faster memory release of dom element

@@ -24,16 +24,15 @@ export type TypeOptionsConfiguration = {
     changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TypeOptionsComponent implements DropdownComponent {
+    protected readonly dropdownRef = inject(NaturalDropdownRef);
+
     public readonly renderedValue = new BehaviorSubject<string>('');
-
     public readonly formControl = new FormControl<TypeOption>({} as TypeOption, {nonNullable: true});
-
     public readonly configuration: Required<TypeOptionsConfiguration>;
-
     private readonly defaults: Required<TypeOptionsConfiguration> = {
         options: [],
     };
-    protected readonly dropdownRef = inject(NaturalDropdownRef);
+
     public constructor() {
         const data: NaturalDropdownData<TypeOptionsConfiguration> = inject(NATURAL_DROPDOWN_DATA);
 

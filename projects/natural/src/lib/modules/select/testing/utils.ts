@@ -20,10 +20,10 @@ export const itemHierarchicConfig: NaturalHierarchicConfiguration[] = [
  */
 @Directive()
 abstract class TestHostComponent {
+    public readonly service = inject(ItemService);
     public selectedValue: any;
     public blurred = 0;
     public hierarchicConfig = itemHierarchicConfig;
-    public readonly service = inject(ItemService);
 
     public onSelection($event: any): void {
         this.selectedValue = $event;

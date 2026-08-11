@@ -33,6 +33,8 @@ class ExternalFormControlMatcher<TValue, TInput> extends ErrorStateMatcher {
 
 @Directive()
 export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlValueAccessor, DoCheck {
+    public readonly ngControl = inject(NgControl, {optional: true, self: true});
+
     public readonly placeholder = input<string>();
 
     /**
@@ -138,7 +140,6 @@ export abstract class AbstractSelect<TValue, TInput> implements OnInit, ControlV
     public onTouched?: () => void;
 
     public readonly matcher: ExternalFormControlMatcher<TValue, TInput>;
-    public readonly ngControl = inject(NgControl, {optional: true, self: true});
 
     public constructor() {
         if (this.ngControl) {

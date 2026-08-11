@@ -131,6 +131,11 @@ export class NaturalAbstractList<
     // mapped to a different structure like in NaturalAbstractNavigableList
     Tall extends PaginatedData<MaybeNavigable> = ExtractTall<TService>,
 > extends NaturalAbstractPanel {
+    protected readonly router = inject(Router);
+    protected readonly route = inject(ActivatedRoute);
+    protected readonly alertService = inject(NaturalAlertService);
+    protected readonly persistenceService = inject(NaturalPersistenceService);
+
     /**
      * Whether search should be loaded from url/storage and persisted in it too.
      */
@@ -218,11 +223,6 @@ export class NaturalAbstractList<
      * Initial sorting
      */
     protected defaultSorting?: Sorting[];
-
-    protected readonly router = inject(Router);
-    protected readonly route = inject(ActivatedRoute);
-    protected readonly alertService = inject(NaturalAlertService);
-    protected readonly persistenceService = inject(NaturalPersistenceService);
 
     protected readonly isAllVisibleSelected = isAllVisibleSelected;
     protected readonly isPartiallyVisibleSelected = isPartiallyVisibleSelected;

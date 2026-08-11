@@ -55,6 +55,11 @@ export class NaturalAbstractDetail<
     >,
     ExtraResolve extends Literal = Record<never, never>,
 > extends NaturalAbstractPanel {
+    protected readonly alertService = inject(NaturalAlertService);
+    protected readonly router = inject(Router);
+    protected readonly route = inject(ActivatedRoute);
+    private readonly _dialogData: unknown = inject(MAT_DIALOG_DATA, {optional: true});
+
     /**
      * Data retrieved by the server via route resolvers.
      *
@@ -77,14 +82,6 @@ export class NaturalAbstractDetail<
      * semantic of data on other tab, like relations that list other objects)
      */
     public showFabButton = true;
-
-    protected readonly alertService = inject(NaturalAlertService);
-
-    protected readonly router = inject(Router);
-
-    protected readonly route = inject(ActivatedRoute);
-
-    private readonly _dialogData: unknown = inject(MAT_DIALOG_DATA, {optional: true});
 
     /**
      * Once set, this must not change anymore, especially not right after the creation mutation,

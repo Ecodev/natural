@@ -31,8 +31,8 @@ export const activityInterceptor: HttpInterceptorFn = (req, next) => {
  */
 @Service()
 export class NetworkActivityService {
-    private progress: ProgressBar | null = null;
     private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+    private progress: ProgressBar | null = null;
 
     /**
      * Count pending requests
