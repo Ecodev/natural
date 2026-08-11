@@ -4,7 +4,7 @@ import {By} from '@angular/platform-browser';
 import {MatIcon} from '@angular/material/icon';
 import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 import {NaturalIconDirective, provideIcons} from '@ecodev/natural';
-import {provideHttpClient, withXhr} from '@angular/common/http';
+import {provideHttpClient} from '@angular/common/http';
 
 @Component({
     imports: [MatIcon, NaturalIconDirective],
@@ -41,7 +41,7 @@ describe('NaturalIconComponent', () => {
     beforeEach(() => {
         fixture = TestBed.configureTestingModule({
             providers: [
-                provideHttpClient(withXhr()),
+                provideHttpClient(),
                 provideHttpClientTesting(),
                 provideIcons({
                     customFontName: {font: 'download'},

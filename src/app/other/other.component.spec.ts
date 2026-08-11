@@ -1,7 +1,7 @@
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {OtherComponent} from './other.component';
 import {provideRouter} from '@angular/router';
-import {provideHttpClient, withXhr} from '@angular/common/http';
+import {provideHttpClient} from '@angular/common/http';
 
 describe('OtherComponent', () => {
     let component: OtherComponent;
@@ -9,7 +9,7 @@ describe('OtherComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            providers: [provideRouter([]), provideHttpClient(withXhr())],
+            providers: [provideRouter([]), provideHttpClient()],
         }).compileComponents();
         fixture = TestBed.createComponent(OtherComponent);
         component = fixture.componentInstance;

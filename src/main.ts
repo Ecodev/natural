@@ -1,4 +1,4 @@
-import {provideHttpClient, withXhr} from '@angular/common/http';
+import {provideHttpClient} from '@angular/common/http';
 import {enableProdMode, provideZoneChangeDetection} from '@angular/core';
 import {DateAdapter, provideNativeDateAdapter} from '@angular/material/core';
 import {MAT_PAGINATOR_DEFAULT_OPTIONS, type MatPaginatorDefaultOptions} from '@angular/material/paginator';
@@ -64,7 +64,7 @@ bootstrapApplication(AppComponent, {
                 stretchTabs: false,
             } satisfies MatTabsConfig,
         },
-        provideHttpClient(withXhr()),
+        provideHttpClient(),
         provideRouter(
             routes,
             withRouterConfig({
