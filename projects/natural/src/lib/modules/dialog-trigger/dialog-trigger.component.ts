@@ -1,11 +1,13 @@
 import {type ComponentType} from '@angular/cdk/portal';
-import {Component, inject, type OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, type OnDestroy} from '@angular/core';
 import {MatDialog, type MatDialogConfig, type MatDialogRef} from '@angular/material/dialog';
-import {ActivatedRoute, Router, type RouterLink, RouterOutlet} from '@angular/router';
+import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
+
+type NavigateCommands = Parameters<Router['navigate']>[0];
 
 export type NaturalDialogTriggerRoutingData<T, D> = {
     component: ComponentType<T>;
-    afterClosedRoute?: RouterLink['routerLink'];
+    afterClosedRoute?: NavigateCommands;
     dialogConfig: MatDialogConfig<D>;
 };
 
@@ -14,8 +16,7 @@ export type NaturalDialogTriggerProvidedData<D> = {
     activatedRoute: ActivatedRoute;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-export type NaturalDialogTriggerRedirectionValues = RouterLink['routerLink'] | null | undefined | '' | -1;
+export type NaturalDialogTriggerRedirectionValues = NavigateCommands | null | undefined | '' | -1;
 
 @Component({
     imports: [RouterOutlet],
@@ -69,23 +70,24 @@ export class NaturalDialogTriggerComponent<T, D> implements OnDestroy {
      * Redirects on modal closing under following rules/conditions
      *
      * If -1 : no redirection
-     * If undefined, null or empty string : uses the router provided redirection route or fallbacks on parent route if router don't provide
-     * If a value is provided, should be of type any[] and it's used for redirection.
+     * If array: assumed to be navigation commands and navigate to that
+     * If routing data provides navigation commands, navigate to that
+     * Anything else: fallbacks on parent route
+     *
+     * CAUTION: `exitValue` is typed, but we can actually receive anything, because of non-typed template usages such as `[mat-dialog-close]="true"`
      */
     public redirect(exitValue: NaturalDialogTriggerRedirectionValues): void {
-        const isEmptyExitValue = exitValue == null || exitValue === ''; // undefined, null or ''
-
         if (exitValue === -1) {
             // if -1, don't redirect
             return;
-        } else if (!isEmptyExitValue) {
-            // If value provided, redirect to that route
-            this.router.navigate(exitValue as any[]);
-        } else if (isEmptyExitValue && this.triggerConfig.afterClosedRoute) {
-            // If value is not provided (null) and router context specified default redirection route, use it
-            this.router.navigate(this.triggerConfig.afterClosedRoute as any[]);
-        } else if (isEmptyExitValue) {
-            // If neither of component or router provides redirection, go to parent (care : parent can't have empty path : ''),
+        } else if (Array.isArray(exitValue)) {
+            // If exit value is navigation commands, redirect to that
+            this.router.navigate(exitValue);
+        } else if (this.triggerConfig.afterClosedRoute) {
+            // If navigation commands specified in route data, use them
+            this.router.navigate(this.triggerConfig.afterClosedRoute);
+        } else {
+            // Anything else: go to parent (caution: parent can't have empty path : ''),
             this.router.navigate(['.'], {relativeTo: this.route.parent});
         }
     }
