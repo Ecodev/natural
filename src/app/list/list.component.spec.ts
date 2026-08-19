@@ -1,6 +1,7 @@
 import {Service} from '@angular/core';
-import {type ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
-import {provideRouter, Router, type Routes} from '@angular/router';
+import {fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
+import {provideRouter, type Routes} from '@angular/router';
+import {RouterTestingHarness} from '@angular/router/testing';
 import {
     memorySessionStorageProvider,
     NaturalPersistenceService,
@@ -38,7 +39,7 @@ function initializeStorage(persistenceService: NaturalPersistenceService): void 
             [
                 {
                     field: 'search',
-                    condition: {like: {value: 'asdf'}},
+                    condition: {like: {value: 'fromStorage'}},
                 },
             ],
         ]),
@@ -50,9 +51,7 @@ function initializeStorage(persistenceService: NaturalPersistenceService): void 
 
 describe('Demo ListComponent', () => {
     let component: ListComponent;
-    let fixture: ComponentFixture<ListComponent>;
-
-    let router: Router;
+    let harness: RouterTestingHarness;
     let persistenceService: NaturalPersistenceService;
 
     beforeEach(async () => {
@@ -68,25 +67,17 @@ describe('Demo ListComponent', () => {
                 memorySessionStorageProvider,
             ],
         }).compileComponents();
-    });
 
-    beforeEach(async () => {
-        fixture = TestBed.createComponent(ListComponent);
-        component = fixture.componentInstance;
-
-        router = TestBed.inject(Router);
         persistenceService = TestBed.inject(NaturalPersistenceService);
-        await router.navigateByUrl('/my/home;cat=123/list-a;dog=456');
+        harness = await RouterTestingHarness.create();
+        component = await harness.navigateByUrl('/my/home;cat=123/list-a;dog=456', ListComponent);
     });
 
     it('should be created', () => {
-        fixture.detectChanges();
         expect(component).toBeTruthy();
     });
 
     it('should initialize with default variables', () => {
-        fixture.detectChanges(); // init
-
         expect(component.variablesManager.variables.value)
             .withContext('after init')
             .toEqual({
@@ -103,7 +94,7 @@ describe('Demo ListComponent', () => {
         component.selectedColumns = ['name', 'description'];
 
         // Init
-        fixture.detectChanges();
+        harness.detectChanges();
         expect(component.selectedColumns).withContext('initial columns').toEqual(['name', 'description']);
         expect(component.columnsForTable).withContext('empty selected columns').toEqual([]);
 
@@ -140,7 +131,7 @@ describe('Demo ListComponent', () => {
             pagination: {offset: null, pageIndex: 0, pageSize: 999},
             sorting: [{field: 'description', order: SortingOrder.DESC}],
         };
-        fixture.detectChanges();
+        component.ngOnInit();
         expect(component.variablesManager.variables.value)
             .withContext('variables after initialization')
             .toEqual(result2);
@@ -150,11 +141,11 @@ describe('Demo ListComponent', () => {
         initializeStorage(persistenceService);
 
         // Init
-        fixture.detectChanges();
+        component.ngOnInit();
 
         // The test
         const result = {
-            filter: {groups: [{conditions: [{custom: {search: {value: 'asdf'}}}]}]},
+            filter: {groups: [{conditions: [{custom: {search: {value: 'fromStorage'}}}]}]},
             pagination: {offset: null, pageIndex: 1, pageSize: 300},
             sorting: [{field: 'name', order: SortingOrder.ASC}],
         };
@@ -167,7 +158,7 @@ describe('Demo ListComponent', () => {
         initializeStorage(persistenceService);
 
         const forcedVariables = {
-            filter: {groups: [{conditions: [{custom: {search: {value: 'qwer'}}}]}]},
+            filter: {groups: [{conditions: [{custom: {search: {value: 'fromForcedVariables'}}}]}]},
             pagination: {pageIndex: 0, pageSize: 999},
             sorting: [{field: 'description', order: SortingOrder.DESC}],
         };
@@ -177,7 +168,10 @@ describe('Demo ListComponent', () => {
             filter: {
                 groups: [
                     {
-                        conditions: [{custom: {search: {value: 'qwer'}}}, {custom: {search: {value: 'asdf'}}}],
+                        conditions: [
+                            {custom: {search: {value: 'fromForcedVariables'}}},
+                            {custom: {search: {value: 'fromStorage'}}},
+                        ],
                     },
                 ],
             },
@@ -189,7 +183,7 @@ describe('Demo ListComponent', () => {
         component.forcedVariables = forcedVariables;
 
         // Init
-        fixture.detectChanges();
+        component.ngOnInit();
 
         // The test
         expect(component.variablesManager.variables.value)
