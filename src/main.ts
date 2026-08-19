@@ -71,19 +71,7 @@ bootstrapApplication(AppComponent, {
             defaultDescription: 'An amazing angular library',
             languages: ['fr', 'en', 'de', 'it', 'pt'],
         }),
-        provideThemes([
-            'natural',
-            'epicerio',
-            'chezemmy',
-            'epicentre',
-            'epicoop',
-            'jardinvivant',
-            'lacanopee',
-            'lavracrie',
-            'lelocalhauterive',
-            'levorace',
-            'rucher',
-        ]),
+        provideThemes(['natural', 'epicerio', 'chezemmy']),
     ],
 }).catch((err: unknown) => {
     console.error(err);
