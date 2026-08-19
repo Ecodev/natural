@@ -27,7 +27,8 @@ import {
     type Sorting,
     SortingOrder,
 } from './query-variable-manager';
-import {onHistoryEvent, validateColumns, validatePagination, validateSorting} from './utility';
+import {currentComponentUrl, onHistoryEvent} from './utility-router';
+import {validateColumns, validatePagination, validateSorting} from './utility';
 
 type MaybeNavigable = Literal | NavigableItem<Literal>;
 
@@ -264,7 +265,7 @@ export class NaturalAbstractList<
     }
 
     protected handleHistoryNavigation(): void {
-        onHistoryEvent(this.router)
+        onHistoryEvent(this.router, this.route)
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe(() => {
                 const selections = fromUrl(this.persistenceService.getFromUrl('ns', this.route));
@@ -552,9 +553,7 @@ export class NaturalAbstractList<
      * Return current url excluding last route parameters;
      */
     protected getStorageKey(): string {
-        const urlTree = this.router.parseUrl(this.router.url);
-        urlTree.root.children.primary.segments[urlTree.root.children.primary.segments.length - 1].parameters = {};
-        return urlTree.toString();
+        return currentComponentUrl(this.route);
     }
 
     protected bulkdDeleteConfirmation(): Observable<boolean | undefined> {

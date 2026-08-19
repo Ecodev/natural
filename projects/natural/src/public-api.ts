@@ -19,11 +19,11 @@ export {
     formatIsoDateTime,
     getForegroundColor,
     makePlural,
-    onHistoryEvent,
     relationsToIds,
     rgbToHex,
     upperCaseFirstLetter,
 } from './lib/classes/utility';
+export {onHistoryEvent} from './lib/classes/utility-router';
 export * from './lib/classes/validators';
 export {NetworkActivityService, activityInterceptor} from './lib/classes/network-activity.service';
 export {validTlds} from './lib/classes/tld';
