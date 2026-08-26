@@ -3,7 +3,6 @@ import {
     decimal,
     deliverableEmail,
     greaterThan,
-    ifValid,
     integer,
     nfcCardHex,
     signedMoney,
@@ -19,11 +18,8 @@ import {
     type FormControlStatus,
     type ValidationErrors,
     type ValidatorFn,
-    Validators,
 } from '@angular/forms';
-import {TestScheduler} from 'rxjs/testing';
-import {concat, EMPTY, forkJoin, NEVER, type Observable, of, Subject, tap} from 'rxjs';
-import {first} from 'rxjs/operators';
+import {concat, EMPTY, first, forkJoin, NEVER, type Observable, of, Subject, tap} from 'rxjs';
 import {type UntypedModelService} from '../types/types';
 
 function messageToString(
@@ -438,14 +434,14 @@ describe('greaterThan', () => {
         validate(validator, '1', {
             greaterThan: {
                 greaterThan: 2,
-                actualValue: '1',
+                actual: '1',
                 message: `Doit être plus grand que 2`,
             },
         });
         validate(validator, '2', {
             greaterThan: {
                 greaterThan: 2,
-                actualValue: '2',
+                actual: '2',
                 message: `Doit être plus grand que 2`,
             },
         });
@@ -453,86 +449,18 @@ describe('greaterThan', () => {
         validate(validator, 1, {
             greaterThan: {
                 greaterThan: 2,
-                actualValue: 1,
+                actual: 1,
                 message: `Doit être plus grand que 2`,
             },
         });
         validate(validator, 2, {
             greaterThan: {
                 greaterThan: 2,
-                actualValue: 2,
+                actual: 2,
                 message: `Doit être plus grand que 2`,
             },
         });
         validate(validator, 2.0001, null);
-    });
-});
-
-describe('ifValid', () => {
-    let scheduler: TestScheduler;
-
-    beforeEach(() => {
-        scheduler = new TestScheduler((actual, expected) => {
-            expect(actual).toEqual(expected);
-        });
-    });
-
-    it('valid form should emit immediately', () => {
-        scheduler.run(({expectObservable}) => {
-            const control = new FormControl();
-            expect(control.status).toBe('VALID');
-
-            const actual = ifValid(control);
-            expectObservable(actual).toBe('(a|)', {a: 'VALID'});
-        });
-    });
-
-    it('invalid form should never emit', () => {
-        scheduler.run(({expectObservable}) => {
-            const control = new FormControl(null, Validators.required);
-            expect(control.status).toBe('INVALID');
-
-            const actual = ifValid(control);
-            expectObservable(actual).toBe('|');
-        });
-    });
-
-    it('valid form should emit after the async validation is completed', () => {
-        scheduler.run(({expectObservable, cold}) => {
-            const control = new FormControl<string | null>(null, null, () => {
-                // Always valid after a while
-                return cold('-(a|)', {a: null});
-            });
-
-            expect(control.status).toBe('PENDING');
-
-            control.setValue('foo');
-            expect(control.status).toBe('PENDING');
-
-            const actual = ifValid(control);
-            expectObservable(actual).toBe('-(a|)', {a: 'VALID'});
-        });
-    });
-
-    it('invalid form should never emit, even after the async validation is completed', () => {
-        scheduler.run(({expectObservable, cold}) => {
-            const control = new FormControl<string | null>(null, null, c => {
-                // Simulate error after a while if there is any value
-                if (c.value) {
-                    return cold('-(a|)', {a: {myError: 'some message'}});
-                } else {
-                    return cold('-(a|)', {a: null});
-                }
-            });
-
-            expect(control.status).toBe('PENDING');
-
-            control.setValue('foo');
-            expect(control.status).toBe('PENDING');
-
-            const actual = ifValid(control);
-            expectObservable(actual).toBe('-|', {a: null});
-        });
     });
 });
 

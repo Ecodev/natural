@@ -1,15 +1,11 @@
 import {
     type AbstractControl,
     type AsyncValidatorFn,
-    FormArray,
-    type FormControlStatus,
-    FormGroup,
     type ValidationErrors,
     type ValidatorFn,
     Validators,
 } from '@angular/forms';
-import {type Observable, of, timer} from 'rxjs';
-import {filter, first, map, switchMap} from 'rxjs/operators';
+import {first, map, type Observable, of, switchMap, timer} from 'rxjs';
 import {NaturalQueryVariablesManager, type QueryVariables} from './query-variable-manager';
 import {validTlds} from './tld';
 import {type FilterGroupCondition} from '../modules/search/classes/graphql-doctrine.types';
@@ -121,57 +117,6 @@ export function available(
             ),
         );
     };
-}
-
-/**
- * Return all errors recursively for the given Form or control
- */
-export function collectErrors(control: AbstractControl<unknown>): ValidationErrors | null {
-    let errors: ValidationErrors | null = null;
-    if (control instanceof FormGroup || control instanceof FormArray) {
-        errors = Object.entries(control.controls).reduce((acc: ValidationErrors | null, [key, childControl]) => {
-            const childErrors = collectErrors(childControl);
-            if (childErrors) {
-                acc = {...acc, [key]: childErrors};
-            }
-            return acc;
-        }, null);
-    }
-
-    if (!errors) {
-        errors = control.errors;
-    }
-
-    return errors;
-}
-
-/**
- * Force validation of all form controls recursively.
- *
- * Recursively mark descending form tree as dirty and touched in order to show all invalid fields on demand.
- * Typically used when creating a new object and user clicked on create button but several fields were not
- * touched and are invalid.
- */
-export function validateAllFormControls(control: AbstractControl<unknown>): void {
-    control.markAllAsDirty();
-    control.markAllAsTouched();
-}
-
-function isValid(status: FormControlStatus): status is 'VALID' {
-    return status === 'VALID';
-}
-
-/**
- * Emits exactly 0 or 1 time:
- *
- * - if the form is `VALID`, emits immediately
- * - if the form is `PENDING` emits if it changes from `PENDING` to `VALID`
- * - any other cases will **never** emit
- */
-export function ifValid(control: AbstractControl): Observable<'VALID'> {
-    const observable = control.pending ? control.statusChanges.pipe(first()) : of(control.status);
-
-    return observable.pipe(filter(isValid));
 }
 
 // This is an approximation of RFC_5322 where the hostname:
@@ -312,7 +257,7 @@ const twoDecimals = decimal(2);
  * limit. For most cases, prefer the ready-made `signedMoney` or `unsignedMoney` helpers instead
  * of calling this directly.
  */
-function money(min: number, max: number): ValidatorFn {
+function moneyInternal(min: number, max: number): ValidatorFn {
     const minValidator = Validators.min(min);
     const maxValidator = Validators.max(max);
 
@@ -336,16 +281,18 @@ function money(min: number, max: number): ValidatorFn {
 const maxMoney = 5_000_000;
 
 /**
- * Validate a signed amount of money (can be negative), suitable for a value stored in a database
- * column of type `SIGNED INT`, such as a balance.
+ * Validate that the value is an amount of money between -5'000'000 and 5'000'000 (inclusive), with at most 2 decimals.
+ *
+ * This is suitable for a value stored in a database column of type `SIGNED INT`, such as a balance.
  */
-export const signedMoney = money(-maxMoney, maxMoney);
+export const signedMoney = moneyInternal(-maxMoney, maxMoney);
 
 /**
- * Validate an unsigned amount of money (cannot be negative), suitable for a value stored in a
- * database column of type `UNSIGNED INT`, such as a price.
+ * Validate that the value is an amount of money between 0 and 5'000'000 (inclusive), with at most 2 decimals.
+ *
+ * This is suitable for a value stored in a database column of type `UNSIGNED INT`, such as a price.
  */
-export const unsignedMoney = money(0, maxMoney);
+export const unsignedMoney = moneyInternal(0, maxMoney);
 
 /**
  * Validate that the number is strictly greater than given one.
@@ -370,7 +317,7 @@ export function greaterThan(min: number): ValidatorFn {
             ? {
                   greaterThan: {
                       greaterThan: min,
-                      actualValue: control.value,
+                      actual: control.value,
                       message: (unit: string) => $localize`Doit être plus grand que ${min}${unit}`,
                   },
               }

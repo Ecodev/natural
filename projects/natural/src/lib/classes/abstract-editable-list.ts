@@ -4,7 +4,7 @@ import {merge} from 'es-toolkit';
 import {type NaturalAbstractModelService} from '../services/abstract-model.service';
 import {NaturalQueryVariablesManager, type QueryVariables} from './query-variable-manager';
 import {type ExtractTallOne, type ExtractVall, type Literal} from '../types/types';
-import {validateAllFormControls} from './validators';
+import {validateAllFormControls} from './validation-utils';
 import {Directive} from '@angular/core';
 import {type PaginatedData} from './data-source';
 

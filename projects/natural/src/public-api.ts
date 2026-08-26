@@ -26,11 +26,9 @@ export {
 export {onHistoryEvent} from './lib/classes/utility-router';
 export {
     available,
-    collectErrors,
     decimal,
     deliverableEmail,
     greaterThan,
-    ifValid,
     integer,
     nfcCardHex,
     signedMoney,
@@ -39,8 +37,8 @@ export {
     unique,
     unsignedMoney,
     url,
-    validateAllFormControls,
 } from './lib/classes/validators';
+export {collectErrors, ifValid, validateAllFormControls} from './lib/classes/validation-utils';
 export {NetworkActivityService, activityInterceptor} from './lib/classes/network-activity.service';
 export {validTlds} from './lib/classes/tld';
 
