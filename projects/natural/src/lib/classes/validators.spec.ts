@@ -5,13 +5,13 @@ import {
     greaterThan,
     ifValid,
     integer,
-    money,
     nfcCardHex,
     signedMoney,
     time,
     unique,
     unsignedMoney,
     url,
+    type ValidationErrorsWithMessage,
 } from '@ecodev/natural';
 import {
     type AsyncValidatorFn,
@@ -22,20 +22,44 @@ import {
     Validators,
 } from '@angular/forms';
 import {TestScheduler} from 'rxjs/testing';
-import {concat, forkJoin, NEVER, type Observable, of, Subject, tap} from 'rxjs';
+import {concat, EMPTY, forkJoin, NEVER, type Observable, of, Subject, tap} from 'rxjs';
 import {first} from 'rxjs/operators';
 import {type UntypedModelService} from '../types/types';
 
-function validate(validatorFn: ValidatorFn, expected: boolean, value: any): void {
+function messageToString(
+    errors: ValidationErrors | ValidationErrorsWithMessage | null,
+): ValidationErrors | ValidationErrorsWithMessage | null {
+    for (const value of Object.values(errors ?? {})) {
+        if (typeof value.message === 'function') {
+            value.message = value.message('');
+        }
+    }
+
+    return errors;
+}
+
+function validate(
+    validatorFn: ValidatorFn,
+    value: unknown,
+    expected: ValidationErrors | ValidationErrorsWithMessage | null,
+): void {
     const control = new FormControl();
     control.setValidators(validatorFn);
     control.setValue(value);
+    const expectValid = expected === null;
     expect(control.valid)
-        .withContext(JSON.stringify(value) + ' should be ' + (expected ? 'valid' : 'invalid'))
-        .toBe(expected);
+        .withContext(JSON.stringify(value) + ' should be ' + (expectValid ? 'valid' : 'invalid'))
+        .toBe(expectValid);
+    const errors = messageToString(control.errors);
+    expect(errors).withContext(JSON.stringify(value)).toEqual(expected);
 }
 
-function asyncValidate(validatorFn: AsyncValidatorFn, expected: FormControlStatus, value: any, done: DoneFn): void {
+function asyncValidate(
+    done: DoneFn,
+    validatorFn: AsyncValidatorFn,
+    value: unknown,
+    expected: ValidationErrors | ValidationErrorsWithMessage | null,
+): void {
     const control = new FormControl();
     control.markAsDirty();
     control.setValue(value);
@@ -47,9 +71,12 @@ function asyncValidate(validatorFn: AsyncValidatorFn, expected: FormControlStatu
         status: control.statusChanges.pipe(first()), // Wait for at least 1 status change
     }).subscribe({
         next: () => {
+            const expectedStatus: FormControlStatus = expected === null ? 'VALID' : 'INVALID';
             expect(control.status)
-                .withContext(JSON.stringify(value) + ' should be ' + expected)
-                .toBe(expected);
+                .withContext(JSON.stringify(value) + ' should be ' + expectedStatus)
+                .toBe(expectedStatus);
+            const errors = messageToString(control.errors);
+            expect(errors).withContext(JSON.stringify(value)).toEqual(expected);
         },
         complete: done,
     });
@@ -68,11 +95,17 @@ function asyncValidate(validatorFn: AsyncValidatorFn, expected: FormControlStatu
 }
 
 describe('available', () => {
-    const cases: [string, string | null, boolean, FormControlStatus][] = [
-        ['my-value', null, true, 'VALID'],
-        ['my-value', 'my-excluded-id', true, 'VALID'],
-        ['my-value', null, false, 'INVALID'],
-        ['', null, false, 'VALID'],
+    const error = {
+        available: {
+            message: `N'est pas disponible`,
+        },
+    };
+
+    const cases: [string, string | null, boolean, ValidationErrorsWithMessage | null][] = [
+        ['my-value', null, true, null],
+        ['my-value', 'my-excluded-id', true, null],
+        ['my-value', null, false, error],
+        ['', null, false, null],
     ];
 
     cases.forEach(parameters => {
@@ -84,282 +117,354 @@ describe('available', () => {
                 return of(parameters[2]);
             }, parameters[1]);
 
-            asyncValidate(validator, parameters[3], parameters[0], done);
+            asyncValidate(done, validator, parameters[0], parameters[3]);
         });
     });
 });
 
 describe('unique', () => {
-    const cases: [string, number, boolean, FormControlStatus][] = [
-        ['my-value', 0, true, 'VALID'],
-        ['my-value', 0, false, 'VALID'],
-        ['my-value', 1, true, 'INVALID'],
-        ['my-value', 1, false, 'INVALID'],
-        ['', 0, true, 'VALID'],
-        ['', 0, false, 'VALID'],
-        ['', 1, true, 'VALID'],
-        ['', 1, false, 'VALID'],
+    const error = {
+        duplicateValue: {
+            count: 1,
+            message: `N'est pas unique`,
+        },
+    };
+
+    const cases: [string, number, boolean, ValidationErrorsWithMessage | null][] = [
+        ['my-value', 0, true, null],
+        ['my-value', 0, false, null],
+        ['my-value', 1, true, error],
+        ['my-value', 1, false, error],
+        ['', 0, true, null],
+        ['', 0, false, null],
+        ['', 1, true, null],
+        ['', 1, false, null],
     ];
 
     cases.forEach(parameters => {
         it('with ' + JSON.stringify(parameters), done => {
             const service = jasmine.createSpyObj<UntypedModelService>('NaturalAbstractModelService', ['count']);
-            service.count.and.returnValue(concat(of(parameters[1]), parameters[2] ? NEVER : NEVER));
+            service.count.and.returnValue(concat(of(parameters[1]), parameters[2] ? EMPTY : NEVER));
 
             const validator = unique('id', null, service);
 
-            asyncValidate(validator, parameters[3], parameters[0], done);
+            asyncValidate(done, validator, parameters[0], parameters[3]);
         });
     });
 });
 
 describe('deliverableEmail', () => {
     it('should validate email with known TLD', () => {
-        validate(deliverableEmail, true, 'john@example.com');
-        validate(deliverableEmail, false, 'josé@example.com');
-        validate(deliverableEmail, false, 'john@example.non-existing-tld');
-        validate(deliverableEmail, false, 'root@localhost');
-        validate(deliverableEmail, false, 'root@127.0.0.1');
-        validate(deliverableEmail, false, 'xyz.qze@qwer..net'); // consecutive dots are invalid
-        validate(deliverableEmail, true, '');
-        validate(deliverableEmail, true, null);
+        const error: ValidationErrorsWithMessage = {
+            deliverableEmail: {message: `Adresse email invalide`},
+        };
+
+        validate(deliverableEmail, 'john@example.com', null);
+        validate(deliverableEmail, 'josé@example.com', error);
+        validate(deliverableEmail, 'john@example.non-existing-tld', error);
+        validate(deliverableEmail, 'root@localhost', error);
+        validate(deliverableEmail, 'root@127.0.0.1', error);
+        validate(deliverableEmail, 'xyz.qze@qwer..net', error); // consecutive dots are invalid
+        validate(deliverableEmail, '', null);
+        validate(deliverableEmail, null, null);
 
         // Valid https://en.wikipedia.org/wiki/Email_address#Examples
-        validate(deliverableEmail, true, 'simple@example.com');
-        validate(deliverableEmail, true, 'very.common@example.com');
-        validate(deliverableEmail, true, 'disposable.style.email.with+symbol@example.com');
-        validate(deliverableEmail, true, 'other.email-with-hyphen@example.com');
-        validate(deliverableEmail, true, 'fully-qualified-domain@example.com');
+        validate(deliverableEmail, 'simple@example.com', null);
+        validate(deliverableEmail, 'very.common@example.com', null);
+        validate(deliverableEmail, 'disposable.style.email.with+symbol@example.com', null);
+        validate(deliverableEmail, 'other.email-with-hyphen@example.com', null);
+        validate(deliverableEmail, 'fully-qualified-domain@example.com', null);
 
         // may go to user.name@example.com inbox depending on mail server)
-        validate(deliverableEmail, true, 'user.name+tag+sorting@example.com');
-        validate(deliverableEmail, true, 'x@example.com'); // one-letter local-part)
-        validate(deliverableEmail, true, 'example-indeed@strange-example.com');
+        validate(deliverableEmail, 'user.name+tag+sorting@example.com', null);
+        validate(deliverableEmail, 'x@example.com', null); // one-letter local-part)
+        validate(deliverableEmail, 'example-indeed@strange-example.com', null);
 
         // local domain name are specifically rejected (against RFC)
-        validate(deliverableEmail, false, 'admin@mailserver1');
+        validate(deliverableEmail, 'admin@mailserver1', error);
 
         // example TLD are specifically rejected (against RFC)
-        validate(deliverableEmail, false, 'example@s.example');
+        validate(deliverableEmail, 'example@s.example', error);
 
-        validate(deliverableEmail, false, '" "@example.org'); // space between the quotes (against RFC)
-        validate(deliverableEmail, false, '"john..doe"@example.org'); // quoted double dot (against RFC)
-        validate(deliverableEmail, true, 'mailhost!username@example.org'); // bangified host route used for uucp mailers)
-        validate(deliverableEmail, true, 'user%example.com@example.org'); // % escaped mail route to user@example.com via example.org
+        validate(deliverableEmail, '" "@example.org', error); // space between the quotes (against RFC)
+        validate(deliverableEmail, '"john..doe"@example.org', error); // quoted double dot (against RFC)
+        validate(deliverableEmail, 'mailhost!username@example.org', null); // bangified host route used for uucp mailers)
+        validate(deliverableEmail, 'user%example.com@example.org', null); // % escaped mail route to user@example.com via example.org
 
         // https://en.wikipedia.org/wiki/Email_address#Internationalization (corrected for existing TLDs)
-        validate(deliverableEmail, false, 'Pelé@example.com');
-        validate(deliverableEmail, false, '삼성@삼성.삼성');
-        validate(deliverableEmail, false, 'δοκιμή@παράδειγμα.бг');
-        validate(deliverableEmail, false, '我買@屋企.香格里拉');
-        validate(deliverableEmail, false, '二ノ宮@黒川.ストア');
-        validate(deliverableEmail, false, 'медведь@с-балалайкой.онлайн');
-        validate(deliverableEmail, false, 'संपर्क@डाटामेल.भारतम्');
+        validate(deliverableEmail, 'Pelé@example.com', error);
+        validate(deliverableEmail, '삼성@삼성.삼성', error);
+        validate(deliverableEmail, 'δοκιμή@παράδειγμα.бг', error);
+        validate(deliverableEmail, '我買@屋企.香格里拉', error);
+        validate(deliverableEmail, '二ノ宮@黒川.ストア', error);
+        validate(deliverableEmail, 'медведь@с-балалайкой.онлайн', error);
+        validate(deliverableEmail, 'संपर्क@डाटामेल.भारतम्', error);
 
         // Invalid https://en.wikipedia.org/wiki/Email_address#Examples
-        validate(deliverableEmail, false, 'Abc.example.com'); // no @ character
-        validate(deliverableEmail, false, 'A@b@c@example.com'); // only one @ is allowed outside quotation marks
+        validate(deliverableEmail, 'Abc.example.com', error); // no @ character
+        validate(deliverableEmail, 'A@b@c@example.com', error); // only one @ is allowed outside quotation marks
         // none of the special characters in this local-part are allowed outside quotation marks
-        validate(deliverableEmail, false, 'a"b(c)d,e:f;g<h>i[j\\k]l@example.com');
+        validate(deliverableEmail, 'a"b(c)d,e:f;g<h>i[j\\k]l@example.com', error);
         // quoted strings must be dot separated or the only element making up the local-part
-        validate(deliverableEmail, false, 'just"not"right@example.com');
+        validate(deliverableEmail, 'just"not"right@example.com', error);
         // spaces, quotes, and backslashes may only exist when within quoted strings and preceded by a backslash
-        validate(deliverableEmail, false, 'this is"not\\allowed@example.com');
+        validate(deliverableEmail, 'this is"not\\allowed@example.com', error);
         // even if escaped (preceded by a backslash), spaces, quotes, and backslashes must still be contained by quotes
-        validate(deliverableEmail, false, 'this\\ still\\"not\\\\allowed@example.com');
+        validate(deliverableEmail, 'this\\ still\\"not\\\\allowed@example.com', error);
 
         // we don't care about length of individual parts (against RFC)
         validate(
             deliverableEmail,
-            true,
             '1234567890123456789012345678901234567890123456789012345678901234+x@example.com',
+            null,
         ); // local part is longer than 64 characters)
 
         // we care about length of entire address (against RFC ?)
-        validate(deliverableEmail, false, 'a'.repeat(254) + '@example.com'); // entire address is too long
+        validate(deliverableEmail, 'a'.repeat(254) + '@example.com', error); // entire address is too long
 
         // space in domain name is a surprisingly common typo, so we forbid it
-        validate(deliverableEmail, false, 'john@ example.com');
+        validate(deliverableEmail, 'john@ example.com', error);
     });
 });
 
 describe('url', () => {
     it('should validates URL', () => {
-        validate(url, true, 'http://www.example.com');
-        validate(url, true, 'https://www.example.com');
-        validate(url, true, 'http://example.com');
-        validate(url, true, 'http://www.example.com/path');
-        validate(url, true, 'http://www.example.com/path#frag');
-        validate(url, true, 'http://www.example.com/path?param=1');
-        validate(url, true, 'http://www.example.com/path?param=1#fra');
-        validate(url, true, 'http://t.co');
-        validate(url, true, 'http://www.t.co');
-        validate(url, true, 'http://a-b.c.t.co');
-        validate(url, true, 'http://aa.com');
-        validate(url, true, 'http://www.example'); // this is indeed valid because `example` could be a TLD
-        validate(url, true, 'https://example.com:4200/subscribe');
-        validate(url, true, 'https://example-.com'); // this is not conform to rfc1738, but we tolerate it for simplicity sake
+        const error: ValidationErrorsWithMessage = {
+            url: {
+                message: `URL invalide`,
+            },
+        };
 
-        validate(url, false, 'www.example.com');
-        validate(url, false, 'example.com');
-        validate(url, false, 'www.example');
-        validate(url, false, 'http://example');
-        validate(url, false, 'www.example#.com');
-        validate(url, false, 'www.t.co');
-        validate(url, false, 'file:///C:/folder/file.pdf');
+        validate(url, 'http://www.example.com', null);
+        validate(url, 'https://www.example.com', null);
+        validate(url, 'http://example.com', null);
+        validate(url, 'http://www.example.com/path', null);
+        validate(url, 'http://www.example.com/path#frag', null);
+        validate(url, 'http://www.example.com/path?param=1', null);
+        validate(url, 'http://www.example.com/path?param=1#fra', null);
+        validate(url, 'http://t.co', null);
+        validate(url, 'http://www.t.co', null);
+        validate(url, 'http://a-b.c.t.co', null);
+        validate(url, 'http://aa.com', null);
+        validate(url, 'http://www.example', null); // this is indeed valid because `example` could be a TLD
+        validate(url, 'https://example.com:4200/subscribe', null);
+        validate(url, 'https://example-.com', null); // this is not conform to rfc1738, but we tolerate it for simplicity sake
+
+        validate(url, 'www.example.com', error);
+        validate(url, 'example.com', error);
+        validate(url, 'www.example', error);
+        validate(url, 'http://example', error);
+        validate(url, 'www.example#.com', error);
+        validate(url, 'www.t.co', error);
+        validate(url, 'file:///C:/folder/file.pdf', error);
     });
 });
 
 describe('integer', () => {
     it('should validates integer number', () => {
-        validate(integer, true, null);
-        validate(integer, true, undefined);
-        validate(integer, true, '');
-        validate(integer, true, '0');
-        validate(integer, true, '-1');
-        validate(integer, true, '1');
-        validate(integer, true, '1234567890');
-        validate(integer, true, '-1.0');
-        validate(integer, true, '1.0');
-        validate(integer, true, '0.0');
-        validate(integer, true, 0);
-        validate(integer, true, -1);
-        validate(integer, true, 1);
-        validate(integer, true, 1234567890);
-        validate(integer, true, -1.0);
-        validate(integer, true, 1.0);
-        validate(integer, true, 0.0);
+        const error: ValidationErrorsWithMessage = {
+            integer: {
+                message: `Doit être un nombre entier`,
+            },
+        };
 
-        validate(integer, false, 'foo');
-        validate(integer, false, '1.2');
-        validate(integer, false, '-1.2');
-        validate(integer, false, 1.2);
-        validate(integer, false, -1.2);
+        validate(integer, null, null);
+        validate(integer, undefined, null);
+        validate(integer, '', null);
+        validate(integer, '0', null);
+        validate(integer, '-1', null);
+        validate(integer, '1', null);
+        validate(integer, '1234567890', null);
+        validate(integer, '-1.0', null);
+        validate(integer, '1.0', null);
+        validate(integer, '0.0', null);
+        validate(integer, 0, null);
+        validate(integer, -1, null);
+        validate(integer, 1, null);
+        validate(integer, 1234567890, null);
+        validate(integer, -1.0, null);
+        validate(integer, 1.0, null);
+        validate(integer, 0.0, null);
+
+        validate(integer, 'foo', error);
+        validate(integer, '1.2', error);
+        validate(integer, '-1.2', error);
+        validate(integer, 1.2, error);
+        validate(integer, -1.2, error);
     });
 });
 
 describe('decimal', () => {
     describe('with 0 digits', () => {
         it('should validates decimal number', () => {
+            const error: ValidationErrorsWithMessage = {
+                decimal: {
+                    scale: 0,
+                    message: `Maximum de 0 décimales`,
+                },
+            };
+
             const validator = decimal(0);
-            validate(validator, true, null);
-            validate(validator, true, undefined);
-            validate(validator, false, 'foo');
-            validate(validator, true, '');
-            validate(validator, true, '0');
-            validate(validator, true, '0.');
-            validate(validator, true, '1');
-            validate(validator, true, '1.');
-            validate(validator, true, '-0');
-            validate(validator, true, '-1');
-            validate(validator, false, '-0.0');
-            validate(validator, false, '-1.1');
-            validate(validator, false, '-1w1');
-            validate(validator, false, '1w1');
-            validate(validator, false, '-1w');
-            validate(validator, false, '1w');
-            validate(validator, true, 0);
-            validate(validator, true, 1);
-            validate(validator, true, -0);
-            validate(validator, true, -1);
-            validate(validator, true, -0.0);
-            validate(validator, false, -1.1);
+            validate(validator, null, null);
+            validate(validator, undefined, null);
+            validate(validator, 'foo', error);
+            validate(validator, '', null);
+            validate(validator, '0', null);
+            validate(validator, '0.', null);
+            validate(validator, '1', null);
+            validate(validator, '1.', null);
+            validate(validator, '-0', null);
+            validate(validator, '-1', null);
+            validate(validator, '-0.0', error);
+            validate(validator, '-1.1', error);
+            validate(validator, '-1w1', error);
+            validate(validator, '1w1', error);
+            validate(validator, '-1w', error);
+            validate(validator, '1w', error);
+            validate(validator, 0, null);
+            validate(validator, 1, null);
+            validate(validator, -0, null);
+            validate(validator, -1, null);
+            validate(validator, -0.0, null);
+            validate(validator, -1.1, error);
         });
     });
 
     describe('with 3 digits', () => {
         it('should validates decimal number', () => {
-            const validator = decimal(3);
-            validate(validator, true, null);
-            validate(validator, true, undefined);
-            validate(validator, false, 'foo');
-            validate(validator, true, '');
-            validate(validator, true, '0');
-            validate(validator, true, '0.');
-            validate(validator, true, '1');
-            validate(validator, true, '1.');
-            validate(validator, true, '1.1');
-            validate(validator, true, '1.12');
-            validate(validator, true, '1.123');
-            validate(validator, false, '1w123');
-            validate(validator, false, '1.1234');
-            validate(validator, true, '-0');
-            validate(validator, true, '-1');
-            validate(validator, true, '-0.0');
-            validate(validator, true, '-1.1');
-            validate(validator, true, '-1.12');
-            validate(validator, false, '-1w12');
-            validate(validator, false, '-1.1234');
-            validate(validator, true, 0);
-            validate(validator, true, 1);
-            validate(validator, true, 1.1);
-            validate(validator, true, 1.12);
-            validate(validator, true, 1.123);
-            validate(validator, false, 1.1234);
-            validate(validator, true, -0);
-            validate(validator, true, -1);
-            validate(validator, true, -0.0);
-            validate(validator, true, -1.1);
-            validate(validator, true, -1.12);
-            validate(validator, false, -1.1234);
-        });
-    });
-});
+            const error: ValidationErrorsWithMessage = {
+                decimal: {
+                    scale: 3,
+                    message: `Maximum de 3 décimales`,
+                },
+            };
 
-describe('money', () => {
-    it('should validate decimals and range', () => {
-        const validator = money(-100, 100);
-        validate(validator, true, null);
-        validate(validator, true, undefined);
-        validate(validator, true, '');
-        validate(validator, true, '0');
-        validate(validator, true, '100');
-        validate(validator, true, '100.00');
-        validate(validator, true, '-100');
-        validate(validator, true, '99.99');
-        validate(validator, true, '-99.99');
-        validate(validator, false, '100.01');
-        validate(validator, false, '-100.01');
-        validate(validator, false, '101');
-        validate(validator, false, '-101');
-        validate(validator, false, '1.234'); // too many decimals
-        validate(validator, false, 'foo');
+            const validator = decimal(3);
+            validate(validator, null, null);
+            validate(validator, undefined, null);
+            validate(validator, 'foo', error);
+            validate(validator, '', null);
+            validate(validator, '0', null);
+            validate(validator, '0.', null);
+            validate(validator, '1', null);
+            validate(validator, '1.', null);
+            validate(validator, '1.1', null);
+            validate(validator, '1.12', null);
+            validate(validator, '1.123', null);
+            validate(validator, '1w123', error);
+            validate(validator, '1.1234', error);
+            validate(validator, '-0', null);
+            validate(validator, '-1', null);
+            validate(validator, '-0.0', null);
+            validate(validator, '-1.1', null);
+            validate(validator, '-1.12', null);
+            validate(validator, '-1w12', error);
+            validate(validator, '-1.1234', error);
+            validate(validator, 0, null);
+            validate(validator, 1, null);
+            validate(validator, 1.1, null);
+            validate(validator, 1.12, null);
+            validate(validator, 1.123, null);
+            validate(validator, 1.1234, error);
+            validate(validator, -0, null);
+            validate(validator, -1, null);
+            validate(validator, -0.0, null);
+            validate(validator, -1.1, null);
+            validate(validator, -1.12, null);
+            validate(validator, -1.1234, error);
+        });
     });
 });
 
 describe('signedMoney', () => {
     it('should allow negative and positive amounts within the human limit', () => {
+        const error: ValidationErrorsWithMessage = {
+            money: {
+                message: `Le montant doit être un nombre avec un maximum de deux décimales`,
+            },
+        };
+
         const validator = signedMoney;
-        validate(validator, true, '-5000000');
-        validate(validator, true, '5000000');
-        validate(validator, false, '-5000000.01');
-        validate(validator, false, '5000000.01');
+        validate(validator, null, null);
+        validate(validator, undefined, null);
+        validate(validator, '', null);
+        validate(validator, '0', null);
+        validate(validator, '100', null);
+        validate(validator, '100.00', null);
+        validate(validator, '-100', null);
+        validate(validator, '99.99', null);
+        validate(validator, '-99.99', null);
+        validate(validator, '1.234', error); // too many decimals
+        validate(validator, 'foo', error);
+        validate(validator, '-5000000', null);
+        validate(validator, '5000000', null);
+        validate(validator, '-5000000.01', {min: {min: -5000000, actual: '-5000000.01'}});
+        validate(validator, '5000000.01', {max: {max: 5000000, actual: '5000000.01'}});
     });
 });
 
 describe('unsignedMoney', () => {
     it('should only allow positive amounts within the human limit', () => {
+        const error: ValidationErrorsWithMessage = {
+            money: {
+                message: `Le montant doit être un nombre avec un maximum de deux décimales`,
+            },
+        };
+
         const validator = unsignedMoney;
-        validate(validator, true, '0');
-        validate(validator, true, '5000000');
-        validate(validator, false, '-0.01');
-        validate(validator, false, '5000000.01');
+        validate(validator, null, null);
+        validate(validator, undefined, null);
+        validate(validator, '', null);
+        validate(validator, '0', null);
+        validate(validator, '100', null);
+        validate(validator, '100.00', null);
+        validate(validator, '99.99', null);
+        validate(validator, '1.234', error); // too many decimals
+        validate(validator, 'foo', error);
+        validate(validator, '0', null);
+        validate(validator, '5000000', null);
+        validate(validator, '-0.01', {min: {min: 0, actual: '-0.01'}});
+        validate(validator, '5000000.01', {max: {max: 5000000, actual: '5000000.01'}});
     });
 });
 
 describe('greaterThan', () => {
     it('should validates greaterThan number', () => {
         const validator = greaterThan(2);
-        validate(validator, true, null);
-        validate(validator, true, undefined);
-        validate(validator, true, 'foo');
-        validate(validator, true, '');
-        validate(validator, false, '1');
-        validate(validator, false, '2');
-        validate(validator, true, '2.0001');
-        validate(validator, false, 1);
-        validate(validator, false, 2);
-        validate(validator, true, 2.0001);
+        validate(validator, null, null);
+        validate(validator, undefined, null);
+        validate(validator, 'foo', null);
+        validate(validator, '', null);
+        validate(validator, '1', {
+            greaterThan: {
+                greaterThan: 2,
+                actualValue: '1',
+                message: `Doit être plus grand que 2`,
+            },
+        });
+        validate(validator, '2', {
+            greaterThan: {
+                greaterThan: 2,
+                actualValue: '2',
+                message: `Doit être plus grand que 2`,
+            },
+        });
+        validate(validator, '2.0001', null);
+        validate(validator, 1, {
+            greaterThan: {
+                greaterThan: 2,
+                actualValue: 1,
+                message: `Doit être plus grand que 2`,
+            },
+        });
+        validate(validator, 2, {
+            greaterThan: {
+                greaterThan: 2,
+                actualValue: 2,
+                message: `Doit être plus grand que 2`,
+            },
+        });
+        validate(validator, 2.0001, null);
     });
 });
 
@@ -426,44 +531,56 @@ describe('ifValid', () => {
             expect(control.status).toBe('PENDING');
 
             const actual = ifValid(control);
-            expectObservable(actual).toBe('-|', {a: 'VALID'});
+            expectObservable(actual).toBe('-|', {a: null});
         });
     });
 });
 
 describe('nfcCard hex CSN', () => {
+    const error: ValidationErrorsWithMessage = {
+        nfcCardHex: {
+            message: `Doit être au format hexadécimal (A1:B2:C3:D4 ou A1B2C3D4)`,
+        },
+    };
+
     it('should validate 32 bits hex with delimiters', () => {
-        validate(nfcCardHex, true, '13:43:A1:16');
+        validate(nfcCardHex, '13:43:A1:16', null);
     });
 
     it('should validate compact 32 bits hex', () => {
-        validate(nfcCardHex, true, '1343A116');
+        validate(nfcCardHex, '1343A116', null);
     });
 
     it('should not validate 16 bits CSN', () => {
-        validate(nfcCardHex, false, '13:43');
+        validate(nfcCardHex, '13:43', error);
     });
 
     it('should not validate integer', () => {
-        validate(nfcCardHex, false, '323199254');
+        validate(nfcCardHex, '323199254', error);
     });
     it('should not validate CSN with invalid characters', () => {
-        validate(nfcCardHex, false, '13Z1C8L4');
+        validate(nfcCardHex, '13Z1C8L4', error);
     });
 });
 
 describe('time', () => {
     it('should validate', () => {
-        validate(time, true, ''); // this should be invalidated via `required` validator
-        validate(time, true, '14:30');
-        validate(time, true, '14h30');
-        validate(time, true, '  14h30  ');
-        validate(time, true, '14h');
-        validate(time, true, '14:');
-        validate(time, true, '9');
-        validate(time, false, 'a');
-        validate(time, false, '114h30');
-        validate(time, false, '99h00');
-        validate(time, false, '00h99');
+        const error: ValidationErrorsWithMessage = {
+            time: {
+                message: `L'heure doit être au format "14h35", "14:35" ou "14h".`,
+            },
+        };
+
+        validate(time, '', null); // this should be invalidated via `required` validator
+        validate(time, '14:30', null);
+        validate(time, '14h30', null);
+        validate(time, '  14h30  ', null);
+        validate(time, '14h', null);
+        validate(time, '14:', null);
+        validate(time, '9', null);
+        validate(time, 'a', error);
+        validate(time, '114h30', error);
+        validate(time, '99h00', error);
+        validate(time, '00h99', error);
     });
 });

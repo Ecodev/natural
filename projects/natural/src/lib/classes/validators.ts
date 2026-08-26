@@ -15,6 +15,28 @@ import {validTlds} from './tld';
 import {type FilterGroupCondition} from '../modules/search/classes/graphql-doctrine.types';
 import {type UntypedModelService} from '../types/types';
 
+export type ValidationErrorsWithMessage = Record<
+    string,
+    {
+        /**
+         * If non-empty string, it is shown to end-user as-is.
+         * If a function, it will receive the unit and must return a non-empty string to show to end-user
+         *
+         * Examples:
+         *
+         * ```ts
+         * {myValidator: {message: `the value is invalid`}}
+         * ```
+         *
+         * ```ts
+         * {myValidator: {message: unit => `the value must be greater than 123 ${unit}`}}
+         * ```
+         */
+        message: string | ((unit: string) => string);
+        [key: string]: any;
+    }
+>;
+
 function isEmptyInputValue(value: any): boolean {
     // we don't check for string here so it also works with arrays
     return value == null || value.length === 0;
@@ -28,7 +50,7 @@ export function unique(
     excludedId: string | null | undefined,
     modelService: UntypedModelService,
 ): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    return (control: AbstractControl): Observable<ValidationErrorsWithMessage | null> => {
         if (!control.value || !control.dirty) {
             return of(null);
         }
@@ -52,7 +74,16 @@ export function unique(
             switchMap(() =>
                 modelService.count(qvm).pipe(
                     first(),
-                    map(count => (count > 0 ? {duplicateValue: count} : null)),
+                    map(count =>
+                        count > 0
+                            ? {
+                                  duplicateValue: {
+                                      count: count,
+                                      message: $localize`N'est pas unique`,
+                                  },
+                              }
+                            : null,
+                    ),
                 ),
             ),
         );
@@ -69,7 +100,7 @@ export function available(
     getAvailableQuery: (value: string, excludedId: string | null) => Observable<boolean>,
     excludedId: string | null = null,
 ): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    return (control: AbstractControl): Observable<ValidationErrorsWithMessage | null> => {
         if (!control.value || !control.dirty) {
             return of(null);
         }
@@ -77,7 +108,15 @@ export function available(
         return timer(500).pipe(
             switchMap(() =>
                 getAvailableQuery(control.value, excludedId).pipe(
-                    map(isAvailable => (isAvailable ? null : {available: true})),
+                    map(isAvailable =>
+                        isAvailable
+                            ? null
+                            : {
+                                  available: {
+                                      message: $localize`N'est pas disponible`,
+                                  },
+                              },
+                    ),
                 ),
             ),
         );
@@ -148,15 +187,19 @@ const RFC_5322 = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[^@ ]+\.[^@]+$/u;
  *
  * This is meant to replace **all** usages of Angular too permissive `Validators.email`
  */
-export function deliverableEmail(control: AbstractControl): ValidationErrors | null {
+export function deliverableEmail(control: AbstractControl): ValidationErrorsWithMessage | null {
     // don't validate empty values to allow optional controls
     const value = control.value;
     if (!value) {
         return null;
     }
 
-    const error = {email: true};
-    if (value.length > 254) {
+    const error = {
+        deliverableEmail: {message: $localize`Adresse email invalide`},
+    };
+
+    // Technically an email can be up to 254 character long, but our DB limit to 191
+    if (value.length > 191) {
         return error;
     }
 
@@ -176,8 +219,8 @@ export function deliverableEmail(control: AbstractControl): ValidationErrors | n
     return null;
 }
 
-const urlRegexp = /^https?:\/\/(?:[^.\s]+\.)+[^.\s]+$/;
-export const urlPattern = urlRegexp.toString();
+const urlMaxLength = Validators.maxLength(2000);
+const urlPattern = Validators.pattern(/^https?:\/\/(?:[^.\s]+\.)+[^.\s]+$/);
 
 /**
  * Naive URL validator for "normal" web links, that is a bit too permissive
@@ -192,18 +235,39 @@ export const urlPattern = urlRegexp.toString();
  *     - any fragments
  *     - any characters for any parts (does not conform to rfc1738)
  */
-export const url = Validators.pattern(urlRegexp);
+export function url(control: AbstractControl): ValidationErrors | ValidationErrorsWithMessage | null {
+    const tooLong = urlMaxLength(control);
+    if (tooLong) {
+        return tooLong;
+    }
+
+    if (urlPattern(control)) {
+        return {
+            url: {
+                message: $localize`URL invalide`,
+            },
+        } satisfies ValidationErrorsWithMessage;
+    }
+
+    return null;
+}
 
 /**
  * Validates that the value is an integer (non-float)
  */
-export function integer(control: AbstractControl): ValidationErrors | null {
+export function integer(control: AbstractControl): ValidationErrorsWithMessage | null {
     // Don't validate empty values to allow optional controls
     if (control.value === null || control.value === undefined || control.value === '') {
         return null;
     }
 
-    return Number.isInteger(parseFloat(control.value)) ? null : {integer: true};
+    return Number.isInteger(parseFloat(control.value))
+        ? null
+        : {
+              integer: {
+                  message: $localize`Doit être un nombre entier`,
+              },
+          };
 }
 
 /**
@@ -225,7 +289,12 @@ export function decimal(scale: number): ValidatorFn {
             return null;
         }
 
-        return {decimal: scale};
+        return {
+            decimal: {
+                scale: scale,
+                message: $localize`Maximum de ${scale} décimales`,
+            },
+        };
     };
 }
 
@@ -243,13 +312,13 @@ const twoDecimals = decimal(2);
  * limit. For most cases, prefer the ready-made `signedMoney` or `unsignedMoney` helpers instead
  * of calling this directly.
  */
-export function money(min: number, max: number): ValidatorFn {
+function money(min: number, max: number): ValidatorFn {
     const minValidator = Validators.min(min);
     const maxValidator = Validators.max(max);
 
-    return (control: AbstractControl): ValidationErrors | null => {
+    return (control: AbstractControl): ValidationErrorsWithMessage | null => {
         if (twoDecimals(control)) {
-            return {money: true};
+            return {money: {message: $localize`Le montant doit être un nombre avec un maximum de deux décimales`}};
         }
 
         return minValidator(control) || maxValidator(control);
@@ -290,33 +359,41 @@ export const unsignedMoney = money(0, maxMoney);
  * contradicts this validator. So we cannot use this validator and have the best UX.
  */
 export function greaterThan(min: number): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
+    return (control: AbstractControl): ValidationErrorsWithMessage | null => {
         if (isEmptyInputValue(control.value) || isEmptyInputValue(min)) {
             return null; // don't validate empty values to allow optional controls
         }
         const value = parseFloat(control.value);
         // Controls with NaN values after parsing should be treated as not having a
         // minimum, per the HTML forms spec: https://www.w3.org/TR/html5/forms.html#attr-input-min
-        return !isNaN(value) && value <= min ? {greaterThan: {greaterThan: min, actualValue: control.value}} : null;
+        return !isNaN(value) && value <= min
+            ? {
+                  greaterThan: {
+                      greaterThan: min,
+                      actualValue: control.value,
+                      message: (unit: string) => $localize`Doit être plus grand que ${min}${unit}`,
+                  },
+              }
+            : null;
     };
 }
 
 /**
  * Validate a 32 bits MiFare hexadecimal CSN
  */
-export function nfcCardHex(control: AbstractControl): ValidationErrors | null {
+export function nfcCardHex(control: AbstractControl): ValidationErrorsWithMessage | null {
     const value = control.value || '';
     if (value && !value.match(/^[0-9A-F]{2}:?[0-9A-F]{2}:?[0-9A-F]{2}:?[0-9A-F]{2}$/i)) {
         return {
-            nfcCardHex: $localize`Doit être au format hexadécimal (A1:B2:C3:D4 ou A1B2C3D4)`,
+            nfcCardHex: {message: $localize`Doit être au format hexadécimal (A1:B2:C3:D4 ou A1B2C3D4)`},
         };
     }
 
     return null;
 }
 
-const invalidTime: ValidationErrors = {
-    time: `L'heure doit être au format "14h35", "14:35" ou "14h".`,
+const invalidTime: ValidationErrorsWithMessage = {
+    time: {message: $localize`L'heure doit être au format "14h35", "14:35" ou "14h".`},
 };
 
 // This pattern should be kept in sync with `\Ecodev\Felix\Api\Scalar\TimeType::parseValue()`
@@ -325,7 +402,7 @@ const timePattern = /^(?<hour>\d{1,2})(([h:]$)|([h:](?<minute>\d{1,2}))?$)/;
 /**
  * Validate a time similar to "14h35", "14:35" or "14h".
  */
-export function time(control: AbstractControl): ValidationErrors | null {
+export function time(control: AbstractControl): ValidationErrorsWithMessage | null {
     const value = control.value || '';
     if (!value) {
         return null;

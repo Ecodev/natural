@@ -24,7 +24,23 @@ export {
     upperCaseFirstLetter,
 } from './lib/classes/utility';
 export {onHistoryEvent} from './lib/classes/utility-router';
-export * from './lib/classes/validators';
+export {
+    available,
+    collectErrors,
+    decimal,
+    deliverableEmail,
+    greaterThan,
+    ifValid,
+    integer,
+    nfcCardHex,
+    signedMoney,
+    time,
+    type ValidationErrorsWithMessage,
+    unique,
+    unsignedMoney,
+    url,
+    validateAllFormControls,
+} from './lib/classes/validators';
 export {NetworkActivityService, activityInterceptor} from './lib/classes/network-activity.service';
 export {validTlds} from './lib/classes/tld';
 
