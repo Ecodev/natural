@@ -32,6 +32,7 @@ describe('NaturalErrorMessagePipe', () => {
         [{myValidator: {message: 123}}, ''],
         [{myValidator: {message: (unit: string) => `my message${unit}`}}, `my message`],
         [{myValidator: {message: (unit: string) => `my message${unit}`}}, '%', `my message %`],
+        [{matDatepickerParse: {text: '01.01.'}}, 'Date invalide'],
         [
             {
                 matDatepickerMin: {
