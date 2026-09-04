@@ -40,7 +40,7 @@ module.exports = function (config) {
         customLaunchers: {
             ChromeHeadlessCustom: {
                 base: 'ChromeHeadless',
-                flags: ['--no-sandbox'],
+                flags: ['--no-sandbox', '--use-mock-keychain'],
             },
         },
         singleRun: false,
