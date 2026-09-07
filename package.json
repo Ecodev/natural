@@ -21,7 +21,7 @@
         "prettier": "./node_modules/.bin/prettier --experimental-cli --write ."
     },
     "private": true,
-    "packageManager": "pnpm@11.2.1",
+    "packageManager": "pnpm@12.3.4",
     "dependencies": {
         "@angular-eslint/builder": "^22.1.0",
         "@angular/cdk": "^22.1.1",
