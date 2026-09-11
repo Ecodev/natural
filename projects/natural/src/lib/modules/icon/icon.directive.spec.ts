@@ -1,5 +1,5 @@
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component, type DebugElement, ChangeDetectionStrategy} from '@angular/core';
+import {Component, type DebugElement, ChangeDetectionStrategy, DOCUMENT} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {MatIcon} from '@angular/material/icon';
 import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
@@ -37,6 +37,7 @@ describe('NaturalIconComponent', () => {
     let fixture: ComponentFixture<TestComponent>;
     let elements: DebugElement[]; // the elements with the directive
     let httpTestingController: HttpTestingController;
+    let document: Document;
 
     beforeEach(() => {
         fixture = TestBed.configureTestingModule({
@@ -54,13 +55,14 @@ describe('NaturalIconComponent', () => {
         fixture.detectChanges(); // initial binding
 
         httpTestingController = TestBed.inject(HttpTestingController);
+        document = TestBed.inject(DOCUMENT);
         elements = fixture.debugElement.queryAll(By.css('mat-icon'));
     });
 
     afterEach(() => httpTestingController.verify());
 
     it('should display either font or svg icon with optional sizing', () => {
-        const request = httpTestingController.expectOne('foo.svg');
+        const request = httpTestingController.expectOne(document.defaultView!.window.location.origin + '/foo.svg');
         expect(request.request.method).toEqual('GET');
         request.flush('<svg></svg>');
 

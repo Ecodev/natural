@@ -1,5 +1,5 @@
 import {isPlatformBrowser} from '@angular/common';
-import {computed, Directive, effect, inject, InjectionToken, input, PLATFORM_ID} from '@angular/core';
+import {computed, Directive, DOCUMENT, effect, inject, InjectionToken, input, PLATFORM_ID} from '@angular/core';
 import {MatIcon, MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -53,6 +53,7 @@ export class NaturalIconDirective {
     private readonly config = inject(NATURAL_ICONS_CONFIG, {optional: true});
     private readonly matIconComponent = inject(MatIcon, {host: true, self: true});
     private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+    private readonly document = inject(DOCUMENT);
 
     public readonly naturalIcon = input.required({
         transform: (value: string | null | undefined): string => value ?? '',
@@ -99,7 +100,12 @@ export class NaturalIconDirective {
             if (!svg) continue;
 
             if (this.isBrowser) {
-                this.matIconRegistry.addSvgIcon(key, this.domSanitizer.bypassSecurityTrustResourceUrl(svg));
+                this.matIconRegistry.addSvgIcon(
+                    key,
+                    this.domSanitizer.bypassSecurityTrustResourceUrl(
+                        this.document.defaultView?.window.location.origin + '/' + svg,
+                    ),
+                );
             } else {
                 this.matIconRegistry.addSvgIconLiteral(key, this.domSanitizer.bypassSecurityTrustHtml('<svg></svg>'));
             }
