@@ -94,13 +94,16 @@
                     <mat-progress-spinner mode="indeterminate" [diameter]="40" />
                 </div>
             }
-            <mat-paginator
-                [length]="dataSource.data?.length"
-                [pageIndex]="dataSource.data?.pageIndex"
-                [pageSizeOptions]="pageSizeOptions"
-                [pageSize]="dataSource.data?.pageSize"
-                (page)="pagination($event)"
-            />
+
+            @if (dataSource.data?.length) {
+                <mat-paginator
+                    [length]="dataSource.data.length"
+                    [pageIndex]="dataSource.data.pageIndex"
+                    [pageSizeOptions]="pageSizeOptions"
+                    [pageSize]="dataSource.data.pageSize"
+                    (page)="pagination($event)"
+                />
+            }
         </div>
         <div class="nat-horizontal nat-gap">
             <pre class="debug" style="overflow: auto">columnsForTable : {{ columnsForTable | json }}</pre>
