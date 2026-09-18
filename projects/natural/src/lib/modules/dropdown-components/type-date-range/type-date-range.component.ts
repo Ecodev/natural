@@ -139,8 +139,9 @@ export class TypeDateRangeComponent<D = any> implements DropdownComponent {
         };
 
         if (condition.between) {
-            value.from = this.dateAdapter.parse(condition.between.from, null);
-            value.to = this.dateAdapter.parse(condition.between.to, null);
+            // A condition that cannot be read parses into an invalid date, which must not reach the form
+            value.from = this.dateAdapter.getValidDateOrNull(this.dateAdapter.parse(condition.between.from, null));
+            value.to = this.dateAdapter.getValidDateOrNull(this.dateAdapter.parse(condition.between.to, null));
         }
 
         this.form.setValue(value);

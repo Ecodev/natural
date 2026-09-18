@@ -49,27 +49,48 @@ describe('NaturalSwissParsingDateAdapter', () => {
         expect(formatIsoDate(adapter.parse('  2018-01-02  '))).toBe('2018-01-02');
     });
 
+    it('should return nothing at all for an empty field', () => {
+        expect(adapter.parse('')).toBeNull();
+        expect(adapter.parse('   ')).toBeNull();
+        expect(adapter.parse(null)).toBeNull();
+        expect(adapter.parse(undefined)).toBeNull();
+    });
+
+    it('should tell an empty field apart from a date still being typed', () => {
+        expect(adapter.parse('')).toBeNull();
+
+        const stillBeingTyped = adapter.parse('01.01.');
+        expect(stillBeingTyped).not.toBeNull();
+        expect(adapter.isValid(stillBeingTyped!)).toBeFalse();
+    });
+
     it('should reject too much partial Swiss format', () => {
-        expect(formatIsoDate(adapter.parse('2.1.1'))).toBeNull();
+        expect(adapter.isValid(adapter.parse('2.1.1')!)).toBeFalse();
     });
 
     it('should reject mixed separators', () => {
-        expect(adapter.parse('22.11/2018')).toBeNull();
+        expect(adapter.isValid(adapter.parse('22.11/2018')!)).toBeFalse();
     });
 
     it('should reject no separator at all', () => {
-        expect(adapter.parse('220905')).toBeNull();
+        expect(adapter.isValid(adapter.parse('220905')!)).toBeFalse();
+    });
+
+    it('should parse the 29th of February of a leap year', () => {
+        expect(formatIsoDate(adapter.parse('29.02.2024'))).toBe('2024-02-29');
+    });
+
+    it('should reject a day that does not exist in that month', () => {
+        expect(adapter.isValid(adapter.parse('29.02.2026')!)).toBeFalse();
+        expect(adapter.isValid(adapter.parse('31.02.2026')!)).toBeFalse();
+        expect(adapter.isValid(adapter.parse('31.04.2026')!)).toBeFalse();
+        expect(formatIsoDate(adapter.parse('30.04.2026'))).toBe('2026-04-30');
     });
 
     it('should reject invalid date', () => {
-        expect(adapter.parse('00.01.2000')).toBeNull();
-        expect(adapter.parse('01.00.2000')).toBeNull();
-        expect(adapter.parse('01.31.2000')).toBeNull();
-        expect(adapter.parse('50.01.2000')).toBeNull();
-    });
-
-    it('should not parse invalid format', () => {
-        expect(adapter.parse('')).toBeNull();
-        expect(adapter.parse(null)).toBeNull();
+        expect(adapter.isValid(adapter.parse('00.01.2000')!)).toBeFalse();
+        expect(adapter.isValid(adapter.parse('01.00.2000')!)).toBeFalse();
+        expect(adapter.isValid(adapter.parse('01.31.2000')!)).toBeFalse();
+        expect(adapter.isValid(adapter.parse('50.01.2000')!)).toBeFalse();
     });
 });

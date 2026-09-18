@@ -40,6 +40,7 @@ import {formatIsoDate, formatSwissDate} from '../../../classes/utility';
  *   - `Validators.required`
  *   - `matDatepickerMin`
  *   - `matDatepickerMax`
+ *   - `matDatepickerParse`
  *
  * **Generic**:
  *
@@ -70,6 +71,8 @@ export class NaturalErrorMessagePipe implements PipeTransform {
             return $localize`Doit être plus grand ou égal à ${errors.min.min}${unit}`;
         } else if (errors.max) {
             return $localize`Doit être plus petit ou égal à ${errors.max.max}${unit}`;
+        } else if (errors.matDatepickerParse) {
+            return $localize`Date invalide`;
         } else if (errors.matDatepickerMin) {
             const min = formatIsoDate(errors.matDatepickerMin.min as Date);
             const date = new Date();
