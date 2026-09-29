@@ -47,7 +47,7 @@ export function unique(
     modelService: UntypedModelService,
 ): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrorsWithMessage | null> => {
-        if (!control.value || !control.dirty) {
+        if (isEmptyInputValue(control.value) || !control.dirty) {
             return of(null);
         }
 
@@ -93,11 +93,11 @@ export function unique(
  * not have permissions for `modelService.count()`.
  */
 export function available(
-    getAvailableQuery: (value: string, excludedId: string | null) => Observable<boolean>,
+    getAvailableQuery: (value: string | number, excludedId: string | null) => Observable<boolean>,
     excludedId: string | null = null,
 ): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrorsWithMessage | null> => {
-        if (!control.value || !control.dirty) {
+        if (isEmptyInputValue(control.value) || !control.dirty) {
             return of(null);
         }
 

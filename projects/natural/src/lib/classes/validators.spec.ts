@@ -97,11 +97,12 @@ describe('available', () => {
         },
     };
 
-    const cases: [string, string | null, boolean, ValidationErrorsWithMessage | null][] = [
+    const cases: [string | number, string | null, boolean, ValidationErrorsWithMessage | null][] = [
         ['my-value', null, true, null],
         ['my-value', 'my-excluded-id', true, null],
         ['my-value', null, false, error],
         ['', null, false, null],
+        [0, null, false, error],
     ];
 
     cases.forEach(parameters => {
@@ -126,7 +127,7 @@ describe('unique', () => {
         },
     };
 
-    const cases: [string, number, boolean, ValidationErrorsWithMessage | null][] = [
+    const cases: [string | number, number, boolean, ValidationErrorsWithMessage | null][] = [
         ['my-value', 0, true, null],
         ['my-value', 0, false, null],
         ['my-value', 1, true, error],
@@ -135,6 +136,7 @@ describe('unique', () => {
         ['', 0, false, null],
         ['', 1, true, null],
         ['', 1, false, null],
+        [0, 1, false, error],
     ];
 
     cases.forEach(parameters => {
