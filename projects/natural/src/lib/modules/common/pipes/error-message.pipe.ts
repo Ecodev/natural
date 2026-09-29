@@ -1,9 +1,14 @@
 import {Pipe, type PipeTransform} from '@angular/core';
 import {type ValidationErrors} from '@angular/forms';
 import {formatIsoDate, formatSwissDate} from '../../../classes/utility';
+import {factorToPercentage} from '../directives/percentage-input.directive';
 
 /**
  * Return a single error message for the first found error, if any.
+ *
+ * `convertToPercentage` should be `true` for a field whose control holds
+ * a factor (0.00-1.00) while its input shows a percentage (0-100%). So that
+ * the message uses the same unit that was typed by the human (0-100%).
  *
  * Typical usage is without `@if`:
  *
@@ -52,13 +57,17 @@ import {formatIsoDate, formatSwissDate} from '../../../classes/utility';
     name: 'errorMessage',
 })
 export class NaturalErrorMessagePipe implements PipeTransform {
-    public transform(errors: ValidationErrors | null | undefined, unit = ''): string {
+    public transform(errors: ValidationErrors | null | undefined, unit = '', convertToPercentage = false): string {
         if (!errors) {
             return '';
         }
 
         if (unit) {
             unit = ` ${unit}`;
+        }
+
+        if (convertToPercentage) {
+            errors = this.asPercentage(errors);
         }
 
         if (errors.required) {
@@ -122,5 +131,45 @@ export class NaturalErrorMessagePipe implements PipeTransform {
         }
 
         return '';
+    }
+
+    private asPercentage(errors: ValidationErrors): ValidationErrors {
+        const result: ValidationErrors = {...errors};
+
+        if (errors.min) {
+            result.min = {
+                min: factorToPercentage(errors.min.min),
+                actual: factorToPercentage(errors.min.actual),
+            };
+        }
+
+        if (errors.max) {
+            result.max = {
+                max: factorToPercentage(errors.max.max),
+                actual: factorToPercentage(errors.max.actual),
+            };
+        }
+
+        if (errors.greaterThan) {
+            const min = factorToPercentage(errors.greaterThan.greaterThan);
+            result.greaterThan = {
+                greaterThan: min,
+                actual: factorToPercentage(errors.greaterThan.actual),
+                message: (unit: string) => $localize`Doit être plus grand que ${min}${unit}`,
+            };
+        }
+
+        // The two decimals of a factor are the whole percentages the field accepts. A bound that is
+        // out of reach is more useful to hear than the decimals, so it keeps the message for itself.
+        if (errors.decimal && !result.min && !result.max && !result.greaterThan) {
+            if (errors.decimal.scale > 2) {
+                const scale = errors.decimal.scale - 2;
+                result.decimal.message = $localize`Maximum de ${scale} décimales`;
+            } else {
+                result.decimal.message = $localize`Doit être un nombre entier`;
+            }
+        }
+
+        return result;
     }
 }

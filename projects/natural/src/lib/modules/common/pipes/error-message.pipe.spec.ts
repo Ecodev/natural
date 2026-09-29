@@ -1,5 +1,4 @@
 import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {type ValidationErrors} from '@angular/forms';
 
 describe('NaturalErrorMessagePipe', () => {
     it('create an instance', () => {
@@ -13,88 +12,152 @@ describe('NaturalErrorMessagePipe', () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
 
-    const cases: (
-        [ValidationErrors | null | undefined, string] | [ValidationErrors | null | undefined, string, string]
-    )[] = [
-        // Past
-        [null, ''],
-        [undefined, ''],
-        [{required: true}, 'Requis'],
-        [{min: {min: 5, actual: 123}}, 'Doit être plus grand ou égal à 5'],
-        [{min: {min: 5, actual: 123}}, '%', 'Doit être plus grand ou égal à 5 %'],
-        [{max: {max: 5, actual: 123}}, 'Doit être plus petit ou égal à 5'],
-        [{max: {max: 5, actual: 123}}, '%', 'Doit être plus petit ou égal à 5 %'],
-        [{minlength: {requiredLength: 5, actualLength: 123}}, 'Minimum 5 caractères'],
-        [{maxlength: {requiredLength: 5, actualLength: 123}}, 'Maximum 5 caractères'],
-        [{pattern: {requiredPattern: 'qwe', actualValue: 123}}, ''], // Because unknown pattern
-        [{myValidator: {message: 'mon message'}}, 'mon message'],
-        [{first: {message: 'first message'}, second: {message: 'second message'}}, 'first message'],
-        [{myValidator: {message: 123}}, ''],
-        [{myValidator: {message: (unit: string) => `my message${unit}`}}, `my message`],
-        [{myValidator: {message: (unit: string) => `my message${unit}`}}, '%', `my message %`],
-        [{matDatepickerParse: {text: '01.01.'}}, 'Date invalide'],
+    const cases: [string, ...Parameters<NaturalErrorMessagePipe['transform']>][] = [
+        ['', null],
+        ['', undefined],
+        ['Requis', {required: true}],
+        ['Doit être plus grand ou égal à 5', {min: {min: 5, actual: 123}}],
+        ['Doit être plus grand ou égal à 5 %', {min: {min: 5, actual: 123}}, '%'],
+        ['Doit être plus petit ou égal à 5', {max: {max: 5, actual: 123}}],
+        ['Doit être plus petit ou égal à 5 %', {max: {max: 5, actual: 123}}, '%'],
+        ['Minimum 5 caractères', {minlength: {requiredLength: 5, actualLength: 123}}],
+        ['Maximum 5 caractères', {maxlength: {requiredLength: 5, actualLength: 123}}],
+        ['', {pattern: {requiredPattern: 'qwe', actualValue: 123}}], // Because unknown pattern
+        ['mon message', {myValidator: {message: 'mon message'}}],
+        ['first message', {first: {message: 'first message'}, second: {message: 'second message'}}],
+        ['', {myValidator: {message: 123}}],
+        [`my message`, {myValidator: {message: (unit: string) => `my message${unit}`}}],
+        [`my message %`, {myValidator: {message: (unit: string) => `my message${unit}`}}, '%'],
+        ['Date invalide', {matDatepickerParse: {text: '01.01.'}}],
         [
+            'Ne doit pas être dans le passé',
             {
                 matDatepickerMin: {
                     min: today,
                     actual: new Date('2000-01-01T15:00:00.000Z'),
                 },
             },
-            'Ne doit pas être dans le passé',
         ],
         [
+            'Doit être dans le futur',
             {
                 matDatepickerMin: {
                     min: tomorrow,
                     actual: new Date('2000-01-01T15:00:00.000Z'),
                 },
             },
-            'Doit être dans le futur',
         ],
         [
+            'Doit être plus grand ou égal à 03.02.2001',
             {
                 matDatepickerMin: {
                     min: new Date('2001-02-03T00:00:00.000Z'),
                     actual: new Date('2000-01-01T15:00:00.000Z'),
                 },
             },
-            'Doit être plus grand ou égal à 03.02.2001',
         ],
         [
+            'Ne doit pas être dans le futur',
             {
                 matDatepickerMax: {
                     max: today,
                     actual: new Date('2999-01-01T15:00:00.000Z'),
                 },
             },
-            'Ne doit pas être dans le futur',
         ],
         [
+            'Doit être dans le passé',
             {
                 matDatepickerMax: {
                     max: yesterday,
                     actual: new Date('2999-01-01T15:00:00.000Z'),
                 },
             },
-            'Doit être dans le passé',
         ],
         [
+            'Doit être plus petit ou égal à 03.02.2001',
             {
                 matDatepickerMax: {
                     max: new Date('2001-02-03T00:00:00.000Z'),
                     actual: new Date('2999-01-01T15:00:00.000Z'),
                 },
             },
-            'Doit être plus petit ou égal à 03.02.2001',
+        ],
+        [
+            'Doit être plus grand que 50 %',
+            {
+                greaterThan: {
+                    greaterThan: 0.5,
+                    actual: 0,
+                    message: `foo`,
+                },
+            },
+            '%',
+            true,
+        ],
+        [
+            'Doit être plus grand ou égal à 50 %',
+            {
+                min: {
+                    min: 0.5,
+                    actual: 0,
+                },
+            },
+            '%',
+            true,
+        ],
+        [
+            'Doit être plus petit ou égal à 50 %',
+            {
+                max: {
+                    max: 0.5,
+                    actual: 1,
+                },
+            },
+            '%',
+            true,
+        ],
+        [
+            'Doit être un nombre entier',
+            {
+                decimal: {
+                    scale: 1,
+                    message: `foo`,
+                },
+            },
+            '%',
+            true,
+        ],
+        [
+            'Doit être un nombre entier',
+            {
+                decimal: {
+                    scale: 2,
+                    message: `foo`,
+                },
+            },
+            '%',
+            true,
+        ],
+        [
+            'Maximum de 1 décimales',
+            {
+                decimal: {
+                    scale: 3,
+                    message: `foo`,
+                },
+            },
+            '%',
+            true,
         ],
     ];
 
-    cases.forEach(parameters => {
-        it('with ' + JSON.stringify(parameters), () => {
+    cases.forEach(theCase => {
+        it('with ' + JSON.stringify(theCase), () => {
             const pipe = new NaturalErrorMessagePipe();
-            const unit = parameters.length === 2 ? undefined : parameters[1];
-            const expected = parameters.length === 2 ? parameters[1] : parameters[2];
-            expect(pipe.transform(parameters[0], unit)).toBe(expected);
+
+            const [expected, ...parameters] = theCase;
+            expect(pipe.transform(...parameters)).toBe(expected);
         });
     });
 });

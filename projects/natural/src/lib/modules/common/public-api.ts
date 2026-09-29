@@ -7,6 +7,7 @@ export * from './pipes/capitalize.pipe';
 export * from './pipes/ellipsis.pipe';
 export * from './pipes/enum.pipe';
 export {NaturalErrorMessagePipe} from './pipes/error-message.pipe';
+export {NaturalPercentageInputDirective} from './directives/percentage-input.directive';
 export {NaturalTimeAgoPipe} from './pipes/time-ago.pipe';
 export * from './services/memory-storage';
 export {NaturalSrcDensityDirective} from './directives/src-density.directive';
