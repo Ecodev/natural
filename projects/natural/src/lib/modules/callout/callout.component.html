@@ -1,0 +1,9 @@
+@if (icon(); as icon) {
+    <mat-icon [naturalIcon]="icon" />
+}
+<div class="label"><ng-content /></div>
+@if (amount() !== null) {
+    <div class="amount"
+        >{{ amount() | currency: currency : '' }}<span class="currency">{{ currency }}</span></div
+    >
+}

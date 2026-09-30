@@ -1,0 +1,98 @@
+:host {
+    &.small {
+        display: grid;
+        grid: auto / auto 1fr auto;
+        grid-gap: 0.5em;
+
+        &.without-icon {
+            grid: auto / 1fr auto;
+        }
+
+        &.filled {
+            border-radius: var(--mat-sys-corner-small);
+            padding: 6px 10px;
+        }
+
+        /**
+        * Vertical align icon with first line of text
+        * Specifically when there is a single line in a possible multiline paragraph
+        */
+        .label {
+            margin-top: 0.15em;
+        }
+    }
+
+    &.medium,
+    &.large {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        font: var(--mat-sys-body-large);
+    }
+
+    &.medium {
+        border-radius: var(--mat-sys-corner-medium);
+        padding: 10px 16px;
+    }
+
+    &.large {
+        border-radius: var(--mat-sys-corner-large);
+        padding: 14px 20px;
+
+        .amount {
+            font: var(--mat-sys-headline-large);
+        }
+    }
+
+    &.filled {
+        background: var(--mat-sys-surface-container);
+        color: var(--mat-sys-on-surface);
+    }
+
+    @each $color in (primary, secondary, tertiary, error) {
+        &.#{$color} {
+            color: var(--mat-sys-#{$color});
+        }
+    }
+
+    @each $color in (primary, secondary, tertiary) {
+        &.filled.#{$color} {
+            background: var(--mat-sys-#{$color}-fixed);
+            color: var(--mat-sys-on-#{$color}-fixed);
+        }
+    }
+
+    // Material has no fixed error color, so the error is lightened into the surface where the browser can
+    &.filled.error {
+        background: var(--mat-sys-surface-container-high);
+
+        @supports (color: color-mix(in srgb, red, blue)) {
+            background: color-mix(in srgb, var(--mat-sys-error) 15%, var(--mat-sys-surface));
+        }
+    }
+}
+
+mat-icon {
+    flex-shrink: 0;
+}
+
+.label {
+    flex: 1;
+
+    ::ng-deep small {
+        display: block;
+        opacity: 0.85;
+        font: var(--mat-sys-body-small);
+    }
+}
+
+.amount {
+    font: var(--mat-sys-title-large);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.currency {
+    margin-left: 6px;
+    font: var(--mat-sys-body-large);
+}

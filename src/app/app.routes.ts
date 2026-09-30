@@ -10,6 +10,7 @@ import {
 import {resolveHardcodedItem, resolveItem} from '../../projects/natural/src/lib/testing/item.resolver';
 import {AlertComponent} from './alert/alert.component';
 import {AvatarComponent} from './avatar/avatar.component';
+import {CalloutComponent} from './callout/callout.component';
 import {ButtonsComponent} from './buttons/buttons.component';
 import {DetailHeaderComponent} from './detail-header/detail-header.component';
 import {DetailComponent} from './detail/detail.component';
@@ -173,6 +174,13 @@ export const routes: Routes = [
                 component: ThemeMergerComponent,
                 data: {
                     seo: {title: 'Theme merger'} satisfies NaturalSeo,
+                },
+            },
+            {
+                path: 'callout',
+                component: CalloutComponent,
+                data: {
+                    seo: {title: 'Callout'} satisfies NaturalSeo,
                 },
             },
             {
