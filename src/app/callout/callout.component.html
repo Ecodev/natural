@@ -11,6 +11,8 @@
     }
 </mat-button-toggle-group>
 
+<mat-slide-toggle [checked]="bold()" (change)="bold.set($event.checked)">bold</mat-slide-toggle>
+
 <h2 class="mat-font-headline-md">Colors and appearances</h2>
 
 @for (appearance of appearances; track appearance) {
@@ -20,7 +22,13 @@
         @for (sample of samples; track sample.color) {
             <div class="sample">
                 <div class="caption mat-font-label-md">color="{{ sample.color ?? 'null' }}"</div>
-                <natural-callout [icon]="sample.icon" [color]="sample.color" [appearance]="appearance" [size]="size()">
+                <natural-callout
+                    [icon]="sample.icon"
+                    [color]="sample.color"
+                    [appearance]="appearance"
+                    [size]="size()"
+                    [bold]="bold()"
+                >
                     {{ sample.message }}
                     <small>{{ sample.detail }}</small>
                 </natural-callout>
@@ -34,78 +42,28 @@
 @for (appearance of appearances; track appearance) {
     <h3 class="mat-font-title-lg">appearance="{{ appearance }}"</h3>
 
-    <div class="samples">
-        <div class="sample">
-            <div class="caption mat-font-label-md">Text only</div>
-            <natural-callout [appearance]="appearance" [size]="size()">
-                {{ samples[0].message }}
-            </natural-callout>
-        </div>
+    @for (contentCase of contentCases; track contentCase.label) {
+        <h4 class="mat-font-title-sm">{{ contentCase.label }}</h4>
 
-        <div class="sample">
-            <div class="caption mat-font-label-md">Icon</div>
-            <natural-callout
-                [icon]="samples[1].icon"
-                [color]="samples[1].color"
-                [appearance]="appearance"
-                [size]="size()"
-            >
-                {{ samples[1].message }}
-            </natural-callout>
+        <div class="samples" [class.stacked]="contentCase.stacked">
+            @for (color of colors; track color) {
+                <div class="sample">
+                    <div class="caption mat-font-label-md">color="{{ color ?? 'null' }}"</div>
+                    <natural-callout
+                        [icon]="contentCase.icon"
+                        [color]="color"
+                        [amount]="contentCase.amount"
+                        [appearance]="appearance"
+                        [size]="size()"
+                        [bold]="bold()"
+                    >
+                        {{ contentCase.message }}
+                        @if (contentCase.detail) {
+                            <small>{{ contentCase.detail }}</small>
+                        }
+                    </natural-callout>
+                </div>
+            }
         </div>
-
-        <div class="sample">
-            <div class="caption mat-font-label-md">Icon and secondary line</div>
-            <natural-callout
-                [icon]="samples[2].icon"
-                [color]="samples[2].color"
-                [appearance]="appearance"
-                [size]="size()"
-            >
-                {{ samples[2].message }}
-                <small>{{ samples[2].detail }}</small>
-            </natural-callout>
-        </div>
-
-        <div class="sample">
-            <div class="caption mat-font-label-md">Icon and amount</div>
-            <natural-callout
-                [icon]="samples[3].icon"
-                [color]="samples[3].color"
-                [amount]="samples[3].amount"
-                [appearance]="appearance"
-                [size]="size()"
-            >
-                {{ samples[3].message }}
-            </natural-callout>
-        </div>
-
-        <div class="sample">
-            <div class="caption mat-font-label-md">Amount without icon</div>
-            <natural-callout
-                [color]="samples[4].color"
-                [amount]="samples[4].amount"
-                [appearance]="appearance"
-                [size]="size()"
-            >
-                Balance
-                <small>{{ samples[4].detail }}</small>
-            </natural-callout>
-        </div>
-    </div>
-
-    <div class="sample wide">
-        <div class="caption mat-font-label-md">Everything, on several lines</div>
-        <natural-callout
-            icon="payments"
-            color="primary"
-            [amount]="samples[1].amount"
-            [appearance]="appearance"
-            [size]="size()"
-        >
-            The order total includes the products, the containers and the solidarity rounding, and it is debited from
-            the member account once the order is confirmed
-            <small>VAT included</small>
-        </natural-callout>
-    </div>
+    }
 }

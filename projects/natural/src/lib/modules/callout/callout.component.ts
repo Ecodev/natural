@@ -31,7 +31,7 @@ export type NaturalCalloutSize = 'small' | 'medium' | 'large';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class]': "[color(), appearance(), size()].join(' ')",
-        '[class.without-icon]': '!icon()',
+        '[class.bold]': 'bold()',
     },
 })
 export class NaturalCalloutComponent {
@@ -42,4 +42,9 @@ export class NaturalCalloutComponent {
     public readonly color = input<NaturalCalloutColor | null>(null);
     public readonly appearance = input<NaturalCalloutAppearance>('plain');
     public readonly size = input<NaturalCalloutSize>('small');
+
+    /**
+     * Whether the main text is bold. The secondary lines keep their normal weight.
+     */
+    public readonly bold = input(false);
 }

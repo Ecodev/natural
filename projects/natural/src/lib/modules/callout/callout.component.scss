@@ -1,33 +1,28 @@
 :host {
-    &.small {
-        display: grid;
-        grid: auto / auto 1fr auto;
-        grid-gap: 0.5em;
+    display: flex;
+    align-items: center;
 
-        &.without-icon {
-            grid: auto / 1fr auto;
+    &.small {
+        gap: 0.5em;
+
+        .content {
+            gap: 0.5em;
         }
 
         &.filled {
             border-radius: var(--mat-sys-corner-small);
-            padding: 6px 10px;
-        }
-
-        /**
-        * Vertical align icon with first line of text
-        * Specifically when there is a single line in a possible multiline paragraph
-        */
-        .label {
-            margin-top: 0.15em;
+            padding: 10px 12px;
         }
     }
 
     &.medium,
     &.large {
-        display: flex;
-        align-items: flex-start;
         gap: 12px;
         font: var(--mat-sys-body-large);
+
+        .content {
+            gap: 12px;
+        }
     }
 
     &.medium {
@@ -44,15 +39,30 @@
         }
     }
 
+    &.bold .label {
+        font-weight: 500;
+    }
+
     &.filled {
         background: var(--mat-sys-surface-container);
         color: var(--mat-sys-on-surface);
     }
 
-    @each $color in (primary, secondary, tertiary, error) {
-        &.#{$color} {
-            color: var(--mat-sys-#{$color});
-        }
+    // Same colors as links, icons and buttons, to keep the colors vivid
+    &.primary {
+        color: var(--nat-primary-link-color);
+    }
+
+    &.secondary {
+        color: var(--mat-sys-secondary);
+    }
+
+    &.tertiary {
+        color: var(--nat-tertiary-link-color);
+    }
+
+    &.error {
+        color: var(--mat-sys-error-container);
     }
 
     @each $color in (primary, secondary, tertiary) {
@@ -72,8 +82,22 @@
     }
 }
 
-mat-icon {
+.content {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+/**
+ * The icon is centered on the text as long as the text has one or two lines, and stays centered on
+ * the first two lines when the text has more
+ */
+.icon {
+    display: flex;
     flex-shrink: 0;
+    align-items: center;
+    align-self: stretch;
+    max-height: 2lh;
 }
 
 .label {
