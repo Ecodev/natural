@@ -58,5 +58,19 @@
                 <p class="debug">{{ htmlStringAdvancedWithImage }}</p>
             </div>
         </div>
+
+        <div class="nat-expand nat-vertical">
+            <natural-editor [disabled]="disabled" [(ngModel)]="htmlStringEmpty" />
+
+            <div>
+                <h1 class="mat-font-headline-lg nat-margin-bottom">Preview</h1>
+                <div class="preview" [innerHTML]="htmlStringEmpty"></div>
+            </div>
+
+            <div>
+                <h1 class="mat-font-headline-lg nat-margin-bottom">Debug</h1>
+                <p class="debug">{{ htmlStringEmpty }}</p>
+            </div>
+        </div>
     </div>
 </div>

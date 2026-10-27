@@ -43,6 +43,7 @@ export class EditorComponent {
 <h2 class="my-title-class" id="chapter2">Title Level2 green italic</h2>
 `;
     public htmlStringAdvancedWithImage = this.htmlStringAdvanced.replace('Advanced', 'Advanced with image');
+    public htmlStringEmpty = '';
 
     public readonly css = `
     .my-paragraph-class {background: pink}

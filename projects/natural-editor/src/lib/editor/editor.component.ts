@@ -265,6 +265,9 @@ export class NaturalEditorComponent implements OnInit, OnDestroy, ControlValueAc
 
     public setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
+
+        // ProseMirror reads the editable prop only when its state is updated
+        this.view?.updateState(this.view.state);
     }
 
     public ngOnDestroy(): void {
