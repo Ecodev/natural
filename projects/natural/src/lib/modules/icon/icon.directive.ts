@@ -1,4 +1,4 @@
-import {isPlatformBrowser} from '@angular/common';
+import {isPlatformBrowser, PlatformLocation} from '@angular/common';
 import {computed, Directive, DOCUMENT, effect, inject, InjectionToken, input, PLATFORM_ID} from '@angular/core';
 import {MatIcon, MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -48,6 +48,7 @@ const naturalRegistered: unique symbol = Symbol('Natural icon registered');
     },
 })
 export class NaturalIconDirective {
+    private readonly platformLocation = inject(PlatformLocation);
     private readonly matIconRegistry = inject(MatIconRegistry);
     private readonly domSanitizer = inject(DomSanitizer);
     private readonly config = inject(NATURAL_ICONS_CONFIG, {optional: true});
@@ -69,9 +70,7 @@ export class NaturalIconDirective {
     });
 
     public constructor() {
-        const config = this.config;
-
-        this.registerIcons(config ?? {});
+        this.registerIcons(this.config ?? {});
 
         effect(() => {
             this.matIconComponent.fontIcon = undefined!;
@@ -95,6 +94,9 @@ export class NaturalIconDirective {
         }
         registry[naturalRegistered] = true;
 
+        const appBaseHref =
+            this.document.defaultView?.window.location.origin + (this.platformLocation.getBaseHrefFromDOM() || '/');
+
         for (const key of Object.keys(config)) {
             const svg = config[key].svg;
             if (!svg) continue;
@@ -102,9 +104,7 @@ export class NaturalIconDirective {
             if (this.isBrowser) {
                 this.matIconRegistry.addSvgIcon(
                     key,
-                    this.domSanitizer.bypassSecurityTrustResourceUrl(
-                        this.document.defaultView?.window.location.origin + '/' + svg,
-                    ),
+                    this.domSanitizer.bypassSecurityTrustResourceUrl(appBaseHref + svg),
                 );
             } else {
                 this.matIconRegistry.addSvgIconLiteral(key, this.domSanitizer.bypassSecurityTrustHtml('<svg></svg>'));
