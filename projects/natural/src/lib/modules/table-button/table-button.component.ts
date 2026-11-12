@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation} from '@angular/core';
-import {type Params, type QueryParamsHandling, RouterLink, UrlTree} from '@angular/router';
-
+import {type QueryParamsHandling, RouterLink, UrlTree} from '@angular/router';
 import {MatButton, type MatButtonAppearance, MatIconButton} from '@angular/material/button';
 import {type NaturalPalette} from '../../types/types';
 import {NaturalIconDirective} from '../icon/icon.directive';
@@ -31,7 +30,7 @@ import {outputFromObservable} from '@angular/core/rxjs-interop';
     },
 })
 export class NaturalTableButtonComponent {
-    public readonly queryParams = input<Params>({});
+    public readonly queryParams = input<RouterLink['queryParams']>(null);
     public readonly queryParamsHandling = input<QueryParamsHandling>('');
     public readonly label = input('', {
         transform: (value: string | number | null | undefined): string =>
@@ -54,7 +53,7 @@ export class NaturalTableButtonComponent {
         if (
             navigate instanceof UrlTree ||
             navigate?.length ||
-            Object.keys(this.queryParams()).length ||
+            Object.keys(this.queryParams() ?? {}).length ||
             this.buttonClick$.observed
         ) {
             return 'routerLinkOrClick';

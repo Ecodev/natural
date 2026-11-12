@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {type NaturalPalette} from '../../types/types';
-
 import {NaturalIconDirective} from '../icon/icon.directive';
 import {MatIcon} from '@angular/material/icon';
 import {MatFabButton} from '@angular/material/button';
@@ -19,7 +18,8 @@ import {MatFabButton} from '@angular/material/button';
 export class NaturalFixedButtonComponent {
     public readonly icon = input<string>();
     public readonly label = input<string>();
-    public readonly link = input<RouterLink['routerLink'] | null>(null);
+    public readonly link = input<RouterLink['routerLink']>(null);
+    public readonly queryParams = input<RouterLink['queryParams']>(null);
     public readonly color = input<NaturalPalette>('tertiary');
     public readonly disabled = input(false);
 }

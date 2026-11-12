@@ -1,4 +1,11 @@
-<button matFab [extended]="!!label()" [color]="color()" [disabled]="disabled()" [routerLink]="link()">
+<button
+    matFab
+    [extended]="!!label()"
+    [color]="color()"
+    [disabled]="disabled()"
+    [routerLink]="link()"
+    [queryParams]="queryParams()"
+>
     @if (!!icon()) {
         <mat-icon [naturalIcon]="icon()" />
     }
