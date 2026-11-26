@@ -193,7 +193,7 @@ export class NaturalLinkMutationService {
             })
             .pipe(
                 map(r => {
-                    this.apollo.client.refetchObservableQueries();
+                    this.apollo.client.refetchQueries({include: 'active'});
                     return r;
                 }),
             );
