@@ -187,16 +187,10 @@ export class NaturalLinkMutationService {
      * Execute mutation
      */
     private execute(mutation: string): Observable<ApolloLink.Result<{id: string}>> {
-        return this.apollo
-            .mutate<{id: string}>({
-                mutation: gql(mutation),
-            })
-            .pipe(
-                map(r => {
-                    this.apollo.client.refetchQueries({include: 'active'});
-                    return r;
-                }),
-            );
+        return this.apollo.mutate<{id: string}>({
+            mutation: gql(mutation),
+            refetchQueries: 'active',
+        });
     }
 
     /**
